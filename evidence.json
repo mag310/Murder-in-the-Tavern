@@ -105,7 +105,7 @@
             "visibility": {
                 "public": false,
                 "known_by": [
-                    "tavern_owner"
+                    "tavern_keeper"
                 ]
             },
             "object": {
@@ -192,7 +192,7 @@
             "visibility": {
                 "public": false,
                 "known_by": [
-                    "daughter",
+                    "waitress",
                     "doctor"
                 ]
             },

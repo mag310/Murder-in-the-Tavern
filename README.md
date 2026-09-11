@@ -213,13 +213,16 @@ JSON Schema для валидации `murder_matrix.json`.
 
 ## Top-level локация
 
-`tavern` — top-level контекстная локация, представляющая всё здание таверны. Все gameplay-локации (`tavern_hall`, `tavern_owner_office`, `basement`, `cult_lair`, `attic`, `guest_rooms`, `tavern_yard`, `tavern_storage`, `water_structure`) являются её частями (`parent_location: "tavern"`).
+`tavern` — top-level контекстная локация, представляющая всё здание таверны. Все gameplay-локации (`tavern_hall`, `tavern_keeper_office`, `basement`, `cult_lair`, `attic`, `guest_rooms`, `tavern_yard`, `tavern_storage`, `water_structure`) являются её частями (`parent_location: "tavern"`). Локация `tavern_keeper_office` (нормализовано из `tavern_owner_office`).
 
 ## Нормализация имён локаций
 
 - `yard` → `tavern_yard` (нормализовано в `characters.json` и `location_assignments`);
 - `tavern_storage` — добавлен как gameplay-локация (склад таверны, связан с контрабандой);
-- `tavern` — добавлена как top-level context-локация (представителю таверны в целом).
+- `tavern` — добавлена как top-level context-локация (представитель таверны в целом);
+- `tavern_owner_office` → `tavern_keeper_office` (нормализовано в `locations.json` и `characters.json`);
+- `tavern_owner` → `tavern_keeper` (переименован ID персонажа «Владелец» → «Трактирщик»);
+- `daughter` → `waitress` (переименован ID персонажа «Дочь» → «Официантка»).
 
 ---
 
@@ -229,11 +232,11 @@ JSON Schema для валидации `murder_matrix.json`.
 
 Например:
 
-> Игроки находят контрабанду Владельца.
+> Игроки находят контрабанду Трактирщика.
 
-Это доказывает, что Владелец совершает преступление.
+Это доказывает, что Трактирщик совершает преступление.
 
-Но это не доказывает, что Владелец — убийца.
+Но это не доказывает, что Трактирщик — убийца.
 
 Аналогично:
 
@@ -251,9 +254,9 @@ JSON Schema для валидации `murder_matrix.json`.
 
 Следующие данные пока намеренно не определены:
 
-- имя Владельца;
+- имя Трактирщика;
 - имя Матроса;
-- имя Дочери;
+- имя Официантки;
 - имя Врача;
 - имя Детектива;
 - имя Маньяка;
@@ -288,9 +291,9 @@ JSON является рабочей базой данных сценария, �
 
 | Бросок | Жертва |
 |--------|--------|
-| 1 | Владелец таверны |
+| 1 | Трактирщик |
 | 2 | Матрос |
-| 3 | Дочь владельца |
+| 3 | Официантка |
 | 4 | Врач |
 | 5 | Детектив |
 | 6 | Маньяк |
