@@ -2,10 +2,20 @@
   "id": "dead_wife",
   "name": null,
   "role": "Мёртвая жена Трактирщика (мать Официантки)",
-  "status": "context_npc",
+  "status": "main_npc",
   "can_be_murder_victim": false,
-  "small_secret": null,
-  "big_secret": null,
+  "secrets": [
+    {
+      "level": "big",
+      "description": "Убита Матросом (изнасилована и убита). Призрак рассказал Официантке об этом (event_015).",
+      "known_by": [
+        "tavern_keeper",
+        "sailor",
+        "dead_wife",
+        "waitress"
+      ]
+    }
+  ],
   "relationships": {
     "love": [
       {
@@ -17,13 +27,18 @@
         "type": "мать / дочь"
       }
     ],
-    "hatred": [],
+    "hatred": [
+      {
+        "target": "sailor",
+        "type": "убийца"
+      }
+    ],
     "money": [],
     "religion": [],
     "justice": [
       {
         "target": "sailor",
-        "type": "убита Матросом (изнасилована и убита)"
+        "type": "убита Матросом (изнасилована и убита); призрак рассказал Официантке об этом"
       }
     ]
   },
@@ -48,6 +63,20 @@
       "target": "waitress",
       "reason": "Мёртвая жена — мать Официантки",
       "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Матрос угрожал её дочери (Официантке), если Трактирщик не согласится вести общие дела",
+      "target": "sailor",
+      "reason": "Призрак Жены рассказал Официантке об угрозах Матроса",
+      "source": "event_015"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Она — призрак, который обитает у Могилы жены (wife_grave)",
+      "target": null,
+      "reason": "dead_wife — призрак, участвующий в игре",
+      "source": "event_015"
     }
   ],
   "false_beliefs": [],
@@ -57,7 +86,25 @@
     "event": "event_004",
     "status": "dead"
   },
-  "daily_schedule": null,
-  "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: town.",
+  "daily_schedule": [
+    {
+      "time": "night",
+      "location": "wife_grave",
+      "activity": "обитает у Могилы жены",
+      "note": "один из входов к убежищу культа"
+    },
+    {
+      "time": "morning",
+      "location": "waitress_room",
+      "activity": "рядом с Официанткой, пока та спит",
+      "note": "event_015: призрак приходит к Официантке"
+    },
+    {
+      "time": "day",
+      "location": "tavern_hall",
+      "activity": "внутри портрета жены на видном месте в зале",
+      "note": "evidence_007: портрет как деталь интерьера"
+    }
+  ],
   "organizations": []
 }

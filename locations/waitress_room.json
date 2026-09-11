@@ -1,0 +1,27 @@
+{
+  "id": "waitress_room",
+  "name": "Комната Официантки",
+  "type": "gameplay",
+  "parent_location": "tavern",
+  "description": "Личная комната Официантки. Здесь она спит ночью и перед сном делает записи в дневник.",
+  "characters": [
+    "waitress"
+  ],
+  "important_events": [
+    "event_015",
+    "event_016"
+  ],
+  "clues": [
+    "evidence_009",
+    "evidence_008"
+  ],
+  "secrets": [
+    "дневник Официантки",
+    "записи о молитве и потопе"
+  ],
+  "mechanical_features": [
+    "дневник",
+    "личные вещи",
+    "ночные записи"
+  ]
+}

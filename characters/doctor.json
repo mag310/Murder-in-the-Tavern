@@ -4,19 +4,23 @@
   "role": "Врач",
   "status": "main_npc",
   "can_be_murder_victim": true,
-  "small_secret": {
-    "description": "Состоит в тайном культе Официантки.",
-    "known_by": [
-      "waitress"
-    ]
-  },
-  "big_secret": {
-    "description": "Влюблён в Официантку. Трактирщик выступает против их отношений.",
-    "known_by": [
-      "waitress",
-      "tavern_keeper"
-    ]
-  },
+  "secrets": [
+    {
+      "level": "small",
+      "description": "Состоит в тайном культе Официантки.",
+      "known_by": [
+        "waitress"
+      ]
+    },
+    {
+      "level": "big",
+      "description": "Влюблён в Официантку. Трактирщик выступает против их отношений.",
+      "known_by": [
+        "waitress",
+        "tavern_keeper"
+      ]
+    }
+  ],
   "relationships": {
     "love": [
       {

@@ -3,7 +3,7 @@
   "name": "Комнаты гостей",
   "type": "gameplay",
   "parent_location": "tavern",
-  "description": "Комнаты постояльцев. Личные вещи персонажей могут содержать улики и ложные следы.",
+  "description": "Комнаты постояльцев. Личные вещи персонажей могут содержать улики и ложные следы. Отдельная комната Официантки — waitress_room (см. locations/waitress_room.json).",
   "characters": [
     "sailor",
     "doctor",

@@ -3,17 +3,26 @@
   "name": "Логово культа",
   "type": "gameplay",
   "parent_location": "basement",
-  "description": "Тайное святилище культа тёмных богов.",
+  "description": "Тайное святилище культа тёмных богов. Один из входов через Могила жены (wife_grave).",
   "characters": [
     "waitress",
-    "doctor"
+    "doctor",
+    "dead_wife"
   ],
-  "important_events": [],
-  "clues": [],
+  "important_events": [
+    "event_015",
+    "event_016"
+  ],
+  "clues": [
+    "evidence_003",
+    "evidence_008"
+  ],
   "secrets": [
     "существование культа",
     "роль Официантки как верховной жрицы",
-    "участие Врача в культе"
+    "участие Врача в культе",
+    "вход через Могила жены",
+    "призрак dead_wife обитает рядом с входом"
   ],
   "mechanical_features": [
     "религиозные символы",

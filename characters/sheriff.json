@@ -4,8 +4,7 @@
   "role": "Шериф",
   "status": "context_npc",
   "can_be_murder_victim": false,
-  "small_secret": null,
-  "big_secret": null,
+  "secrets": [],
   "relationships": {
     "love": [],
     "hatred": [],

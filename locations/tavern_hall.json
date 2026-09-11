@@ -3,22 +3,31 @@
   "name": "Зал таверны",
   "type": "gameplay",
   "parent_location": "tavern",
-  "description": "Главное общее помещение таверны.",
+  "description": "Главное общее помещение таверны. На видном месте висит портрет жены Трактирщика (dead_wife).",
   "characters": [
     "tavern_keeper",
     "waitress",
     "doctor",
     "detective",
     "maniac",
-    "sailor"
+    "sailor",
+    "dead_wife"
   ],
-  "important_events": [],
-  "clues": [],
-  "secrets": [],
+  "important_events": [
+    "event_014"
+  ],
+  "clues": [
+    "evidence_007"
+  ],
+  "secrets": [
+    "портрет жены (dead_wife) на видном месте",
+    "призрак dead_wife иногда появляется рядом с портретом"
+  ],
   "mechanical_features": [
     "допросы",
     "наблюдение за реакциями NPC",
     "публичные конфликты",
-    "случайно услышанные разговоры"
+    "случайно услышанные разговоры",
+    "портрет жены как деталь интерьера"
   ]
 }

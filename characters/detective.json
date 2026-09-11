@@ -4,16 +4,13 @@
   "role": "Детектив",
   "status": "main_npc",
   "can_be_murder_victim": true,
-  "small_secret": {
-    "description": "Его нанял Шериф для расследования серии смертей в городе.",
-    "known_by": []
-  },
-  "big_secret": {
-    "description": null,
-    "target": null,
-    "known_by": [],
-    "note": "Большая тайна Детектива (убийство по пьянству) удалена вместе с event_014 — вводила в заблуждение. Детектив не имеет подтверждённой большой тайны."
-  },
+  "secrets": [
+    {
+      "level": "small",
+      "description": "Его нанял Шериф для расследования серии смертей в городе.",
+      "known_by": []
+    }
+  ],
   "investigation": {
     "employer": {
       "primary": "sheriff",

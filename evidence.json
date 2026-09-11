@@ -515,6 +515,354 @@
             "notes": [
                 "Ложный след: Матрос не убийца, но выглядит как подозреваемый"
             ]
+        },
+        {
+            "id": "evidence_007",
+            "name": "Портрет жены Трактирщика",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "tavern_hall",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает основной зал таверны",
+                    "игрок замечает портрет на видном месте"
+                ],
+                "discovery_method": "осмотр зала"
+            },
+            "visibility": {
+                "public": true,
+                "known_by": [
+                    "tavern_keeper"
+                ]
+            },
+            "object": {
+                "description": "Портрет жены Трактирщика (dead_wife), поставленный на видное место в основном зале в память о ней.",
+                "condition": "видим, висит на видном месте",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Трактирщик когда-то был женат",
+                    "Трактирщик ставит портрет в память о жене"
+                ],
+                "strongly_indicates": [
+                    "Трактирщик был женат на dead_wife",
+                    "dead_wife — мать Официантки"
+                ],
+                "does_not_prove": [
+                    "Трактирщик убил кого-то",
+                    "Трактирщик знает о текущем убийстве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Трактирщик был женат, и его жена погибла",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "dead_wife — жена Трактирщика, мать Официантки",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "tavern_keeper",
+                    "dead_wife",
+                    "waitress"
+                ],
+                "locations": [
+                    "tavern_hall"
+                ],
+                "events": [
+                    "event_014"
+                ],
+                "other_evidence": []
+            },
+            "versions": {
+                "supports": [
+                    "Трактирщик был женат на dead_wife",
+                    "dead_wife — мать Официантки"
+                ],
+                "contradicts": []
+            },
+            "false_leads": [
+                "Портрет может выглядеть как улика убийства, хотя это память о жене"
+            ],
+            "notes": [
+                "Портрет доказывает семейную связь Трактирщика с dead_wife, но не текущее убийство"
+            ]
+        },
+        {
+            "id": "evidence_008",
+            "name": "Призрак Жены",
+            "type": "behavior",
+            "status": "confirmed",
+            "location": "wife_grave",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "waitress",
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок наблюдает за Официанткой",
+                    "игрок узнаёт о разговоре Официантки с призраком"
+                ],
+                "discovery_method": "наблюдение / расспрос"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "waitress"
+                ]
+            },
+            "object": {
+                "description": "Призрак Жены (dead_wife) приходит к Официантке за пару недель до игровых событий и рассказывает, что произошло: Матрос убил её мать и угрожал Официантке.",
+                "condition": "видим только Официантке (и игрокам, если она расскажет)",
+                "movable": false,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Официантка видела призракa Жены",
+                    "Официантка узнала, что Матрос убил её мать"
+                ],
+                "strongly_indicates": [
+                    "Матрос угрожал Официантке",
+                    "У Официантки есть мотив против Матроса"
+                ],
+                "does_not_prove": [
+                    "Официантка совершила текущее убийство",
+                    "Официантка знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Официантка узнала, что Матрос убил её мать",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "У Официантки есть мотив против Матроса",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "waitress",
+                    "dead_wife",
+                    "sailor"
+                ],
+                "locations": [
+                    "wife_grave",
+                    "waitress_room",
+                    "tavern_hall"
+                ],
+                "events": [
+                    "event_015",
+                    "event_004"
+                ],
+                "other_evidence": []
+            },
+            "versions": {
+                "supports": [
+                    "Официантка знает, что Матрос убил её мать",
+                    "У Официантки есть мотив против Матроса"
+                ],
+                "contradicts": []
+            },
+            "false_leads": [
+                "Призрак может выглядеть как доказательство сверхъестественного убийства, хотя это просто разговор"
+            ],
+            "notes": [
+                "Призрак доказывает, что Официантка узнала о смерти матери, но не текущее убийство"
+            ]
+        },
+        {
+            "id": "evidence_009",
+            "name": "Дневник Официантки",
+            "type": "document",
+            "status": "confirmed",
+            "location": "waitress_room",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок обыскивает комнату Официантки",
+                    "игрок находит дневник"
+                ],
+                "discovery_method": "обыск / обнаружение"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "waitress"
+                ]
+            },
+            "object": {
+                "description": "Личный дневник Официантки. В нём есть записи о её молитве тёмным богам и о том, что потоп — её заклинание, чтобы задержать Матроса в таверне.",
+                "condition": "целый, лежит в комнате Официантки",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Официантка молится тёмным богам",
+                    "Официантка знает, что потоп — её заклинание"
+                ],
+                "strongly_indicates": [
+                    "Официантка вызвала потоп, чтобы задержать Матроса",
+                    "У Официантки есть мотив задержать Матроса в таверне"
+                ],
+                "does_not_prove": [
+                    "Официантка совершила текущее убийство",
+                    "Официантка знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Официантка вызвала потоп через молитву",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "У Официантки есть мотив задержать Матроса",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "waitress",
+                    "sailor"
+                ],
+                "locations": [
+                    "waitress_room"
+                ],
+                "events": [
+                    "event_016",
+                    "event_017"
+                ],
+                "other_evidence": []
+            },
+            "versions": {
+                "supports": [
+                    "Официантка вызвала потоп",
+                    "У Официантки есть мотив задержать Матроса"
+                ],
+                "contradicts": [
+                    "Потоп — естественное наводнение"
+                ]
+            },
+            "false_leads": [
+                "Дневник может быть принят за доказательство убийства, хотя это про потоп"
+            ],
+            "notes": [
+                "Дневник доказывает, что потоп — заклинание Официантки, но не текущее убийство"
+            ]
+        },
+        {
+            "id": "evidence_010",
+            "name": "Потоп как заклинание",
+            "type": "environmental",
+            "status": "confirmed",
+            "location": "water_structure",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок исследует потоп",
+                    "игрок находит связь между потопом и молитвой Официантки"
+                ],
+                "discovery_method": "расследование / обнаружение"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "waitress"
+                ]
+            },
+            "object": {
+                "description": "Потоп в городе и вокруг таверны. Никто не знает, что это последствия молитвы Официантки. Факт: потоп — это заклинание Официантки.",
+                "condition": "видим, но природа непонятна",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Происходит потоп",
+                    "Потоп изолирует таверну"
+                ],
+                "strongly_indicates": [
+                    "Потоп может быть неестественным",
+                    "Потоп может быть результатом чьего-то действия"
+                ],
+                "does_not_prove": [
+                    "Потоп — заклинание Официантки",
+                    "Официантка совершила текущее убийство"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Потоп — естественное наводнение (неправильно)",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Потоп может быть неестественным, возможно, заклинание",
+                    "correct": true,
+                    "confidence": "средняя"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "waitress"
+                ],
+                "locations": [
+                    "water_structure",
+                    "tavern_yard"
+                ],
+                "events": [
+                    "event_016"
+                ],
+                "other_evidence": [
+                    "evidence_009"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Потоп — естественное наводнение (ложная версия)"
+                ],
+                "contradicts": [
+                    "Потоп — заклинание Официантки (истинная версия, но скрыта)"
+                ]
+            },
+            "false_leads": [
+                "Потоп может выглядеть как естественное наводнение, хотя это заклинание Официантки"
+            ],
+            "notes": [
+                "Потоп — ложный след: выглядит как естественное наводнение, но это заклинание Официантки"
+            ]
         }
     ]
 }

@@ -4,16 +4,41 @@
   "role": "Официантка",
   "status": "main_npc",
   "can_be_murder_victim": true,
-  "small_secret": {
-    "description": "Тайком подсматривает за гостями во время мытья (привычка, не связана с её отношениями).",
-    "known_by": []
-  },
-  "big_secret": {
-    "description": "Верховная жрица небольшого культа тёмных богов. Святилище находится в тайной комнате в подвале таверны.",
-    "known_by": [
-      "doctor"
-    ]
-  },
+  "secrets": [
+    {
+      "level": "small",
+      "description": "Тайком подсматривает за гостями во время мытья (привычка, не связана с её отношениями).",
+      "known_by": []
+    },
+    {
+      "level": "big",
+      "description": "Верховная жрица небольшого культа тёмных богов. Святилище находится в тайной комнате в подвале таверны.",
+      "known_by": [
+        "doctor"
+      ]
+    },
+    {
+      "level": "big",
+      "description": "Молится тёмным богам, и те насyлают дождь, чтобы задержать Матроса в таверне. Потоп в городе и вокруг таверны — это заклинание Официантки. Никто не знает, что потоп — последствия её молитвы.",
+      "known_by": [
+        "waitress"
+      ]
+    },
+    {
+      "level": "big",
+      "description": "За пару недель до игровых событий призрак Жены (dead_wife) приходит к ней и рассказывает, что Матрос убил её мать и угрожал ей.",
+      "known_by": [
+        "waitress"
+      ]
+    },
+    {
+      "level": "small",
+      "description": "Знает, что её отец (Трактирщик) занимается нелегальной торговлей, но без подробностей.",
+      "known_by": [
+        "waitress"
+      ]
+    }
+  ],
   "relationships": {
     "love": [
       {
@@ -91,13 +116,41 @@
       "reason": "Трактирщик знает об отношениях и выступает против них",
       "source": "relationship"
     },
-    {
-      "level": "knows_only",
-      "fact": "dead_wife — её мать, погибла, но Официантка не знает, кто её убил и почему",
-      "target": "dead_wife",
-      "reason": "Официантка — дочь dead_wife, но не знает обстоятельств и убийцу (см. event_004 known_by: tavern_keeper, sailor)",
-      "source": "relationship"
-    },
+      {
+        "level": "knows_exactly",
+        "fact": "Матрос убил её мать (dead_wife)",
+        "target": "sailor",
+        "reason": "Призрак Жены рассказал Официантке, что Матрос убил её мать",
+        "source": "event_015"
+      },
+      {
+        "level": "knows_exactly",
+        "fact": "Призрак Жены (dead_wife) приходил к ней и рассказал, что произошло",
+        "target": "dead_wife",
+        "reason": "Официантка видела и слышала призракa Жены",
+        "source": "event_015"
+      },
+      {
+        "level": "knows_exactly",
+        "fact": "Она молится тёмным богам, и те насyлают дождь, чтобы задержать Матроса в таверне",
+        "target": null,
+        "reason": "Официантка сама совершает заклинание",
+        "source": "event_016"
+      },
+      {
+        "level": "knows_exactly",
+        "fact": "Потоп в городе и вокруг таверны — её заклинание",
+        "target": null,
+        "reason": "Официантка вызвала потоп через молитву",
+        "source": "event_016"
+      },
+      {
+        "level": "knows_only",
+        "fact": "dead_wife — её мать, погибла",
+        "target": "dead_wife",
+        "reason": "Официантка — дочь dead_wife",
+        "source": "relationship"
+      },
     {
       "level": "knows_only",
       "fact": "Маньяк охотится на культистов",
@@ -133,13 +186,13 @@
       "reason": "Официантка подозревает о контрабанде отца, т.к. работает в той же таверне",
       "source": "observation"
     },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает, кто убил её мать (dead_wife), и не знает обстоятельств",
-      "target": "dead_wife",
-      "reason": "event_004 known_by: tavern_keeper, sailor; Официантка не в списке знающих",
-      "source": null
-    }
+      {
+        "level": "does_not_know",
+        "fact": "Не знает, что Матрос угрожал её отцу через угрозу ей",
+        "target": "sailor",
+        "reason": "Официантка не знает об угрозах Матроса в её адрес",
+        "source": null
+      }
   ],
   "false_beliefs": [
     {
@@ -147,6 +200,12 @@
       "correctness": "Возможно, Трактирщик знает (он подозревает Официантку)",
       "source": "big_secret",
       "confidence": "medium"
+    },
+    {
+      "belief": "Потоп — это естественное наводнение, а не заклинание",
+      "correctness": "Потоп — это заклинание Официантки (она сама вызвала его через тёмных богов)",
+      "source": "event_016",
+      "confidence": "low"
     }
   ],
   "employment": {
@@ -155,17 +214,18 @@
     "note": "Официантка работает на Трактирщика (см. tavern_keeper.relations.money). Это не связано с текущим убийством."
   },
   "daily_schedule": [
-    {
-      "time": "night",
-      "location": "guest_rooms",
-      "activity": "спит в своей комнате"
-    },
-    {
-      "time": "morning",
-      "location": "cult_lair",
-      "activity": "молится в тайной комнате культа",
-      "note": "см. event_006; тайное святилище"
-    },
+      {
+        "time": "night",
+        "location": "waitress_room",
+        "activity": "спит в своей комнате; перед сном делает записи в дневник",
+        "note": "за пару недель до игровых событий призрак Жены приходит к ней (event_015); дневник — evidence_009"
+      },
+      {
+        "time": "morning",
+        "location": "cult_lair",
+        "activity": "молится в тайной комнате культа",
+        "note": "см. event_006; тайное святилище; молитвы тёмным богам (event_016)"
+      },
     {
       "time": "day",
       "location": "tavern_hall",
@@ -176,12 +236,12 @@
       "location": "tavern_hall",
       "activity": "обслуживает посетителей в зале"
     },
-    {
-      "time": "midnight",
-      "location": "cult_lair",
-      "activity": "проводит собрание культа",
-      "note": "тайная смена; см. event_007 (Врач в культе)"
-    }
+      {
+        "time": "midnight",
+        "location": "cult_lair",
+        "activity": "проводит собрание культа",
+        "note": "тайная смена; см. event_007 (Врач в культе); молитва, вызвавшая потоп (event_016)"
+      }
   ],
   "organizations": [
     {
