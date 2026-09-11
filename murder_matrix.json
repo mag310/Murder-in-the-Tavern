@@ -34,6 +34,16 @@
                     "probability": "low"
                 },
                 {
+                    "type": "murder",
+                    "motivation": "money",
+                    "related_characters": [
+                        "detective"
+                    ],
+                    "probability": "low",
+                    "scenario": "possible_scenario",
+                    "scenario_note": "Детектив как возможный убийца — это возможный сценарий (не канон), связанный с тайным заказом Маньяка (maniac.money -> detective). В каноне наниматель Детектива — Шериф, и у Детектива нет мотива убить Трактирщика по money. Если автор выберет этот сценарий, мотив становится обоснованным; иначе эту причину следует удалить."
+                },
+                {
                     "type": "accident",
                     "motivation": "accident",
                     "related_characters": [],
@@ -49,6 +59,7 @@
                 "evidence_001",
                 "evidence_002"
             ],
+            "required_evidence_note": "evidence_001 (контрабанда) и evidence_002 (записная книжка) доказывают преступления/связи из прошлого, но НЕ доказывают текущее убийство (принцип из README). Они нужны, чтобы расставить подозреваемых и ложные следы, а не чтобы доказать, кто именно убил Трактирщика.",
             "false_leads": [
                 "Трактирщик — контрабандист, может выглядеть как убийца",
                 "Матрос — деловой партнёр Владельца, может выглядеть как подозреваемый"
@@ -93,6 +104,14 @@
                     "probability": "low"
                 },
                 {
+                    "type": "murder",
+                    "motivation": "justice",
+                    "related_characters": [
+                        "detective"
+                    ],
+                    "probability": "low"
+                },
+                {
                     "type": "accident",
                     "motivation": "accident",
                     "related_characters": [],
@@ -108,6 +127,7 @@
                 "evidence_002",
                 "evidence_006"
             ],
+            "required_evidence_note": "evidence_002 (записная книжка/контрабанда) и evidence_006 (ложная улика на Матроса) доказывают прошлые преступления/связи, но НЕ доказывают текущее убийство (принцип из README). evidence_006 — ложный след: Матрос выглядит как подозреваемый, но не убийца.",
             "false_leads": [
                 "Матрос — контрабандист, может выглядеть как убийца",
                 "Матрос — дезертир, может выглядеть как подозреваемый"
@@ -149,6 +169,22 @@
                     "motivation": "love",
                     "related_characters": [
                         "doctor"
+                    ],
+                    "probability": "low"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "hatred",
+                    "related_characters": [
+                        "sailor"
+                    ],
+                    "probability": "low"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "money",
+                    "related_characters": [
+                        "detective"
                     ],
                     "probability": "low"
                 },
@@ -313,10 +349,8 @@
             ],
             "special_consequences": [
                 "Расследование прекращается",
-                "Маньяк может быть невиновен в текущем убийстве",
-                "Детектив может быть убийцей (см. event_014 — возможный сценарий, не канон)"
-            ],
-            "scenario_note": "Детектив также может быть убийцей (см. event_014 — возможный сценарий). Это не канон и может быть включено/исключено/изменено автором."
+                "Маньяк может быть невиновен в текущем убийстве"
+            ]
         },
         {
             "victim": "maniac",

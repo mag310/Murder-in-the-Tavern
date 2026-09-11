@@ -126,6 +126,9 @@
                 "investigation": {
                     "$ref": "#/$defs/investigation"
                 },
+                "employment": {
+                    "$ref": "#/$defs/employment"
+                },
                 "current_murder": {
                     "$ref": "#/$defs/currentMurder"
                 },
@@ -258,23 +261,13 @@
             "properties": {
                 "employer": {
                     "type": [
+                        "object",
                         "string",
                         "null"
-                    ]
+                    ],
+                    "description": "Наниматель/заказчик персонажа. Объект со сценариями (primary/secondary/alternative) или строка-ссылка на ID, или null."
                 },
-                "employer_alternative": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "employer_primary": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "employer_secondary": {
+                "employer_note": {
                     "type": [
                         "string",
                         "null"
@@ -299,6 +292,34 @@
                     ]
                 },
                 "reason_investigation_reached_tavern": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "employment": {
+            "type": "object",
+            "description": "Рабочая/служебная привязка персонажа: на кого работает, в каком статусе. Для контекста сценария, не обязательно связано с текущим убийством.",
+            "properties": {
+                "employer": {
+                    "type": [
+                        "object",
+                        "string",
+                        "null"
+                    ],
+                    "description": "Объект {primary/secondary/alternative} или строка-ID нанимателя/работодателя, или null."
+                },
+                "role": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Роль/должность (напр. 'работник таверны', 'деловой партнёр')."
+                },
+                "note": {
                     "type": [
                         "string",
                         "null"

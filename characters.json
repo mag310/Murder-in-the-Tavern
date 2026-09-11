@@ -16,11 +16,17 @@
             "can_be_murder_victim": true,
             "small_secret": {
                 "description": "Занимается контрабандой: продаёт запрещённые напитки и другие запрещённые товары.",
-                "known_by": []
+                "known_by": [
+                    "sailor",
+                    "waitress"
+                ]
             },
             "big_secret": {
                 "description": "Матрос изнасиловал и убил его жену.",
-                "known_by": []
+                "known_by": [
+                    "sailor",
+                    "tavern_keeper"
+                ]
             },
             "relationships": {
                 "love": [
@@ -124,8 +130,8 @@
             ],
             "false_beliefs": [
                 {
-                    "belief": "Матрос — единственный, кто знает о его контрабанде",
-                    "correctness": "Возможно, другие знают (например, Официантка или Врач)",
+                    "belief": "Матрос — единственный, кто точно знает о его контрабанде",
+                    "correctness": "Официантка подозревает о контрабанде (работает в той же таверне)",
                     "source": "small_secret",
                     "confidence": "medium"
                 }
@@ -144,11 +150,15 @@
             "can_be_murder_victim": true,
             "small_secret": {
                 "description": "Контрабандист. Привозит запрещённые товары Трактирщику.",
-                "known_by": []
+                "known_by": [
+                    "tavern_keeper"
+                ]
             },
             "big_secret": {
-                "description": "Дезертировал с корабля Врача, украв судовую казну.",
-                "known_by": []
+                "description": "Дезертирал с корабля Капитана корабля, украв судовую казну.",
+                "known_by": [
+                    "ship_captain"
+                ]
             },
             "relationships": {
                 "love": [],
@@ -176,7 +186,7 @@
             "knowledge": [
                 {
                     "level": "knows_exactly",
-                    "fact": "Он дезертировал с корабля Врача",
+                    "fact": "Он дезертировал с корабля",
                     "target": null,
                     "reason": "Матрос знает о своём дезертирстве",
                     "source": "big_secret"
@@ -190,10 +200,17 @@
                 },
                 {
                     "level": "knows_exactly",
-                    "fact": "Врач был капитаном корабля",
-                    "target": "doctor",
-                    "reason": "Матрос служил на корабле Врача",
+                    "fact": "Он служил на корабле вместе с Врачом и Капитаном корабля",
+                    "target": null,
+                    "reason": "Матрос служил на корабле вместе с ними",
                     "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он изнасиловал и убил жену Трактирщика (dead_wife)",
+                    "target": "dead_wife",
+                    "reason": "Матрос сам совершил убийство жены Трактирщика",
+                    "source": "big_secret"
                 },
                 {
                     "level": "knows_exactly",
@@ -208,6 +225,20 @@
                     "target": "tavern_keeper",
                     "reason": "Матрос знает, что Трактирщик его партнёр по контрабанде",
                     "source": "relationship"
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Врач мог прийти в таверну по его душу (за дезертирство и кражу)",
+                    "target": "doctor",
+                    "reason": "Матрос подозревает, что Врач узнал о его прошлом и может его выдать",
+                    "source": "observation"
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Врач может знать о его дезертирстве и краже",
+                    "target": "doctor",
+                    "reason": "Матрос не уверен, знал ли Врач о его прошлом, но подозревает, что мог узнать",
+                    "source": "observation"
                 },
                 {
                     "level": "does_not_know",
@@ -248,7 +279,7 @@
             "false_beliefs": [
                 {
                     "belief": "Никто не знает о его дезертирстве и краже",
-                    "correctness": "Врач знает (он был капитаном), возможно, другие тоже",
+                    "correctness": "Капитан корабля знает (он был капитаном), возможно, другие тоже",
                     "source": "big_secret",
                     "confidence": "medium"
                 },
@@ -259,6 +290,14 @@
                     "confidence": "low"
                 }
             ],
+            "employment": {
+                "employer": {
+                    "previous": "ship_captain",
+                    "current": "tavern_keeper"
+                },
+                "role": "раньше — матрос на корабле Капитана (дезертировал, event_002); сейчас — тайный деловой партнёр по контрабанде Трактирщика (см. relations.money)",
+                "note": "Предыдущий наниматель — Капитан корабля. Текущая экономическая связь — с Трактирщиком (контрабанда). Не связано с текущим убийством."
+            },
             "location_links": [
                 "guest_rooms",
                 "tavern_yard",
@@ -280,7 +319,9 @@
             },
             "big_secret": {
                 "description": "Верховная жрица небольшого культа тёмных богов. Святилище находится в тайной комнате в подвале таверны.",
-                "known_by": []
+                "known_by": [
+                    "doctor"
+                ]
             },
             "relationships": {
                 "love": [
@@ -399,6 +440,11 @@
                     "confidence": "medium"
                 }
             ],
+            "employment": {
+                "employer": "tavern_keeper",
+                "role": "работник таверны (официантка)",
+                "note": "Официантка работает на Трактирщика (см. tavern_keeper.relations.money). Это не связано с текущим убийством."
+            },
             "location_links": [
                 "guest_rooms",
                 "basement",
@@ -414,11 +460,16 @@
             "can_be_murder_victim": true,
             "small_secret": {
                 "description": "Состоит в тайном культе Официантки.",
-                "known_by": []
+                "known_by": [
+                    "waitress"
+                ]
             },
             "big_secret": {
                 "description": "Влюблён в Официантку. Трактирщик выступает против их отношений.",
-                "known_by": []
+                "known_by": [
+                    "waitress",
+                    "tavern_keeper"
+                ]
             },
             "relationships": {
                 "love": [
@@ -436,7 +487,7 @@
                 "money": [
                     {
                         "target": "sailor",
-                        "type": "бывший член экипажа / кража судовой казны"
+                        "type": "бывший сослуживец с одного корабля (не знает о краже казны)"
                     }
                 ],
                 "religion": [
@@ -456,7 +507,7 @@
                     },
                     {
                         "target": "sailor",
-                        "type": "имеет претензии из-за дезертирства и кражи"
+                        "type": "знает Матроса как бывшего сослуживца (не знает о дезертирстве и краже)"
                     },
                     {
                         "target": "maniac",
@@ -494,10 +545,10 @@
                     "source": "relationship"
                 },
                 {
-                    "level": "knows_exactly",
-                    "fact": "Матрос дезертировал с его корабля и украл судовую казну",
+                    "level": "knows_only",
+                    "fact": "Матрос служил с ним на одном корабле",
                     "target": "sailor",
-                    "reason": "Врач был капитаном корабля, Матрос дезертировал",
+                    "reason": "Врач знал Матроса как сослуживца, но не знает о его дезертирстве и краже казны",
                     "source": "relationship"
                 },
                 {
@@ -556,15 +607,18 @@
                 "known_by": []
             },
             "big_secret": {
-                "description": "Предыдущей ночью совершил убийство, но из-за сильного опьянения не помнит произошедшее.",
+                "description": null,
                 "target": null,
-                "known_by": []
+                "known_by": [],
+                "note": "Большая тайна Детектива (убийство по пьянству) удалена вместе с event_014 — вводила в заблуждение. Детектив не имеет подтверждённой большой тайны."
             },
             "investigation": {
-                "employer": "sheriff",
-                "employer_alternative": "mayor",
-                "employer_primary": "sheriff",
-                "employer_secondary": "mayor",
+                "employer": {
+                    "primary": "sheriff",
+                    "secondary": "mayor",
+                    "alternative": "maniac"
+                },
+                "employer_note": "primary (Шериф) — основной наниматель (канон, event_011). secondary (Мэр) — вспомогательный вариант. alternative (Маньяк) — возможный сценарий, НЕ канон: Маньяк может тайно быть заказчиком (см. maniac.relations.money). Финальный выбор делает автор.",
                 "case": "серия смертей в городе",
                 "actual_cause_of_previous_deaths": "Маньяк",
                 "reason_previous_deaths_are_connected_to_maniac": "жертвами были члены культа",
@@ -612,10 +666,10 @@
                 },
                 {
                     "level": "suspects",
-                    "fact": "Он может совершить убийство по пьянству (возможный сценарий)",
-                    "target": null,
-                    "reason": "Детектив подозревает, что может совершить убийство по пьянству",
-                    "source": "event_014"
+                    "fact": "Возможный сценарий: его могли нанять не Шериф, а Маньяк",
+                    "target": "maniac",
+                    "reason": "Детектив не знает, кто на самом деле заказал расследование; возможно, это Маньяк",
+                    "source": "investigation"
                 },
                 {
                     "level": "does_not_know",
@@ -639,14 +693,7 @@
                     "source": null
                 }
             ],
-            "false_beliefs": [
-                {
-                    "belief": "Он не совершит убийство",
-                    "correctness": "Возможный сценарий: он может совершить убийство по пьянству (event_014)",
-                    "source": "event_014",
-                    "confidence": "medium"
-                }
-            ],
+            "false_beliefs": [],
             "location_links": [
                 "guest_rooms",
                 "tavern_hall",
@@ -683,7 +730,9 @@
                 "money": [
                     {
                         "target": "detective",
-                        "type": "нанимал детектива"
+                        "type": "тайный заказ (возможный сценарий, НЕ канон): Маньяк может быть тем, кто тайно нанял Детектива (alternative в detective.investigation.employer), а не Шериф/Мэр. В каноне наниматель — Шериф (event_011).",
+                        "scenario": "possible_scenario",
+                        "scenario_note": "Это возможный сценарий, не канон. Если автор выберет этот сценарий, маньяк тайно направляет расследование, не раскрывая себя как заказчик (связано с detective.investigation.employer.alternative)."
                     }
                 ],
                 "religion": [
@@ -709,7 +758,8 @@
             },
             "current_murder": {
                 "is_killer": false,
-                "status": "невиновен в убийстве, расследуемом в таверне"
+                "status": "невиновен в убийстве, расследуемом в таверне (по умолчанию/канон)",
+                "note": "is_killer:false — это дефолтное состояние (Маньяк не убийца текущего дела). В murder_matrix.json Маньяк может быть указан как possible_killer в отдельных сценариях — это не противоречие: матрица описывает возможные подозреваемые, а не истинного убийцу. Если автор выберет сценарий, где Маньяк убийца, is_killer следует сменить на true, а murder_matrix — соответствующим образом уточнить."
             },
             "knowledge": [
                 {
@@ -862,14 +912,7 @@
                     "source": null
                 }
             ],
-            "false_beliefs": [
-                {
-                    "belief": "Детектив — честный и надёжный",
-                    "correctness": "Возможный сценарий: Детектив может совершить убийство по пьянству (event_014)",
-                    "source": "event_014",
-                    "confidence": "low"
-                }
-            ],
+            "false_beliefs": [],
             "location_links": [
                 "sheriff_office"
             ]
@@ -1005,14 +1048,7 @@
                     "source": null
                 }
             ],
-            "false_beliefs": [
-                {
-                    "belief": "Детектив — честный и надёжный",
-                    "correctness": "Возможный сценарий: Детектив может совершить убийство по пьянству (event_014)",
-                    "source": "event_014",
-                    "confidence": "low"
-                }
-            ],
+            "false_beliefs": [],
             "location_links": [
                 "town"
             ]
