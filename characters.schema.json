@@ -1,0 +1,275 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "characters.schema.json",
+    "title": "Characters",
+    "type": "object",
+    "required": [
+        "project",
+        "characters"
+    ],
+    "properties": {
+        "project": {
+            "type": "object",
+            "required": [
+                "title",
+                "type",
+                "setting"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "setting": {
+                    "type": "object",
+                    "required": [
+                        "location",
+                        "situation"
+                    ],
+                    "properties": {
+                        "location": {
+                            "type": "string"
+                        },
+                        "situation": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "characters": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/character"
+            }
+        }
+    },
+    "$defs": {
+        "character": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "role",
+                "status",
+                "can_be_murder_victim",
+                "small_secret",
+                "big_secret",
+                "relationships",
+                "knowledge",
+                "false_beliefs",
+                "location_links"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "role": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "main_npc",
+                        "context_npc"
+                    ]
+                },
+                "can_be_murder_victim": {
+                    "type": "boolean",
+                    "description": "Может ли персонаж быть жертвой текущего убийства. true — для персонажей в таверне, false — для контекстных персонажей вне таверны"
+                },
+                "small_secret": {
+                    "$ref": "#/$defs/secret"
+                },
+                "big_secret": {
+                    "$ref": "#/$defs/secret"
+                },
+                "relationships": {
+                    "$ref": "#/$defs/relationships"
+                },
+                "knowledge": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "false_beliefs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "location_links": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "external_links": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "investigation": {
+                    "$ref": "#/$defs/investigation"
+                },
+                "current_murder": {
+                    "$ref": "#/$defs/currentMurder"
+                }
+            },
+            "additionalProperties": true
+        },
+        "secret": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "description": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "target": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "known_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "relationship": {
+            "type": "object",
+            "required": [
+                "target",
+                "type"
+            ],
+            "properties": {
+                "target": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true
+        },
+        "relationships": {
+            "type": "object",
+            "required": [
+                "love",
+                "hatred",
+                "money",
+                "religion",
+                "justice"
+            ],
+            "properties": {
+                "love": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/relationship"
+                    }
+                },
+                "hatred": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/relationship"
+                    }
+                },
+                "money": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/relationship"
+                    }
+                },
+                "religion": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/relationship"
+                    }
+                },
+                "justice": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/relationship"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "investigation": {
+            "type": "object",
+            "properties": {
+                "employer": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "case": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "actual_cause_of_previous_deaths": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reason_previous_deaths_are_connected_to_maniac": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reason_investigation_reached_tavern": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "currentMurder": {
+            "type": "object",
+            "required": [
+                "is_killer",
+                "status"
+            ],
+            "properties": {
+                "is_killer": {
+                    "type": "boolean"
+                },
+                "status": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true
+        }
+    }
+}

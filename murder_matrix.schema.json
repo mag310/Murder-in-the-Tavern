@@ -1,0 +1,120 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "murder_matrix.schema.json",
+    "title": "Murder Matrix",
+    "type": "object",
+    "required": [
+        "matrices"
+    ],
+    "properties": {
+        "matrices": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/murderMatrix"
+            }
+        }
+    },
+    "$defs": {
+        "murderMatrix": {
+            "type": "object",
+            "required": [
+                "victim",
+                "possible_killers",
+                "death_causes",
+                "required_facts",
+                "required_evidence",
+                "false_leads",
+                "special_consequences"
+            ],
+            "properties": {
+                "victim": {
+                    "type": "string",
+                    "description": "ID жертвы (персонаж из characters.json с can_be_murder_victim=true)"
+                },
+                "possible_killers": {
+                    "type": "array",
+                    "description": "Персонажи, способные быть убийцами этой жертвы",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "death_causes": {
+                    "type": "array",
+                    "description": "Причины смерти: motive, accident, disease и т.д.",
+                    "items": {
+                        "$ref": "#/$defs/deathCause"
+                    }
+                },
+                "required_facts": {
+                    "type": "array",
+                    "description": "Факты, необходимые для разрешения дела",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "required_evidence": {
+                    "type": "array",
+                    "description": "ID улик из evidence.json, необходимые для этого сценария",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "false_leads": {
+                    "type": "array",
+                    "description": "Ложные следы, ведущие игрока к неверному подозреваемому",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "special_consequences": {
+                    "type": "array",
+                    "description": "Последствия, если жертва убита именно в этом сценарии",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "deathCause": {
+            "type": "object",
+            "required": [
+                "type",
+                "motivation",
+                "related_characters"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "murder",
+                        "accident",
+                        "disease",
+                        "suicide",
+                        "unknown"
+                    ]
+                },
+                "motivation": {
+                    "type": "string",
+                    "description": "Мотив или причина: hatred, love, money, religion, justice, accident, disease"
+                },
+                "related_characters": {
+                    "type": "array",
+                    "description": "Персонажи, связанные с этой причиной",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "probability": {
+                    "type": "string",
+                    "enum": [
+                        "high",
+                        "medium",
+                        "low"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        }
+    }
+}

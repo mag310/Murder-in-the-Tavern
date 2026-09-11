@@ -1,0 +1,184 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "events.schema.json",
+    "title": "Events",
+    "description": "Хронология событий проекта «Убийство в таверне».",
+    "type": "object",
+    "required": [
+        "project",
+        "events"
+    ],
+    "properties": {
+        "project": {
+            "$ref": "#/$defs/project"
+        },
+        "events": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/event"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "$defs": {
+        "project": {
+            "type": "object",
+            "required": [
+                "title",
+                "timeline"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "timeline": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/phase"
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "phase": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "description",
+                "status"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "planned",
+                        "active",
+                        "completed"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "event": {
+            "type": "object",
+            "required": [
+                "id",
+                "phase",
+                "name",
+                "status",
+                "description",
+                "participants",
+                "location",
+                "time",
+                "facts",
+                "consequences",
+                "known_by",
+                "unknown_by",
+                "related_events"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "phase": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "planned",
+                        "provisional",
+                        "confirmed",
+                        "confirmed_but_undefined",
+                        "discarded"
+                    ]
+                },
+                "description": {
+                    "type": "string"
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "location": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "time": {
+                    "$ref": "#/$defs/time"
+                },
+                "facts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "consequences": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "known_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "unknown_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "related_events": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "time": {
+            "type": "object",
+            "required": [
+                "relative",
+                "order"
+            ],
+            "properties": {
+                "relative": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "order": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "minimum": 0
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}

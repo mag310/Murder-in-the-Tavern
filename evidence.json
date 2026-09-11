@@ -1,0 +1,525 @@
+{
+    "evidence": [
+        {
+            "id": "evidence_001",
+            "name": "Контейнеры с запрещёнными напитками",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "tavern_owner_office",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок обыскивает кабинет Владельца",
+                    "игрок находит тайник"
+                ],
+                "discovery_method": "обыск / обнаружение тайника"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Скрываемые контейнеры с запрещёнными напитками и товарами в тайнике кабинета Владельца.",
+                "condition": "спрятаны, но легко обнаруживаются при обыске",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Владелец таверны занимается контрабандой"
+                ],
+                "strongly_indicates": [
+                    "Владелец скрывает свою деятельность",
+                    "У Владельца есть причина избегать правосудия"
+                ],
+                "does_not_prove": [
+                    "Владелец совершил текущее убийство",
+                    "Владелец знал о том, кого убили"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Владелец — законнорог, не имеющий отношения к убийству",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Владелец опасен и должен быть под стражей",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "tavern_owner",
+                    "sailor",
+                    "detective"
+                ],
+                "locations": [
+                    "tavern_owner_office"
+                ],
+                "events": [
+                    "event_005"
+                ],
+                "other_evidence": [
+                    "evidence_002"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Владелец не убийца, просто преступник",
+                    "Убийство связано с контрабандой"
+                ],
+                "contradicts": [
+                    "Владелец чист"
+                ]
+            },
+            "false_leads": [
+                "Можно принять контрабанду за мотив к убийству, хотя она не связана с текущим убийством"
+            ],
+            "notes": [
+                "Улика доказывает преступление, но не текущее убийство (принцип из README)"
+            ]
+        },
+        {
+            "id": "evidence_002",
+            "name": "Записная книжка Владельца",
+            "type": "document",
+            "status": "confirmed",
+            "location": "tavern_owner_office",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок находит записную книжку в кабинете Владельца"
+                ],
+                "discovery_method": "обыск"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "tavern_owner"
+                ]
+            },
+            "object": {
+                "description": "Личная записная книжка Владельца с записями о партнёрах, долгах и угрозах.",
+                "condition": "целая",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Матрос привозит Владельцу запрещённые товары",
+                    "У Владельца есть деловая связь с Матросом"
+                ],
+                "strongly_indicates": [
+                    "Матрос и Владелец работают вместе в теневом бизнесе",
+                    "Владелец не считает Матроса обычным клиентом"
+                ],
+                "does_not_prove": [
+                    "Матрос убил кого-то в таверне",
+                    "Владелец знает о текущем убийстве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Матрос — деловой партнёр Владельца, не убийца",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Матрос — потенциально опасный контрабандист",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "tavern_owner",
+                    "sailor"
+                ],
+                "locations": [
+                    "tavern_owner_office"
+                ],
+                "events": [
+                    "event_005"
+                ],
+                "other_evidence": [
+                    "evidence_001"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Контрабанда — реальный, но отдельный от убийства конфликт"
+                ],
+                "contradicts": [
+                    "Матрос — случайный посетитель"
+                ]
+            },
+            "false_leads": [
+                "Записная книжка может выглядеть как доказательство убийства, если игрок не читает её внимательно"
+            ],
+            "notes": [
+                "Связывает Владельца и Матроса, но не указывает на убийство"
+            ]
+        },
+        {
+            "id": "evidence_003",
+            "name": "Ритуальные предметы культа",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "cult_lair",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок находит тайный вход в подвале",
+                    "игрок входит в логово культа"
+                ],
+                "discovery_method": "поиск тайного помещения / обыск"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "daughter",
+                    "doctor"
+                ]
+            },
+            "object": {
+                "description": "Святилище культа тёмных богов с ритуальными предметами, свечами и символами.",
+                "condition": "спрятано под подвалом",
+                "movable": false,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": [
+                    "В таверне существует тайный культ",
+                    "Дочь — верховная жрица культа"
+                ],
+                "strongly_indicates": [
+                    "Врач является членом культа",
+                    "Культисты скрывают свою деятельность"
+                ],
+                "does_not_prove": [
+                    "Культисты совершили текущее убийство",
+                    "Культисты знают о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Дочь и Врач — культисты, но не убийцы",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Культ — это преступление, но не текущее убийство",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "daughter",
+                    "doctor"
+                ],
+                "locations": [
+                    "cult_lair",
+                    "basement"
+                ],
+                "events": [
+                    "event_006",
+                    "event_007"
+                ],
+                "other_evidence": [
+                    "evidence_005"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Культ — отдельный конфликт",
+                    "Культисты — не убийцы"
+                ],
+                "contradicts": [
+                    "Дочь и Врач чисты"
+                ]
+            },
+            "false_leads": [
+                "Культ может выглядеть как мотив к убийству, хотя это отдельное преступление"
+            ],
+            "notes": [
+                "Связывает Дочь и Врача, но не указывает на текущее убийство"
+            ]
+        },
+        {
+            "id": "evidence_004",
+            "name": "Ложные следы Маньяка",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "attic",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок обыскивает чердак"
+                ],
+                "discovery_method": "обыск"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "maniac"
+                ]
+            },
+            "object": {
+                "description": "Предметы, оставленные Маньяком на чердаке, которые могут выглядеть как улики убийства.",
+                "condition": "загрязнены, но не связаны с текущим убийством",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Маньяк был в таверне"
+                ],
+                "strongly_indicates": [
+                    "Маньяк связан с предыдущими убийствами",
+                    "Маньяк может выглядеть как подозреваемый"
+                ],
+                "does_not_prove": [
+                    "Маньяк совершил текущее убийство",
+                    "Маньяк знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Маньяк — убийца (неправильно)",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Маньяк — серийный убийца из города, но не убийца в таверне",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "maniac",
+                    "detective"
+                ],
+                "locations": [
+                    "attic"
+                ],
+                "events": [
+                    "event_009",
+                    "event_010"
+                ],
+                "other_evidence": []
+            },
+            "versions": {
+                "supports": [
+                    "Маньяк — убийца (ложная версия)",
+                    "Маньяк — серийный убийца из города"
+                ],
+                "contradicts": [
+                    "Маньяк невиновен"
+                ]
+            },
+            "false_leads": [
+                "Улики на чердаке могут быть приняты за доказательства текущего убийства",
+                "Маньяк выглядит как подозреваемый, но не имеет отношения к текущему убийству"
+            ],
+            "notes": [
+                "Ложный след: Маньяк не убийца, но выглядит как подозреваемый"
+            ]
+        },
+        {
+            "id": "evidence_005",
+            "name": "Следы пьянства Детектива",
+            "type": "behavior",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок находит следы пьянства в комнате Детектива"
+                ],
+                "discovery_method": "обыск / наблюдение"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "detective"
+                ]
+            },
+            "object": {
+                "description": "Следы пьянства Детектива: бутылки, запахи, пятна на одежде.",
+                "condition": "видимы, но не объясняют убийства",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Детектив был сильно пьян предыдущей ночью"
+                ],
+                "strongly_indicates": [
+                    "Детектив может не помнить событий",
+                    "Детектив может быть подозреваемым"
+                ],
+                "does_not_prove": [
+                    "Детектив совершил убийство",
+                    "Детектив знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Детектив — подозреваемый (потенциально правильно)",
+                    "correct": true,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Я не помню, что делал, но не убивал",
+                    "correct": false,
+                    "confidence": "низкая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "detective"
+                ],
+                "locations": [
+                    "guest_rooms"
+                ],
+                "events": [
+                    "event_014"
+                ],
+                "other_evidence": [
+                    "evidence_006"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Детектив — убийца",
+                    "Детектив не помнит событий"
+                ],
+                "contradicts": [
+                    "Детектив чист"
+                ]
+            },
+            "false_leads": [
+                "Следы пьянства могут быть приняты за доказательство убийства",
+                "Детектив выглядит как подозреваемый, но убийство не доказано"
+            ],
+            "notes": [
+                "Следы пьянства указывают на Детектива, но не доказывают убийство"
+            ]
+        },
+        {
+            "id": "evidence_006",
+            "name": "Ложная улика на Матроса",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок находит улику в комнате Матроса"
+                ],
+                "discovery_method": "обыск"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "sailor"
+                ]
+            },
+            "object": {
+                "description": "Ложная улика, оставленная в комнате Матроса, которая может выглядеть как доказательство убийства.",
+                "condition": "загрязнена, но не связана с убийством",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Матрос был в таверне"
+                ],
+                "strongly_indicates": [
+                    "Матрос может выглядеть как подозреваемый"
+                ],
+                "does_not_prove": [
+                    "Матрос совершил текущее убийство",
+                    "Матрос знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Матрос — убийца (неправильно)",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Матрос — контрабандист, но не убийца",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "sailor",
+                    "tavern_owner"
+                ],
+                "locations": [
+                    "guest_rooms"
+                ],
+                "events": [
+                    "event_002",
+                    "event_003"
+                ],
+                "other_evidence": [
+                    "evidence_002"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Матрос — убийца (ложная версия)"
+                ],
+                "contradicts": [
+                    "Матрос чист"
+                ]
+            },
+            "false_leads": [
+                "Улика в комнате Матроса может быть принята за доказательство убийства",
+                "Матрос выглядит как подозреваемый, но не имеет отношения к убийству"
+            ],
+            "notes": [
+                "Ложный след: Матрос не убийца, но выглядит как подозреваемый"
+            ]
+        }
+    ]
+}

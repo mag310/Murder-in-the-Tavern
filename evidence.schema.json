@@ -1,0 +1,315 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "evidence.schema.json",
+    "title": "Evidence",
+    "type": "object",
+    "required": [
+        "evidence"
+    ],
+    "properties": {
+        "evidence": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/evidence"
+            }
+        }
+    },
+    "$defs": {
+        "evidence": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "type",
+                "status",
+                "location",
+                "discovery",
+                "visibility",
+                "object",
+                "facts",
+                "interpretations",
+                "related",
+                "versions",
+                "false_leads",
+                "notes"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "physical",
+                        "document",
+                        "testimony",
+                        "behavior",
+                        "medical",
+                        "environmental",
+                        "digital",
+                        "other"
+                    ]
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "planned",
+                        "confirmed",
+                        "discarded"
+                    ]
+                },
+                "location": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "discovery": {
+                    "$ref": "#/$defs/discovery"
+                },
+                "visibility": {
+                    "$ref": "#/$defs/visibility"
+                },
+                "object": {
+                    "$ref": "#/$defs/object"
+                },
+                "facts": {
+                    "$ref": "#/$defs/facts"
+                },
+                "interpretations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/interpretation"
+                    }
+                },
+                "related": {
+                    "$ref": "#/$defs/related"
+                },
+                "versions": {
+                    "$ref": "#/$defs/versions"
+                },
+                "false_leads": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "notes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "discovery": {
+            "type": "object",
+            "required": [
+                "available_from_start",
+                "discovered_by",
+                "discovery_conditions",
+                "discovery_method"
+            ],
+            "properties": {
+                "available_from_start": {
+                    "type": "boolean"
+                },
+                "discovered_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "discovery_conditions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "discovery_method": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "visibility": {
+            "type": "object",
+            "required": [
+                "public",
+                "known_by"
+            ],
+            "properties": {
+                "public": {
+                    "type": "boolean"
+                },
+                "known_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "object": {
+            "type": "object",
+            "required": [
+                "description",
+                "condition",
+                "movable",
+                "hidden"
+            ],
+            "properties": {
+                "description": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "condition": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "movable": {
+                    "type": "boolean"
+                },
+                "hidden": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": true
+        },
+        "facts": {
+            "type": "object",
+            "required": [
+                "objectively_proves",
+                "strongly_indicates",
+                "does_not_prove"
+            ],
+            "properties": {
+                "objectively_proves": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "strongly_indicates": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "does_not_prove": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "interpretation": {
+            "type": "object",
+            "required": [
+                "character",
+                "interpretation",
+                "correct",
+                "confidence"
+            ],
+            "properties": {
+                "character": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "interpretation": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "correct": {
+                    "type": "boolean"
+                },
+                "confidence": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "related": {
+            "type": "object",
+            "required": [
+                "characters",
+                "locations",
+                "events",
+                "other_evidence"
+            ],
+            "properties": {
+                "characters": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "other_evidence": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "versions": {
+            "type": "object",
+            "required": [
+                "supports",
+                "contradicts"
+            ],
+            "properties": {
+                "supports": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "contradicts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        }
+    }
+}

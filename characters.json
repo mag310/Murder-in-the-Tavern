@@ -1,0 +1,426 @@
+{
+    "project": {
+        "title": "Убийство в таверне",
+        "type": "closed_room_detective_one_shot",
+        "setting": {
+            "location": "изолированная таверна на возвышенности",
+            "situation": "местность вокруг затоплена, покинуть таверну невозможно несколько дней"
+        }
+    },
+    "characters": [
+        {
+            "id": "tavern_owner",
+            "name": null,
+            "role": "Владелец таверны",
+            "status": "main_npc",
+            "can_be_murder_victim": true,
+            "small_secret": {
+                "description": "Занимается контрабандой: продаёт запрещённые напитки и другие запрещённые товары.",
+                "known_by": []
+            },
+            "big_secret": {
+                "description": "Матрос изнасиловал и убил его жену.",
+                "known_by": []
+            },
+            "relationships": {
+                "love": [
+                    {
+                        "target": "daughter",
+                        "type": "отцовская любовь"
+                    }
+                ],
+                "hatred": [
+                    {
+                        "target": "sailor",
+                        "type": "кровная месть"
+                    }
+                ],
+                "money": [
+                    {
+                        "target": "sailor",
+                        "type": "деловой партнёр по контрабанде"
+                    },
+                    {
+                        "target": "daughter",
+                        "type": "работник таверны"
+                    }
+                ],
+                "religion": [],
+                "justice": [
+                    {
+                        "target": "detective",
+                        "type": "может расследовать его преступления"
+                    }
+                ]
+            },
+            "knowledge": [],
+            "false_beliefs": [],
+            "location_links": [
+                "tavern_hall",
+                "tavern_owner_office",
+                "basement"
+            ]
+        },
+        {
+            "id": "sailor",
+            "name": null,
+            "role": "Матрос",
+            "status": "main_npc",
+            "can_be_murder_victim": true,
+            "small_secret": {
+                "description": "Контрабандист. Привозит запрещённые товары Владельцу таверны.",
+                "known_by": []
+            },
+            "big_secret": {
+                "description": "Дезертировал с корабля Врача, украв судовую казну.",
+                "known_by": []
+            },
+            "relationships": {
+                "love": [],
+                "hatred": [
+                    {
+                        "target": "tavern_owner",
+                        "type": "скрытая вражда",
+                        "status": "needs_definition"
+                    }
+                ],
+                "money": [
+                    {
+                        "target": "tavern_owner",
+                        "type": "деловой партнёр по контрабанде"
+                    }
+                ],
+                "religion": [],
+                "justice": [
+                    {
+                        "target": "detective",
+                        "type": "может раскрыть дезертирство и кражу"
+                    }
+                ]
+            },
+            "knowledge": [],
+            "false_beliefs": [],
+            "location_links": [
+                "guest_rooms",
+                "yard",
+                "tavern_storage"
+            ],
+            "external_links": [
+                "doctor_ship"
+            ]
+        },
+        {
+            "id": "daughter",
+            "name": null,
+            "role": "Дочь владельца таверны",
+            "status": "main_npc",
+            "can_be_murder_victim": true,
+            "small_secret": {
+                "description": "Лесбиянка; тайком подсматривает за женщинами во время мытья.",
+                "known_by": []
+            },
+            "big_secret": {
+                "description": "Верховная жрица небольшого культа тёмных богов. Святилище находится в тайной комнате в подвале таверны.",
+                "known_by": []
+            },
+            "relationships": {
+                "love": [
+                    {
+                        "target": "tavern_owner",
+                        "type": "дочь / отец"
+                    },
+                    {
+                        "target": "doctor",
+                        "type": "любовь / сексуальная связь"
+                    }
+                ],
+                "hatred": [
+                    {
+                        "target": "maniac",
+                        "type": "смертельная религиозная вражда"
+                    }
+                ],
+                "money": [
+                    {
+                        "target": "tavern_owner",
+                        "type": "работает в таверне"
+                    }
+                ],
+                "religion": [
+                    {
+                        "target": "doctor",
+                        "type": "верховная жрица / последователь"
+                    },
+                    {
+                        "target": "maniac",
+                        "type": "культист / охотник на культистов"
+                    }
+                ],
+                "justice": [
+                    {
+                        "target": "detective",
+                        "type": "может раскрыть культ"
+                    },
+                    {
+                        "target": "maniac",
+                        "type": "может убить за принадлежность к культу"
+                    }
+                ]
+            },
+            "knowledge": [],
+            "false_beliefs": [],
+            "location_links": [
+                "guest_rooms",
+                "basement",
+                "cult_lair",
+                "tavern_hall"
+            ]
+        },
+        {
+            "id": "doctor",
+            "name": null,
+            "role": "Врач",
+            "status": "main_npc",
+            "can_be_murder_victim": true,
+            "small_secret": {
+                "description": "Состоит в тайном культе Дочери.",
+                "known_by": []
+            },
+            "big_secret": {
+                "description": "Влюблён в Дочь. Владелец таверны выступает против их отношений.",
+                "known_by": []
+            },
+            "relationships": {
+                "love": [
+                    {
+                        "target": "daughter",
+                        "type": "любовь / сексуальная связь"
+                    }
+                ],
+                "hatred": [
+                    {
+                        "target": "tavern_owner",
+                        "type": "вражда из-за отношений с Дочерью"
+                    }
+                ],
+                "money": [
+                    {
+                        "target": "sailor",
+                        "type": "бывший член экипажа / кража судовой казны"
+                    }
+                ],
+                "religion": [
+                    {
+                        "target": "daughter",
+                        "type": "верховная жрица / последователь"
+                    },
+                    {
+                        "target": "maniac",
+                        "type": "потенциальный религиозный враг"
+                    }
+                ],
+                "justice": [
+                    {
+                        "target": "detective",
+                        "type": "может раскрыть культ и другие преступления"
+                    },
+                    {
+                        "target": "sailor",
+                        "type": "имеет претензии из-за дезертирства и кражи"
+                    },
+                    {
+                        "target": "maniac",
+                        "type": "может стать целью охоты на культистов"
+                    }
+                ]
+            },
+            "knowledge": [],
+            "false_beliefs": [],
+            "location_links": [
+                "guest_rooms",
+                "tavern_hall"
+            ],
+            "external_links": [
+                "doctor_ship"
+            ]
+        },
+        {
+            "id": "detective",
+            "name": null,
+            "role": "Детектив",
+            "status": "main_npc",
+            "can_be_murder_victim": true,
+            "small_secret": {
+                "description": "Его нанял Шериф для расследования серии смертей в городе.",
+                "known_by": []
+            },
+            "big_secret": {
+                "description": "Предыдущей ночью совершил убийство, но из-за сильного опьянения не помнит произошедшее.",
+                "target": null,
+                "known_by": []
+            },
+            "investigation": {
+                "employer": "sheriff",
+                "case": "серия смертей в городе",
+                "actual_cause_of_previous_deaths": "Маньяк",
+                "reason_previous_deaths_are_connected_to_maniac": "жертвами были члены культа",
+                "reason_investigation_reached_tavern": null
+            },
+            "relationships": {
+                "love": [],
+                "hatred": [],
+                "money": [
+                    {
+                        "target": "sheriff",
+                        "type": "наниматель"
+                    }
+                ],
+                "religion": [],
+                "justice": [
+                    {
+                        "target": "all",
+                        "type": "расследует преступления"
+                    },
+                    {
+                        "target": "maniac",
+                        "type": "расследует серию убийств"
+                    }
+                ]
+            },
+            "knowledge": [],
+            "false_beliefs": [],
+            "location_links": [
+                "guest_rooms",
+                "tavern_hall",
+                "yard"
+            ],
+            "external_links": [
+                "sheriff_office",
+                "town",
+                "previous_crime_scenes"
+            ]
+        },
+        {
+            "id": "maniac",
+            "name": null,
+            "role": "Маньяк",
+            "status": "main_npc",
+            "can_be_murder_victim": true,
+            "small_secret": {
+                "description": "Серийный убийца. Убивает людей, которых считает плохими, и получает от убийств удовольствие.",
+                "known_by": []
+            },
+            "big_secret": {
+                "description": "Паладин доброго/светлого ордена, охотящегося на поклоняющихся демонам и тёмным богам.",
+                "known_by": []
+            },
+            "relationships": {
+                "love": [],
+                "hatred": [
+                    {
+                        "target": "daughter",
+                        "type": "смертельная религиозная вражда"
+                    }
+                ],
+                "money": [
+                    {
+                        "target": "detective",
+                        "type": "нанимал детектива"
+                    }
+                ],
+                "religion": [
+                    {
+                        "target": "daughter",
+                        "type": "охотник на культистов"
+                    },
+                    {
+                        "target": "doctor",
+                        "type": "потенциальный враг как член культа"
+                    }
+                ],
+                "justice": [
+                    {
+                        "target": "cult_members",
+                        "type": "самосуд"
+                    },
+                    {
+                        "target": "detective",
+                        "type": "противопоставление личного и официального правосудия"
+                    }
+                ]
+            },
+            "current_murder": {
+                "is_killer": false,
+                "status": "невиновен в убийстве, расследуемом в таверне"
+            },
+            "knowledge": [],
+            "false_beliefs": [],
+            "location_links": [
+                "attic",
+                "yard",
+                "tavern_hall"
+            ],
+            "external_links": [
+                "town",
+                "previous_crime_scenes"
+            ]
+        },
+        {
+            "id": "sheriff",
+            "name": null,
+            "role": "Шериф",
+            "status": "context_npc",
+            "can_be_murder_victim": false,
+            "small_secret": null,
+            "big_secret": null,
+            "relationships": {
+                "love": [],
+                "hatred": [],
+                "money": [
+                    {
+                        "target": "detective",
+                        "type": "наниматель"
+                    }
+                ],
+                "religion": [],
+                "justice": [
+                    {
+                        "target": "detective",
+                        "type": "заказчик расследования"
+                    }
+                ]
+            },
+            "knowledge": [],
+            "false_beliefs": [],
+            "location_links": [
+                "sheriff_office"
+            ]
+        },
+        {
+            "id": "ship_captain",
+            "name": null,
+            "role": "Капитан корабля",
+            "status": "context_npc",
+            "can_be_murder_victim": false,
+            "small_secret": null,
+            "big_secret": null,
+            "relationships": {
+                "love": [],
+                "hatred": [],
+                "money": [],
+                "religion": [],
+                "justice": [
+                    {
+                        "target": "sailor",
+                        "type": "дезертирство и кража судовой казны"
+                    }
+                ]
+            },
+            "knowledge": [],
+            "false_beliefs": [],
+            "location_links": [
+                "doctor_ship"
+            ]
+        }
+    ]
+}

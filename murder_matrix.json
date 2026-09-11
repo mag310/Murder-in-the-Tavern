@@ -1,0 +1,379 @@
+{
+    "matrices": [
+        {
+            "victim": "tavern_owner",
+            "possible_killers": [
+                "sailor",
+                "doctor",
+                "maniac",
+                "detective"
+            ],
+            "death_causes": [
+                {
+                    "type": "murder",
+                    "motivation": "hatred",
+                    "related_characters": [
+                        "sailor"
+                    ],
+                    "probability": "high"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "love",
+                    "related_characters": [
+                        "doctor"
+                    ],
+                    "probability": "medium"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "religion",
+                    "related_characters": [
+                        "maniac"
+                    ],
+                    "probability": "low"
+                },
+                {
+                    "type": "accident",
+                    "motivation": "accident",
+                    "related_characters": [],
+                    "probability": "medium"
+                }
+            ],
+            "required_facts": [
+                "Кто убил Владельца",
+                "Мотив убийства",
+                "Причина смерти"
+            ],
+            "required_evidence": [
+                "evidence_001",
+                "evidence_002"
+            ],
+            "false_leads": [
+                "Владелец — контрабандист, может выглядеть как убийца",
+                "Матрос — деловой партнёр Владельца, может выглядеть как подозреваемый"
+            ],
+            "special_consequences": [
+                "Дочь теряет отца",
+                "Тайна Владельца (жена, убита Матросом) может быть раскрыта",
+                "Контрабанда Владельца может быть раскрыта"
+            ]
+        },
+        {
+            "victim": "sailor",
+            "possible_killers": [
+                "tavern_owner",
+                "doctor",
+                "maniac",
+                "detective"
+            ],
+            "death_causes": [
+                {
+                    "type": "murder",
+                    "motivation": "hatred",
+                    "related_characters": [
+                        "tavern_owner"
+                    ],
+                    "probability": "high"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "money",
+                    "related_characters": [
+                        "doctor"
+                    ],
+                    "probability": "medium"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "religion",
+                    "related_characters": [
+                        "maniac"
+                    ],
+                    "probability": "low"
+                },
+                {
+                    "type": "accident",
+                    "motivation": "accident",
+                    "related_characters": [],
+                    "probability": "medium"
+                }
+            ],
+            "required_facts": [
+                "Кто убил Матроса",
+                "Мотив убийства",
+                "Причина смерти"
+            ],
+            "required_evidence": [
+                "evidence_002",
+                "evidence_006"
+            ],
+            "false_leads": [
+                "Матрос — контрабандист, может выглядеть как убийца",
+                "Матрос — дезертир, может выглядеть как подозреваемый"
+            ],
+            "special_consequences": [
+                "Владелец теряет делового партнёра",
+                "Тайна Матроса (дезертирство, кража казны) может быть раскрыта",
+                "Врач теряет врага"
+            ]
+        },
+        {
+            "victim": "daughter",
+            "possible_killers": [
+                "tavern_owner",
+                "sailor",
+                "doctor",
+                "maniac",
+                "detective"
+            ],
+            "death_causes": [
+                {
+                    "type": "murder",
+                    "motivation": "religion",
+                    "related_characters": [
+                        "maniac"
+                    ],
+                    "probability": "high"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "hatred",
+                    "related_characters": [
+                        "tavern_owner"
+                    ],
+                    "probability": "medium"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "love",
+                    "related_characters": [
+                        "doctor"
+                    ],
+                    "probability": "low"
+                },
+                {
+                    "type": "accident",
+                    "motivation": "accident",
+                    "related_characters": [],
+                    "probability": "medium"
+                },
+                {
+                    "type": "disease",
+                    "motivation": "disease",
+                    "related_characters": [],
+                    "probability": "low"
+                }
+            ],
+            "required_facts": [
+                "Кто убил Дочь",
+                "Мотив убийства",
+                "Причина смерти"
+            ],
+            "required_evidence": [
+                "evidence_003",
+                "evidence_004"
+            ],
+            "false_leads": [
+                "Дочь — культист, может выглядеть как убийца",
+                "Дочь — любовница Врача, может выглядеть как подозреваемая"
+            ],
+            "special_consequences": [
+                "Владелец теряет дочь",
+                "Врач теряет любовницу",
+                "Маньяк теряет цель",
+                "Культ может быть раскрыт"
+            ]
+        },
+        {
+            "victim": "doctor",
+            "possible_killers": [
+                "tavern_owner",
+                "sailor",
+                "daughter",
+                "maniac",
+                "detective"
+            ],
+            "death_causes": [
+                {
+                    "type": "murder",
+                    "motivation": "hatred",
+                    "related_characters": [
+                        "tavern_owner"
+                    ],
+                    "probability": "high"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "money",
+                    "related_characters": [
+                        "sailor"
+                    ],
+                    "probability": "medium"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "religion",
+                    "related_characters": [
+                        "maniac"
+                    ],
+                    "probability": "low"
+                },
+                {
+                    "type": "accident",
+                    "motivation": "accident",
+                    "related_characters": [],
+                    "probability": "medium"
+                },
+                {
+                    "type": "disease",
+                    "motivation": "disease",
+                    "related_characters": [],
+                    "probability": "low"
+                }
+            ],
+            "required_facts": [
+                "Кто убил Врача",
+                "Мотив убийства",
+                "Причина смерти"
+            ],
+            "required_evidence": [
+                "evidence_003",
+                "evidence_006"
+            ],
+            "false_leads": [
+                "Врач — культист, может выглядеть как убийца",
+                "Врач — любовник Дочери, может выглядеть как подозреваемый"
+            ],
+            "special_consequences": [
+                "Дочь теряет любовника",
+                "Матрос теряет врага",
+                "Культ теряет члена"
+            ]
+        },
+        {
+            "victim": "detective",
+            "possible_killers": [
+                "tavern_owner",
+                "sailor",
+                "daughter",
+                "doctor",
+                "maniac"
+            ],
+            "death_causes": [
+                {
+                    "type": "murder",
+                    "motivation": "justice",
+                    "related_characters": [
+                        "maniac"
+                    ],
+                    "probability": "high"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "money",
+                    "related_characters": [
+                        "tavern_owner"
+                    ],
+                    "probability": "medium"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "religion",
+                    "related_characters": [
+                        "daughter"
+                    ],
+                    "probability": "low"
+                },
+                {
+                    "type": "accident",
+                    "motivation": "accident",
+                    "related_characters": [],
+                    "probability": "medium"
+                },
+                {
+                    "type": "disease",
+                    "motivation": "disease",
+                    "related_characters": [],
+                    "probability": "low"
+                }
+            ],
+            "required_facts": [
+                "Кто убил Детектива",
+                "Мотив убийства",
+                "Причина смерти"
+            ],
+            "required_evidence": [
+                "evidence_005",
+                "evidence_004"
+            ],
+            "false_leads": [
+                "Детектив — расследователь, может выглядеть как убийца",
+                "Детектив был пьян, может выглядеть как подозреваемый"
+            ],
+            "special_consequences": [
+                "Расследование прекращается",
+                "Маньяк может быть невиновен в текущем убийстве",
+                "Детектив может быть убийцей (см. event_014)"
+            ]
+        },
+        {
+            "victim": "maniac",
+            "possible_killers": [
+                "tavern_owner",
+                "sailor",
+                "daughter",
+                "doctor",
+                "detective"
+            ],
+            "death_causes": [
+                {
+                    "type": "murder",
+                    "motivation": "religion",
+                    "related_characters": [
+                        "daughter"
+                    ],
+                    "probability": "high"
+                },
+                {
+                    "type": "murder",
+                    "motivation": "justice",
+                    "related_characters": [
+                        "detective"
+                    ],
+                    "probability": "medium"
+                },
+                {
+                    "type": "accident",
+                    "motivation": "accident",
+                    "related_characters": [],
+                    "probability": "medium"
+                },
+                {
+                    "type": "disease",
+                    "motivation": "disease",
+                    "related_characters": [],
+                    "probability": "low"
+                }
+            ],
+            "required_facts": [
+                "Кто убил Маньяка",
+                "Мотив убийства",
+                "Причина смерти"
+            ],
+            "required_evidence": [
+                "evidence_004",
+                "evidence_003"
+            ],
+            "false_leads": [
+                "Маньяк — серийный убийца, может выглядеть как убийца",
+                "Маньяк — паладин, может выглядеть как защитник"
+            ],
+            "special_consequences": [
+                "Культисты теряют угрозу",
+                "Серия убийств в городе может быть раскрыта",
+                "Маньяк был невиновен в текущем убийстве"
+            ]
+        }
+    ]
+}
