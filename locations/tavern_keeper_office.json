@@ -1,0 +1,22 @@
+{
+  "id": "tavern_keeper_office",
+  "name": "Кабинет владельца",
+  "type": "gameplay",
+  "parent_location": "tavern",
+  "description": "Личное помещение Владельца таверны.",
+  "characters": [
+    "tavern_keeper"
+  ],
+  "important_events": [],
+  "clues": [],
+  "secrets": [
+    "контрабанда"
+  ],
+  "mechanical_features": [
+    "тайники",
+    "документы",
+    "счета",
+    "переписка",
+    "запрещённые товары"
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "id": "sailor",
+  "name": null,
+  "role": "Матрос",
+  "status": "main_npc",
+  "can_be_murder_victim": true,
+  "small_secret": {
+    "description": "Контрабандист. Привозит запрещённые товары Трактирщику.",
+    "known_by": [
+      "tavern_keeper"
+    ]
+  },
+  "big_secret": {
+    "description": "Дезертирал с корабля Капитана корабля, украв судовую казну.",
+    "known_by": [
+      "ship_captain"
+    ]
+  },
+  "relationships": {
+    "love": [],
+    "hatred": [
+      {
+        "target": "tavern_keeper",
+        "type": "скрытая вражда",
+        "status": "needs_definition"
+      }
+    ],
+    "money": [
+      {
+        "target": "tavern_keeper",
+        "type": "деловой партнёр по контрабанде"
+      }
+    ],
+    "religion": [],
+    "justice": [
+      {
+        "target": "detective",
+        "type": "может раскрыть дезертирство и кражу"
+      }
+    ]
+  },
+  "knowledge": [
+    {
+      "level": "knows_exactly",
+      "fact": "Он дезертировал с корабля",
+      "target": null,
+      "reason": "Матрос знает о своём дезертирстве",
+      "source": "big_secret"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Он украл судовую казну",
+      "target": null,
+      "reason": "Матрос знает о краже",
+      "source": "big_secret"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Он служил на корабле вместе с Врачом и Капитаном корабля",
+      "target": null,
+      "reason": "Матрос служил на корабле вместе с ними",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Он изнасиловал и убил жену Трактирщика (dead_wife)",
+      "target": "dead_wife",
+      "reason": "Матрос сам совершил убийство жены Трактирщика",
+      "source": "big_secret"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Он привозит Трактирщику запрещённые товары",
+      "target": "tavern_keeper",
+      "reason": "Матрос — деловой партнёр Трактирщика",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_only",
+      "fact": "Трактирщик как-то связан с его прошлым (контрабанда)",
+      "target": "tavern_keeper",
+      "reason": "Матрос знает, что Трактирщик его партнёр по контрабанде",
+      "source": "relationship"
+    },
+    {
+      "level": "suspects",
+      "fact": "Врач мог прийти в таверну по его душу (за дезертирство и кражу)",
+      "target": "doctor",
+      "reason": "Матрос подозревает, что Врач узнал о его прошлом и может его выдать",
+      "source": "observation"
+    },
+    {
+      "level": "suspects",
+      "fact": "Врач может знать о его дезертирстве и краже",
+      "target": "doctor",
+      "reason": "Матрос не уверен, знал ли Врач о его прошлом, но подозревает, что мог узнать",
+      "source": "observation"
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Ничего не знает о культе в таверне",
+      "target": null,
+      "reason": "Матрос не знает о культе",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Ничего не знает о серийных убийствах в городе",
+      "target": null,
+      "reason": "Матрос не знает о серии убийств",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Ничего не знает о Детективе",
+      "target": "detective",
+      "reason": "Матрос не знает о Детективе",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о любовной связи Официантки и Врача",
+      "target": "waitress",
+      "reason": "Матрос не знает о любовной связи Официантки и Врача",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает, что Трактирщик знает о его прошлом (убийстве жены Трактирщика)",
+      "target": "tavern_keeper",
+      "reason": "Матрос не знает, что Трактирщик знает о его прошлом",
+      "source": null
+    }
+  ],
+  "false_beliefs": [
+    {
+      "belief": "Никто не знает о его дезертирстве и краже",
+      "correctness": "Капитан корабля знает (он был капитаном), возможно, другие тоже",
+      "source": "big_secret",
+      "confidence": "medium"
+    },
+    {
+      "belief": "Трактирщик не знает о его прошлом (кроме контрабанды)",
+      "correctness": "Возможно, Трактирщик знает больше (например, о прошлом Матроса)",
+      "source": "small_secret",
+      "confidence": "low"
+    }
+  ],
+  "employment": {
+    "employer": {
+      "previous": "ship_captain",
+      "current": "tavern_keeper"
+    },
+    "role": "раньше — матрос на корабле Капитана (дезертировал, event_002); сейчас — тайный деловой партнёр по контрабанде Трактирщика (см. relations.money)",
+    "note": "Предыдущий наниматель — Капитан корабля. Текущая экономическая связь — с Трактирщиком (контрабанда). Не связано с текущим убийством."
+  },
+  "external_links": [
+    "doctor_ship"
+  ],
+  "daily_schedule": [
+    {
+      "time": "night",
+      "location": "guest_rooms",
+      "activity": "спит в комнате гостя",
+      "note": "скрыто хранит улики/личное"
+    },
+    {
+      "time": "morning",
+      "location": "tavern_yard",
+      "activity": "проходит по двору (следы, грязь, вода)"
+    },
+    {
+      "time": "day",
+      "location": "tavern_storage",
+      "activity": "помогает на складе как 'работник', фактически ведёт контрабанду",
+      "note": "тайный деловой партнёр Трактирщика (event_005)"
+    },
+    {
+      "time": "evening",
+      "location": "tavern_storage",
+      "activity": "привозит запрещённые товары Трактирщику"
+    },
+    {
+      "time": "midnight",
+      "location": "tavern_yard",
+      "activity": "следит за таверной, опасается, что Врач выдал его прошлое",
+      "note": "см. sailor.knowledge: suspects Врач"
+    }
+  ],
+  "organizations": [
+    {
+      "organization": "smugglers",
+      "role": "поставщик запрещённых товаров",
+      "status": "active"
+    },
+    {
+      "organization": "ship_crew",
+      "role": "матрос (дезертир)",
+      "status": "left"
+    }
+  ]
+}

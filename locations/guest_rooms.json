@@ -1,0 +1,23 @@
+{
+  "id": "guest_rooms",
+  "name": "Комнаты гостей",
+  "type": "gameplay",
+  "parent_location": "tavern",
+  "description": "Комнаты постояльцев. Личные вещи персонажей могут содержать улики и ложные следы.",
+  "characters": [
+    "sailor",
+    "doctor",
+    "detective",
+    "maniac",
+    "waitress"
+  ],
+  "important_events": [],
+  "clues": [],
+  "secrets": [],
+  "mechanical_features": [
+    "личные вещи",
+    "документы",
+    "тайники",
+    "следы пребывания"
+  ]
+}

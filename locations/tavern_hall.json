@@ -1,0 +1,24 @@
+{
+  "id": "tavern_hall",
+  "name": "Зал таверны",
+  "type": "gameplay",
+  "parent_location": "tavern",
+  "description": "Главное общее помещение таверны.",
+  "characters": [
+    "tavern_keeper",
+    "waitress",
+    "doctor",
+    "detective",
+    "maniac",
+    "sailor"
+  ],
+  "important_events": [],
+  "clues": [],
+  "secrets": [],
+  "mechanical_features": [
+    "допросы",
+    "наблюдение за реакциями NPC",
+    "публичные конфликты",
+    "случайно услышанные разговоры"
+  ]
+}

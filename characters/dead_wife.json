@@ -1,0 +1,63 @@
+{
+  "id": "dead_wife",
+  "name": null,
+  "role": "Мёртвая жена Трактирщика (мать Официантки)",
+  "status": "context_npc",
+  "can_be_murder_victim": false,
+  "small_secret": null,
+  "big_secret": null,
+  "relationships": {
+    "love": [
+      {
+        "target": "tavern_keeper",
+        "type": "жена / муж"
+      },
+      {
+        "target": "waitress",
+        "type": "мать / дочь"
+      }
+    ],
+    "hatred": [],
+    "money": [],
+    "religion": [],
+    "justice": [
+      {
+        "target": "sailor",
+        "type": "убита Матросом (изнасилована и убита)"
+      }
+    ]
+  },
+  "knowledge": [
+    {
+      "level": "knows_exactly",
+      "fact": "Она была женой Трактирщика",
+      "target": "tavern_keeper",
+      "reason": "Мёртвая жена была женой Трактирщика",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Матрос изнасиловал и убил её",
+      "target": "sailor",
+      "reason": "Матрос убил её",
+      "source": "event_004"
+    },
+    {
+      "level": "knows_only",
+      "fact": "Её дочь — Официантка",
+      "target": "waitress",
+      "reason": "Мёртвая жена — мать Официантки",
+      "source": "relationship"
+    }
+  ],
+  "false_beliefs": [],
+  "death": {
+    "killed_by": "sailor",
+    "cause": "murder",
+    "event": "event_004",
+    "status": "dead"
+  },
+  "daily_schedule": null,
+  "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: town.",
+  "organizations": []
+}

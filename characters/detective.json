@@ -1,0 +1,133 @@
+{
+  "id": "detective",
+  "name": null,
+  "role": "Детектив",
+  "status": "main_npc",
+  "can_be_murder_victim": true,
+  "small_secret": {
+    "description": "Его нанял Шериф для расследования серии смертей в городе.",
+    "known_by": []
+  },
+  "big_secret": {
+    "description": null,
+    "target": null,
+    "known_by": [],
+    "note": "Большая тайна Детектива (убийство по пьянству) удалена вместе с event_014 — вводила в заблуждение. Детектив не имеет подтверждённой большой тайны."
+  },
+  "investigation": {
+    "employer": {
+      "primary": "sheriff",
+      "secondary": "mayor",
+      "alternative": "maniac"
+    },
+    "employer_note": "primary (Шериф) — основной наниматель (канон, event_011). secondary (Мэр) — вспомогательный вариант. alternative (Маньяк) — возможный сценарий, НЕ канон: Маньяк может тайно быть заказчиком (см. maniac.relations.money). Финальный выбор делает автор.",
+    "case": "серия смертей в городе",
+    "actual_cause_of_previous_deaths": "Маньяк",
+    "reason_previous_deaths_are_connected_to_maniac": "жертвами были члены культа",
+    "reason_investigation_reached_tavern": null
+  },
+  "relationships": {
+    "love": [],
+    "hatred": [],
+    "money": [
+      {
+        "target": "sheriff",
+        "type": "наниматель (основной вариант)"
+      },
+      {
+        "target": "mayor",
+        "type": "альтернативный наниматель (вспомогательный вариант)"
+      }
+    ],
+    "religion": [],
+    "justice": [
+      {
+        "target": "all",
+        "type": "расследует преступления"
+      },
+      {
+        "target": "maniac",
+        "type": "расследует серию убийств"
+      }
+    ]
+  },
+  "knowledge": [
+    {
+      "level": "knows_exactly",
+      "fact": "Шериф нанял его для расследования серии смертей",
+      "target": "sheriff",
+      "reason": "Детектив нанимается Шерифом",
+      "source": "investigation"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Его наняли для расследования серии смертей в городе",
+      "target": null,
+      "reason": "Детектив знает о деле",
+      "source": "small_secret"
+    },
+    {
+      "level": "suspects",
+      "fact": "Возможный сценарий: его могли нанять не Шериф, а Маньяк",
+      "target": "maniac",
+      "reason": "Детектив не знает, кто на самом деле заказал расследование; возможно, это Маньяк",
+      "source": "investigation"
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о культе в таверне",
+      "target": null,
+      "reason": "Детектив не знает о культе",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о контрабанде Трактирщика и Матроса",
+      "target": null,
+      "reason": "Детектив не знает о контрабанде",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о Маньяке как серийном убийце (пока не расследует)",
+      "target": "maniac",
+      "reason": "Детектив пока не знает о Маньяке",
+      "source": null
+    }
+  ],
+  "false_beliefs": [],
+  "external_links": [
+    "sheriff_office",
+    "town",
+    "previous_crime_scenes"
+  ],
+  "daily_schedule": [
+    {
+      "time": "night",
+      "location": "guest_rooms",
+      "activity": "спит в комнате гостя (следы пьянства, evidence_005)"
+    },
+    {
+      "time": "morning",
+      "location": "tavern_hall",
+      "activity": "встречается с гостями, расспрашивает"
+    },
+    {
+      "time": "day",
+      "location": "tavern_yard",
+      "activity": "проходит по двору, осматривает следы"
+    },
+    {
+      "time": "evening",
+      "location": "tavern_hall",
+      "activity": "расследует серию смертей, допрашивает"
+    },
+    {
+      "time": "midnight",
+      "location": "guest_rooms",
+      "activity": "записывает наблюдения в записную книжку",
+      "note": "см. event_011/012; наниматель — Шериф"
+    }
+  ],
+  "organizations": []
+}

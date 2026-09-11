@@ -1,0 +1,198 @@
+{
+  "id": "waitress",
+  "name": null,
+  "role": "Официантка",
+  "status": "main_npc",
+  "can_be_murder_victim": true,
+  "small_secret": {
+    "description": "Тайком подсматривает за гостями во время мытья (привычка, не связана с её отношениями).",
+    "known_by": []
+  },
+  "big_secret": {
+    "description": "Верховная жрица небольшого культа тёмных богов. Святилище находится в тайной комнате в подвале таверны.",
+    "known_by": [
+      "doctor"
+    ]
+  },
+  "relationships": {
+    "love": [
+      {
+        "target": "tavern_keeper",
+        "type": "дочь / отец"
+      },
+      {
+        "target": "dead_wife",
+        "type": "дочь / мать (погибшая)"
+      },
+      {
+        "target": "doctor",
+        "type": "любовь / сексуальная связь"
+      }
+    ],
+    "hatred": [
+      {
+        "target": "maniac",
+        "type": "смертельная религиозная вражда"
+      }
+    ],
+    "money": [
+      {
+        "target": "tavern_keeper",
+        "type": "работает в таверне"
+      }
+    ],
+    "religion": [
+      {
+        "target": "doctor",
+        "type": "верховная жрица / последователь"
+      },
+      {
+        "target": "maniac",
+        "type": "культист / охотник на культистов"
+      }
+    ],
+    "justice": [
+      {
+        "target": "detective",
+        "type": "может раскрыть культ"
+      },
+      {
+        "target": "maniac",
+        "type": "может убить за принадлежность к культу"
+      }
+    ]
+  },
+  "knowledge": [
+    {
+      "level": "knows_exactly",
+      "fact": "Она — верховная жрица культа",
+      "target": null,
+      "reason": "Официантка — верховная жрица культа",
+      "source": "big_secret"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Врач — член её культа",
+      "target": "doctor",
+      "reason": "Врач вступил в культ",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Врач — её любовник",
+      "target": "doctor",
+      "reason": "У них романтическая/сексуальная связь",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Трактирщик выступает против их отношений",
+      "target": "tavern_keeper",
+      "reason": "Трактирщик знает об отношениях и выступает против них",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_only",
+      "fact": "dead_wife — её мать, погибла, но Официантка не знает, кто её убил и почему",
+      "target": "dead_wife",
+      "reason": "Официантка — дочь dead_wife, но не знает обстоятельств и убийцу (см. event_004 known_by: tavern_keeper, sailor)",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_only",
+      "fact": "Маньяк охотится на культистов",
+      "target": "maniac",
+      "reason": "Официантка знает, что Маньяк охотится на культистов, но не знает деталей",
+      "source": "relationship"
+    },
+    {
+      "level": "suspects",
+      "fact": "Трактирщик может знать о культе",
+      "target": "tavern_keeper",
+      "reason": "Официантка подозревает, что Трактирщик может знать о культе",
+      "source": "observation"
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Ничего не знает о серийных убийствах в городе",
+      "target": null,
+      "reason": "Официантка не знает о серии убийств",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Ничего не знает о Детективе",
+      "target": "detective",
+      "reason": "Официантка не знает о Детективе",
+      "source": null
+    },
+    {
+      "level": "suspects",
+      "fact": "Подозревает о контрабанде отца (она работает в той же таверне)",
+      "target": "tavern_keeper",
+      "reason": "Официантка подозревает о контрабанде отца, т.к. работает в той же таверне",
+      "source": "observation"
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает, кто убил её мать (dead_wife), и не знает обстоятельств",
+      "target": "dead_wife",
+      "reason": "event_004 known_by: tavern_keeper, sailor; Официантка не в списке знающих",
+      "source": null
+    }
+  ],
+  "false_beliefs": [
+    {
+      "belief": "Трактирщик не знает о культе",
+      "correctness": "Возможно, Трактирщик знает (он подозревает Официантку)",
+      "source": "big_secret",
+      "confidence": "medium"
+    }
+  ],
+  "employment": {
+    "employer": "tavern_keeper",
+    "role": "работник таверны (официантка)",
+    "note": "Официантка работает на Трактирщика (см. tavern_keeper.relations.money). Это не связано с текущим убийством."
+  },
+  "daily_schedule": [
+    {
+      "time": "night",
+      "location": "guest_rooms",
+      "activity": "спит в своей комнате"
+    },
+    {
+      "time": "morning",
+      "location": "cult_lair",
+      "activity": "молится в тайной комнате культа",
+      "note": "см. event_006; тайное святилище"
+    },
+    {
+      "time": "day",
+      "location": "tavern_hall",
+      "activity": "обслуживает посетителей в зале"
+    },
+    {
+      "time": "evening",
+      "location": "tavern_hall",
+      "activity": "обслуживает посетителей в зале"
+    },
+    {
+      "time": "midnight",
+      "location": "cult_lair",
+      "activity": "проводит собрание культа",
+      "note": "тайная смена; см. event_007 (Врач в культе)"
+    }
+  ],
+  "organizations": [
+    {
+      "organization": "tavern",
+      "role": "работник (официантка)",
+      "status": "active"
+    },
+    {
+      "organization": "cult",
+      "role": "верховная жрица",
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "attic",
+  "name": "Чердак",
+  "type": "gameplay",
+  "parent_location": "tavern",
+  "description": "Верхняя часть здания, откуда можно наблюдать за частью территории таверны.",
+  "characters": [
+    "maniac"
+  ],
+  "important_events": [],
+  "clues": [],
+  "secrets": [],
+  "mechanical_features": [
+    "наблюдение",
+    "старые вещи",
+    "тайники",
+    "ограниченные точки обзора"
+  ]
+}

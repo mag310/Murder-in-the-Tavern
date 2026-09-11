@@ -1,0 +1,27 @@
+{
+  "id": "ship_crew",
+  "name": "Экипаж корабля",
+  "type": "crew",
+  "description": "Экипаж корабля Капитана, на котором служили Матрос и Врач. Матрос дезертировал, украв казну.",
+  "members": [
+    {
+      "character": "ship_captain",
+      "role": "капитан",
+      "status": "active"
+    },
+    {
+      "character": "sailor",
+      "role": "матрос (дезертир)",
+      "status": "left"
+    },
+    {
+      "character": "doctor",
+      "role": "бывший член экипажа (сослуживец)",
+      "status": "active"
+    }
+  ],
+  "leader": "ship_captain",
+  "location": "doctor_ship",
+  "secret": "Дезертирство и кража казны скрыты от большинства (известно ship_captain, sailor).",
+  "conflicts_with": []
+}

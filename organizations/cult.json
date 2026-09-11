@@ -1,0 +1,24 @@
+{
+  "id": "cult",
+  "name": "Культ тёмных богов",
+  "type": "cult",
+  "description": "Тайный культ тёмных богов. Верховная жрица — Официантка. Святилище в подвале таверны (cult_lair).",
+  "members": [
+    {
+      "character": "waitress",
+      "role": "верховная жрица",
+      "status": "active"
+    },
+    {
+      "character": "doctor",
+      "role": "последователь",
+      "status": "active"
+    }
+  ],
+  "leader": "waitress",
+  "location": "cult_lair",
+  "secret": "Существование культа скрыто; культисты не знают, что Маньяк охотится на них.",
+  "conflicts_with": [
+    "paladin_order"
+  ]
+}

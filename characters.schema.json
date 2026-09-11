@@ -1,143 +1,110 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "characters.schema.json",
-    "title": "Characters",
+    "title": "Character",
+    "description": "Один персонаж сценария. По одному файлу на персонаж в каталоге characters/.",
     "type": "object",
     "required": [
-        "project",
-        "characters"
+        "id",
+        "name",
+        "role",
+        "status",
+        "can_be_murder_victim",
+        "small_secret",
+        "big_secret",
+        "relationships",
+        "knowledge",
+        "false_beliefs",
+        "daily_schedule"
     ],
     "properties": {
-        "project": {
-            "type": "object",
-            "required": [
-                "title",
-                "type",
-                "setting"
-            ],
-            "properties": {
-                "title": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "setting": {
-                    "type": "object",
-                    "required": [
-                        "location",
-                        "situation"
-                    ],
-                    "properties": {
-                        "location": {
-                            "type": "string"
-                        },
-                        "situation": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false
-                }
-            },
-            "additionalProperties": false
+        "id": {
+            "type": "string"
         },
-        "characters": {
+        "name": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "role": {
+            "type": "string"
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "main_npc",
+                "context_npc"
+            ]
+        },
+        "can_be_murder_victim": {
+            "type": "boolean",
+            "description": "Может ли персонаж быть жертвой текущего убийства. true — для персонажей в таверне, false — для контекстных персонажей вне таверны"
+        },
+        "small_secret": {
+            "$ref": "#/$defs/secret"
+        },
+        "big_secret": {
+            "$ref": "#/$defs/secret"
+        },
+        "relationships": {
+            "$ref": "#/$defs/relationships"
+        },
+        "knowledge": {
+            "type": "array",
+            "description": "Уровни знаний персонажа о фактах сценария",
+            "items": {
+                "$ref": "#/$defs/knowledgeItem"
+            }
+        },
+        "false_beliefs": {
+            "type": "array",
+            "description": "Ложные убеждения персонажа (то, во что он верит, но что неверно)",
+            "items": {
+                "$ref": "#/$defs/falseBelief"
+            }
+        },
+        "daily_schedule": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Расписание дня: в какую часть суток в каком помещении обычно находится персонаж и что делает. Заменяет плоский location_links.",
+            "items": {
+                "$ref": "#/$defs/scheduleSlot"
+            }
+        },
+        "organizations": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Организации/группировки, к которым относится персонаж. Ссылки на organizations/.",
+            "items": {
+                "$ref": "#/$defs/organizationMembership"
+            }
+        },
+        "external_links": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/character"
+                "type": "string"
             }
+        },
+        "investigation": {
+            "$ref": "#/$defs/investigation"
+        },
+        "employment": {
+            "$ref": "#/$defs/employment"
+        },
+        "current_murder": {
+            "$ref": "#/$defs/currentMurder"
+        },
+        "death": {
+            "$ref": "#/$defs/death"
         }
     },
+    "additionalProperties": true,
     "$defs": {
-        "character": {
-            "type": "object",
-            "required": [
-                "id",
-                "name",
-                "role",
-                "status",
-                "can_be_murder_victim",
-                "small_secret",
-                "big_secret",
-                "relationships",
-                "knowledge",
-                "false_beliefs",
-                "location_links"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "role": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string",
-                    "enum": [
-                        "main_npc",
-                        "context_npc"
-                    ]
-                },
-                "can_be_murder_victim": {
-                    "type": "boolean",
-                    "description": "Может ли персонаж быть жертвой текущего убийства. true — для персонажей в таверне, false — для контекстных персонажей вне таверны"
-                },
-                "small_secret": {
-                    "$ref": "#/$defs/secret"
-                },
-                "big_secret": {
-                    "$ref": "#/$defs/secret"
-                },
-                "relationships": {
-                    "$ref": "#/$defs/relationships"
-                },
-                "knowledge": {
-                    "type": "array",
-                    "description": "Уровни знаний персонажа о фактах сценария",
-                    "items": {
-                        "$ref": "#/$defs/knowledgeItem"
-                    }
-                },
-                "false_beliefs": {
-                    "type": "array",
-                    "description": "Ложные убеждения персонажа (то, во что он верит, но что неверно)",
-                    "items": {
-                        "$ref": "#/$defs/falseBelief"
-                    }
-                },
-                "location_links": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "external_links": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "investigation": {
-                    "$ref": "#/$defs/investigation"
-                },
-                "employment": {
-                    "$ref": "#/$defs/employment"
-                },
-                "current_murder": {
-                    "$ref": "#/$defs/currentMurder"
-                },
-                "death": {
-                    "$ref": "#/$defs/death"
-                }
-            },
-            "additionalProperties": true
-        },
         "death": {
             "type": "object",
             "required": [
@@ -318,6 +285,81 @@
                         "null"
                     ],
                     "description": "Роль/должность (напр. 'работник таверны', 'деловой партнёр')."
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "scheduleSlot": {
+            "type": "object",
+            "required": [
+                "time",
+                "location"
+            ],
+            "properties": {
+                "time": {
+                    "type": "string",
+                    "enum": [
+                        "night",
+                        "morning",
+                        "day",
+                        "evening",
+                        "midnight"
+                    ],
+                    "description": "Часть суток: night (Ночь), morning (Утро), day (День), evening (Вечер), midnight (Полночь)."
+                },
+                "location": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "ID локации из locations/, в которой обычно находится персонаж в это время суток."
+                },
+                "activity": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Что персонаж делает в это время (напр. 'обслуживает посетителей', 'молится', 'спит')."
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Дополнительное пояснение (например, 'тайная смена', 'возможный сценарий')."
+                }
+            },
+            "additionalProperties": true
+        },
+        "organizationMembership": {
+            "type": "object",
+            "required": [
+                "organization"
+            ],
+            "properties": {
+                "organization": {
+                    "type": "string",
+                    "description": "ID организации (из organizations/)."
+                },
+                "role": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Роль в организации (напр. 'ведущий', 'партнёр', 'последователь')."
+                },
+                "status": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Стatus членства: active / dead / left, или null."
                 },
                 "note": {
                     "type": [

@@ -1,0 +1,22 @@
+{
+  "id": "tavern_yard",
+  "name": "Двор",
+  "type": "gameplay",
+  "parent_location": "tavern",
+  "description": "Внешняя территория таверны, частично окружённая водой из-за наводнения.",
+  "characters": [
+    "tavern_keeper",
+    "sailor",
+    "detective",
+    "maniac"
+  ],
+  "important_events": [],
+  "clues": [],
+  "secrets": [],
+  "mechanical_features": [
+    "следы",
+    "грязь",
+    "вода",
+    "ограниченные пути перемещения"
+  ]
+}

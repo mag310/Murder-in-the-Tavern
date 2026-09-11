@@ -1,0 +1,73 @@
+{
+  "id": "sheriff",
+  "name": null,
+  "role": "Шериф",
+  "status": "context_npc",
+  "can_be_murder_victim": false,
+  "small_secret": null,
+  "big_secret": null,
+  "relationships": {
+    "love": [],
+    "hatred": [],
+    "money": [
+      {
+        "target": "detective",
+        "type": "наниматель"
+      }
+    ],
+    "religion": [],
+    "justice": [
+      {
+        "target": "detective",
+        "type": "заказчик расследования"
+      }
+    ]
+  },
+  "knowledge": [
+    {
+      "level": "knows_exactly",
+      "fact": "Он нанимает Детектива для расследования серии смертей",
+      "target": "detective",
+      "reason": "Шериф нанимает Детектива",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "В городе происходит серия смертей",
+      "target": null,
+      "reason": "Шериф знает о серии смертей",
+      "source": "relationship"
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о культе в таверне",
+      "target": null,
+      "reason": "Шериф не знает о культе",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о контрабанде Трактирщика и Матроса",
+      "target": null,
+      "reason": "Шериф не знает о контрабанде",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о Маньяке как серийном убийце (пока не расследует)",
+      "target": "maniac",
+      "reason": "Шериф не знает о Маньяке",
+      "source": null
+    }
+  ],
+  "false_beliefs": [],
+  "daily_schedule": null,
+  "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: sheriff_office.",
+  "organizations": [
+    {
+      "organization": "city_authority",
+      "role": "шериф (основной наниматель Детектива)",
+      "status": "active"
+    }
+  ]
+}

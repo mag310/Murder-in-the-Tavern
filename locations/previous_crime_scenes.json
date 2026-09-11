@@ -1,0 +1,16 @@
+{
+  "id": "previous_crime_scenes",
+  "name": "Места предыдущих смертей",
+  "type": "context",
+  "parent_location": "town",
+  "description": "Места, где были обнаружены тела членов культа.",
+  "characters": [
+    "detective",
+    "maniac"
+  ],
+  "important_events": [
+    "убийства членов культа Маньяком"
+  ],
+  "clues": [],
+  "secrets": []
+}

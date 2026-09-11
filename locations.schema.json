@@ -1,107 +1,83 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "locations.schema.json",
-    "title": "Locations",
+    "title": "Location",
+    "description": "Одна локация сценария. По одному файлу на локацию в каталоге locations/.",
     "type": "object",
     "required": [
-        "locations",
-        "location_assignments"
+        "id",
+        "name",
+        "type",
+        "description",
+        "characters",
+        "important_events",
+        "clues",
+        "secrets"
     ],
     "properties": {
-        "locations": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "type": {
+            "type": "string",
+            "enum": [
+                "context",
+                "gameplay"
+            ]
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "optional",
+                "needs_definition"
+            ]
+        },
+        "parent_location": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "description": {
+            "type": "string"
+        },
+        "characters": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/location"
+                "type": "string"
             }
         },
-        "location_assignments": {
-            "type": "object",
-            "additionalProperties": {
-                "type": "array",
-                "items": {
-                    "type": "string"
-                }
+        "important_events": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "clues": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "secrets": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "mechanical_features": {
+            "type": "array",
+            "items": {
+                "type": "string"
             }
         }
     },
-    "$defs": {
-        "location": {
-            "type": "object",
-            "required": [
-                "id",
-                "name",
-                "type",
-                "description",
-                "characters",
-                "important_events",
-                "clues",
-                "secrets"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "type": {
-                    "type": "string",
-                    "enum": [
-                        "context",
-                        "gameplay"
-                    ]
-                },
-                "status": {
-                    "type": "string",
-                    "enum": [
-                        "optional",
-                        "needs_definition"
-                    ]
-                },
-                "parent_location": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "description": {
-                    "type": "string"
-                },
-                "characters": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "important_events": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "clues": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "secrets": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "mechanical_features": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            },
-            "additionalProperties": true
-        }
-    }
+    "additionalProperties": true,
+    "$defs": {}
 }

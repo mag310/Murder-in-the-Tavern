@@ -1,0 +1,21 @@
+{
+  "id": "basement",
+  "name": "Подвал",
+  "type": "gameplay",
+  "parent_location": "tavern",
+  "description": "Подземная часть таверны. Здесь находятся хозяйственные помещения и доступ к тайной части здания.",
+  "characters": [
+    "tavern_keeper",
+    "waitress"
+  ],
+  "important_events": [],
+  "clues": [],
+  "secrets": [
+    "тайный вход в логово культа"
+  ],
+  "mechanical_features": [
+    "тайные двери",
+    "склады",
+    "скрытые помещения"
+  ]
+}

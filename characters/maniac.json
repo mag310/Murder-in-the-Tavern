@@ -1,0 +1,176 @@
+{
+  "id": "maniac",
+  "name": null,
+  "role": "Маньяк",
+  "status": "main_npc",
+  "can_be_murder_victim": true,
+  "small_secret": {
+    "description": "Серийный убийца. Убивает людей, которых считает плохими, и получает от убийств удовольствие.",
+    "known_by": []
+  },
+  "big_secret": {
+    "description": "Паладин доброго/светлого ордена, охотящегося на поклоняющихся демонам и тёмным богам.",
+    "known_by": []
+  },
+  "relationships": {
+    "love": [],
+    "hatred": [
+      {
+        "target": "waitress",
+        "type": "смертельная религиозная вражда"
+      }
+    ],
+    "money": [
+      {
+        "target": "detective",
+        "type": "тайный заказ (возможный сценарий, НЕ канон): Маньяк может быть тем, кто тайно нанял Детектива (alternative в detective.investigation.employer), а не Шериф/Мэр. В каноне наниматель — Шериф (event_011).",
+        "scenario": "possible_scenario",
+        "scenario_note": "Это возможный сценарий, не канон. Если автор выберет этот сценарий, маньяк тайно направляет расследование, не раскрывая себя как заказчик (связано с detective.investigation.employer.alternative)."
+      }
+    ],
+    "religion": [
+      {
+        "target": "waitress",
+        "type": "охотник на культистов"
+      },
+      {
+        "target": "doctor",
+        "type": "потенциальный враг как член культа"
+      }
+    ],
+    "justice": [
+      {
+        "target": "cult_members",
+        "type": "самосуд"
+      },
+      {
+        "target": "detective",
+        "type": "противопоставление личного и официального правосудия"
+      }
+    ]
+  },
+  "current_murder": {
+    "is_killer": false,
+    "status": "невиновен в убийстве, расследуемом в таверне (по умолчанию/канон)",
+    "note": "is_killer:false — это дефолтное состояние (Маньяк не убийца текущего дела). В murder_matrix.json Маньяк может быть указан как possible_killer в отдельных сценариях — это не противоречие: матрица описывает возможные подозреваемые, а не истинного убийцу. Если автор выберет сценарий, где Маньяк убийца, is_killer следует сменить на true, а murder_matrix — соответствующим образом уточнить."
+  },
+  "knowledge": [
+    {
+      "level": "knows_exactly",
+      "fact": "Он — серийный убийца",
+      "target": null,
+      "reason": "Маньяк знает о своих убийствах",
+      "source": "small_secret"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Он — паладин светлого ордена",
+      "target": null,
+      "reason": "Маньяк знает о своей роли",
+      "source": "big_secret"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Он охотится на культистов",
+      "target": null,
+      "reason": "Маньяк охотится на культистов",
+      "source": "relationship"
+    },
+    {
+      "level": "suspects",
+      "fact": "Официантка может быть связана с культом",
+      "target": "waitress",
+      "reason": "Маньяк подозревает, что Официантка связана с культом, но не уверен",
+      "source": "relationship"
+    },
+    {
+      "level": "suspects",
+      "fact": "Врач может быть связан с культом",
+      "target": "doctor",
+      "reason": "Маньяк подозревает, что Врач связан с культом",
+      "source": "relationship"
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о контрабанде Трактирщика и Матроса",
+      "target": null,
+      "reason": "Маньяк не знает о контрабанде",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о дезертирстве Матроса",
+      "target": "sailor",
+      "reason": "Маньяк не знает о дезертирстве Матроса",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о Детективе (пока не расследует)",
+      "target": "detective",
+      "reason": "Маньяк не знает о Детективе",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Не знает о любовной связи Официантки и Врача",
+      "target": "waitress",
+      "reason": "Маньяк не знает о любовной связи Официантки и Врача",
+      "source": null
+    }
+  ],
+  "false_beliefs": [
+    {
+      "belief": "Официантка — культистка (на самом деле она — верховная жрица)",
+      "correctness": "Официантка — верховная жрица, а не просто культистка",
+      "source": "relationship",
+      "confidence": "medium"
+    },
+    {
+      "belief": "Врач — культист (на самом деле он — член культа)",
+      "correctness": "Врач — член культа, а не просто подозреваемый",
+      "source": "relationship",
+      "confidence": "medium"
+    }
+  ],
+  "external_links": [
+    "town",
+    "previous_crime_scenes"
+  ],
+  "daily_schedule": [
+    {
+      "time": "night",
+      "location": "attic",
+      "activity": "присматривает с чердака (наблюдение, тайники)"
+    },
+    {
+      "time": "morning",
+      "location": "tavern_yard",
+      "activity": "проходит по двору, ищет 'плохих' людей"
+    },
+    {
+      "time": "day",
+      "location": "tavern_hall",
+      "activity": "ходит по залу, оценивает гостей"
+    },
+    {
+      "time": "evening",
+      "location": "tavern_hall",
+      "activity": "следит за культистами (Официантка, Врач)"
+    },
+    {
+      "time": "midnight",
+      "location": "attic",
+      "activity": "охотится на культистов (возможный сценарий)",
+      "note": "см. event_009/010; возможный сценарий, НЕ канон"
+    }
+  ],
+  "organizations": [
+    {
+      "organization": "paladin_order",
+      "role": "паладин (охотник на культистов)",
+      "status": "active",
+      "note": "скрытая принадлежность; на самом деле серийный убийца"
+    }
+  ]
+}

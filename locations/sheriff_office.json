@@ -1,0 +1,16 @@
+{
+  "id": "sheriff_office",
+  "name": "Офис Шерифа",
+  "type": "context",
+  "parent_location": "town",
+  "description": "Место, откуда начинается официальное расследование серии смертей.",
+  "characters": [
+    "sheriff",
+    "detective"
+  ],
+  "important_events": [
+    "Шериф нанимает Детектива"
+  ],
+  "clues": [],
+  "secrets": []
+}

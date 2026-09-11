@@ -1,0 +1,181 @@
+{
+  "id": "tavern_keeper",
+  "name": null,
+  "role": "Трактирщик",
+  "status": "main_npc",
+  "can_be_murder_victim": true,
+  "small_secret": {
+    "description": "Занимается контрабандой: продаёт запрещённые напитки и другие запрещённые товары.",
+    "known_by": [
+      "sailor",
+      "waitress"
+    ]
+  },
+  "big_secret": {
+    "description": "Матрос изнасиловал и убил его жену.",
+    "known_by": [
+      "sailor",
+      "tavern_keeper"
+    ]
+  },
+  "relationships": {
+    "love": [
+      {
+        "target": "waitress",
+        "type": "отцовская любовь"
+      },
+      {
+        "target": "dead_wife",
+        "type": "жена (погибшая)"
+      }
+    ],
+    "hatred": [
+      {
+        "target": "sailor",
+        "type": "кровная месть"
+      },
+      {
+        "target": "doctor",
+        "type": "резко против любовной связи Официантки и Врача"
+      }
+    ],
+    "money": [
+      {
+        "target": "sailor",
+        "type": "деловой партнёр по контрабанде"
+      },
+      {
+        "target": "waitress",
+        "type": "работник таверны"
+      }
+    ],
+    "religion": [],
+    "justice": [
+      {
+        "target": "detective",
+        "type": "может расследовать его преступления"
+      }
+    ]
+  },
+  "knowledge": [
+    {
+      "level": "knows_exactly",
+      "fact": "Матрос изнасиловал и убил его жену",
+      "target": "sailor",
+      "reason": "Трактирщик был свидетелем или узнал о произошедшем",
+      "source": "big_secret"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Матрос — его деловой партнёр по контрабанде",
+      "target": "sailor",
+      "reason": "Матрос привозит ему запрещённые товары",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "dead_wife — его покойная жена, мать Официантки",
+      "target": "dead_wife",
+      "reason": "dead_wife была женой Трактирщика; Официантка — их дочь",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_only",
+      "fact": "Официантка как-то связана с культом в его таверне",
+      "target": "waitress",
+      "reason": "Трактирщик подозревает, что Официантка связана с культом, но не знает подробностей",
+      "source": "observation"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Официантка работает у него в таверне",
+      "target": "waitress",
+      "reason": "Официантка — его дочь и работает в таверне",
+      "source": "relationship"
+    },
+    {
+      "level": "suspects",
+      "fact": "Врач может быть связан с культом (через отношения с Официанткой)",
+      "target": "doctor",
+      "reason": "Трактирщик подозревает, что Врач связан с культом через отношения с Официанткой",
+      "source": "observation"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Резко против любовной связи Официантки и Врача",
+      "target": "doctor",
+      "reason": "Трактирщик резко против отношений Официантки и Врача",
+      "source": "relationship"
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Ничего не знает о культистах, кроме Официантки",
+      "target": null,
+      "reason": "Трактирщик не знает о культе, кроме того, что подозревает в Официантке",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Ничего не знает о серийных убийствах в городе",
+      "target": null,
+      "reason": "Трактирщик не знает о серии убийств",
+      "source": null
+    },
+    {
+      "level": "does_not_know",
+      "fact": "Ничего не знает о Маньяке как серийном убийце",
+      "target": "maniac",
+      "reason": "Трактирщик не знает о Маньяке",
+      "source": null
+    }
+  ],
+  "false_beliefs": [
+    {
+      "belief": "Матрос — единственный, кто точно знает о его контрабанде",
+      "correctness": "Официантка подозревает о контрабанде (работает в той же таверне)",
+      "source": "small_secret",
+      "confidence": "medium"
+    }
+  ],
+  "daily_schedule": [
+    {
+      "time": "night",
+      "location": "tavern_keeper_office",
+      "activity": "закрывает таверну, проверяет счёт и переписку",
+      "note": "тайно хранит контрабанду в тайнике кабинета"
+    },
+    {
+      "time": "morning",
+      "location": "tavern_hall",
+      "activity": "открывает таверну, встречает первых посетителей"
+    },
+    {
+      "time": "day",
+      "location": "tavern_hall",
+      "activity": "обслуживает зал, наблюдает за гостями"
+    },
+    {
+      "time": "evening",
+      "location": "tavern_hall",
+      "activity": "обслуживает вечерний зал, следит за гостями (конфликт с Врачом из-за Официантки)"
+    },
+    {
+      "time": "midnight",
+      "location": "tavern_keeper_office",
+      "activity": "тайно получает контрабанду от Матроса",
+      "note": "см. event_005; тайник в кабинете"
+    }
+  ],
+  "organizations": [
+    {
+      "organization": "tavern",
+      "role": "владелец",
+      "status": "active"
+    },
+    {
+      "organization": "smugglers",
+      "role": "покупатель / продавец",
+      "status": "active"
+    }
+  ]
+}

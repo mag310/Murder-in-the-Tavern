@@ -1,0 +1,22 @@
+{
+  "id": "tavern_storage",
+  "name": "Склад таверны",
+  "type": "gameplay",
+  "parent_location": "tavern",
+  "description": "Склад таверны, где хранятся запасы, включая контрабандные товары.",
+  "characters": [
+    "sailor",
+    "tavern_keeper"
+  ],
+  "important_events": [],
+  "clues": [],
+  "secrets": [
+    "контрабанда"
+  ],
+  "mechanical_features": [
+    "склады",
+    "запасы",
+    "запрещённые товары",
+    "тайники"
+  ]
+}

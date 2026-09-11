@@ -1,0 +1,16 @@
+{
+  "id": "town",
+  "name": "Город",
+  "type": "context",
+  "description": "Город, в котором произошла серия смертей, расследуемая Детективом.",
+  "characters": [
+    "sheriff",
+    "detective",
+    "maniac"
+  ],
+  "important_events": [
+    "серия смертей членов культа"
+  ],
+  "clues": [],
+  "secrets": []
+}

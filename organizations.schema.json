@@ -1,0 +1,103 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "organizations.schema.json",
+    "title": "Organization",
+    "description": "Одна организация/группировка сценария. По одному файлу на организацию в каталоге organizations/.",
+    "type": "object",
+    "required": [
+        "id",
+        "name",
+        "type",
+        "description",
+        "members"
+    ],
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "type": {
+            "type": "string",
+            "description": "Тип организации (напр. 'business', 'cult', 'government', 'order', 'crime', 'crew')."
+        },
+        "description": {
+            "type": "string"
+        },
+        "members": {
+            "type": "array",
+            "description": "Члены организации. Каждый — {character (ID персонажа), role (роль в организации), status (active/dead/left) и опц. note}.",
+            "items": {
+                "$ref": "#/$defs/member"
+            }
+        },
+        "leader": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "ID лидера организации (или null)."
+        },
+        "location": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "ID основной локации организации (из locations/), или null."
+        },
+        "secret": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Скрытая природа/цель организации (если есть), или null."
+        },
+        "conflicts_with": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "ID организаций, с которыми эта организация в конфликте/противостоянии."
+        }
+    },
+    "additionalProperties": true,
+    "$defs": {
+        "member": {
+            "type": "object",
+            "required": [
+                "character"
+            ],
+            "properties": {
+                "character": {
+                    "type": "string",
+                    "description": "ID персонажа (из characters/)."
+                },
+                "role": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Роль в организации (напр. 'ведущий', 'последователь', 'партнёр')."
+                },
+                "status": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Стatus членства: active / dead / left, или null."
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        }
+    }
+}
