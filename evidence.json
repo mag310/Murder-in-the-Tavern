@@ -5,7 +5,7 @@
             "name": "Контейнеры с запрещёнными напитками",
             "type": "physical",
             "status": "confirmed",
-            "location": "tavern_owner_office",
+            "location": "tavern_keeper_office",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": [
@@ -29,39 +29,39 @@
             },
             "facts": {
                 "objectively_proves": [
-                    "Владелец таверны занимается контрабандой"
+                    "Трактирщик таверны занимается контрабандой"
                 ],
                 "strongly_indicates": [
-                    "Владелец скрывает свою деятельность",
+                    "Трактирщик скрывает свою деятельность",
                     "У Владельца есть причина избегать правосудия"
                 ],
                 "does_not_prove": [
-                    "Владелец совершил текущее убийство",
-                    "Владелец знал о том, кого убили"
+                    "Трактирщик совершил текущее убийство",
+                    "Трактирщик знал о том, кого убили"
                 ]
             },
             "interpretations": [
                 {
                     "character": "players",
-                    "interpretation": "Владелец — законнорог, не имеющий отношения к убийству",
+                    "interpretation": "Трактирщик — законнорог, не имеющий отношения к убийству",
                     "correct": false,
                     "confidence": "средняя"
                 },
                 {
                     "character": "detective",
-                    "interpretation": "Владелец опасен и должен быть под стражей",
+                    "interpretation": "Трактирщик опасен и должен быть под стражей",
                     "correct": true,
                     "confidence": "высокая"
                 }
             ],
             "related": {
                 "characters": [
-                    "tavern_owner",
+                    "tavern_keeper",
                     "sailor",
                     "detective"
                 ],
                 "locations": [
-                    "tavern_owner_office"
+                    "tavern_keeper_office"
                 ],
                 "events": [
                     "event_005"
@@ -72,11 +72,11 @@
             },
             "versions": {
                 "supports": [
-                    "Владелец не убийца, просто преступник",
+                    "Трактирщик не убийца, просто преступник",
                     "Убийство связано с контрабандой"
                 ],
                 "contradicts": [
-                    "Владелец чист"
+                    "Трактирщик чист"
                 ]
             },
             "false_leads": [
@@ -88,10 +88,10 @@
         },
         {
             "id": "evidence_002",
-            "name": "Записная книжка Владельца",
+            "name": "Записная книжка Трактирщика",
             "type": "document",
             "status": "confirmed",
-            "location": "tavern_owner_office",
+            "location": "tavern_keeper_office",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": [
@@ -120,12 +120,12 @@
                     "У Владельца есть деловая связь с Матросом"
                 ],
                 "strongly_indicates": [
-                    "Матрос и Владелец работают вместе в теневом бизнесе",
-                    "Владелец не считает Матроса обычным клиентом"
+                    "Матрос и Трактирщик работают вместе в теневом бизнесе",
+                    "Трактирщик не считает Матроса обычным клиентом"
                 ],
                 "does_not_prove": [
                     "Матрос убил кого-то в таверне",
-                    "Владелец знает о текущем убийстве"
+                    "Трактирщик знает о текущем убийстве"
                 ]
             },
             "interpretations": [
@@ -144,11 +144,11 @@
             ],
             "related": {
                 "characters": [
-                    "tavern_owner",
+                    "tavern_keeper",
                     "sailor"
                 ],
                 "locations": [
-                    "tavern_owner_office"
+                    "tavern_keeper_office"
                 ],
                 "events": [
                     "event_005"
@@ -205,7 +205,7 @@
             "facts": {
                 "objectively_proves": [
                     "В таверне существует тайный культ",
-                    "Дочь — верховная жрица культа"
+                    "Официантка — верховная жрица культа"
                 ],
                 "strongly_indicates": [
                     "Врач является членом культа",
@@ -219,7 +219,7 @@
             "interpretations": [
                 {
                     "character": "players",
-                    "interpretation": "Дочь и Врач — культисты, но не убийцы",
+                    "interpretation": "Официантка и Врач — культисты, но не убийцы",
                     "correct": true,
                     "confidence": "высокая"
                 },
@@ -232,7 +232,7 @@
             ],
             "related": {
                 "characters": [
-                    "daughter",
+                    "waitress",
                     "doctor"
                 ],
                 "locations": [
@@ -253,14 +253,14 @@
                     "Культисты — не убийцы"
                 ],
                 "contradicts": [
-                    "Дочь и Врач чисты"
+                    "Официантка и Врач чисты"
                 ]
             },
             "false_leads": [
                 "Культ может выглядеть как мотив к убийству, хотя это отдельное преступление"
             ],
             "notes": [
-                "Связывает Дочь и Врача, но не указывает на текущее убийство"
+                "Связывает Официантка и Врача, но не указывает на текущее убийство"
             ]
         },
         {
@@ -492,7 +492,7 @@
             "related": {
                 "characters": [
                     "sailor",
-                    "tavern_owner"
+                    "tavern_keeper"
                 ],
                 "locations": [
                     "guest_rooms"

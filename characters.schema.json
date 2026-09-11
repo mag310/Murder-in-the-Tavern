@@ -99,14 +99,16 @@
                 },
                 "knowledge": {
                     "type": "array",
+                    "description": "Уровни знаний персонажа о фактах сценария",
                     "items": {
-                        "type": "string"
+                        "$ref": "#/$defs/knowledgeItem"
                     }
                 },
                 "false_beliefs": {
                     "type": "array",
+                    "description": "Ложные убеждения персонажа (то, во что он верит, но что неверно)",
                     "items": {
-                        "type": "string"
+                        "$ref": "#/$defs/falseBelief"
                     }
                 },
                 "location_links": {
@@ -126,6 +128,38 @@
                 },
                 "current_murder": {
                     "$ref": "#/$defs/currentMurder"
+                },
+                "death": {
+                    "$ref": "#/$defs/death"
+                }
+            },
+            "additionalProperties": true
+        },
+        "death": {
+            "type": "object",
+            "required": [
+                "killed_by",
+                "cause",
+                "status"
+            ],
+            "properties": {
+                "killed_by": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "cause": {
+                    "type": "string"
+                },
+                "event": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "status": {
+                    "type": "string"
                 }
             },
             "additionalProperties": true
@@ -228,6 +262,24 @@
                         "null"
                     ]
                 },
+                "employer_alternative": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "employer_primary": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "employer_secondary": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "case": {
                     "type": [
                         "string",
@@ -267,6 +319,85 @@
                 },
                 "status": {
                     "type": "string"
+                }
+            },
+            "additionalProperties": true
+        },
+        "knowledgeItem": {
+            "type": "object",
+            "required": [
+                "level",
+                "fact"
+            ],
+            "properties": {
+                "level": {
+                    "type": "string",
+                    "enum": [
+                        "knows_exactly",
+                        "knows_only",
+                        "suspects",
+                        "does_not_know"
+                    ],
+                    "description": "Уровень знания: knows_exactly (точно знает), knows_only (просто знает), suspects (подозревает), does_not_know (не знает)"
+                },
+                "fact": {
+                    "type": "string",
+                    "description": "Текст факта"
+                },
+                "target": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "ID персонажа, о котором известно (или null, если факт не про персонажа)"
+                },
+                "reason": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Почему персонаж знает/подозревает (опционально)"
+                },
+                "source": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Источник знания: secret, relationship, event, observation, other"
+                }
+            },
+            "additionalProperties": true
+        },
+        "falseBelief": {
+            "type": "object",
+            "required": [
+                "belief",
+                "correctness"
+            ],
+            "properties": {
+                "belief": {
+                    "type": "string",
+                    "description": "Текст ложного убеждения"
+                },
+                "correctness": {
+                    "type": "string",
+                    "description": "Почему убеждение ложное (что реально)"
+                },
+                "source": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Источник заблуждения"
+                },
+                "confidence": {
+                    "type": "string",
+                    "enum": [
+                        "high",
+                        "medium",
+                        "low"
+                    ],
+                    "description": "Насколько твёрдо персонаж верит в это убеждение"
                 }
             },
             "additionalProperties": true

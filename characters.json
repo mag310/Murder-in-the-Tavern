@@ -9,9 +9,9 @@
     },
     "characters": [
         {
-            "id": "tavern_owner",
+            "id": "tavern_keeper",
             "name": null,
-            "role": "Владелец таверны",
+            "role": "Трактирщик",
             "status": "main_npc",
             "can_be_murder_victim": true,
             "small_secret": {
@@ -33,6 +33,10 @@
                     {
                         "target": "sailor",
                         "type": "кровная месть"
+                    },
+                    {
+                        "target": "doctor",
+                        "type": "резко против любовной связи Дочери и Врача"
                     }
                 ],
                 "money": [
@@ -53,11 +57,82 @@
                     }
                 ]
             },
-            "knowledge": [],
-            "false_beliefs": [],
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Матрос изнасиловал и убил его жену",
+                    "target": "sailor",
+                    "reason": "Трактирщик был свидетелем или узнал о произошедшем",
+                    "source": "big_secret"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Матрос — его деловой партнёр по контрабанде",
+                    "target": "sailor",
+                    "reason": "Матрос привозит ему запрещённые товары",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_only",
+                    "fact": "Официантка как-то связана с культом в его таверне",
+                    "target": "waitress",
+                    "reason": "Трактирщик подозревает, что Официантка связана с культом, но не знает подробностей",
+                    "source": "observation"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Официантка работает у него в таверне",
+                    "target": "waitress",
+                    "reason": "Официантка — его дочь и работает в таверне",
+                    "source": "relationship"
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Врач может быть связан с культом (через отношения с Официанткой)",
+                    "target": "doctor",
+                    "reason": "Трактирщик подозревает, что Врач связан с культом через отношения с Официанткой",
+                    "source": "observation"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Резко против любовной связи Официантки и Врача",
+                    "target": "doctor",
+                    "reason": "Трактирщик резко против отношений Официантки и Врача",
+                    "source": "relationship"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о культистах, кроме Официантки",
+                    "target": null,
+                    "reason": "Трактирщик не знает о культе, кроме того, что подозревает в Официантке",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о серийных убийствах в городе",
+                    "target": null,
+                    "reason": "Трактирщик не знает о серии убийств",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о Маньяке как серийном убийце",
+                    "target": "maniac",
+                    "reason": "Трактирщик не знает о Маньяке",
+                    "source": null
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Матрос — единственный, кто знает о его контрабанде",
+                    "correctness": "Возможно, другие знают (например, Официантка или Врач)",
+                    "source": "small_secret",
+                    "confidence": "medium"
+                }
+            ],
             "location_links": [
                 "tavern_hall",
-                "tavern_owner_office",
+                "tavern_keeper_office",
                 "basement"
             ]
         },
@@ -68,7 +143,7 @@
             "status": "main_npc",
             "can_be_murder_victim": true,
             "small_secret": {
-                "description": "Контрабандист. Привозит запрещённые товары Владельцу таверны.",
+                "description": "Контрабандист. Привозит запрещённые товары Трактирщику.",
                 "known_by": []
             },
             "big_secret": {
@@ -79,14 +154,14 @@
                 "love": [],
                 "hatred": [
                     {
-                        "target": "tavern_owner",
+                        "target": "tavern_keeper",
                         "type": "скрытая вражда",
                         "status": "needs_definition"
                     }
                 ],
                 "money": [
                     {
-                        "target": "tavern_owner",
+                        "target": "tavern_keeper",
                         "type": "деловой партнёр по контрабанде"
                     }
                 ],
@@ -98,11 +173,95 @@
                     }
                 ]
             },
-            "knowledge": [],
-            "false_beliefs": [],
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он дезертировал с корабля Врача",
+                    "target": null,
+                    "reason": "Матрос знает о своём дезертирстве",
+                    "source": "big_secret"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он украл судовую казну",
+                    "target": null,
+                    "reason": "Матрос знает о краже",
+                    "source": "big_secret"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Врач был капитаном корабля",
+                    "target": "doctor",
+                    "reason": "Матрос служил на корабле Врача",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он привозит Трактирщику запрещённые товары",
+                    "target": "tavern_keeper",
+                    "reason": "Матрос — деловой партнёр Трактирщика",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_only",
+                    "fact": "Трактирщик как-то связан с его прошлым (контрабанда)",
+                    "target": "tavern_keeper",
+                    "reason": "Матрос знает, что Трактирщик его партнёр по контрабанде",
+                    "source": "relationship"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о культе в таверне",
+                    "target": null,
+                    "reason": "Матрос не знает о культе",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о серийных убийствах в городе",
+                    "target": null,
+                    "reason": "Матрос не знает о серии убийств",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о Детективе",
+                    "target": "detective",
+                    "reason": "Матрос не знает о Детективе",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о любовной связи Дочери и Врача",
+                    "target": "daughter",
+                    "reason": "Матрос не знает о любовной связи Дочери и Врача",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает, что Трактирщик знает о его прошлом (убийстве жены Трактирщика)",
+                    "target": "tavern_keeper",
+                    "reason": "Матрос не знает, что Трактирщик знает о его прошлом",
+                    "source": null
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Никто не знает о его дезертирстве и краже",
+                    "correctness": "Врач знает (он был капитаном), возможно, другие тоже",
+                    "source": "big_secret",
+                    "confidence": "medium"
+                },
+                {
+                    "belief": "Трактирщик не знает о его прошлом (кроме контрабанды)",
+                    "correctness": "Возможно, Трактирщик знает больше (например, о прошлом Матроса)",
+                    "source": "small_secret",
+                    "confidence": "low"
+                }
+            ],
             "location_links": [
                 "guest_rooms",
-                "yard",
+                "tavern_yard",
                 "tavern_storage"
             ],
             "external_links": [
@@ -110,9 +269,9 @@
             ]
         },
         {
-            "id": "daughter",
+            "id": "waitress",
             "name": null,
-            "role": "Дочь владельца таверны",
+            "role": "Официантка",
             "status": "main_npc",
             "can_be_murder_victim": true,
             "small_secret": {
@@ -126,7 +285,7 @@
             "relationships": {
                 "love": [
                     {
-                        "target": "tavern_owner",
+                        "target": "tavern_keeper",
                         "type": "дочь / отец"
                     },
                     {
@@ -142,7 +301,7 @@
                 ],
                 "money": [
                     {
-                        "target": "tavern_owner",
+                        "target": "tavern_keeper",
                         "type": "работает в таверне"
                     }
                 ],
@@ -167,8 +326,79 @@
                     }
                 ]
             },
-            "knowledge": [],
-            "false_beliefs": [],
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Она — верховная жрица культа",
+                    "target": null,
+                    "reason": "Официантка — верховная жрица культа",
+                    "source": "big_secret"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Врач — член её культа",
+                    "target": "doctor",
+                    "reason": "Врач вступил в культ",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Врач — её любовник",
+                    "target": "doctor",
+                    "reason": "У них романтическая/сексуальная связь",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Трактирщик выступает против их отношений",
+                    "target": "tavern_keeper",
+                    "reason": "Трактирщик знает об отношениях и выступает против них",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_only",
+                    "fact": "Маньяк охотится на культистов",
+                    "target": "maniac",
+                    "reason": "Официантка знает, что Маньяк охотится на культистов, но не знает деталей",
+                    "source": "relationship"
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Трактирщик может знать о культе",
+                    "target": "tavern_keeper",
+                    "reason": "Официантка подозревает, что Трактирщик может знать о культе",
+                    "source": "observation"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о серийных убийствах в городе",
+                    "target": null,
+                    "reason": "Официантка не знает о серии убийств",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о Детективе",
+                    "target": "detective",
+                    "reason": "Официантка не знает о Детективе",
+                    "source": null
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Подозревает о контрабанде отца (она работает в той же таверне)",
+                    "target": "tavern_keeper",
+                    "reason": "Официантка подозревает о контрабанде отца, т.к. работает в той же таверне",
+                    "source": "observation"
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Трактирщик не знает о культе",
+                    "correctness": "Возможно, Трактирщик знает (он подозревает Официантку)",
+                    "source": "big_secret",
+                    "confidence": "medium"
+                }
+            ],
             "location_links": [
                 "guest_rooms",
                 "basement",
@@ -183,24 +413,24 @@
             "status": "main_npc",
             "can_be_murder_victim": true,
             "small_secret": {
-                "description": "Состоит в тайном культе Дочери.",
+                "description": "Состоит в тайном культе Официантки.",
                 "known_by": []
             },
             "big_secret": {
-                "description": "Влюблён в Дочь. Владелец таверны выступает против их отношений.",
+                "description": "Влюблён в Официантку. Трактирщик выступает против их отношений.",
                 "known_by": []
             },
             "relationships": {
                 "love": [
                     {
-                        "target": "daughter",
+                        "target": "waitress",
                         "type": "любовь / сексуальная связь"
                     }
                 ],
                 "hatred": [
                     {
-                        "target": "tavern_owner",
-                        "type": "вражда из-за отношений с Дочерью"
+                        "target": "tavern_keeper",
+                        "type": "вражда из-за отношений с Официанткой"
                     }
                 ],
                 "money": [
@@ -211,7 +441,7 @@
                 ],
                 "religion": [
                     {
-                        "target": "daughter",
+                        "target": "waitress",
                         "type": "верховная жрица / последователь"
                     },
                     {
@@ -234,8 +464,79 @@
                     }
                 ]
             },
-            "knowledge": [],
-            "false_beliefs": [],
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он состоит в культе Официантки",
+                    "target": "waitress",
+                    "reason": "Врач вступил в культ",
+                    "source": "big_secret"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Официантка — верховная жрица культа",
+                    "target": "waitress",
+                    "reason": "Врач знает, что Официантка — верховная жрица",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Официантка — его любовница",
+                    "target": "waitress",
+                    "reason": "У них романтическая/сексуальная связь",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Трактирщик выступает против их отношений",
+                    "target": "tavern_keeper",
+                    "reason": "Врач знает, что Трактирщик против их отношений",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Матрос дезертировал с его корабля и украл судовую казну",
+                    "target": "sailor",
+                    "reason": "Врач был капитаном корабля, Матрос дезертировал",
+                    "source": "relationship"
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Маньяк может быть врагом культа",
+                    "target": "maniac",
+                    "reason": "Врач подозревает, что Маньяк охотится на культистов",
+                    "source": "relationship"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о серийных убийствах в городе",
+                    "target": null,
+                    "reason": "Врач не знает о серии убийств",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Ничего не знает о Детективе",
+                    "target": "detective",
+                    "reason": "Врач не знает о Детективе",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о контрабанде Трактирщика и Матроса",
+                    "target": null,
+                    "reason": "Врач не знает о контрабанде",
+                    "source": null
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Никто не знает о его участии в культе (кроме Официантки)",
+                    "correctness": "Возможно, другие знают (например, Трактирщик или Маньяк)",
+                    "source": "big_secret",
+                    "confidence": "medium"
+                }
+            ],
             "location_links": [
                 "guest_rooms",
                 "tavern_hall"
@@ -261,6 +562,9 @@
             },
             "investigation": {
                 "employer": "sheriff",
+                "employer_alternative": "mayor",
+                "employer_primary": "sheriff",
+                "employer_secondary": "mayor",
                 "case": "серия смертей в городе",
                 "actual_cause_of_previous_deaths": "Маньяк",
                 "reason_previous_deaths_are_connected_to_maniac": "жертвами были члены культа",
@@ -272,7 +576,11 @@
                 "money": [
                     {
                         "target": "sheriff",
-                        "type": "наниматель"
+                        "type": "наниматель (основной вариант)"
+                    },
+                    {
+                        "target": "mayor",
+                        "type": "альтернативный наниматель (вспомогательный вариант)"
                     }
                 ],
                 "religion": [],
@@ -287,12 +595,62 @@
                     }
                 ]
             },
-            "knowledge": [],
-            "false_beliefs": [],
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Шериф нанял его для расследования серии смертей",
+                    "target": "sheriff",
+                    "reason": "Детектив нанимается Шерифом",
+                    "source": "investigation"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Его наняли для расследования серии смертей в городе",
+                    "target": null,
+                    "reason": "Детектив знает о деле",
+                    "source": "small_secret"
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Он может совершить убийство по пьянству (возможный сценарий)",
+                    "target": null,
+                    "reason": "Детектив подозревает, что может совершить убийство по пьянству",
+                    "source": "event_014"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о культе в таверне",
+                    "target": null,
+                    "reason": "Детектив не знает о культе",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о контрабанде Трактирщика и Матроса",
+                    "target": null,
+                    "reason": "Детектив не знает о контрабанде",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о Маньяке как серийном убийце (пока не расследует)",
+                    "target": "maniac",
+                    "reason": "Детектив пока не знает о Маньяке",
+                    "source": null
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Он не совершит убийство",
+                    "correctness": "Возможный сценарий: он может совершить убийство по пьянству (event_014)",
+                    "source": "event_014",
+                    "confidence": "medium"
+                }
+            ],
             "location_links": [
                 "guest_rooms",
                 "tavern_hall",
-                "yard"
+                "tavern_yard"
             ],
             "external_links": [
                 "sheriff_office",
@@ -318,7 +676,7 @@
                 "love": [],
                 "hatred": [
                     {
-                        "target": "daughter",
+                        "target": "waitress",
                         "type": "смертельная религиозная вражда"
                     }
                 ],
@@ -330,7 +688,7 @@
                 ],
                 "religion": [
                     {
-                        "target": "daughter",
+                        "target": "waitress",
                         "type": "охотник на культистов"
                     },
                     {
@@ -353,11 +711,88 @@
                 "is_killer": false,
                 "status": "невиновен в убийстве, расследуемом в таверне"
             },
-            "knowledge": [],
-            "false_beliefs": [],
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он — серийный убийца",
+                    "target": null,
+                    "reason": "Маньяк знает о своих убийствах",
+                    "source": "small_secret"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он — паладин светлого ордена",
+                    "target": null,
+                    "reason": "Маньяк знает о своей роли",
+                    "source": "big_secret"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он охотится на культистов",
+                    "target": null,
+                    "reason": "Маньяк охотится на культистов",
+                    "source": "relationship"
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Официантка может быть связана с культом",
+                    "target": "waitress",
+                    "reason": "Маньяк подозревает, что Официантка связана с культом, но не уверен",
+                    "source": "relationship"
+                },
+                {
+                    "level": "suspects",
+                    "fact": "Врач может быть связан с культом",
+                    "target": "doctor",
+                    "reason": "Маньяк подозревает, что Врач связан с культом",
+                    "source": "relationship"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о контрабанде Трактирщика и Матроса",
+                    "target": null,
+                    "reason": "Маньяк не знает о контрабанде",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о дезертирстве Матроса",
+                    "target": "sailor",
+                    "reason": "Маньяк не знает о дезертирстве Матроса",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о Детективе (пока не расследует)",
+                    "target": "detective",
+                    "reason": "Маньяк не знает о Детективе",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о любовной связи Официантки и Врача",
+                    "target": "waitress",
+                    "reason": "Маньяк не знает о любовной связи Официантки и Врача",
+                    "source": null
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Официантка — культистка (на самом деле она — верховная жрица)",
+                    "correctness": "Официантка — верховная жрица, а не просто культистка",
+                    "source": "relationship",
+                    "confidence": "medium"
+                },
+                {
+                    "belief": "Врач — культист (на самом деле он — член культа)",
+                    "correctness": "Врач — член культа, а не просто подозреваемый",
+                    "source": "relationship",
+                    "confidence": "medium"
+                }
+            ],
             "location_links": [
                 "attic",
-                "yard",
+                "tavern_yard",
                 "tavern_hall"
             ],
             "external_links": [
@@ -390,8 +825,51 @@
                     }
                 ]
             },
-            "knowledge": [],
-            "false_beliefs": [],
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он нанимает Детектива для расследования серии смертей",
+                    "target": "detective",
+                    "reason": "Шериф нанимает Детектива",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "В городе происходит серия смертей",
+                    "target": null,
+                    "reason": "Шериф знает о серии смертей",
+                    "source": "relationship"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о культе в таверне",
+                    "target": null,
+                    "reason": "Шериф не знает о культе",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о контрабанде Трактирщика и Матроса",
+                    "target": null,
+                    "reason": "Шериф не знает о контрабанде",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о Маньяке как серийном убийце (пока не расследует)",
+                    "target": "maniac",
+                    "reason": "Шериф не знает о Маньяке",
+                    "source": null
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Детектив — честный и надёжный",
+                    "correctness": "Возможный сценарий: Детектив может совершить убийство по пьянству (event_014)",
+                    "source": "event_014",
+                    "confidence": "low"
+                }
+            ],
             "location_links": [
                 "sheriff_office"
             ]
@@ -416,11 +894,187 @@
                     }
                 ]
             },
-            "knowledge": [],
-            "false_beliefs": [],
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Матрос дезертировал с его корабля",
+                    "target": "sailor",
+                    "reason": "Капитан знает о дезертирстве Матроса",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Матрос украл судовую казну",
+                    "target": "sailor",
+                    "reason": "Капитан знает о краже",
+                    "source": "relationship"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о культе в таверне",
+                    "target": null,
+                    "reason": "Капитан не знает о культе",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о серийных убийствах в городе",
+                    "target": null,
+                    "reason": "Капитан не знает о серии убийств",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о Детективе",
+                    "target": "detective",
+                    "reason": "Капитан не знает о Детективе",
+                    "source": null
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Матрос не вернётся и не причинит вреда",
+                    "correctness": "Матрос может быть в таверне и причинить вред (например, убить Трактирщика)",
+                    "source": "relationship",
+                    "confidence": "low"
+                }
+            ],
             "location_links": [
                 "doctor_ship"
             ]
+        },
+        {
+            "id": "mayor",
+            "name": null,
+            "role": "Мэр",
+            "status": "context_npc",
+            "can_be_murder_victim": false,
+            "small_secret": null,
+            "big_secret": null,
+            "relationships": {
+                "love": [],
+                "hatred": [],
+                "money": [
+                    {
+                        "target": "detective",
+                        "type": "альтернативный наниматель (вспомогательный вариант)"
+                    }
+                ],
+                "religion": [],
+                "justice": [
+                    {
+                        "target": "detective",
+                        "type": "альтернативный заказчик расследования (вспомогательный вариант)"
+                    }
+                ]
+            },
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Он может нанять Детектива для расследования (вспомогательный вариант)",
+                    "target": "detective",
+                    "reason": "Мэр — альтернативный наниматель",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "В городе происходит серия смертей",
+                    "target": null,
+                    "reason": "Мэр знает о серии смертей",
+                    "source": "relationship"
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о культе в таверне",
+                    "target": null,
+                    "reason": "Мэр не знает о культе",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о контрабанде Трактирщика и Матроса",
+                    "target": null,
+                    "reason": "Мэр не знает о контрабанде",
+                    "source": null
+                },
+                {
+                    "level": "does_not_know",
+                    "fact": "Не знает о Маньяке как серийном убийце",
+                    "target": "maniac",
+                    "reason": "Мэр не знает о Маньяке",
+                    "source": null
+                }
+            ],
+            "false_beliefs": [
+                {
+                    "belief": "Детектив — честный и надёжный",
+                    "correctness": "Возможный сценарий: Детектив может совершить убийство по пьянству (event_014)",
+                    "source": "event_014",
+                    "confidence": "low"
+                }
+            ],
+            "location_links": [
+                "town"
+            ]
+        },
+        {
+            "id": "dead_wife",
+            "name": null,
+            "role": "Мёртвая жена Владельца (мать Дочери)",
+            "status": "context_npc",
+            "can_be_murder_victim": false,
+            "small_secret": null,
+            "big_secret": null,
+            "relationships": {
+                "love": [
+                    {
+                        "target": "tavern_keeper",
+                        "type": "жена / муж"
+                    }
+                ],
+                "hatred": [],
+                "money": [],
+                "religion": [],
+                "justice": [
+                    {
+                        "target": "sailor",
+                        "type": "убита Матросом (изнасилована и убита)"
+                    }
+                ]
+            },
+            "knowledge": [
+                {
+                    "level": "knows_exactly",
+                    "fact": "Она была женой Трактирщика",
+                    "target": "tavern_keeper",
+                    "reason": "Мёртвая жена была женой Трактирщика",
+                    "source": "relationship"
+                },
+                {
+                    "level": "knows_exactly",
+                    "fact": "Матрос изнасиловал и убил её",
+                    "target": "sailor",
+                    "reason": "Матрос убил её",
+                    "source": "event_004"
+                },
+                {
+                    "level": "knows_only",
+                    "fact": "Её дочь — Официантка",
+                    "target": "waitress",
+                    "reason": "Мёртвая жена — мать Официантки",
+                    "source": "relationship"
+                }
+            ],
+            "false_beliefs": [],
+            "location_links": [
+                "town"
+            ],
+            "death": {
+                "killed_by": "sailor",
+                "cause": "murder",
+                "event": "event_004",
+                "status": "dead"
+            }
         }
     ]
 }

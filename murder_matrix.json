@@ -1,7 +1,7 @@
 {
     "matrices": [
         {
-            "victim": "tavern_owner",
+            "victim": "tavern_keeper",
             "possible_killers": [
                 "sailor",
                 "doctor",
@@ -50,11 +50,11 @@
                 "evidence_002"
             ],
             "false_leads": [
-                "Владелец — контрабандист, может выглядеть как убийца",
+                "Трактирщик — контрабандист, может выглядеть как убийца",
                 "Матрос — деловой партнёр Владельца, может выглядеть как подозреваемый"
             ],
             "special_consequences": [
-                "Дочь теряет отца",
+                "Официантка теряет отца",
                 "Тайна Владельца (жена, убита Матросом) может быть раскрыта",
                 "Контрабанда Владельца может быть раскрыта"
             ]
@@ -62,7 +62,7 @@
         {
             "victim": "sailor",
             "possible_killers": [
-                "tavern_owner",
+                "tavern_keeper",
                 "doctor",
                 "maniac",
                 "detective"
@@ -72,7 +72,7 @@
                     "type": "murder",
                     "motivation": "hatred",
                     "related_characters": [
-                        "tavern_owner"
+                        "tavern_keeper"
                     ],
                     "probability": "high"
                 },
@@ -113,15 +113,15 @@
                 "Матрос — дезертир, может выглядеть как подозреваемый"
             ],
             "special_consequences": [
-                "Владелец теряет делового партнёра",
+                "Трактирщик теряет делового партнёра",
                 "Тайна Матроса (дезертирство, кража казны) может быть раскрыта",
                 "Врач теряет врага"
             ]
         },
         {
-            "victim": "daughter",
+            "victim": "waitress",
             "possible_killers": [
-                "tavern_owner",
+                "tavern_keeper",
                 "sailor",
                 "doctor",
                 "maniac",
@@ -140,7 +140,7 @@
                     "type": "murder",
                     "motivation": "hatred",
                     "related_characters": [
-                        "tavern_owner"
+                        "tavern_keeper"
                     ],
                     "probability": "medium"
                 },
@@ -166,7 +166,7 @@
                 }
             ],
             "required_facts": [
-                "Кто убил Дочь",
+                "Кто убил Официантка",
                 "Мотив убийства",
                 "Причина смерти"
             ],
@@ -175,11 +175,11 @@
                 "evidence_004"
             ],
             "false_leads": [
-                "Дочь — культист, может выглядеть как убийца",
-                "Дочь — любовница Врача, может выглядеть как подозреваемая"
+                "Официантка — культист, может выглядеть как убийца",
+                "Официантка — любовница Врача, может выглядеть как подозреваемая"
             ],
             "special_consequences": [
-                "Владелец теряет дочь",
+                "Трактирщик теряет дочь",
                 "Врач теряет любовницу",
                 "Маньяк теряет цель",
                 "Культ может быть раскрыт"
@@ -188,9 +188,9 @@
         {
             "victim": "doctor",
             "possible_killers": [
-                "tavern_owner",
+                "tavern_keeper",
                 "sailor",
-                "daughter",
+                "waitress",
                 "maniac",
                 "detective"
             ],
@@ -199,7 +199,7 @@
                     "type": "murder",
                     "motivation": "hatred",
                     "related_characters": [
-                        "tavern_owner"
+                        "tavern_keeper"
                     ],
                     "probability": "high"
                 },
@@ -246,7 +246,7 @@
                 "Врач — любовник Дочери, может выглядеть как подозреваемый"
             ],
             "special_consequences": [
-                "Дочь теряет любовника",
+                "Официантка теряет любовника",
                 "Матрос теряет врага",
                 "Культ теряет члена"
             ]
@@ -254,9 +254,9 @@
         {
             "victim": "detective",
             "possible_killers": [
-                "tavern_owner",
+                "tavern_keeper",
                 "sailor",
-                "daughter",
+                "waitress",
                 "doctor",
                 "maniac"
             ],
@@ -273,7 +273,7 @@
                     "type": "murder",
                     "motivation": "money",
                     "related_characters": [
-                        "tavern_owner"
+                        "tavern_keeper"
                     ],
                     "probability": "medium"
                 },
@@ -281,7 +281,7 @@
                     "type": "murder",
                     "motivation": "religion",
                     "related_characters": [
-                        "daughter"
+                        "waitress"
                     ],
                     "probability": "low"
                 },
@@ -314,15 +314,16 @@
             "special_consequences": [
                 "Расследование прекращается",
                 "Маньяк может быть невиновен в текущем убийстве",
-                "Детектив может быть убийцей (см. event_014)"
-            ]
+                "Детектив может быть убийцей (см. event_014 — возможный сценарий, не канон)"
+            ],
+            "scenario_note": "Детектив также может быть убийцей (см. event_014 — возможный сценарий). Это не канон и может быть включено/исключено/изменено автором."
         },
         {
             "victim": "maniac",
             "possible_killers": [
-                "tavern_owner",
+                "tavern_keeper",
                 "sailor",
-                "daughter",
+                "waitress",
                 "doctor",
                 "detective"
             ],
@@ -331,7 +332,7 @@
                     "type": "murder",
                     "motivation": "religion",
                     "related_characters": [
-                        "daughter"
+                        "waitress"
                     ],
                     "probability": "high"
                 },

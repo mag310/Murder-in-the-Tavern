@@ -103,6 +103,7 @@
                         "provisional",
                         "confirmed",
                         "confirmed_but_undefined",
+                        "possible_scenario",
                         "discarded"
                     ]
                 },
@@ -153,6 +154,10 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "scenario_note": {
+                    "type": "string",
+                    "description": "Примечание для событий типа 'possible_scenario': пояснение о том, что событие не является каноническим"
                 }
             },
             "additionalProperties": false

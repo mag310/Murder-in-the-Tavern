@@ -1,6 +1,24 @@
 {
     "locations": [
         {
+            "id": "tavern",
+            "name": "Таверна",
+            "type": "context",
+            "description": "Основное здание таверны. Все gameplay-локации (tavern_hall, tavern_keeper_office, basement, cult_lair, attic, guest_rooms, tavern_yard, tavern_storage) являются его частями.",
+            "characters": [
+                "tavern_keeper",
+                "sailor",
+                "waitress",
+                "doctor",
+                "detective",
+                "maniac"
+            ],
+            "important_events": [],
+            "clues": [],
+            "secrets": [],
+            "parent_location": null
+        },
+        {
             "id": "town",
             "name": "Город",
             "type": "context",
@@ -73,7 +91,7 @@
             "parent_location": "tavern",
             "description": "Внешняя территория таверны, частично окружённая водой из-за наводнения.",
             "characters": [
-                "tavern_owner",
+                "tavern_keeper",
                 "sailor",
                 "detective",
                 "maniac"
@@ -95,8 +113,8 @@
             "parent_location": "tavern",
             "description": "Главное общее помещение таверны.",
             "characters": [
-                "tavern_owner",
-                "daughter",
+                "tavern_keeper",
+                "waitress",
                 "doctor",
                 "detective",
                 "maniac",
@@ -123,7 +141,7 @@
                 "doctor",
                 "detective",
                 "maniac",
-                "daughter"
+                "waitress"
             ],
             "important_events": [],
             "clues": [],
@@ -136,13 +154,13 @@
             ]
         },
         {
-            "id": "tavern_owner_office",
+            "id": "tavern_keeper_office",
             "name": "Кабинет владельца",
             "type": "gameplay",
             "parent_location": "tavern",
             "description": "Личное помещение Владельца таверны.",
             "characters": [
-                "tavern_owner"
+                "tavern_keeper"
             ],
             "important_events": [],
             "clues": [],
@@ -164,8 +182,8 @@
             "parent_location": "tavern",
             "description": "Подземная часть таверны. Здесь находятся хозяйственные помещения и доступ к тайной части здания.",
             "characters": [
-                "tavern_owner",
-                "daughter"
+                "tavern_keeper",
+                "waitress"
             ],
             "important_events": [],
             "clues": [],
@@ -185,7 +203,7 @@
             "parent_location": "basement",
             "description": "Тайное святилище культа тёмных богов.",
             "characters": [
-                "daughter",
+                "waitress",
                 "doctor"
             ],
             "important_events": [],
@@ -236,22 +254,35 @@
                 "следы",
                 "ограниченное перемещение"
             ]
+        },
+        {
+            "id": "tavern_storage",
+            "name": "Склад таверны",
+            "type": "gameplay",
+            "parent_location": "tavern",
+            "description": "Склад таверны, где хранятся запасы, включая контрабандные товары.",
+            "characters": [
+                "sailor",
+                "tavern_keeper"
+            ],
+            "important_events": [],
+            "clues": [],
+            "secrets": [
+                "контрабанда"
+            ],
+            "mechanical_features": [
+                "склады",
+                "запасы",
+                "запрещённые товары",
+                "тайники"
+            ]
         }
     ],
     "location_assignments": {
-        "tavern_owner": [
-            "tavern_hall",
-            "tavern_owner_office",
-            "basement"
-        ],
         "sailor": [
             "guest_rooms",
-            "tavern_yard"
-        ],
-        "daughter": [
-            "cult_lair",
-            "basement",
-            "guest_rooms"
+            "tavern_yard",
+            "tavern_storage"
         ],
         "doctor": [
             "guest_rooms",
@@ -266,6 +297,16 @@
             "attic",
             "tavern_yard",
             "tavern_hall"
+        ],
+        "tavern_keeper": [
+            "tavern_hall",
+            "tavern_owner_office",
+            "basement"
+        ],
+        "waitress": [
+            "cult_lair",
+            "basement",
+            "guest_rooms"
         ]
     }
 }
