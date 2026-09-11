@@ -17,7 +17,8 @@
     {
       "character": "doctor",
       "role": "бывший член экипажа (сослуживец)",
-      "status": "active"
+      "status": "left",
+      "note": "Врач давно списан с корабля на берег"
     }
   ],
   "leader": "ship_captain",

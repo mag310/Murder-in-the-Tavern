@@ -1,8 +1,8 @@
 {
   "id": "dead_wife",
   "name": null,
-  "role": "Мёртвая жена Трактирщика (мать Официантки)",
-  "status": "main_npc",
+  "role": "Мёртвая жена Трактирщика (мать Официантки; призрак, обитает у Могилы жены)",
+  "status": "ghost",
   "can_be_murder_victim": false,
   "secrets": [
     {
@@ -91,20 +91,44 @@
       "time": "night",
       "location": "wife_grave",
       "activity": "обитает у Могилы жены",
-      "note": "один из входов к убежищу культа"
+      "note": "один из входов к убежищу культа (cult_lair)"
     },
     {
       "time": "morning",
       "location": "waitress_room",
-      "activity": "рядом с Официанткой, пока та спит",
-      "note": "event_015: призрак приходит к Официантке"
+      "activity": "приходит к Официантке, пока та спит, и рассказывает ей об убийстве",
+      "note": "event_015: призрак приходит к Официантке (Официантка спит в waitress_room ночью/утром, см. waitress.daily_schedule)"
     },
     {
       "time": "day",
       "location": "tavern_hall",
-      "activity": "внутри портрета жены на видном месте в зале",
-      "note": "evidence_007: портрет как деталь интерьера"
+      "activity": "обитает рядом с портретом жены на видном месте в зале",
+      "note": "evidence_007: портрет как деталь интерьера; призрак может появляться рядом с портретом"
+    },
+    {
+      "time": "evening",
+      "location": "tavern_hall",
+      "activity": "обитает рядом с портретом жены в зале",
+      "note": "см. note day; призрак не покидает зал"
+    },
+    {
+      "time": "midnight",
+      "location": "cult_lair",
+      "activity": "присутствует у входа к логову культа",
+      "note": "один из входов к культу через wife_grave; связь с basement"
     }
   ],
-  "organizations": []
+  "organizations": [
+    {
+      "organization": "tavern",
+      "role": "погибшая жена владельца (призрак)",
+      "status": "dead"
+    },
+    {
+      "organization": "cult",
+      "role": "призрак у входа к логову культа",
+      "status": "dead",
+      "note": "Призрак dead_wife обитает у входа к культистам через Могила жены (wife_grave), но не является живым последователем культа"
+    }
+  ]
 }

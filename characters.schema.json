@@ -32,8 +32,10 @@
             "type": "string",
             "enum": [
                 "main_npc",
-                "context_npc"
-            ]
+                "context_npc",
+                "ghost"
+            ],
+            "description": "Статус персонажа: main_npc (основной персонаж в таверне), context_npc (контекстный вне таверны), ghost (мертвый персонаж — призрак, действующий в игре, но не живой и не жертва)."
         },
         "can_be_murder_victim": {
             "type": "boolean",
