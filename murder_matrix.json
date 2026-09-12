@@ -6,8 +6,7 @@
                 "sailor",
                 "doctor",
                 "maniac",
-                "detective",
-                "dead_wife"
+                "detective"
             ],
             "death_causes": [
                 {
@@ -79,10 +78,9 @@
             "victim": "sailor",
             "possible_killers": [
                 "tavern_keeper",
+                "waitress",
                 "doctor",
-                "maniac",
-                "detective",
-                "dead_wife"
+                "detective"
             ],
             "death_causes": [
                 {
@@ -91,31 +89,53 @@
                     "related_characters": [
                         "tavern_keeper"
                     ],
-                    "probability": "high"
-                },
-                {
-                    "type": "murder",
-                    "motivation": "money",
-                    "related_characters": [
-                        "doctor"
-                    ],
-                    "probability": "medium"
+                    "probability": "high",
+                    "scenario_note": "Трактирщик отомстил Матросу за убийство и изнасилование его жены (event_004). Воспользовался удачным моментом: потоп (заклинание Официантки, event_016) задержал Матроса в таверне."
                 },
                 {
                     "type": "murder",
                     "motivation": "religion",
                     "related_characters": [
-                        "maniac"
+                        "waitress"
                     ],
-                    "probability": "low"
+                    "probability": "high",
+                    "scenario_note": "Официантка отомстила за мать: подстрекаемая призраком Жены (event_015) и затаив зло за угрозу Матроса, она при помощи тёмных богов (потоп, event_016) задержала Матроса и принесла его в жертву культа (cult_lair, event_006/007)."
                 },
                 {
                     "type": "murder",
                     "motivation": "justice",
                     "related_characters": [
+                        "waitress"
+                    ],
+                    "probability": "medium",
+                    "scenario_note": "Подвариант: Матрос начал распускать руки и угрожал Официантке; она убила его в самообороне (мотивировано event_015: угроза Матроса дочери)."
+                },
+                {
+                    "type": "murder",
+                    "motivation": "love",
+                    "related_characters": [
+                        "doctor"
+                    ],
+                    "probability": "medium",
+                    "scenario_note": "Подвариант A: Врач защищал Официантку от приставаний Матроса."
+                },
+                {
+                    "type": "accident",
+                    "motivation": "possessed",
+                    "related_characters": [
+                        "doctor"
+                    ],
+                    "probability": "low",
+                    "scenario_note": "Подвариант B: Врач был одурманен Официанткой или одержим призраком Мёртвой жены и совершил месть за мать Официантки (supernatural; см. dead_wife, event_015)."
+                },
+                {
+                    "type": "accident",
+                    "motivation": "accident",
+                    "related_characters": [
                         "detective"
                     ],
-                    "probability": "low"
+                    "probability": "low",
+                    "scenario_note": "Детектив убил Матроса по неосторожности, сильно напившись (см. detective.daily_schedule: следы пьянства, evidence_005)."
                 },
                 {
                     "type": "accident",
@@ -136,25 +156,23 @@
             "required_evidence_note": "evidence_002 (записная книжка/контрабанда) и evidence_006 (ложная улика на Матроса) доказывают прошлые преступления/связи, но НЕ доказывают текущее убийство (принцип из README). evidence_006 — ложный след: Матрос выглядит как подозреваемый, но не убийца.",
             "false_leads": [
                 "Матрос — контрабандист, может выглядеть как убийца",
-                "Матрос — дезертир, может выглядеть как подозреваемый"
+                "Матрос — дезертир, может выглядеть как подозреваемый",
+                "Маньяк — серийный убийца, но НЕ убивает Матроса (Матрос не культист; см. maniac.knowledge does_not_know о дезертирстве)"
             ],
             "special_consequences": [
                 "Трактирщик теряет делового партнёра",
                 "Тайна Матроса (дезертирство, кража казны) может быть раскрыта",
                 "Врач теряет врага",
-                "Официантка может узнать, что Матрос убил её мать (через event_015)",
-                "Призрак dead_wife может быть обнаружен как улика (evidence_008)"
+                "Официантка отомстила за мать: раскрытие культа и её жертвенного ритуала (event_015/016/006/007)",
+                "Потоп (заклинание Официантки, event_016) может быть раскрыт как причина задержания Матроса",
+                "Призрак dead_wife может быть обнаружен как улика/свидетель (evidence_008), но не является убийцей"
             ]
         },
         {
             "victim": "waitress",
             "possible_killers": [
-                "tavern_keeper",
                 "sailor",
-                "doctor",
-                "maniac",
-                "detective",
-                "dead_wife"
+                "maniac"
             ],
             "death_causes": [
                 {
@@ -164,23 +182,16 @@
                         "maniac"
                     ],
                     "probability": "high",
-                    "scenario_note": "Маньяк — паладин-инквизитор из соседней теократии; убивает Официантку как верховную жрицу культа, укравшего реликвию ордена (мумифицированный череп святого, evidence_011). Мотив: вернуть реликвию и покарать культистов (event_018)."
+                    "scenario_note": "КАНОНИЧНЫЙ: Маньяк убивает Официантку, потому что она — верховная жрица/лидер культистов и знает, где реликвия его ордена (мумифицированный череп святого, evidence_011). Мотив: вернуть реликвию и покарать культистов (event_018, event_020)."
                 },
                 {
-                    "type": "murder",
-                    "motivation": "hatred",
+                    "type": "accident",
+                    "motivation": "accident",
                     "related_characters": [
-                        "tavern_keeper"
+                        "sailor"
                     ],
-                    "probability": "medium"
-                },
-                {
-                    "type": "murder",
-                    "motivation": "love",
-                    "related_characters": [
-                        "doctor"
-                    ],
-                    "probability": "low"
+                    "probability": "medium",
+                    "scenario_note": "Подвариант A: Матрос убивает Официантку случайно, приставая к ней (sailor.daily_schedule: приставания; waitress.daily_schedule day/evening: обслуживает в зале)."
                 },
                 {
                     "type": "murder",
@@ -188,15 +199,17 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "low"
+                    "probability": "low",
+                    "scenario_note": "Подвариант B: Матрос убивает Официантку, чтобы запугать Трактирщика — выполняет старую угрозу (event_004: угроза убить дочь, если Трактирщик не согласится; event_015: Матрос угрожал Официантке)."
                 },
                 {
                     "type": "murder",
-                    "motivation": "money",
+                    "motivation": "religion",
                     "related_characters": [
-                        "detective"
+                        "sailor"
                     ],
-                    "probability": "low"
+                    "probability": "low",
+                    "scenario_note": "Подвариант C: Матрос узнаёт, что Официантка — культист, и убивает её, боясь её магии и проклятия (НОВАЯ ЧЕРТА Матроса: он боится магии; см. event_016: Официантка — верховная жрица, заклинание потоп)."
                 },
                 {
                     "type": "accident",
@@ -212,7 +225,7 @@
                 }
             ],
             "required_facts": [
-                "Кто убил Официантка",
+                "Кто убил Официантку",
                 "Мотив убийства",
                 "Причина смерти"
             ],
@@ -221,9 +234,13 @@
                 "evidence_004",
                 "evidence_011"
             ],
+            "required_evidence_note": "evidence_003 (записная книжка/контрабанда), evidence_004 (ложные следы Маньяка) и evidence_011 (реликвия ордена) доказывают прошлые преступления/связи, но НЕ доказывают убийство Официантки (принцип из README). Они нужны, чтобы расставить подозреваемых и ложные следы, а не чтобы доказать, кто именно убил Официантку.",
             "false_leads": [
                 "Официантка — культист, может выглядеть как убийца",
-                "Официантка — любовница Врача, может выглядеть как подозреваемая"
+                "Официантка — любовница Врача, может выглядеть как подозреваемая",
+                "Доктор НЕ трогает Официантку (это его любовница) — не убийца",
+                "Детектив НЕ трогает Официантку (нет отношения/мотива) — не убийца",
+                "Трактирщик НЕ трогает Официантку (это его дочь) — не убийца"
             ],
             "special_consequences": [
                 "Трактирщик теряет дочь",
@@ -240,27 +257,26 @@
             "possible_killers": [
                 "tavern_keeper",
                 "sailor",
-                "waitress",
-                "maniac",
-                "detective",
-                "dead_wife"
+                "maniac"
             ],
             "death_causes": [
+                {
+                    "type": "murder",
+                    "motivation": "justice",
+                    "related_characters": [
+                        "sailor"
+                    ],
+                    "probability": "high",
+                    "scenario_note": "КАНОНИЧНЫЙ: Матрос убивает Доктора для защиты себя от преследования (sailor.suspects: Врач мог прийти в таверну по его душу за дезертирство и кражу казны; sailor false_belief: Врач может знать о его прошлом). Матрос считает, что Доктор его выдаст, и убивает его, чтобы тот замолчал."
+                },
                 {
                     "type": "murder",
                     "motivation": "hatred",
                     "related_characters": [
                         "tavern_keeper"
                     ],
-                    "probability": "high"
-                },
-                {
-                    "type": "murder",
-                    "motivation": "money",
-                    "related_characters": [
-                        "sailor"
-                    ],
-                    "probability": "medium"
+                    "probability": "medium",
+                    "scenario_note": "Трактирщик убивает Доктора, защищая дочь (Официантку) — резко против их отношений (tavern_keeper.hatred->doctor, tavern_keeper.knows_exactly: резко против любовной связи Официантки и Врача)."
                 },
                 {
                     "type": "murder",
@@ -269,7 +285,7 @@
                         "maniac"
                     ],
                     "probability": "low",
-                    "scenario_note": "Маньяк — паладин-инквизитор; может убить Врача как члена культа (последователя), укравшего реликвию ордена (мумифицированный череп святого, evidence_011). Мотив: покарать культистов (event_018)."
+                    "scenario_note": "Маньяк убивает Доктора как культиста (члена культа, последователя) (maniac.religion->doctor, maniac.justice->doctor; event_018: охота на культистов за украденную реликвию)."
                 },
                 {
                     "type": "accident",
@@ -294,9 +310,12 @@
                 "evidence_006",
                 "evidence_011"
             ],
+            "required_evidence_note": "evidence_003 (записная книжка/контрабанда), evidence_006 (ложная улика на Матроса) и evidence_011 (реликвия ордена) доказывают прошлые преступления/связи, но НЕ доказывают убийство Доктора (принцип из README). Они нужны, чтобы расставить подозреваемых и ложные следы, а не чтобы доказать, кто именно убил Доктора.",
             "false_leads": [
                 "Врач — культист, может выглядеть как убийца",
-                "Врач — любовник Официантки, может выглядеть как подозреваемый"
+                "Врач — любовник Официантки, может выглядеть как подозреваемый",
+                "Официантка НЕ убивает Доктора (это её любовник; она 'запала' на Маньяка, но не бросает Доктора, event_021) — не убийца",
+                "Детектив НЕ трогает Доктора (нет отношения/мотива) — не убийца"
             ],
             "special_consequences": [
                 "Официантка теряет любовника",
@@ -310,19 +329,27 @@
             "possible_killers": [
                 "tavern_keeper",
                 "sailor",
-                "waitress",
                 "doctor",
-                "maniac",
-                "dead_wife"
+                "maniac"
             ],
             "death_causes": [
                 {
-                    "type": "murder",
-                    "motivation": "justice",
+                    "type": "accident",
+                    "motivation": "accident",
                     "related_characters": [
-                        "maniac"
+                        "sailor"
                     ],
-                    "probability": "high"
+                    "probability": "medium",
+                    "scenario_note": "Подвариант A: Матрос убивает Детектива случайно, по пьянке (см. detective.daily_schedule: следы пьянства, evidence_005)."
+                },
+                {
+                    "type": "murder",
+                    "motivation": "money",
+                    "related_characters": [
+                        "sailor"
+                    ],
+                    "probability": "low",
+                    "scenario_note": "Подвариант B: Матрос убивает Детектива, если тот найдёт доказательства контрабанды (sailor.knowledge: контрабанда Трактирщика и Матроса; event_005)."
                 },
                 {
                     "type": "murder",
@@ -330,21 +357,26 @@
                     "related_characters": [
                         "tavern_keeper"
                     ],
-                    "probability": "medium"
+                    "probability": "medium",
+                    "scenario_note": "Трактирщик убивает Детектива, если тот найдёт доказательства контрабанды (tavern_keeper.small_secret: контрабанда; event_005). Мотив: закрыть дело о контрабанде."
                 },
                 {
                     "type": "murder",
-                    "motivation": "religion",
+                    "motivation": "love",
                     "related_characters": [
-                        "waitress"
+                        "doctor"
                     ],
-                    "probability": "low"
+                    "probability": "medium",
+                    "scenario_note": "Доктор убивает Детектива, защищая Официантку от пьяного Детектива (doctor.love->waitress; detective.daily_schedule: следы пьянства, evidence_005)."
                 },
                 {
-                    "type": "accident",
-                    "motivation": "accident",
-                    "related_characters": [],
-                    "probability": "medium"
+                    "type": "murder",
+                    "motivation": "justice",
+                    "related_characters": [
+                        "maniac"
+                    ],
+                    "probability": "high",
+                    "scenario_note": "Маньяк убивает Детектива, если его раскроют как убийцу культистов в городе (event_010: серия убийств; maniac.justice->detective: противопоставление тайного и официального правосудия). Мотив: замолвить дело, чтобы скрыть свои убийства."
                 },
                 {
                     "type": "disease",
@@ -362,13 +394,16 @@
                 "evidence_005",
                 "evidence_004"
             ],
+            "required_evidence_note": "evidence_005 (следы пьянства Детектива) и evidence_004 (ложные следы Маньяка) доказывают прошлые события/связи, но НЕ доказывают убийство Детектива (принцип из README). Они нужны, чтобы расставить подозреваемых и ложные следы, а не чтобы доказать, кто именно убил Детектива.",
             "false_leads": [
                 "Детектив — расследователь, может выглядеть как убийца",
-                "Детектив был пьян, может выглядеть как подозреваемый"
+                "Детектив был пьян, может выглядеть как подозреваемый",
+                "Официантка НЕ убивает Детектива: если он найдёт логово культа (cult_lair), она скорее позовёт его в культ (religion, event_006/007) — не убийца"
             ],
             "special_consequences": [
                 "Расследование прекращается",
-                "Маньяк может быть невиновен в текущем убийстве"
+                "Маньяк может быть невиновен в текущем убийстве",
+                "Контрабанда (Трактирщик/Матрос) может быть раскрыта (если убийца — один из них)"
             ]
         },
         {
@@ -378,8 +413,7 @@
                 "sailor",
                 "waitress",
                 "doctor",
-                "detective",
-                "dead_wife"
+                "detective"
             ],
             "death_causes": [
                 {
@@ -388,7 +422,44 @@
                     "related_characters": [
                         "waitress"
                     ],
-                    "probability": "high"
+                    "probability": "high",
+                    "scenario_note": "Официантка убивает Маньяка, если тот находит убежище культа (cult_lair). Мотив: смертельная религиозная вражда (охотник на культистов; maniac.hatred->waitress, event_018). Она 'запала' на него (love, event_021), но это не спасает от вражды."
+                },
+                {
+                    "type": "murder",
+                    "motivation": "love",
+                    "related_characters": [
+                        "doctor"
+                    ],
+                    "probability": "medium",
+                    "scenario_note": "Подвариант A: Доктор убивает Маньяка, если тот покусится на Официантку как на верховную жрицу (maniac.religion->doctor: потенциальный враг как член культа; maniac.justice->doctor: самосуд: охота на культиста)."
+                },
+                {
+                    "type": "murder",
+                    "motivation": "love",
+                    "related_characters": [
+                        "doctor"
+                    ],
+                    "probability": "medium",
+                    "scenario_note": "Подвариант B: Доктор отравляет Маньяка из ревности (Официантка уделяет ему много внимания и флиртует с Маньяком, event_021; waitress.daily_schedule day: флорт с Маньяком)."
+                },
+                {
+                    "type": "murder",
+                    "motivation": "justice",
+                    "related_characters": [
+                        "tavern_keeper"
+                    ],
+                    "probability": "low",
+                    "scenario_note": "Трактирщик убивает Маньяка, если тот нападает на Официантку (дочь). Мотив: защита дочери (тavern_keeper.love->waitress: отцовская любовь; tavern_keeper.hatred->doctor: резко против отношений Официантки)."
+                },
+                {
+                    "type": "accident",
+                    "motivation": "accident",
+                    "related_characters": [
+                        "sailor"
+                    ],
+                    "probability": "low",
+                    "scenario_note": "Матрос убивает Маньяка случайно, по пьянке. Причина конфликта: Матрос не понимает творчества Маньяка (maniac.secrets: 'вольный художник', картины-расчленёнка, event_021). См. detective.daily_schedule: следы пьянства, evidence_005."
                 },
                 {
                     "type": "murder",
@@ -396,13 +467,8 @@
                     "related_characters": [
                         "detective"
                     ],
-                    "probability": "medium"
-                },
-                {
-                    "type": "accident",
-                    "motivation": "accident",
-                    "related_characters": [],
-                    "probability": "medium"
+                    "probability": "medium",
+                    "scenario_note": "Детектив убивает Маньяка: противопоставление личного (тайного) и официального правосудия (maniac.justice->detective). Детектив расследует серию убийств (event_010/011/012)."
                 },
                 {
                     "type": "disease",
@@ -420,14 +486,17 @@
                 "evidence_004",
                 "evidence_003"
             ],
+            "required_evidence_note": "evidence_004 (ложные следы Маньяка в attic) и evidence_003 доказывают его преступления/связи из прошлого, но НЕ доказывают его убийство (принцип из README). Они нужны, чтобы расставить подозреваемых и ложные следы, а не чтобы доказать, кто именно убил Маньяка.",
             "false_leads": [
                 "Маньяк — серийный убийца, может выглядеть как убийца",
-                "Маньяк — паладин, может выглядеть как защитник"
+                "Маньяк — паладин, может выглядеть как защитник",
+                "Официантка 'запала' на Маньяка (love, event_021) — может выглядеть как неспособная на убийство (но у неё religious вражда)"
             ],
             "special_consequences": [
                 "Культисты теряют угрозу",
-                "Серия убийств в городе может быть раскрыта",
-                "Маньяк был невиновен в текущем убийстве"
+                "Серия убийств в городе может быть раскрыта (event_010)",
+                "Маньяк был невиновен в текущем убийстве (is_killer=false, текущее дело)",
+                "Культ может быть раскрыт (если убийца — Официантка, найдя cult_lair)"
             ]
         }
     ]
