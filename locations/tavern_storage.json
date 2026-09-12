@@ -1,22 +1,52 @@
 {
-  "id": "tavern_storage",
-  "name": "Склад таверны",
-  "type": "gameplay",
-  "parent_location": "tavern",
-  "description": "Склад таверны, где хранятся запасы, включая контрабандные товары.",
-  "characters": [
-    "sailor",
-    "tavern_keeper"
-  ],
-  "important_events": [],
-  "clues": [],
-  "secrets": [
-    "контрабанда"
-  ],
-  "mechanical_features": [
-    "склады",
-    "запасы",
-    "запрещённые товары",
-    "тайники"
-  ]
+    "id":  "tavern_storage",
+    "name":  "Склад таверны",
+    "type":  "gameplay",
+    "parent_location":  "tavern",
+    "description":  "Склад таверны, где хранятся запасы, включая контрабандные товары.",
+    "characters":  [
+                       "sailor",
+                       "tavern_keeper"
+                   ],
+    "important_events":  [
+
+                         ],
+    "clues":  [
+
+              ],
+    "secrets":  [
+                    "контрабанда"
+                ],
+    "mechanical_features":  [
+                                "склады",
+                                "запасы",
+                                "запрещённые товары",
+                                "тайники"
+                            ],
+    "appearance":  "Длинное помещение с низким потолком. Вдоль стен — полки с бочками, мешками, ящиками. В углу — контрабандные товары, прикрытые тканью. Пахнет солёной рыбой, вином и специями. Свет — от масляной лампы.",
+    "senses":  {
+                   "feeling":  "теснота, тайна",
+                   "smell":  "рыба, вино, специи, табак",
+                   "sound":  "капли воды, скрип полок"
+               },
+    "hidden":  [
+                   {
+                       "description":  "Нож Матроса",
+                       "evidence":  [
+                                        "evidence_014"
+                                    ]
+                   },
+                   {
+                       "description":  "Счёт за контрабанду",
+                       "evidence":  [
+                                        "evidence_020"
+                                    ]
+                   },
+                   {
+                       "description":  "Сломанный нож",
+                       "evidence":  [
+                                        "evidence_043"
+                                    ]
+                   }
+               ]
 }

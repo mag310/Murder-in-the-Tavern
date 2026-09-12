@@ -1,164 +1,202 @@
 {
-  "id": "dead_wife",
-  "name": null,
-  "role": "Мёртвая жена Трактирщика (мать Официантки; призрак, обитает у Могилы жены)",
-  "status": "ghost",
-  "can_be_murder_victim": false,
-  "secrets": [
-    {
-      "level": "big",
-      "description": "Убита Матросом (изнасилована и убита). Призрак рассказал Официантке об этом (event_015).",
-      "known_by": [
-        "tavern_keeper",
-        "sailor",
-        "dead_wife",
-        "waitress"
-      ]
-    }
-  ],
-  "relationships": {
-    "love": [
-      {
-        "target": "tavern_keeper",
-        "type": "жена / муж"
-      },
-      {
-        "target": "waitress",
-        "type": "мать / дочь"
-      }
-    ],
-    "hatred": [
-      {
-        "target": "sailor",
-        "type": "убийца"
-      }
-    ],
-    "money": [],
-    "religion": [
-      {
-        "target": "waitress",
-        "type": "бывшая верховная жрица культа; обучила дочь (Официантка — текущая жрица)"
-      },
-      {
-        "target": "sailor",
-        "type": "убита Матросом, не зная (неизвестно Матросу), что была жрицей культа"
-      }
-    ],
-    "justice": [
-      {
-        "target": "sailor",
-        "type": "убита Матросом (изнасилована и убита); призрак рассказал Официантке об этом"
-      }
-    ]
-  },
-  "knowledge": [
-    {
-      "level": "knows_exactly",
-      "fact": "Она была женой Трактирщика",
-      "target": "tavern_keeper",
-      "reason": "Мёртвая жена была женой Трактирщика",
-      "source": "relationship"
-    },
-    {
-      "level": "knows_exactly",
-      "fact": "Матрос изнасиловал и убил её",
-      "target": "sailor",
-      "reason": "Матрос убил её",
-      "source": "event_004"
-    },
-    {
-      "level": "knows_only",
-      "fact": "Её дочь — Официантка",
-      "target": "waitress",
-      "reason": "Мёртвая жена — мать Официантки",
-      "source": "relationship"
-    },
-    {
-      "level": "knows_exactly",
-      "fact": "Матрос угрожал её дочери (Официантке), если Трактирщик не согласится вести общие дела",
-      "target": "sailor",
-      "reason": "Призрак Жены рассказал Официантке об угрозах Матроса",
-      "source": "event_015"
-    },
-    {
-      "level": "knows_exactly",
-      "fact": "Она — призрак, который обитает у Могилы жены (wife_grave)",
-      "target": null,
-      "reason": "dead_wife — призрак, участвующий в игре",
-      "source": "event_015"
-    },
-    {
-      "level": "knows_exactly",
-      "fact": "Она была верховной жрицей культа тёмных богов до своей гибели",
-      "target": null,
-      "reason": "dead_wife — бывшая верховная жрица культа (event_019)",
-      "source": "event_019"
-    },
-    {
-      "level": "knows_exactly",
-      "fact": "Она обучила дочь (Официантку) ритуалам культа при жизни",
-      "target": "waitress",
-      "reason": "dead_wife обучила дочь; Официантка завершила инициацию после её смерти (event_019)",
-      "source": "event_019"
-    },
-    {
-      "level": "knows_only",
-      "fact": "Матрос убил её, не зная, что она — жрица культа (считал, что убивает просто жену «коллеги»)",
-      "target": "sailor",
-      "reason": "Матрос не знал о её жречестве (event_004)",
-      "source": "event_004"
-    }
-  ],
-  "false_beliefs": [],
-  "death": {
-    "killed_by": "sailor",
-    "cause": "murder",
-    "event": "event_004",
-    "status": "dead"
-  },
-  "daily_schedule": [
-    {
-      "time": "night",
-      "location": "wife_grave",
-      "activity": "обитает у Могилы жены",
-      "note": "один из входов к убежищу культа (cult_lair)"
-    },
-    {
-      "time": "morning",
-      "location": "waitress_room",
-      "activity": "приходит к Официантке, пока та спит, и рассказывает ей об убийстве",
-      "note": "event_015: призрак приходит к Официантке (Официантка спит в waitress_room ночью/утром, см. waitress.daily_schedule)"
-    },
-    {
-      "time": "day",
-      "location": "tavern_hall",
-      "activity": "обитает рядом с портретом жены на видном месте в зале",
-      "note": "evidence_007: портрет как деталь интерьера; призрак может появляться рядом с портретом"
-    },
-    {
-      "time": "evening",
-      "location": "tavern_hall",
-      "activity": "обитает рядом с портретом жены в зале",
-      "note": "см. note day; призрак не покидает зал"
-    },
-    {
-      "time": "midnight",
-      "location": "cult_lair",
-      "activity": "присутствует у входа к логову культа",
-      "note": "один из входов к культу через wife_grave; связь с basement"
-    }
-  ],
-  "organizations": [
-    {
-      "organization": "tavern",
-      "role": "погибшая жена владельца (призрак)",
-      "status": "dead"
-    },
-    {
-      "organization": "cult",
-      "role": "бывшая верховная жрица (основатель культа)",
-      "status": "dead",
-      "note": "dead_wife была верховной жрицей до гибели; обучила дочь (Официантка — текущая жрица, см. event_019). Теперь призрак, обитает у входа к логову культа через Могила жены (wife_grave)"
-    }
-  ]
+    "id":  "dead_wife",
+    "name":  null,
+    "role":  "Мёртвая жена Трактирщика (мать Официантки; призрак, обитает у Могилы жены)",
+    "status":  "ghost",
+    "can_be_murder_victim":  false,
+    "secrets":  [
+                    {
+                        "level":  "big",
+                        "description":  "Убита Матросом (изнасилована и убита). Призрак рассказал Официантке об этом (event_015).",
+                        "known_by":  [
+                                         "tavern_keeper",
+                                         "sailor",
+                                         "dead_wife",
+                                         "waitress"
+                                     ]
+                    }
+                ],
+    "relationships":  {
+                          "love":  [
+                                       {
+                                           "target":  "tavern_keeper",
+                                           "type":  "жена / муж"
+                                       },
+                                       {
+                                           "target":  "waitress",
+                                           "type":  "мать / дочь"
+                                       }
+                                   ],
+                          "hatred":  [
+                                         {
+                                             "target":  "sailor",
+                                             "type":  "убийца"
+                                         }
+                                     ],
+                          "money":  [
+
+                                    ],
+                          "religion":  [
+                                           {
+                                               "target":  "waitress",
+                                               "type":  "бывшая верховная жрица культа; обучила дочь (Официантка — текущая жрица)"
+                                           },
+                                           {
+                                               "target":  "sailor",
+                                               "type":  "убита Матросом, не зная (неизвестно Матросу), что была жрицей культа"
+                                           }
+                                       ],
+                          "justice":  [
+                                          {
+                                              "target":  "sailor",
+                                              "type":  "убита Матросом (изнасилована и убита); призрак рассказал Официантке об этом"
+                                          }
+                                      ]
+                      },
+    "knowledge":  [
+                      {
+                          "level":  "knows_exactly",
+                          "fact":  "Она была женой Трактирщика",
+                          "target":  "tavern_keeper",
+                          "reason":  "Мёртвая жена была женой Трактирщика",
+                          "source":  "relationship"
+                      },
+                      {
+                          "level":  "knows_exactly",
+                          "fact":  "Матрос изнасиловал и убил её",
+                          "target":  "sailor",
+                          "reason":  "Матрос убил её",
+                          "source":  "event_004"
+                      },
+                      {
+                          "level":  "knows_only",
+                          "fact":  "Её дочь — Официантка",
+                          "target":  "waitress",
+                          "reason":  "Мёртвая жена — мать Официантки",
+                          "source":  "relationship"
+                      },
+                      {
+                          "level":  "knows_exactly",
+                          "fact":  "Матрос угрожал её дочери (Официантке), если Трактирщик не согласится вести общие дела",
+                          "target":  "sailor",
+                          "reason":  "Призрак Жены рассказал Официантке об угрозах Матроса",
+                          "source":  "event_015"
+                      },
+                      {
+                          "level":  "knows_exactly",
+                          "fact":  "Она — призрак, который обитает у Могилы жены (wife_grave)",
+                          "target":  null,
+                          "reason":  "dead_wife — призрак, участвующий в игре",
+                          "source":  "event_015"
+                      },
+                      {
+                          "level":  "knows_exactly",
+                          "fact":  "Она была верховной жрицей культа тёмных богов до своей гибели",
+                          "target":  null,
+                          "reason":  "dead_wife — бывшая верховная жрица культа (event_019)",
+                          "source":  "event_019"
+                      },
+                      {
+                          "level":  "knows_exactly",
+                          "fact":  "Она обучила дочь (Официантку) ритуалам культа при жизни",
+                          "target":  "waitress",
+                          "reason":  "dead_wife обучила дочь; Официантка завершила инициацию после её смерти (event_019)",
+                          "source":  "event_019"
+                      },
+                      {
+                          "level":  "knows_only",
+                          "fact":  "Матрос убил её, не зная, что она — жрица культа (считал, что убивает просто жену «коллеги»)",
+                          "target":  "sailor",
+                          "reason":  "Матрос не знал о её жречестве (event_004)",
+                          "source":  "event_004"
+                      }
+                  ],
+    "false_beliefs":  [
+
+                      ],
+    "death":  {
+                  "killed_by":  "sailor",
+                  "cause":  "murder",
+                  "event":  "event_004",
+                  "status":  "dead"
+              },
+    "daily_schedule":  [
+                           {
+                               "time":  "night",
+                               "location":  "wife_grave",
+                               "activity":  "обитает у Могилы жены",
+                               "note":  "один из входов к убежищу культа (cult_lair)"
+                           },
+                           {
+                               "time":  "morning",
+                               "location":  "waitress_room",
+                               "activity":  "приходит к Официантке, пока та спит, и рассказывает ей об убийстве",
+                               "note":  "event_015: призрак приходит к Официантке (Официантка спит в waitress_room ночью/утром, см. waitress.daily_schedule)"
+                           },
+                           {
+                               "time":  "day",
+                               "location":  "tavern_hall",
+                               "activity":  "обитает рядом с портретом жены на видном месте в зале",
+                               "note":  "evidence_007: портрет как деталь интерьера; призрак может появляться рядом с портретом"
+                           },
+                           {
+                               "time":  "evening",
+                               "location":  "tavern_hall",
+                               "activity":  "обитает рядом с портретом жены в зале",
+                               "note":  "см. note day; призрак не покидает зал"
+                           },
+                           {
+                               "time":  "midnight",
+                               "location":  "cult_lair",
+                               "activity":  "присутствует у входа к логову культа",
+                               "note":  "один из входов к культу через wife_grave; связь с basement"
+                           }
+                       ],
+    "organizations":  [
+                          {
+                              "organization":  "tavern",
+                              "role":  "погибшая жена владельца (призрак)",
+                              "status":  "dead"
+                          },
+                          {
+                              "organization":  "cult",
+                              "role":  "бывшая верховная жрица (основатель культа)",
+                              "status":  "dead",
+                              "note":  "dead_wife была верховной жрицей до гибели; обучила дочь (Официантка — текущая жрица, см. event_019). Теперь призрак, обитает у входа к логову культа через Могилу жены (wife_grave)"
+                          }
+                      ],
+    "appearance":  {
+                       "face":  "бледное, почти прозрачное; глаза — тёмные, глубокие, с печалью; взгляд — мягкий, но пронзительный; иногда, когда она говорит, её голос звучит как эхо",
+                       "clothing":  "белое платье, которое она носила при жизни; волосы распущены; ноги не касаются земли — она парит в воздухе",
+                       "build":  "стройное, лёгкое",
+                       "age":  "~35 лет (на момент смерти)",
+                       "distinguishing_marks":  [
+                                                    "появляется у портрета в tavern_hall, у могилы (wife_grave) и у входа в cult_lair",
+                                                    "может проходить сквозь стены",
+                                                    "говорит только с Официанткой (и с теми, кого сочтёт достойным)"
+                                                ]
+                   },
+    "senses":  {
+                   "smell":  "холод, цветы (запах с могилы)"
+               },
+    "hidden":  [
+                   {
+                       "description":  "Призрак Жены",
+                       "evidence":  [
+                                        "evidence_008"
+                                    ]
+                   },
+                   {
+                       "description":  "Показания призрака",
+                       "evidence":  [
+                                        "evidence_036"
+                                    ]
+                   },
+                   {
+                       "description":  "Завещание dead_wife",
+                       "evidence":  [
+                                        "evidence_050"
+                                    ]
+                   }
+               ]
 }

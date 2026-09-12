@@ -116,6 +116,27 @@
                         "medium",
                         "low"
                     ]
+                },
+                "primary_evidence": {
+                    "type": "array",
+                    "description": "ID основной улики (напрямую указывает на убийцу в этой ветке). Может быть пустым для accident/disease.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "secondary_evidence": {
+                    "type": "array",
+                    "description": "ID вспомогательных улик (подводят к основной, подтверждают мотив/возможность).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "false_evidence": {
+                    "type": "array",
+                    "description": "ID ложных следов (сбивают с толку, но не блокируют расследование).",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             },
             "additionalProperties": true

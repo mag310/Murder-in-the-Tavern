@@ -76,8 +76,84 @@
             "items": {
                 "type": "string"
             }
+        },
+        "appearance": {
+            "$ref": "#/$defs/appearance"
+        },
+        "senses": {
+            "$ref": "#/$defs/senses"
+        },
+        "hidden": {
+            "type": "array",
+            "description": "Скрытые детали локации: что можно найти при обыске/наблюдении. Текст описания + (по желанию) ссылки на улики.",
+            "items": {
+                "$ref": "#/$defs/hiddenDetail"
+            }
         }
     },
     "additionalProperties": true,
-    "$defs": {}
+    "$defs": {
+        "appearance": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Визуальное описание локации: что видят персонажи (здания, предметы, освещение, атмосфера). Без ссылок на улики — только описание."
+        },
+        "senses": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "Сенсорное описание локации: что слышат/чувствуют персонажи.",
+            "properties": {
+                "smell": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Запах (набор запахов в помещении)."
+                },
+                "sound": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Звуки (что слышно в помещении)."
+                },
+                "feeling": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Ощущение (атмосфера: тепло/холод/напряжение/страх)."
+                }
+            },
+            "additionalProperties": true
+        },
+        "hiddenDetail": {
+            "type": "object",
+            "description": "Скрытая деталь локации (обнаруживается при обыске/наблюдении).",
+            "properties": {
+                "description": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Текстовое описание скрытой детали."
+                },
+                "evidence": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Ссылки на улики, обнаруживаемые здесь (ID из evidence.json).",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        }
+    }
 }

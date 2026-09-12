@@ -31,7 +31,8 @@
                 "related",
                 "versions",
                 "false_leads",
-                "notes"
+                "notes",
+                "role"
             ],
             "properties": {
                 "id": {
@@ -53,6 +54,11 @@
                         "medical",
                         "environmental",
                         "digital",
+                        "magical",
+                        "forensic",
+                        "toxicological",
+                        "ritual",
+                        "audio",
                         "other"
                     ]
                 },
@@ -105,6 +111,52 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "primary",
+                        "secondary",
+                        "false",
+                        "alibi",
+                        "accident"
+                    ],
+                    "description": "Роль улики: primary (основная, указывает на убийцу), secondary (вспомогательная), false (ложный след), alibi (очерчивает убийцу), accident (для веток случайной смерти/болезни)."
+                },
+                "branches": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "victim",
+                            "killer",
+                            "role"
+                        ],
+                        "properties": {
+                            "victim": {
+                                "type": "string"
+                            },
+                            "killer": {
+                                "type": "string"
+                            },
+                            "role": {
+                                "type": "string",
+                                "enum": [
+                                    "primary",
+                                    "secondary",
+                                    "false"
+                                ]
+                            },
+                            "note": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "description": "Привязки к веткам: каждая запись — (жертва, убийца, роль улики в этой ветке)."
                 }
             },
             "additionalProperties": true

@@ -105,6 +105,19 @@
         },
         "death": {
             "$ref": "#/$defs/death"
+        },
+        "appearance": {
+            "$ref": "#/$defs/appearance"
+        },
+        "senses": {
+            "$ref": "#/$defs/senses"
+        },
+        "hidden": {
+            "type": "array",
+            "description": "Скрытое (при обыске/наблюдении): что можно найти при обыске персонажа или что он делает, когда не видит. Текст + (по желанию) ссылки на улики.",
+            "items": {
+                "$ref": "#/$defs/hiddenDetail"
+            }
         }
     },
     "additionalProperties": true,
@@ -264,7 +277,7 @@
                         "null"
                     ]
                 },
-                "reason_previous_deaths_are_connected_to_maniac": {
+                "reason_previous_deaths_are_connected_to_artist": {
                     "type": [
                         "string",
                         "null"
@@ -473,6 +486,103 @@
                         "low"
                     ],
                     "description": "Насколько твёрдо персонаж верит в это убеждение"
+                }
+            },
+            "additionalProperties": true
+        },
+        "appearance": {
+            "type": "object",
+            "description": "Внешний вид персонажа: что видят другие (возраст, телосложение, одежда, лицо, особые приметы). Без ссылок на улики — только описание.",
+            "properties": {
+                "age": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Возраст (примерный)."
+                },
+                "build": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Телосложение."
+                },
+                "clothing": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Одежда (то, что видно снаружи)."
+                },
+                "face": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Лицо, черты, выражение."
+                },
+                "distinguishing_marks": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Особые приметы (шрамы, тату, манеры, привычки)."
+                }
+            },
+            "additionalProperties": true
+        },
+        "senses": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "Сенсорное описание персонажа: что чувствуют другие при контакте (запах, голос, манеры).",
+            "properties": {
+                "smell": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Запах (что пахнет персонаж)."
+                },
+                "voice": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Голос/речь (как говорит, акцент, тон)."
+                },
+                "behaviors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Наблюдаемые поведенческие приметы (что заметят при наблюдении)."
+                }
+            },
+            "additionalProperties": true
+        },
+        "hiddenDetail": {
+            "type": "object",
+            "description": "Скрытая деталь персонажа (обнаруживается при обыске/наблюдении).",
+            "properties": {
+                "description": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Текстовое описание скрытой детали."
+                },
+                "evidence": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Ссылки на улики, связанные с этой деталью (ID из evidence.json).",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             },
             "additionalProperties": true

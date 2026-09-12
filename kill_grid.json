@@ -1,0 +1,863 @@
+{
+    "_meta":  {
+                  "description":  "Матрица 6x6: кто убил кого + уликa. Строки = УБИЙЦА, столбцы = ЖЕРТВА.",
+                  "characters":  [
+                                     "sailor",
+                                     "tavern_keeper",
+                                     "waitress",
+                                     "doctor",
+                                     "artist",
+                                     "detective"
+                                 ],
+                  "character_names":  {
+                                          "sailor":  "Матрос",
+                                          "tavern_keeper":  "Трактирщик",
+                                          "waitress":  "Официантка",
+                                          "doctor":  "Врач",
+                                          "artist":  "Художник",
+                                          "detective":  "Детектив"
+                                      },
+                  "evidence_index":  {
+                                         "evidence_001":  "Контейнеры с запрещёнными напитками (контрабанда в тайнике Трактирщика)",
+                                         "evidence_002":  "Записная книжка Трактирщика (деловая связь с Матросом, угрозы)",
+                                         "evidence_003":  "Ритуальные предметы культа (Официантка = верховная жрица, Врач = член культа)",
+                                         "evidence_004":  "Ложные следы Художника на чердаке (attic)",
+                                         "evidence_005":  "Следы пьянства Детектива (guest_rooms)",
+                                         "evidence_006":  "Ложная улика на Матроса (в комнате Матроса)",
+                                         "evidence_007":  "Портрет жены (dead_wife) в зале — связь Трактирщик↔dead_wife↔Официантка",
+                                         "evidence_008":  "Призрак Жены (dead_wife): Матрос убил мать Официантки, угрожал ей",
+                                         "evidence_009":  "Дневник Официантки (потоп = её заклинание, молитва тёмным богам)",
+                                         "evidence_010":  "Потоп как заклинание (изолирует таверну, неестественный потоп)",
+                                         "evidence_011":  "Реликвия ордена (мумифицированный череп святого) в cult_lair",
+                                         "evidence_012":  "Художественная мастерская Художника (картины-треш-расчленёнка)",
+                                         "evidence_013":  "Ритуальный кинжал Врача",
+                                         "evidence_014":  "Нож Матроса",
+                                         "evidence_016":  "Кинжал Трактирщика",
+                                         "evidence_017":  "Разбитая бутылка",
+                                         "evidence_018":  "Дневник Трактирщика",
+                                         "evidence_019":  "Письмо Матроса с угрозой",
+                                         "evidence_020":  "Счёт за контрабанду",
+                                         "evidence_021":  "Дневник Официантки (часть 2)",
+                                         "evidence_022":  "Записка Врача",
+                                         "evidence_023":  "Медицинский журнал Врача",
+                                         "evidence_024":  "Приказ ордена",
+                                         "evidence_025":  "Наброски Художника",
+                                         "evidence_026":  "Следы ритуала на теле",
+                                         "evidence_027":  "Аура заклинания",
+                                         "evidence_028":  "Заклинательный фокус Официантки",
+                                         "evidence_029":  "Свеча из культа",
+                                         "evidence_030":  "Печать культа",
+                                         "evidence_031":  "Тайник Матроса",
+                                         "evidence_032":  "Тайник Трактирщика",
+                                         "evidence_033":  "Тайник Врача",
+                                         "evidence_034":  "Тайник Художника",
+                                         "evidence_035":  "Тайник Официантки",
+                                         "evidence_036":  "Показания призрака",
+                                         "evidence_037":  "Шёпот в подвале",
+                                         "evidence_038":  "Следы на чердачной лестнице",
+                                         "evidence_039":  "Мокрые следы",
+                                         "evidence_040":  "Запах благовоний",
+                                         "evidence_041":  "Поддельное письмо",
+                                         "evidence_042":  "Чужая кровь на одежде",
+                                         "evidence_043":  "Сломанный нож",
+                                         "evidence_044":  "Флакон яда",
+                                         "evidence_045":  "Маска культа",
+                                         "evidence_046":  "Семейное древо",
+                                         "evidence_047":  "Морская карта",
+                                         "evidence_048":  "Долговая расписка",
+                                         "evidence_049":  "Письмо из ордена",
+                                         "evidence_050":  "Завещание dead_wife"
+                                     },
+                  "legend":  {
+                                 "proof":  "Улика доказывает/поддерживает, что убийца мог убить жертву (мотив/средство/связь)",
+                                 "alibi":  "Улика очерчивает/очерчивает убийцу (комбинация неприемлема или нет мотива)",
+                                 "accident_self":  "Диагональ: сам себя (несчастный случай/самоубийство/болезнь, нет внешнего убийцы)",
+                                 "possible_scenario":  "Не-канон (possible_scenario): мотив гипотетический, требуется выбор автора"
+                             },
+                  "note":  "Модель улик: каждая ячейка (убийца × жертва) содержит primary (основная улика, напрямую указывает на убийцу), secondary (вспомогательные, подводят к основной) и false (ложные следы). Игрок/ИИ использует эти роли, чтобы решить, является ли комбинация убийства (proof) или алиби (alibi)."
+              },
+    "grid":  [
+                 {
+                     "row":  "sailor",
+                     "row_name":  "Матрос",
+                     "cells":  {
+                                   "sailor":  {
+                                                  "type":  "accident_self",
+                                                  "motivation":  "accident",
+                                                  "probability":  "medium",
+                                                  "evidence":  [
+
+                                                               ],
+                                                  "primary_evidence":  [
+
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_005",
+                                                                             "evidence_039"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_001",
+                                                                         "evidence_006"
+                                                                     ],
+                                                  "note":  "Самоубийство/несчастный случай Матроса (без внешнего убийцы). Матрос — дезертир, контрабандист, мог погибнуть случайно."
+                                              },
+                                   "tavern_keeper":  {
+                                                         "type":  "proof",
+                                                         "motivation":  "hatred",
+                                                         "probability":  "high",
+                                                         "evidence":  [
+                                                                          "evidence_002",
+                                                                          "evidence_007",
+                                                                          "evidence_008"
+                                                                      ],
+                                                         "primary_evidence":  [
+                                                                                  "evidence_019"
+                                                                              ],
+                                                         "secondary_evidence":  [
+                                                                                    "evidence_002",
+                                                                                    "evidence_007",
+                                                                                    "evidence_008",
+                                                                                    "evidence_014"
+                                                                                ],
+                                                         "false_evidence":  [
+                                                                                "evidence_001",
+                                                                                "evidence_044"
+                                                                            ],
+                                                         "note":  "Матрос убил жену Трактирщика (event_004) и угрожал его дочерью (event_004/015). evidence_019 (письмо с угрозой) — основной мотив; evidence_002/007/008 — вспомогательные."
+                                                     },
+                                   "waitress":  {
+                                                    "type":  "proof",
+                                                    "motivation":  "accident/hatred/religion",
+                                                    "probability":  "medium/low/low",
+                                                    "evidence":  [
+                                                                     "evidence_006",
+                                                                     "evidence_008"
+                                                                 ],
+                                                    "primary_evidence":  [
+                                                                             "evidence_006"
+                                                                         ],
+                                                    "secondary_evidence":  [
+                                                                               "evidence_008",
+                                                                               "evidence_010",
+                                                                               "evidence_027"
+                                                                           ],
+                                                    "false_evidence":  [
+                                                                           "evidence_003",
+                                                                           "evidence_009"
+                                                                       ],
+                                                    "note":  "Подвариант A (accident/medium): Матрос случайно убивает Официантку, приставая к ней. Подвариант B (hatred/low): запугать Трактирщика. Подвариант C (religion/low): боится магии. evidence_006 — основной; evidence_008/010/027 — вспомогательные."
+                                                },
+                                   "doctor":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "justice",
+                                                  "probability":  "high",
+                                                  "evidence":  [
+                                                                   "evidence_006"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_006"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_014",
+                                                                             "evidence_033",
+                                                                             "evidence_042",
+                                                                             "evidence_023"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_013"
+                                                                     ],
+                                                  "note":  "КАНОНИЧНЫЙ: Матрос убивает Доктора для защиты себя от преследования. evidence_006 — основной (ложная улика, выглядит как подозреваемый, но мотив — самозащита)."
+                                              },
+                                   "artist":  {
+                                                  "type":  "alibi",
+                                                  "motivation":  "accident",
+                                                  "probability":  "low",
+                                                  "evidence":  [
+                                                                   "evidence_006",
+                                                                   "evidence_004"
+                                                               ],
+                                                  "primary_evidence":  [
+
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_005",
+                                                                             "evidence_012"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_006",
+                                                                         "evidence_004"
+                                                                     ],
+                                                  "note":  "Матрос убивает Художника случайно по пьянке (accident/low). Алиби: нет строгого мотива. evidence_006/004 — ложные следы."
+                                              },
+                                   "detective":  {
+                                                     "type":  "proof",
+                                                     "motivation":  "accident/money",
+                                                     "probability":  "medium/low",
+                                                     "evidence":  [
+                                                                      "evidence_005",
+                                                                      "evidence_001"
+                                                                  ],
+                                                     "primary_evidence":  [
+                                                                              "evidence_005"
+                                                                          ],
+                                                     "secondary_evidence":  [
+                                                                                "evidence_006",
+                                                                                "evidence_014",
+                                                                                "evidence_031"
+                                                                            ],
+                                                     "false_evidence":  [
+                                                                            "evidence_002",
+                                                                            "evidence_020"
+                                                                        ],
+                                                     "note":  "Подвариант A (accident/medium): Матрос убивает Детектива по пьянке. Подвариант B (money/low): если Детектив найдёт контрабанду. evidence_005 — основной."
+                                                 }
+                               }
+                 },
+                 {
+                     "row":  "tavern_keeper",
+                     "row_name":  "Трактирщик",
+                     "cells":  {
+                                   "sailor":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "hatred",
+                                                  "probability":  "high",
+                                                  "evidence":  [
+                                                                   "evidence_007",
+                                                                   "evidence_008",
+                                                                   "evidence_010"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_018"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_007",
+                                                                             "evidence_008",
+                                                                             "evidence_016",
+                                                                             "evidence_019"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_006",
+                                                                         "evidence_042"
+                                                                     ],
+                                                  "note":  "Трактирщик отомстил Матросу за убийство/изнасилование его жены (event_004). evidence_018 (дневник: мотив мести) — основной; evidence_007/008/016/019 — вспомогательные."
+                                              },
+                                   "tavern_keeper":  {
+                                                         "type":  "accident_self",
+                                                         "motivation":  "accident",
+                                                         "probability":  "medium",
+                                                         "evidence":  [
+
+                                                                      ],
+                                                         "primary_evidence":  [
+
+                                                                              ],
+                                                         "secondary_evidence":  [
+                                                                                    "evidence_005",
+                                                                                    "evidence_039",
+                                                                                    "evidence_044"
+                                                                                ],
+                                                         "false_evidence":  [
+                                                                                "evidence_001",
+                                                                                "evidence_006"
+                                                                            ],
+                                                         "note":  "Самоубийство/несчастный случай/болезнь Трактирщика (без внешнего убийцы)."
+                                                     },
+                                   "waitress":  {
+                                                    "type":  "alibi",
+                                                    "motivation":  "n/a",
+                                                    "probability":  "impossible",
+                                                    "evidence":  [
+                                                                     "evidence_007"
+                                                                 ],
+                                                    "primary_evidence":  [
+
+                                                                         ],
+                                                    "secondary_evidence":  [
+
+                                                                           ],
+                                                    "false_evidence":  [
+                                                                           "evidence_007"
+                                                                       ],
+                                                    "note":  "Трактирщик НЕ убивает Официантку (это его дочь). evidence_007 = алиби: отцовская любовь. НЕ в possible_killers матрицы waitress."
+                                                },
+                                   "doctor":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "hatred",
+                                                  "probability":  "medium",
+                                                  "evidence":  [
+                                                                   "evidence_003"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_003"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_016",
+                                                                             "evidence_018",
+                                                                             "evidence_022",
+                                                                             "evidence_033"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_013"
+                                                                     ],
+                                                  "note":  "Трактирщик убивает Доктора, защищая дочь (Официантку) — резко против их отношений. evidence_003 (ритуальные предметы) — основной мотив."
+                                              },
+                                   "artist":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "justice",
+                                                  "probability":  "low",
+                                                  "evidence":  [
+                                                                   "evidence_007"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_007"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_016",
+                                                                             "evidence_018",
+                                                                             "evidence_046"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_012"
+                                                                     ],
+                                                  "note":  "Трактирщик убивает Художника, если тот нападает на Официантку (дочь). evidence_007 (портрет/связь) — основной мотив: защита дочери."
+                                              },
+                                   "detective":  {
+                                                     "type":  "proof",
+                                                     "motivation":  "money",
+                                                     "probability":  "medium",
+                                                     "evidence":  [
+                                                                      "evidence_001"
+                                                                  ],
+                                                     "primary_evidence":  [
+                                                                              "evidence_001"
+                                                                          ],
+                                                     "secondary_evidence":  [
+                                                                                "evidence_002",
+                                                                                "evidence_018",
+                                                                                "evidence_032",
+                                                                                "evidence_044"
+                                                                            ],
+                                                     "false_evidence":  [
+                                                                            "evidence_005"
+                                                                        ],
+                                                     "note":  "Трактирщик убивает Детектива, если тот найдёт доказательства контрабанды. evidence_001 (контрабанда) — основной мотив."
+                                                 }
+                               }
+                 },
+                 {
+                     "row":  "waitress",
+                     "row_name":  "Официантка",
+                     "cells":  {
+                                   "sailor":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "religion/justice",
+                                                  "probability":  "high/medium",
+                                                  "evidence":  [
+                                                                   "evidence_008",
+                                                                   "evidence_009",
+                                                                   "evidence_010"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_009"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_008",
+                                                                             "evidence_010",
+                                                                             "evidence_021",
+                                                                             "evidence_028",
+                                                                             "evidence_036"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_006",
+                                                                         "evidence_039"
+                                                                     ],
+                                                  "note":  "Официантка отомстила за мать: подстрекаемая призраком Жены (event_015) и затаив зло за угрозу Матроса, при помощи тёмных богов (потоп, event_016) задержала Матроса. evidence_009 (дневник: потоп=заклинание) — основной."
+                                              },
+                                   "tavern_keeper":  {
+                                                         "type":  "alibi",
+                                                         "motivation":  "n/a",
+                                                         "probability":  "impossible",
+                                                         "evidence":  [
+                                                                          "evidence_007"
+                                                                      ],
+                                                         "primary_evidence":  [
+
+                                                                              ],
+                                                         "secondary_evidence":  [
+
+                                                                                ],
+                                                         "false_evidence":  [
+                                                                                "evidence_007"
+                                                                            ],
+                                                         "note":  "Официантка НЕ убивает Трактирщика (это её отец). evidence_007 = алиби: нет вражды/мотива. НЕ в possible_killers матрицы tavern_keeper."
+                                                     },
+                                   "waitress":  {
+                                                    "type":  "accident_self",
+                                                    "motivation":  "accident/disease",
+                                                    "probability":  "medium/low",
+                                                    "evidence":  [
+                                                                     "evidence_003"
+                                                                 ],
+                                                    "primary_evidence":  [
+
+                                                                         ],
+                                                    "secondary_evidence":  [
+                                                                               "evidence_003"
+                                                                           ],
+                                                    "false_evidence":  [
+                                                                           "evidence_009",
+                                                                           "evidence_028"
+                                                                       ],
+                                                    "note":  "Самоубийство/несчастный случай/болезнь Официантки (без внешнего убийцы). evidence_003 может выглядеть как улика, но не доказывает самоубийство."
+                                                },
+                                   "doctor":  {
+                                                  "type":  "alibi",
+                                                  "motivation":  "n/a",
+                                                  "probability":  "impossible",
+                                                  "evidence":  [
+                                                                   "evidence_003"
+                                                               ],
+                                                  "primary_evidence":  [
+
+                                                                       ],
+                                                  "secondary_evidence":  [
+
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_003"
+                                                                     ],
+                                                  "note":  "Официантка НЕ убивает Доктора (это её любовник). evidence_003 = алиби: любовь, нет мотива. НЕ в possible_killers матрицы doctor."
+                                              },
+                                   "artist":  {
+                                                  "type":  "possible_scenario",
+                                                  "motivation":  "religion",
+                                                  "probability":  "medium",
+                                                  "evidence":  [
+                                                                   "evidence_011",
+                                                                   "evidence_003"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_011"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_003",
+                                                                             "evidence_009",
+                                                                             "evidence_028",
+                                                                             "evidence_036"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_012",
+                                                                         "evidence_025"
+                                                                     ],
+                                                  "note":  "Возможный сценарий (не канон): Официантка убивает Художника, если раскрывает его как охотника на культистов. На начало игры Официантка НЕ знает, что Художник — охотник, и \u0027запала\u0027 на него (love, event_021) — вражды нет. Вражда (religion, event_018) возникает только в possible_scenario. evidence_011 (реликвия) — основная; evidence_003/009/028/036 — вспомогательные."
+                                              },
+                                   "detective":  {
+                                                     "type":  "alibi",
+                                                     "motivation":  "n/a",
+                                                     "probability":  "impossible",
+                                                     "evidence":  [
+                                                                      "evidence_003"
+                                                                  ],
+                                                     "primary_evidence":  [
+
+                                                                          ],
+                                                     "secondary_evidence":  [
+
+                                                                            ],
+                                                     "false_evidence":  [
+                                                                            "evidence_003"
+                                                                        ],
+                                                     "note":  "Официантка НЕ убивает Детектива: если он найдёт логово культа, она скорее позовёт его в культ. evidence_003 = алиби. НЕ в possible_killers матрицы detective."
+                                                 }
+                               }
+                 },
+                 {
+                     "row":  "doctor",
+                     "row_name":  "Врач",
+                     "cells":  {
+                                   "sailor":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "love/possessed",
+                                                  "probability":  "medium/low",
+                                                  "evidence":  [
+                                                                   "evidence_003"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_013"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_003",
+                                                                             "evidence_022",
+                                                                             "evidence_033",
+                                                                             "evidence_042"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_006"
+                                                                     ],
+                                                  "note":  "Подвариант A (love/medium): Врач защищал Официантку. Подвариант B (possessed/low): одержим призраком. evidence_013 (кинжал) — основной орудие; evidence_003/022/033/042 — вспомогательные."
+                                              },
+                                   "tavern_keeper":  {
+                                                         "type":  "proof",
+                                                         "motivation":  "love",
+                                                         "probability":  "medium",
+                                                         "evidence":  [
+                                                                          "evidence_003"
+                                                                      ],
+                                                         "primary_evidence":  [
+                                                                                  "evidence_013"
+                                                                              ],
+                                                         "secondary_evidence":  [
+                                                                                    "evidence_003",
+                                                                                    "evidence_022",
+                                                                                    "evidence_026",
+                                                                                    "evidence_033"
+                                                                                ],
+                                                         "false_evidence":  [
+                                                                                "evidence_001",
+                                                                                "evidence_006"
+                                                                            ],
+                                                         "note":  "Врач убивает Трактирщика по love (защита/ревность). evidence_013 (кинжал) — основной; evidence_003/022/026/033 — вспомогательные."
+                                                     },
+                                   "waitress":  {
+                                                    "type":  "alibi",
+                                                    "motivation":  "n/a",
+                                                    "probability":  "impossible",
+                                                    "evidence":  [
+                                                                     "evidence_003"
+                                                                 ],
+                                                    "primary_evidence":  [
+
+                                                                         ],
+                                                    "secondary_evidence":  [
+
+                                                                           ],
+                                                    "false_evidence":  [
+                                                                           "evidence_003"
+                                                                       ],
+                                                    "note":  "Врач НЕ убивает Официантку (это его любовница). evidence_003 = алиби: love. НЕ в possible_killers матрицы waitress."
+                                                },
+                                   "doctor":  {
+                                                  "type":  "accident_self",
+                                                  "motivation":  "accident/disease",
+                                                  "probability":  "medium/low",
+                                                  "evidence":  [
+                                                                   "evidence_003"
+                                                               ],
+                                                  "primary_evidence":  [
+
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_023"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_003"
+                                                                     ],
+                                                  "note":  "Самоубийство/несчастный случай/болезнь Доктора (без внешнего убийцы)."
+                                              },
+                                   "artist":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "love",
+                                                  "probability":  "medium",
+                                                  "evidence":  [
+                                                                   "evidence_003",
+                                                                   "evidence_011"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_003"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_013",
+                                                                             "evidence_022",
+                                                                             "evidence_033",
+                                                                             "evidence_040"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_012"
+                                                                     ],
+                                                  "note":  "Подвариант A (love/medium): Доктор убивает Художника, если тот покусится на Официантку. Подвариант B (love/medium): отравление из ревности. evidence_003 — основной; evidence_013/022/033/040 — вспомогательные."
+                                              },
+                                   "detective":  {
+                                                     "type":  "proof",
+                                                     "motivation":  "love",
+                                                     "probability":  "medium",
+                                                     "evidence":  [
+                                                                      "evidence_005"
+                                                                  ],
+                                                     "primary_evidence":  [
+                                                                              "evidence_013"
+                                                                          ],
+                                                     "secondary_evidence":  [
+                                                                                "evidence_003",
+                                                                                "evidence_026",
+                                                                                "evidence_029",
+                                                                                "evidence_033"
+                                                                            ],
+                                                     "false_evidence":  [
+                                                                            "evidence_005",
+                                                                            "evidence_012"
+                                                                        ],
+                                                     "note":  "Доктор убивает Детектива, защищая Официантку от пьяного Детектива. evidence_013 (кинжал) — основной; evidence_005 — ложный след."
+                                                 }
+                               }
+                 },
+                 {
+                     "row":  "artist",
+                     "row_name":  "Художник",
+                     "cells":  {
+                                   "sailor":  {
+                                                  "type":  "alibi",
+                                                  "motivation":  "n/a",
+                                                  "probability":  "impossible",
+                                                  "evidence":  [
+                                                                   "evidence_004"
+                                                               ],
+                                                  "primary_evidence":  [
+
+                                                                       ],
+                                                  "secondary_evidence":  [
+
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_004"
+                                                                     ],
+                                                  "note":  "Художник НЕ убивает Матроса (Матрос не культист). evidence_004 = алиби: Художник охотится на культистов. НЕ в possible_killers матрицы sailor."
+                                              },
+                                   "tavern_keeper":  {
+                                                         "type":  "proof",
+                                                         "motivation":  "religion",
+                                                         "probability":  "low",
+                                                         "scenario":  "possible_scenario",
+                                                         "evidence":  [
+                                                                          "evidence_011"
+                                                                      ],
+                                                         "primary_evidence":  [
+                                                                                  "evidence_025"
+                                                                              ],
+                                                         "secondary_evidence":  [
+                                                                                    "evidence_004",
+                                                                                    "evidence_011",
+                                                                                    "evidence_024",
+                                                                                    "evidence_034"
+                                                                                ],
+                                                         "false_evidence":  [
+                                                                                "evidence_012"
+                                                                            ],
+                                                         "note":  "Возможный сценарий (не канон): Художник убивает Трактирщика как культиста. evidence_025 (наброски) — основной; evidence_004/011/024/034 — вспомогательные."
+                                                     },
+                                   "waitress":  {
+                                                    "type":  "proof",
+                                                    "motivation":  "religion",
+                                                    "probability":  "high",
+                                                    "evidence":  [
+                                                                     "evidence_011",
+                                                                     "evidence_003"
+                                                                 ],
+                                                    "primary_evidence":  [
+                                                                             "evidence_011"
+                                                                         ],
+                                                    "secondary_evidence":  [
+                                                                               "evidence_003",
+                                                                               "evidence_024",
+                                                                               "evidence_025",
+                                                                               "evidence_049"
+                                                                           ],
+                                                    "false_evidence":  [
+                                                                           "evidence_009",
+                                                                           "evidence_012"
+                                                                       ],
+                                                    "note":  "КАНОНИЧНЫЙ: Художник убивает Официантку, потому что она — верховная жрица и знает, где реликвия. evidence_011 (реликвия) — основной мотив."
+                                                },
+                                   "doctor":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "religion",
+                                                  "probability":  "low",
+                                                  "evidence":  [
+                                                                   "evidence_003"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_003"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_011",
+                                                                             "evidence_024",
+                                                                             "evidence_025",
+                                                                             "evidence_049"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_013",
+                                                                         "evidence_023"
+                                                                     ],
+                                                  "note":  "Художник убивает Доктора как культиста. evidence_003 (ритуальные предметы) — основной мотив."
+                                              },
+                                   "artist":  {
+                                                  "type":  "accident_self",
+                                                  "motivation":  "accident/disease",
+                                                  "probability":  "low",
+                                                  "evidence":  [
+                                                                   "evidence_004",
+                                                                   "evidence_012"
+                                                               ],
+                                                  "primary_evidence":  [
+
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_023"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_004",
+                                                                         "evidence_012"
+                                                                     ],
+                                                  "note":  "Самоубийство/несчастный случай/болезнь Художника (без внешнего убийцы)."
+                                              },
+                                   "detective":  {
+                                                     "type":  "proof",
+                                                     "motivation":  "justice",
+                                                     "probability":  "high",
+                                                     "evidence":  [
+                                                                      "evidence_010",
+                                                                      "evidence_004"
+                                                                  ],
+                                                     "primary_evidence":  [
+                                                                              "evidence_024"
+                                                                          ],
+                                                     "secondary_evidence":  [
+                                                                                "evidence_004",
+                                                                                "evidence_025",
+                                                                                "evidence_034",
+                                                                                "evidence_038"
+                                                                            ],
+                                                     "false_evidence":  [
+                                                                            "evidence_005",
+                                                                            "evidence_012"
+                                                                        ],
+                                                     "note":  "Художник убивает Детектива, если его раскроют как убийцу культистов. evidence_024 (приказ ордена) — основной мотив: скрыть охоту."
+                                                 }
+                               }
+                 },
+                 {
+                     "row":  "detective",
+                     "row_name":  "Детектив",
+                     "cells":  {
+                                   "sailor":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "accident",
+                                                  "probability":  "low",
+                                                  "evidence":  [
+                                                                   "evidence_005"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_005"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_002",
+                                                                             "evidence_006",
+                                                                             "evidence_037"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_042"
+                                                                     ],
+                                                  "note":  "Детектив убивает Матроса по неосторожности, сильно напившись. evidence_005 (следы пьянства) — основной."
+                                              },
+                                   "tavern_keeper":  {
+                                                         "type":  "proof",
+                                                         "motivation":  "money",
+                                                         "probability":  "low",
+                                                         "scenario":  "possible_scenario",
+                                                         "evidence":  [
+                                                                          "evidence_001"
+                                                                      ],
+                                                         "primary_evidence":  [
+                                                                                  "evidence_001"
+                                                                              ],
+                                                         "secondary_evidence":  [
+                                                                                    "evidence_002",
+                                                                                    "evidence_005",
+                                                                                    "evidence_020",
+                                                                                    "evidence_032"
+                                                                                ],
+                                                         "false_evidence":  [
+                                                                                "evidence_006"
+                                                                            ],
+                                                         "note":  "Возможный сценарий (не канон): Детектив убивает Трактирщика, если накроет контрабанду. evidence_001 (контрабанда) — основной мотив."
+                                                     },
+                                   "waitress":  {
+                                                    "type":  "alibi",
+                                                    "motivation":  "n/a",
+                                                    "probability":  "impossible",
+                                                    "evidence":  [
+                                                                     "evidence_005"
+                                                                 ],
+                                                    "primary_evidence":  [
+
+                                                                         ],
+                                                    "secondary_evidence":  [
+
+                                                                           ],
+                                                    "false_evidence":  [
+                                                                           "evidence_005"
+                                                                       ],
+                                                    "note":  "Детектив НЕ убивает Официантку (нет отношения/мотива). evidence_005 = ложный след. НЕ в possible_killers матрицы waitress."
+                                                },
+                                   "doctor":  {
+                                                  "type":  "alibi",
+                                                  "motivation":  "n/a",
+                                                  "probability":  "impossible",
+                                                  "evidence":  [
+                                                                   "evidence_005"
+                                                               ],
+                                                  "primary_evidence":  [
+
+                                                                       ],
+                                                  "secondary_evidence":  [
+
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_005"
+                                                                     ],
+                                                  "note":  "Детектив НЕ убивает Доктора (нет отношения/мотива). evidence_005 = ложный след. НЕ в possible_killers матрицы doctor."
+                                              },
+                                   "artist":  {
+                                                  "type":  "proof",
+                                                  "motivation":  "justice",
+                                                  "probability":  "medium",
+                                                  "evidence":  [
+                                                                   "evidence_010",
+                                                                   "evidence_004"
+                                                               ],
+                                                  "primary_evidence":  [
+                                                                           "evidence_010"
+                                                                       ],
+                                                  "secondary_evidence":  [
+                                                                             "evidence_004",
+                                                                             "evidence_024",
+                                                                             "evidence_025",
+                                                                             "evidence_038"
+                                                                         ],
+                                                  "false_evidence":  [
+                                                                         "evidence_005",
+                                                                         "evidence_012"
+                                                                     ],
+                                                  "note":  "Детектив убивает Художника: противопоставление личного и официального правосудия. evidence_010 (потоп/серия) — основной."
+                                              },
+                                   "detective":  {
+                                                     "type":  "accident_self",
+                                                     "motivation":  "accident/disease",
+                                                     "probability":  "low",
+                                                     "evidence":  [
+                                                                      "evidence_005"
+                                                                  ],
+                                                     "primary_evidence":  [
+
+                                                                          ],
+                                                     "secondary_evidence":  [
+                                                                                "evidence_005"
+                                                                            ],
+                                                     "false_evidence":  [
+                                                                            "evidence_004"
+                                                                        ],
+                                                     "note":  "Самоубийство/несчастный случай/болезнь Детектива (без внешнего убийцы). evidence_005 — мог погибнуть по пьянке."
+                                                 }
+                               }
+                 }
+             ]
+}

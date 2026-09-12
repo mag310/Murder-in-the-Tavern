@@ -83,7 +83,13 @@
                 "Можно принять контрабанду за мотив к убийству, хотя она не связана с текущим убийством"
             ],
             "notes": [
-                "Улика доказывает преступление, но не текущее убийство (принцип из README)"
+                "Улика расставляет подозреваемых. Основная улика в ветке — см. kill_grid.json."
+            ],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "tavern_keeper", "role": "primary", "note": "мотив закрыть контрабанду" },
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "контрабанда не убийство" },
+                { "victim": "detective", "killer": "sailor", "role": "false", "note": "контрабанда" }
             ]
         },
         {
@@ -170,6 +176,12 @@
             ],
             "notes": [
                 "Связывает Владельца и Матроса, но не указывает на убийство"
+            ],
+            "role": "secondary",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "secondary", "note": "деловая связь" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "деловая связь" },
+                { "victim": "detective", "killer": "sailor", "role": "secondary", "note": "связь" }
             ]
         },
         {
@@ -261,11 +273,22 @@
             ],
             "notes": [
                 "Связывает Официантка и Врача, но не указывает на текущее убийство"
+            ],
+            "role": "secondary",
+            "branches": [
+                { "victim": "waitress", "killer": "artist", "role": "secondary", "note": "культист" },
+                { "victim": "doctor", "killer": "artist", "role": "secondary", "note": "культист" },
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "культист" },
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "культист" },
+                { "victim": "tavern_keeper", "killer": "doctor", "role": "secondary", "note": "культист" },
+                { "victim": "doctor", "killer": "tavern_keeper", "role": "secondary", "note": "культист" },
+                { "victim": "detective", "killer": "doctor", "role": "secondary", "note": "культист" },
+                { "victim": "artist", "killer": "doctor", "role": "secondary", "note": "культист" }
             ]
         },
         {
             "id": "evidence_004",
-            "name": "Ложные следы Маньяка",
+            "name": "Ложные следы Художника",
             "type": "physical",
             "status": "confirmed",
             "location": "attic",
@@ -282,45 +305,45 @@
             "visibility": {
                 "public": false,
                 "known_by": [
-                    "maniac"
+                    "artist"
                 ]
             },
             "object": {
-                "description": "Предметы, оставленные Маньяком на чердаке (художественная мастерская: холсты, краски, мольберт, миски с кровью), которые могут выглядеть как улики убийства.",
+                "description": "Предметы, оставленные Художником на чердаке (художественная мастерская: холсты, краски, мольберт, миски с кровью), которые могут выглядеть как улики убийства.",
                 "condition": "загрязнены, но не связаны с текущим убийством",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
                 "objectively_proves": [
-                    "Маньяк был в таверне"
+                    "Художник был в таверне"
                 ],
                 "strongly_indicates": [
-                    "Маньяк связан с предыдущими убийствами",
-                    "Маньяк может выглядеть как подозреваемый"
+                    "Художник связан с предыдущими убийствами",
+                    "Художник может выглядеть как подозреваемый"
                 ],
                 "does_not_prove": [
-                    "Маньяк совершил текущее убийство",
-                    "Маньяк знает о жертве"
+                    "Художник совершил текущее убийство",
+                    "Художник знает о жертве"
                 ]
             },
             "interpretations": [
                 {
                     "character": "players",
-                    "interpretation": "Маньяк — убийца (неправильно)",
+                    "interpretation": "Художник — убийца (неправильно)",
                     "correct": false,
                     "confidence": "средняя"
                 },
                 {
                     "character": "detective",
-                    "interpretation": "Маньяк — серийный убийца из города, но не убийца в таверне",
+                    "interpretation": "Художник — серийный убийца из города, но не убийца в таверне",
                     "correct": true,
                     "confidence": "высокая"
                 }
             ],
             "related": {
                 "characters": [
-                    "maniac",
+                    "artist",
                     "detective"
                 ],
                 "locations": [
@@ -337,19 +360,25 @@
             },
             "versions": {
                 "supports": [
-                    "Маньяк — убийца (ложная версия)",
-                    "Маньяк — серийный убийца из города"
+                    "Художник — убийца (ложная версия)",
+                    "Художник — серийный убийца из города"
                 ],
                 "contradicts": [
-                    "Маньяк невиновен"
+                    "Художник невиновен"
                 ]
             },
             "false_leads": [
                 "Улики на чердаке (мастерская, evidence_012) могут быть приняты за доказательства текущего убийства",
-                "Маньяк выглядит как подозреваемый, но не имеет отношения к текущему убийству"
+                "Художник выглядит как подозреваемый, но не имеет отношения к текущему убийству"
             ],
             "notes": [
-                "Ложный след: Маньяк не убийца, но выглядит как подозреваемый"
+                "Ложный след: Художник не убийца, но выглядит как подозреваемый"
+            ],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "artist", "role": "secondary", "note": "подводит к Художнику" },
+                { "victim": "artist", "killer": "detective", "role": "secondary", "note": "подводит к Художнику" },
+                { "victim": "detective", "killer": "accident", "role": "false", "note": "ложный след" }
             ]
         },
         {
@@ -430,7 +459,14 @@
                 "Следы пьянства могут быть приняты за доказательство убийства, но они не доказывают убийства"
             ],
             "notes": [
-                "Следы пьянства — ложный след: не доказывают убийство (принцип из README)"
+                "Следы пьянства — ложный след в большинстве веток (см. kill_grid.json)."
+            ],
+            "role": "primary",
+            "branches": [
+                { "victim": "sailor", "killer": "detective", "role": "primary", "note": "неосторожность по пьянке" },
+                { "victim": "detective", "killer": "accident", "role": "accident", "note": "случайность по пьянке" },
+                { "victim": "artist", "killer": "sailor", "role": "secondary", "note": "по пьянке" },
+                { "victim": "detective", "killer": "doctor", "role": "secondary", "note": "защита от пьяного" }
             ]
         },
         {
@@ -517,6 +553,13 @@
             ],
             "notes": [
                 "Ложный след: Матрос не убийца, но выглядит как подозреваемый"
+            ],
+            "role": "false",
+            "branches": [
+                { "victim": "doctor", "killer": "sailor", "role": "primary", "note": "самозащита, выглядит как подозреваемый" },
+                { "victim": "waitress", "killer": "sailor", "role": "false", "note": "ложный след" },
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "ложный след" },
+                { "victim": "sailor", "killer": "accident", "role": "accident", "note": "случайность" }
             ]
         },
         {
@@ -602,6 +645,13 @@
             ],
             "notes": [
                 "Портрет доказывает семейную связь Трактирщика с dead_wife, но не текущее убийство"
+            ],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "мотив мести за жену" },
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "secondary", "note": "связь с dead_wife" },
+                { "victim": "artist", "killer": "tavern_keeper", "role": "primary", "note": "мотив защиты дочери" },
+                { "victim": "doctor", "killer": "tavern_keeper", "role": "secondary", "note": "защита дочери" }
             ]
         },
         {
@@ -636,7 +686,7 @@
             },
             "facts": {
                 "objectively_proves": [
-                    "Официантка видела призракa Жены",
+                    "Официантка видела призрака Жены",
                     "Официантка узнала, что Матрос убил её мать (dead_wife)"
                 ],
                 "strongly_indicates": [
@@ -691,6 +741,12 @@
             ],
             "notes": [
                 "Призрак доказывает, что Официантка узнала о смерти матери, но не текущее убийство"
+            ],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "waitress", "role": "primary", "note": "мотив мести за мать" },
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "secondary", "note": "призрак знает об угрозах" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "мотив мести" }
             ]
         },
         {
@@ -778,6 +834,12 @@
             ],
             "notes": [
                 "Дневник доказывает, что потоп — заклинание Официантки, но не текущее убийство"
+            ],
+            "role": "primary",
+            "branches": [
+                { "victim": "sailor", "killer": "waitress", "role": "primary", "note": "потоп = заклинание, задержка Матроса" },
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "магия Официантки" },
+                { "victim": "detective", "killer": "accident", "role": "accident", "note": "случайность" }
             ]
         },
         {
@@ -864,6 +926,12 @@
             ],
             "notes": [
                 "Потоп — ложный след: выглядит как естественное наводнение, но это заклинание Официантки"
+            ],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "потоп задержал Матроса" },
+                { "victim": "artist", "killer": "detective", "role": "secondary", "note": "потоп/серия" },
+                { "victim": "detective", "killer": "artist", "role": "secondary", "note": "потоп/серия" }
             ]
         },
         {
@@ -887,7 +955,7 @@
                 "public": false,
                 "known_by": [
                     "waitress",
-                    "maniac"
+                    "artist"
                 ]
             },
             "object": {
@@ -902,9 +970,9 @@
                     "Культ украли реликвию у паладинского ордена"
                 ],
                 "strongly_indicates": [
-                    "У Маньяка есть мотив уничтожить культистов (вернуть реликвию, покарать за кражу)",
+                    "У Художника есть мотив уничтожить культистов (вернуть реликвию, покарать за кражу)",
                     "Связь культа с внешней (теократической) силой — паладинским орденом",
-                    "Маньяк ищет реликвию (event_018, event_020)"
+                    "Художник ищет реликвию (event_018, event_020)"
                 ],
                 "does_not_prove": [
                     "Культисты совершили текущее убийство",
@@ -914,7 +982,7 @@
             "interpretations": [
                 {
                     "character": "players",
-                    "interpretation": "Культ украли реликвию ордена — у Маньяка есть мотив их уничтожить",
+                    "interpretation": "Культ украли реликвию ордена — у Художника есть мотив их уничтожить",
                     "correct": true,
                     "confidence": "высокая"
                 },
@@ -928,7 +996,7 @@
             "related": {
                 "characters": [
                     "waitress",
-                    "maniac"
+                    "artist"
                 ],
                 "locations": [
                     "cult_lair"
@@ -943,23 +1011,31 @@
             },
             "versions": {
                 "supports": [
-                    "Маньяк — угроза для культа (мотив: реликвия), а не случайный подозреваемый",
+                    "Художник — угроза для культа (мотив: реликвия), а не случайный подозреваемый",
                     "Культ — не просто местная секта, а фигурант пограничного конфликта (орден vs. культ)"
                 ],
                 "contradicts": [
-                    "Маньяк просто серийный убийца без связи с культом"
+                    "Художник просто серийный убийца без связи с культом"
                 ]
             },
             "false_leads": [
                 "Реликвия может выглядеть как доказательство убийства культистами, хотя это связано с кражей и внешней угрозой, а не с текущим убийством"
             ],
             "notes": [
-                "Реликвия — мотив Маньяка, но НЕ доказывает текущее убийство (принцип из README: не любое преступление = убийство)"
+                "Реликвия — мотив Художника; основная улика в ветках где убийца/жертва связаны с культом (см. kill_grid.json)."
+            ],
+            "role": "primary",
+            "branches": [
+                { "victim": "waitress", "killer": "artist", "role": "primary", "note": "мотив: вернуть реликвию" },
+                { "victim": "artist", "killer": "waitress", "role": "primary", "note": "мотив: реликвия" },
+                { "victim": "tavern_keeper", "killer": "artist", "role": "secondary", "note": "possible_scenario" },
+                { "victim": "doctor", "killer": "artist", "role": "secondary", "note": "мотив культиста" },
+                { "victim": "detective", "killer": "artist", "role": "secondary", "note": "мотив" }
             ]
         },
         {
             "id": "evidence_012",
-            "name": "Художественная мастерская Маньяка (картины-треш-расчленёнка)",
+            "name": "Художественная мастерская Художника (картины-треш-расчленёнка)",
             "type": "physical",
             "status": "confirmed",
             "location": "attic",
@@ -977,49 +1053,49 @@
             "visibility": {
                 "public": false,
                 "known_by": [
-                    "maniac",
+                    "artist",
                     "waitress"
                 ]
             },
             "object": {
-                "description": "Художественная мастерская Маньяка на чердаке: холсты, краски, мольберт, миски с кровью. На картинах — мрачная треш-расчленёнка: то, что Маньяк видел в логовах культа, то, что случалось с жертвами на алтарях, то, как он расправлялся с культистами. Картины безумно качественные и эстетически прекрасные — редкое сочетание безумия и таланта.",
+                "description": "Художественная мастерская Художника на чердаке: холсты, краски, мольберт, миски с кровью. На картинах — мрачная треш-расчленёнка: то, что Художник видел в логовах культа, то, что случалось с жертвами на алтарях, то, как он расправлялся с культистами. Картины безумно качественные и эстетически прекрасные — редкое сочетание безумия и таланта.",
                 "condition": "целая мастерская, картины в разных стадиях",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
                 "objectively_proves": [
-                    "Маньяк арендовал чердак под видом 'вольного художника' (event_021)",
-                    "Маньяк действительно рисует (мастерская настоящая, не прикрытие)"
+                    "Художник арендовал чердак под видом 'вольного художника' (event_021)",
+                    "Художник действительно рисует (мастерская настоящая, не прикрытие)"
                 ],
                 "strongly_indicates": [
-                    "Маньяк видел логова культа и алтарные жертвы (значит, проникал в культистские места)",
+                    "Художник видел логова культа и алтарные жертвы (значит, проникал в культистские места)",
                     "Картины изображают расправы с культистами (подтверждает, что он охотится на них)",
-                    "Маньяк — безумец, но обладает талантом (рисунок как отпечаток его психики)",
-                    "Случайность выбора таверны: Маньяк не знает, что в ней — главное логово культа"
+                    "Художник — безумец, но обладает талантом (рисунок как отпечаток его психики)",
+                    "Случайность выбора таверны: Художник не знает, что в ней — главное логово культа"
                 ],
                 "does_not_prove": [
-                    "Маньяк совершил текущее убийство (картины — о других убийствах культистов)",
-                    "Маньяк знает о текущей жертве"
+                    "Художник совершил текущее убийство (картины — о других убийствах культистов)",
+                    "Художник знает о текущей жертве"
                 ]
             },
             "interpretations": [
                 {
                     "character": "players",
-                    "interpretation": "Маньяк — безумный убийца (картины = его преступления)",
+                    "interpretation": "Художник — безумный убийца (картины = его преступления)",
                     "correct": false,
                     "confidence": "средняя"
                 },
                 {
                     "character": "detective",
-                    "interpretation": "Маньяк — талантливый художник-безумец; картины документируют его охоту на культистов, но не текущее убийство (event_021)",
+                    "interpretation": "Художник — талантливый художник-безумец; картины документируют его охоту на культистов, но не текущее убийство (event_021)",
                     "correct": true,
                     "confidence": "высокая"
                 }
             ],
             "related": {
                 "characters": [
-                    "maniac",
+                    "artist",
                     "waitress"
                 ],
                 "locations": [
@@ -1037,18 +1113,1640 @@
             },
             "versions": {
                 "supports": [
-                    "Маньяк — безумный художник-убийца культистов (ложная версия: он убийца, но не в таверне)",
-                    "Маньяк охотится на культистов (картины как доказательство охоты)"
+                    "Художник — безумный художник-убийца культистов (ложная версия: он убийца, но не в таверне)",
+                    "Художник охотится на культистов (картины как доказательство охоты)"
                 ],
                 "contradicts": [
-                    "Маньяк — просто невинный художник"
+                    "Художник — просто невинный художник"
                 ]
             },
             "false_leads": [
-                "Картины-расчленёнка могут быть приняты за доказательства текущего убийства, хотя это охота Маньяка на культистов (event_010), а не текущее убийство в таверне"
+                "Картины-расчленёнка могут быть приняты за доказательства текущего убийства, хотя это охота Художника на культистов (event_010), а не текущее убийство в таверне"
             ],
             "notes": [
-                "Маcтерская — ключ к ложной личности Маньяка (event_021); картины = охота на культистов, НЕ текущее убийство (принцип из README)"
+                "Мастерская — ключ к ложной личности Художника (event_021); картины = охота на культистов."
+            ],
+            "role": "secondary",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "artist", "role": "secondary", "note": "possible_scenario: Художник знает расположение cult_lair" },
+                { "victim": "detective", "killer": "artist", "role": "secondary", "note": "подводит к Художнику как серийному убийце" }
+            ]
+        },
+        {
+            "id": "evidence_013",
+            "name": "Ритуальный кинжал Врача",
+            "type": "ritual",
+            "status": "confirmed",
+            "location": "cult_lair",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок проникает в логово культа", "игрок осматривает алтарь"],
+                "discovery_method": "обыск алтаря"
+            },
+            "visibility": { "public": false, "known_by": ["doctor", "waitress"] },
+            "object": {
+                "description": "Ритуальный кинжал со следами крови, спрятан за алтарём в cult_lair. Используется в ритуалах культа; может быть орудием убийства.",
+                "condition": "спрятан за алтарём, с остатками крови",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Врач владел ритуальным кинжалом", "Кинжал использовался в ритуале культа"],
+                "strongly_indicates": ["Кинжал мог быть орудием убийства", "Врач связан с культом"],
+                "does_not_prove": ["Врач совершил конкретное убийство", "Кинжал применялся против конкретной жертвы"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Кинжал — орудие убийства Врача", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Кинжал — ритуальный предмет, может быть орудием", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["doctor", "waitress"],
+                "locations": ["cult_lair"],
+                "events": ["event_006", "event_007"],
+                "other_evidence": ["evidence_003"]
+            },
+            "versions": {
+                "supports": ["Врач убийца", "Кинжал — орудие"],
+                "contradicts": ["Врач не имеет орудия"]
+            },
+            "false_leads": ["Кинжал может быть принят за единственное орудие, хотя убийство могло быть совершено иначе"],
+            "notes": ["Основная улика в ветках с убийцей=Врач (murder_matrix)."],
+            "role": "primary",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "doctor", "role": "primary", "note": "орудие убийства" },
+                { "victim": "sailor", "killer": "doctor", "role": "primary", "note": "орудие / possessed" },
+                { "victim": "detective", "killer": "doctor", "role": "primary", "note": "орудие" },
+                { "victim": "artist", "killer": "doctor", "role": "secondary", "note": "орудие (отравление — отдельная ветка)" }
+            ]
+        },
+        {
+            "id": "evidence_014",
+            "name": "Нож Матроса",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "tavern_storage",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок обыскивает склад", "игрок находит нож среди контрабанды"],
+                "discovery_method": "обыск / поиск среди контрабанды"
+            },
+            "visibility": { "public": false, "known_by": ["sailor"] },
+            "object": {
+                "description": "Морской нож с зазубринами, спрятан среди контрабанды на складе. Следы старой крови (жена Трактирщика).",
+                "condition": "спрятан среди контрабанды, с пятнами крови",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Матрос владеет ножом", "На ноже следы старой крови"],
+                "strongly_indicates": ["Нож использовался ранее (против dead_wife)", "Матрос мог использовать его как орудие"],
+                "does_not_prove": ["Нож — орудие текущего убийства", "Матрос совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Нож Матроса — орудие убийства", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Нож старый, кровь не свежая", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["sailor", "dead_wife"],
+                "locations": ["tavern_storage"],
+                "events": ["event_004", "event_005"],
+                "other_evidence": ["evidence_002"]
+            },
+            "versions": { "supports": ["Матрос убийца"], "contradicts": ["Матрос не имеет орудия"] },
+            "false_leads": ["Нож может быть принят за орудие, хотя кровь старая (event_004)"],
+            "notes": ["Ложный/вспомогательный след в большинстве веток."],
+            "role": "false",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "secondary", "note": "подводит к Матросу как потенциальному убийце" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "ложный след на Матроса" },
+                { "victim": "waitress", "killer": "sailor", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_016",
+            "name": "Кинжал Трактирщика",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "tavern_keeper_office",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок обыскивает кабинет", "игрок находит тайник"],
+                "discovery_method": "обыск тайника"
+            },
+            "visibility": { "public": false, "known_by": ["tavern_keeper"] },
+            "object": {
+                "description": "Личный кинжал Трактирщика, хранится в тайнике кабинета. Чистый, с гравировкой.",
+                "condition": "чистый, в тайнике",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Трактирщик владеет кинжалом"],
+                "strongly_indicates": ["Кинжал мог быть орудием", "Трактирщик скрывает оружие"],
+                "does_not_prove": ["Кинжал — орудие текущего убийства"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Кинжал Трактирщика — орудие", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Чистый кинжал — не орудие недавнего убийства", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["tavern_keeper"],
+                "locations": ["tavern_keeper_office"],
+                "events": ["event_005"],
+                "other_evidence": ["evidence_001"]
+            },
+            "versions": { "supports": ["Трактирщик убийца"], "contradicts": ["Трактирщик не имеет орудия"] },
+            "false_leads": ["Кинжал может выглядеть как орудие, но чист"],
+            "notes": ["Вспомогательная улика в ветках с убийцей=Трактирщик."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "орудие мести" },
+                { "victim": "doctor", "killer": "tavern_keeper", "role": "secondary", "note": "орудие (защита дочери)" },
+                { "victim": "artist", "killer": "tavern_keeper", "role": "secondary", "note": "орудие (защита дочери)" },
+                { "victim": "detective", "killer": "tavern_keeper", "role": "secondary", "note": "орудие (контрабанда)" }
+            ]
+        },
+        {
+            "id": "evidence_017",
+            "name": "Разбитая бутылка",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит разбитую бутылку в комнате"],
+                "discovery_method": "обнаружение"
+            },
+            "visibility": { "public": false, "known_by": [] },
+            "object": {
+                "description": "Бутылка из-под крепкого алкоголя, разбитая на месте возможного убийства Детектива. Отпечатки неясны.",
+                "condition": "разбита, с отпечатками",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Было распитие крепкого алкоголя", "Произошло столкновение/борьба"],
+                "strongly_indicates": ["Убийство могло быть по неосторожности", "Следы пьянства"],
+                "does_not_prove": ["Конкретный убийца", "Отпечатки принадлежат убийце"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Бутылка — орудие убийства", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "След неосторожности, не убийства", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["detective"],
+                "locations": ["guest_rooms"],
+                "events": [],
+                "other_evidence": ["evidence_005"]
+            },
+            "versions": { "supports": ["Убийство по неосторожности"], "contradicts": ["Умышленное убийство"] },
+            "false_leads": ["Бутылка может выглядеть как орудие, хотя это след неосторожности"],
+            "notes": ["Для веток accident (случайная смерть)."],
+            "role": "accident",
+            "branches": [
+                { "victim": "detective", "killer": "sailor", "role": "accident", "note": "неосторожность" },
+                { "victim": "detective", "killer": "tavern_keeper", "role": "accident", "note": "неосторожность" }
+            ]
+        },
+        {
+            "id": "evidence_018",
+            "name": "Дневник Трактирщика",
+            "type": "document",
+            "status": "confirmed",
+            "location": "tavern_keeper_office",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит дневник в кабинете"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["tavern_keeper"] },
+            "object": {
+                "description": "Личные записи Трактирщика: любовь к жене, ненависть к Матросу, страх за дочь. Мотив мести.",
+                "condition": "целый, в кабинете",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Трактирщик ненавидит Матроса", "Трактирщик любит дочь"],
+                "strongly_indicates": ["У Трактирщика есть мотив мести", "Трактирщик защищал дочь"],
+                "does_not_prove": ["Трактирщик совершил конкретное убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Дневник — мотив мести", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Мотив мести за жену/дочь", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["tavern_keeper", "sailor", "waitress", "dead_wife"],
+                "locations": ["tavern_keeper_office"],
+                "events": ["event_004"],
+                "other_evidence": ["evidence_007", "evidence_008"]
+            },
+            "versions": { "supports": ["Трактирщик — мститель"], "contradicts": ["Трактирщик безмотивен"] },
+            "false_leads": ["Дневник может выглядеть как мотив, не доказывающий убийство"],
+            "notes": ["Основная улика в ветке «Трактирщик убил Матроса» (murder_matrix)."],
+            "role": "primary",
+            "branches": [
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "primary", "note": "мотив мести" },
+                { "victim": "detective", "killer": "tavern_keeper", "role": "secondary", "note": "мотив закрыть дело" },
+                { "victim": "artist", "killer": "tavern_keeper", "role": "secondary", "note": "защита дочери" }
+            ]
+        },
+        {
+            "id": "evidence_019",
+            "name": "Письмо Матроса с угрозой",
+            "type": "document",
+            "status": "confirmed",
+            "location": "tavern_keeper_office",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит письмо в кабинете"],
+                "discovery_method": "обыск / обнаружение тайника"
+            },
+            "visibility": { "public": false, "known_by": ["tavern_keeper", "sailor"] },
+            "object": {
+                "description": "Старое письмо (или копия) с угрозой убить дочь, если Трактирщик не согласится. Подпись Матроса.",
+                "condition": "подписано Матросом, в тайнике",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Матрос угрожал убить дочь", "Трактирщик получил угрозу"],
+                "strongly_indicates": ["У Матроса есть мотив замолчать Трактирщика", "Трактирщик хранит угрозу как доказательство"],
+                "does_not_prove": ["Матрос совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Письмо — мотив Матроса", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Угроза подтверждает связь", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["sailor", "tavern_keeper", "waitress"],
+                "locations": ["tavern_keeper_office"],
+                "events": ["event_004"],
+                "other_evidence": ["evidence_002", "evidence_008"]
+            },
+            "versions": { "supports": ["Матрос — угрожающий"], "contradicts": ["Матрос безмотивен"] },
+            "false_leads": ["Письмо может быть подделкой (см. evidence_041)"],
+            "notes": ["Основная улика в ветке «Трактирщик убит Матросом»."],
+            "role": "primary",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "primary", "note": "мотив мести" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "подтверждает угрозу" },
+                { "victim": "waitress", "killer": "sailor", "role": "secondary", "note": "подтверждает угрозу дочери" }
+            ]
+        },
+        {
+            "id": "evidence_020",
+            "name": "Счёт за контрабанду",
+            "type": "document",
+            "status": "confirmed",
+            "location": "tavern_storage",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит накладную на складе"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["tavern_keeper", "sailor"] },
+            "object": {
+                "description": "Накладная на запрещённые товары с подписью Матроса. Доказывает деловую связь.",
+                "condition": "подписана, на складе",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Матрос и Трактирщик — деловые партнёры"],
+                "strongly_indicates": ["Трафик контрабанды через таверну"],
+                "does_not_prove": ["Кто-то из них убийца"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Деловая связь — не убийство", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Контрабанда — преступление, не убийство", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["tavern_keeper", "sailor"],
+                "locations": ["tavern_storage"],
+                "events": ["event_005"],
+                "other_evidence": ["evidence_001", "evidence_002"]
+            },
+            "versions": { "supports": ["Контрабанда — отдельное преступление"], "contradicts": ["Контрабанда — мотив убийства"] },
+            "false_leads": ["Счёт может выглядеть как мотив"],
+            "notes": ["Вспомогательная/ложная улика в ветках с контрабандой."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "tavern_keeper", "role": "false", "note": "контрабанда как мотив" },
+                { "victim": "detective", "killer": "sailor", "role": "false", "note": "контрабанда как мотив" },
+                { "victim": "tavern_keeper", "killer": "detective", "role": "false", "note": "possible_scenario" }
+            ]
+        },
+        {
+            "id": "evidence_021",
+            "name": "Дневник Официантки (часть 2)",
+            "type": "document",
+            "status": "confirmed",
+            "location": "waitress_room",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит часть 2 дневника"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["waitress"] },
+            "object": {
+                "description": "Записи о призраке матери, о страхе перед Матросом, о молитвах тёмным богам.",
+                "condition": "в комнате Официантки",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Официантка видела призрака Жены", "Официантка молилась тёмным богам"],
+                "strongly_indicates": ["У Официантки есть мотив против Матроса", "Официантка вызывала потоп"],
+                "does_not_prove": ["Официантка совершила конкретное убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Дневник — мотив Официантки", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Мотив мести за мать", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress", "sailor", "dead_wife"],
+                "locations": ["waitress_room"],
+                "events": ["event_015", "event_016"],
+                "other_evidence": ["evidence_009"]
+            },
+            "versions": { "supports": ["Официантка — мстительница"], "contradicts": ["Официантка безмотивна"] },
+            "false_leads": ["Дневник может выглядеть как мотив, не доказывающий убийство"],
+            "notes": ["Основная улика в ветке «Матрос убит Официанткой»."],
+            "role": "primary",
+            "branches": [
+                { "victim": "sailor", "killer": "waitress", "role": "primary", "note": "мотив мести" },
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "мотив (религия)" }
+            ]
+        },
+        {
+            "id": "evidence_022",
+            "name": "Записка Врача",
+            "type": "document",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит записку в вещах Врача"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["doctor"] },
+            "object": {
+                "description": "Любовная записка Врача к Официантке, спрятанная в его вещах.",
+                "condition": "в вещах Врача",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Врач любит Официантку", "У них любовная связь"],
+                "strongly_indicates": ["Врач защищает Официантку", "Врач может убить за неё"],
+                "does_not_prove": ["Врач совершил конкретное убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Записка — мотив Врача (love)", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Любовь — мотив защиты", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["doctor", "waitress"],
+                "locations": ["guest_rooms"],
+                "events": ["event_008"],
+                "other_evidence": ["evidence_003"]
+            },
+            "versions": { "supports": ["Врач — защитник"], "contradicts": ["Врач безмотивен"] },
+            "false_leads": ["Записка может выглядеть как мотив, не доказывающий убийство"],
+            "notes": ["Вспомогательная улика в ветках с Врачом."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "doctor", "role": "secondary", "note": "защита Официантки" },
+                { "victim": "detective", "killer": "doctor", "role": "secondary", "note": "защита Официантки" },
+                { "victim": "tavern_keeper", "killer": "doctor", "role": "secondary", "note": "love" },
+                { "victim": "artist", "killer": "doctor", "role": "secondary", "note": "защита/ревность" }
+            ]
+        },
+        {
+            "id": "evidence_023",
+            "name": "Медицинский журнал Врача",
+            "type": "medical",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит журнал в вещах Врача"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["doctor"] },
+            "object": {
+                "description": "Записи о пациентах, среди которых — жертвы Художника. Доказывает, что Врач видел тела.",
+                "condition": "в вещах Врача",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Врач лечил/видел тела жертв"],
+                "strongly_indicates": ["Врач связан с культистами (лечил их)", "Врач знает о серии убийств"],
+                "does_not_prove": ["Врач совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Журнал — связь с культом", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Врач знал о жертвах", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["doctor"],
+                "locations": ["guest_rooms"],
+                "events": ["event_010"],
+                "other_evidence": ["evidence_003"]
+            },
+            "versions": { "supports": ["Врач — член культа"], "contradicts": ["Врач не связан с культом"] },
+            "false_leads": ["Журнал может выглядеть как мотив"],
+            "notes": ["Вспомогательная улика в ветках с Врачом."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "doctor", "role": "secondary", "note": "связь с культом" },
+                { "victim": "detective", "killer": "doctor", "role": "secondary", "note": "связь с культом" },
+                { "victim": "tavern_keeper", "killer": "doctor", "role": "secondary", "note": "связь с культом" },
+                { "victim": "artist", "killer": "doctor", "role": "secondary", "note": "ревность" }
+            ]
+        },
+        {
+            "id": "evidence_024",
+            "name": "Приказ ордена",
+            "type": "document",
+            "status": "confirmed",
+            "location": "attic",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит приказ в мастерской Художника"],
+                "discovery_method": "обыск чердака"
+            },
+            "visibility": { "public": false, "known_by": ["artist"] },
+            "object": {
+                "description": "Тайный приказ паладинского ордена: найти реликвию, покарать культистов. Подпись магистра.",
+                "condition": "в мастерской Художника",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Художник — инквизитор ордена", "Художник охотится на культистов"],
+                "strongly_indicates": ["У Художника есть мотив убивать культистов", "Художник действует по приказу"],
+                "does_not_prove": ["Художник совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Приказ — мотив Художника", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Художник — инквизитор", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["artist"],
+                "locations": ["attic"],
+                "events": ["event_018", "event_020"],
+                "other_evidence": ["evidence_011", "evidence_004"]
+            },
+            "versions": { "supports": ["Художник — инквизитор"], "contradicts": ["Художник — просто убийца"] },
+            "false_leads": ["Приказ может выглядеть как мотив, не доказывающий текущее убийство"],
+            "notes": ["Основная улика в ветке «Детектив убит Художником» (скрыть охоту)."],
+            "role": "primary",
+            "branches": [
+                { "victim": "detective", "killer": "artist", "role": "primary", "note": "мотив скрыть охоту" },
+                { "victim": "tavern_keeper", "killer": "artist", "role": "secondary", "note": "possible_scenario" },
+                { "victim": "waitress", "killer": "artist", "role": "secondary", "note": "мотив (реликвия)" },
+                { "victim": "doctor", "killer": "artist", "role": "secondary", "note": "мотив (культист)" }
+            ]
+        },
+        {
+            "id": "evidence_025",
+            "name": "Наброски Художника",
+            "type": "document",
+            "status": "confirmed",
+            "location": "attic",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит наброски в мастерской"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["artist"] },
+            "object": {
+                "description": "Рисунки с точным расположением cult_lair, алтаря, ковчега. Доказывают, что Художник проникал в логово.",
+                "condition": "в мастерской Художника",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Художник проник в cult_lair", "Художник знает расположение реликвии"],
+                "strongly_indicates": ["Художник охотится на культистов", "Художник мог убить в cult_lair"],
+                "does_not_prove": ["Художник совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Наброски — след Художника в культе", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Художник знал о культе", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["artist", "waitress"],
+                "locations": ["attic", "cult_lair"],
+                "events": ["event_018", "event_021"],
+                "other_evidence": ["evidence_012", "evidence_011"]
+            },
+            "versions": { "supports": ["Художник — охотник на культистов"], "contradicts": ["Художник не знает о культе"] },
+            "false_leads": ["Наброски могут выглядеть как мотив, не доказывающий текущее убийство"],
+            "notes": ["Вспомогательная улика в possible_scenario «Трактирщик убит Художником»."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "artist", "role": "secondary", "note": "possible_scenario: Художник знает cult_lair" },
+                { "victim": "detective", "killer": "artist", "role": "secondary", "note": "подводит к Художнику" },
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "Художник был в культе" }
+            ]
+        },
+        {
+            "id": "evidence_026",
+            "name": "Следы ритуала на теле",
+            "type": "ritual",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок осматривает тело жертвы"],
+                "discovery_method": "осмотр тела"
+            },
+            "visibility": { "public": false, "known_by": [] },
+            "object": {
+                "description": "На теле жертвы — символ культа, нарисованный кровью. Совпадает с символами в cult_lair.",
+                "condition": "символ на теле",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["На теле жертвы символ культа", "Символ совпадает с cult_lair"],
+                "strongly_indicates": ["Убийство связано с культом", "Убийца — культист/инквизитор"],
+                "does_not_prove": ["Конкретный убийца из культа"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Ритуал — след культиста", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Символ указывает на культ", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress", "doctor"],
+                "locations": ["guest_rooms", "cult_lair"],
+                "events": ["event_006"],
+                "other_evidence": ["evidence_003", "evidence_011"]
+            },
+            "versions": { "supports": ["Убийство связано с культом"], "contradicts": ["Убийство не связано с культом"] },
+            "false_leads": ["Символ может быть ложным следом"],
+            "notes": ["Вспомогательная улика в ветках с культом."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "doctor", "role": "secondary", "note": "след культа" },
+                { "victim": "detective", "killer": "doctor", "role": "secondary", "note": "след культа" },
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "жертва культу" }
+            ]
+        },
+        {
+            "id": "evidence_027",
+            "name": "Аура заклинания",
+            "type": "magical",
+            "status": "confirmed",
+            "location": "tavern_yard",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок исследует двор таверны"],
+                "discovery_method": "наблюдение / магия"
+            },
+            "visibility": { "public": false, "known_by": ["waitress"] },
+            "object": {
+                "description": "Магическая аура вокруг таверны. Следы тёмной магии (тёмные боги), ведущей к Официантке.",
+                "condition": "аура вокруг таверны",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Вокруг таверны магическая аура", "Аура — тёмная магия"],
+                "strongly_indicates": ["Официантка (жрица) вызвала ауру", "Потоп — заклинание"],
+                "does_not_prove": ["Официантка совершила убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Аура — след Официантки", "correct": true, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Тёмная магия — неестественно", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress"],
+                "locations": ["tavern_yard"],
+                "events": ["event_016"],
+                "other_evidence": ["evidence_009", "evidence_010"]
+            },
+            "versions": { "supports": ["Потоп — заклинание"], "contradicts": ["Потоп — естественный"] },
+            "false_leads": ["Аура может быть принята за естественное"],
+            "notes": ["Вспомогательная улика в ветках с Официанткой."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "задержка Матроса" },
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "магия Официантки" }
+            ]
+        },
+        {
+            "id": "evidence_028",
+            "name": "Заклинательный фокус Официантки",
+            "type": "ritual",
+            "status": "confirmed",
+            "location": "waitress_room",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит амулет в комнате Официантки"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["waitress"] },
+            "object": {
+                "description": "Кольцо/амулет, использованный для молитвы. Следы тёмной энергии.",
+                "condition": "в комнате Официантки",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Официантка владеет заклинательным фокусом", "Фокус — тёмная магия"],
+                "strongly_indicates": ["Официантка — жрица", "Официантка вызывала потоп"],
+                "does_not_prove": ["Официантка совершила убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Фокус — инструмент Официантки", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Тёмная магия у Официантки", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress"],
+                "locations": ["waitress_room"],
+                "events": ["event_016", "event_006"],
+                "other_evidence": ["evidence_009", "evidence_003"]
+            },
+            "versions": { "supports": ["Официантка — жрица"], "contradicts": ["Официантка не жрица"] },
+            "false_leads": ["Фокус может быть ложным следом"],
+            "notes": ["Вспомогательная улика в ветках с Официанткой."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "инструмент заклинания" },
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "инструмент" }
+            ]
+        },
+        {
+            "id": "evidence_029",
+            "name": "Свеча из культа",
+            "type": "ritual",
+            "status": "confirmed",
+            "location": "cult_lair",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит свечу в cult_lair"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["waitress", "doctor"] },
+            "object": {
+                "description": "Свеча с остатками крови. Использовалась в ритуале. Может быть орудием.",
+                "condition": "с остатками крови, в cult_lair",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["В cult_lair использовались свечи", "На свече кровь"],
+                "strongly_indicates": ["Свеча — ритуальный предмет", "Кровь — не свежая"],
+                "does_not_prove": ["Свеча — орудие текущего убийства"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Свеча — ритуал", "correct": true, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Кровь не свежая", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress", "doctor"],
+                "locations": ["cult_lair"],
+                "events": ["event_006", "event_007"],
+                "other_evidence": ["evidence_003"]
+            },
+            "versions": { "supports": ["Культ — ритуал"], "contradicts": ["Свеча — орудие"] },
+            "false_leads": ["Свеча может быть ложным следом"],
+            "notes": ["Вспомогательная/ложная улика в ветках с культом."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "doctor", "role": "false", "note": "ложный след" },
+                { "victim": "detective", "killer": "artist", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_030",
+            "name": "Печать культа",
+            "type": "ritual",
+            "status": "confirmed",
+            "location": "cult_lair",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит печать в cult_lair"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["waitress", "doctor"] },
+            "object": {
+                "description": "Металлическая печать с символом тёмных богов. Используется для клеймения жертв.",
+                "condition": "в cult_lair",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["В cult_lair есть печать культа", "Печать — символ тёмных богов"],
+                "strongly_indicates": ["Культисты клеймят жертв", "Печать — ритуальный предмет"],
+                "does_not_prove": ["Печать — орудие текущего убийства"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Печать — ритуал культа", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Символ культа", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress", "doctor"],
+                "locations": ["cult_lair"],
+                "events": ["event_006"],
+                "other_evidence": ["evidence_003"]
+            },
+            "versions": { "supports": ["Культ — ритуал"], "contradicts": ["Печать — орудие"] },
+            "false_leads": ["Печать может быть ложным следом"],
+            "notes": ["Вспомогательная/ложная улика в ветках с культом."],
+            "role": "false",
+            "branches": [
+                { "victim": "sailor", "killer": "waitress", "role": "false", "note": "ложный след" },
+                { "victim": "artist", "killer": "waitress", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_031",
+            "name": "Тайник Матроса",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит тайник под половицей"],
+                "discovery_method": "обыск / поиск"
+            },
+            "visibility": { "public": false, "known_by": ["sailor"] },
+            "object": {
+                "description": "Скрытый тайник под половицей: украденная казна, карта, компас.",
+                "condition": "под половицей, скрыт",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Матрос украл казну", "Матрос хранит тайник"],
+                "strongly_indicates": ["Матрос — дезертир/вор", "У Матроса есть тайное имущество"],
+                "does_not_prove": ["Матрос совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Тайник — тайна Матроса", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Матрос скрывает имущество", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["sailor"],
+                "locations": ["guest_rooms"],
+                "events": ["event_002", "event_003"],
+                "other_evidence": ["evidence_006"]
+            },
+            "versions": { "supports": ["Матрос — дезертир"], "contradicts": ["Матрос чист"] },
+            "false_leads": ["Тайник может выглядеть как мотив"],
+            "notes": ["Вспомогательная/ложная улика в ветках с Матросом."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "sailor", "role": "false", "note": "тайна Матроса" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_032",
+            "name": "Тайник Трактирщика",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "tavern_keeper_office",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит тайник в кабинете"],
+                "discovery_method": "обыск / поиск двойного дна"
+            },
+            "visibility": { "public": false, "known_by": ["tavern_keeper"] },
+            "object": {
+                "description": "Двойное дно в столе: контрабанда, деньги, письма.",
+                "condition": "двойное дно, скрыто",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Трактирщик хранит тайник", "В тайнике контрабанда"],
+                "strongly_indicates": ["Трактирщик — контрабандист", "Трактирщик скрывает имущество"],
+                "does_not_prove": ["Трактирщик совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Тайник — тайна Трактирщика", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Трактирщик скрывает контрабанду", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["tavern_keeper"],
+                "locations": ["tavern_keeper_office"],
+                "events": ["event_005"],
+                "other_evidence": ["evidence_001"]
+            },
+            "versions": { "supports": ["Трактирщик — контрабандист"], "contradicts": ["Трактирщик чист"] },
+            "false_leads": ["Тайник может выглядеть как мотив"],
+            "notes": ["Вспомогательная/ложная улика в ветках с Трактирщиком."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "tavern_keeper", "role": "false", "note": "контрабанда" },
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_033",
+            "name": "Тайник Врача",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит сумку в вещах Врача"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["doctor"] },
+            "object": {
+                "description": "Сумка с медицинскими инструментами и ритуальным кинжалом.",
+                "condition": "в вещах Врача",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Врач владеет медицинскими инструментами", "Врач владеет ритуальным кинжалом"],
+                "strongly_indicates": ["Врач связан с культом (кинжал)", "Врач может быть убийцей"],
+                "does_not_prove": ["Врач совершил конкретное убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Тайник — тайна Врача", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Врач скрывает орудие", "correct": true, "confidence": "средняя" }
+            ],
+            "related": {
+                "characters": ["doctor"],
+                "locations": ["guest_rooms"],
+                "events": ["event_007"],
+                "other_evidence": ["evidence_013", "evidence_003"]
+            },
+            "versions": { "supports": ["Врач — культист"], "contradicts": ["Врач чист"] },
+            "false_leads": ["Тайник может выглядеть как мотив"],
+            "notes": ["Вспомогательная улика в ветках с Врачом."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "doctor", "role": "secondary", "note": "орудие" },
+                { "victim": "sailor", "killer": "doctor", "role": "secondary", "note": "орудие" },
+                { "victim": "detective", "killer": "doctor", "role": "secondary", "note": "орудие" },
+                { "victim": "artist", "killer": "doctor", "role": "secondary", "note": "орудие" }
+            ]
+        },
+        {
+            "id": "evidence_034",
+            "name": "Тайник Художника",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "attic",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит ящик в мастерской"],
+                "discovery_method": "обыск / поиск"
+            },
+            "visibility": { "public": false, "known_by": ["artist"] },
+            "object": {
+                "description": "Скрытый ящик с инструментами и картинами (без инструментов пыток — это ложная черта; в каноне там только мастерская).",
+                "condition": "в мастерской Художника",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Художник хранит ящик", "В ящике инструменты и картины"],
+                "strongly_indicates": ["Художник — художник/убийца", "Художник скрывает имущество"],
+                "does_not_prove": ["Художник совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Тайник — тайна Художника", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Художник скрывает орудия", "correct": false, "confidence": "средняя" }
+            ],
+            "related": {
+                "characters": ["artist"],
+                "locations": ["attic"],
+                "events": ["event_021"],
+                "other_evidence": ["evidence_012", "evidence_004"]
+            },
+            "versions": { "supports": ["Художник — безумец"], "contradicts": ["Художник — просто художник"] },
+            "false_leads": ["Тайник может выглядеть как орудия пыток (ложно)"],
+            "notes": ["Ложный/вспомогательный след в ветках с Художником."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "artist", "role": "false", "note": "ложный след" },
+                { "victim": "waitress", "killer": "artist", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_035",
+            "name": "Тайник Официантки",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "waitress_room",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит шкатулку в комнате Официантки"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["waitress"] },
+            "object": {
+                "description": "Шкатулка с ритуальными принадлежностями, дневником, амулетом.",
+                "condition": "в комнате Официантки",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Официантка хранит ритуальные принадлежности", "Официантка владеет амулетом"],
+                "strongly_indicates": ["Официантка — жрица", "Официантка скрывает культ"],
+                "does_not_prove": ["Официантка совершила конкретное убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Шкатулка — тайна Официантки", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Официантка — культист", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress"],
+                "locations": ["waitress_room"],
+                "events": ["event_006", "event_017"],
+                "other_evidence": ["evidence_009", "evidence_003"]
+            },
+            "versions": { "supports": ["Официантка — жрица"], "contradicts": ["Официантка не культист"] },
+            "false_leads": ["Шкатулка может выглядеть как мотив"],
+            "notes": ["Вспомогательная улика в ветках с Официанткой."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "инструмент заклинания" },
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "инструмент" }
+            ]
+        },
+        {
+            "id": "evidence_036",
+            "name": "Показания призрака",
+            "type": "testimony",
+            "status": "confirmed",
+            "location": "wife_grave",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["waitress", "players"],
+                "discovery_conditions": ["игрок встречает призрака Жены", "призрак даёт показания"],
+                "discovery_method": "расспрос / наблюдение"
+            },
+            "visibility": { "public": false, "known_by": ["waitress", "dead_wife"] },
+            "object": {
+                "description": "Призрак Жены может дать показания: кто убил, кто угрожал, кто что знает.",
+                "condition": "призрак в wife_grave",
+                "movable": false,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Призрак Жены знает о Матросе", "Призрак рассказывает об угрозах"],
+                "strongly_indicates": ["Матрос убил dead_wife", "Матрос угрожал Официантке"],
+                "does_not_prove": ["Призрак — свидетель текущего убийства"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Призрак — свидетель", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Призрак подтверждает угрозы", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["dead_wife", "sailor", "waitress"],
+                "locations": ["wife_grave"],
+                "events": ["event_015", "event_004"],
+                "other_evidence": ["evidence_008"]
+            },
+            "versions": { "supports": ["Матрос убийца (past)"], "contradicts": ["Матрос не убийца"] },
+            "false_leads": ["Показания призрака могут быть ложными (призрак может обманывать)"],
+            "notes": ["Вспомогательная улика в ветках с Матросом/Официанткой."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "мотив мести" },
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "мотив" },
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "secondary", "note": "подтверждает угрозу" }
+            ]
+        },
+        {
+            "id": "evidence_037",
+            "name": "Шёпот в подвале",
+            "type": "audio",
+            "status": "confirmed",
+            "location": "basement",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок слышит шёпот из-за тайной двери"],
+                "discovery_method": "наблюдение / слух"
+            },
+            "visibility": { "public": false, "known_by": ["waitress", "doctor"] },
+            "object": {
+                "description": "Голоса культа, слышные из-за тайной двери. Подводят к cult_lair.",
+                "condition": "шёпот из-за двери",
+                "movable": false,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["В basement есть тайная дверь", "Из-за двери — голоса"],
+                "strongly_indicates": ["Тайная дверь ведёт в cult_lair", "Культисты проводят собрания"],
+                "does_not_prove": ["Конкретный убийца"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Шёпот — культ", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Шёпот ведёт к тайному помещению", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress", "doctor"],
+                "locations": ["basement", "cult_lair"],
+                "events": ["event_006", "event_007"],
+                "other_evidence": ["evidence_003"]
+            },
+            "versions": { "supports": ["Культ — тайное собрание"], "contradicts": ["Шёпот — не культ"] },
+            "false_leads": ["Шёпот может быть ложным следом"],
+            "notes": ["Вспомогательная/ложная улика в ветках с культом."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "artist", "role": "false", "note": "ложный след" },
+                { "victim": "sailor", "killer": "doctor", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_038",
+            "name": "Следы на чердачной лестнице",
+            "type": "forensic",
+            "status": "confirmed",
+            "location": "attic",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит следы на лестнице"],
+                "discovery_method": "обыск / осмотр"
+            },
+            "visibility": { "public": false, "known_by": [] },
+            "object": {
+                "description": "Грязные следы, ведущие с чердака в комнату Детектива. Подводят к Художнику (ложно).",
+                "condition": "следы на лестнице",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["С чердака ведут следы", "Следы ведут к комнате Детектива"],
+                "strongly_indicates": ["Кто-то ходил с чердака", "Художник мог быть в комнате"],
+                "does_not_prove": ["Художник — убийца"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Следы — Художник", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Следы не доказывают убийство", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["artist", "detective"],
+                "locations": ["attic", "guest_rooms"],
+                "events": ["event_021"],
+                "other_evidence": ["evidence_004"]
+            },
+            "versions": { "supports": ["Художник — убийца (ложно)"], "contradicts": ["Следы не доказывают убийство"] },
+            "false_leads": ["Следы могут быть ложным следом на Художника"],
+            "notes": ["Ложный след в ветках с Художником."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "artist", "role": "false", "note": "ложный след" },
+                { "victim": "sailor", "killer": "detective", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_039",
+            "name": "Мокрые следы",
+            "type": "forensic",
+            "status": "confirmed",
+            "location": "tavern_yard",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит мокрые следы во дворе"],
+                "discovery_method": "осмотр / след"
+            },
+            "visibility": { "public": false, "known_by": [] },
+            "object": {
+                "description": "Следы, ведущие от воды к таверне. Указывают, что кто-то мог войти/выйти.",
+                "condition": "мокрые, во дворе",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Во дворе есть мокрые следы", "Следы ведут к таверне"],
+                "strongly_indicates": ["Кто-то входил/выходил во время потопы", "Изоляция таверны"],
+                "does_not_prove": ["Конкретный убийца"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Следы — кто-то входил", "correct": true, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Следы не доказывают убийство", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": [],
+                "locations": ["tavern_yard"],
+                "events": ["event_016"],
+                "other_evidence": ["evidence_010"]
+            },
+            "versions": { "supports": ["Изоляция таверны"], "contradicts": ["Следы не доказывают убийство"] },
+            "false_leads": ["Следы могут быть ложным следом"],
+            "notes": ["Вспомогательная/ложная улика в ветках accident."],
+            "role": "accident",
+            "branches": [
+                { "victim": "sailor", "killer": "accident", "role": "accident", "note": "случайность" },
+                { "victim": "detective", "killer": "accident", "role": "accident", "note": "случайность" }
+            ]
+        },
+        {
+            "id": "evidence_040",
+            "name": "Запах благовоний",
+            "type": "environmental",
+            "status": "confirmed",
+            "location": "cult_lair",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок чувствует запах в cult_lair/подвале"],
+                "discovery_method": "наблюдение / обоняние"
+            },
+            "visibility": { "public": false, "known_by": ["waitress", "doctor"] },
+            "object": {
+                "description": "Запах, который чувствуется в подвале и в комнате Официантки. Связывает её с культом.",
+                "condition": "запах в подвале",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["В cult_lair есть запах благовоний", "Запах чувствуется в комнате Официантки"],
+                "strongly_indicates": ["Официантка связана с культом", "Запах — ритуальный"],
+                "does_not_prove": ["Официантка совершила убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Запах — культ", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Запах связывает с культом", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["waitress", "doctor"],
+                "locations": ["cult_lair", "waitress_room"],
+                "events": ["event_006"],
+                "other_evidence": ["evidence_003"]
+            },
+            "versions": { "supports": ["Культ — ритуал"], "contradicts": ["Запах не культ"] },
+            "false_leads": ["Запах может быть ложным следом"],
+            "notes": ["Вспомогательная улика в ветках с культом."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "artist", "killer": "doctor", "role": "secondary", "note": "связь с культом" },
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "связь с культом" }
+            ]
+        },
+        {
+            "id": "evidence_041",
+            "name": "Поддельное письмо",
+            "type": "document",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит письмо в комнате Матроса"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": [] },
+            "object": {
+                "description": "Письмо, якобы от Матроса, с признанием. На самом деле подделка (кто-то подставил).",
+                "condition": "в комнате Матроса",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["В комнате Матроса есть письмо", "Письмо выглядит как признание"],
+                "strongly_indicates": ["Матрос — подозреваемый", "Письмо может быть подделкой"],
+                "does_not_prove": ["Матрос совершил убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Письмо — признание Матроса", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Письмо может быть подделкой", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["sailor"],
+                "locations": ["guest_rooms"],
+                "events": [],
+                "other_evidence": ["evidence_006"]
+            },
+            "versions": { "supports": ["Матрос — убийца (ложно)"], "contradicts": ["Письмо подделка"] },
+            "false_leads": ["Письмо — ложный след на Матроса"],
+            "notes": ["Ложный след в ветках с Матросом."],
+            "role": "false",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "подделка" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "подделка" }
+            ]
+        },
+        {
+            "id": "evidence_042",
+            "name": "Чужая кровь на одежде",
+            "type": "forensic",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит кровь на одежде Матроса"],
+                "discovery_method": "обыск / осмотр"
+            },
+            "visibility": { "public": false, "known_by": ["sailor"] },
+            "object": {
+                "description": "Одежда Матроса с кровью (не его). Может быть кровью жены Трактирщика (старая) или жертвы.",
+                "condition": "кровь на одежде",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["На одежде Матроса кровь", "Кровь не Матроса"],
+                "strongly_indicates": ["Кровь может быть старой (dead_wife)", "Кровь может быть жертвы"],
+                "does_not_prove": ["Матрос совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Кровь — убийство", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Кровь может быть старой", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["sailor", "dead_wife"],
+                "locations": ["guest_rooms"],
+                "events": ["event_004"],
+                "other_evidence": ["evidence_006", "evidence_014"]
+            },
+            "versions": { "supports": ["Матрос — убийца (ложно)"], "contradicts": ["Кровь старая"] },
+            "false_leads": ["Кровь — ложный след на Матроса"],
+            "notes": ["Ложный/вспомогательный след в ветках с Матросом."],
+            "role": "false",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "ложный след" },
+                { "victim": "waitress", "killer": "sailor", "role": "false", "note": "ложный след" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_043",
+            "name": "Сломанный нож",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "tavern_storage",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит сломанный нож на складе"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": [] },
+            "object": {
+                "description": "Нож со сломанным лезвием. Может быть орудием, но не подходит по форме раны.",
+                "condition": "сломан, на складе",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["На складе есть сломанный нож"],
+                "strongly_indicates": ["Нож мог быть орудием", "Форма раны не подходит"],
+                "does_not_prove": ["Нож — орудие текущего убийства"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Нож — орудие", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Форма раны не подходит", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": [],
+                "locations": ["tavern_storage"],
+                "events": [],
+                "other_evidence": ["evidence_014"]
+            },
+            "versions": { "supports": ["Нож — орудие (ложно)"], "contradicts": ["Форма раны не подходит"] },
+            "false_leads": ["Нож — ложный след"],
+            "notes": ["Ложный след в ветках с орудиями."],
+            "role": "false",
+            "branches": [
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "ложный след" },
+                { "victim": "detective", "killer": "sailor", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_044",
+            "name": "Флакон яда",
+            "type": "toxicological",
+            "status": "confirmed",
+            "location": "tavern_keeper_office",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит флакон в кабинете"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["tavern_keeper"] },
+            "object": {
+                "description": "Флакон с ядом в кабинете Трактирщика. Может быть использован для отравления.",
+                "condition": "в кабинете",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["В кабинете Трактирщика яд", "Трактирщик владеет ядом"],
+                "strongly_indicates": ["Трактирщик мог отравить", "Яд — орудие"],
+                "does_not_prove": ["Трактирщик отравил конкретного"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Яд — орудие", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Яд — не орудие (мотив hatred, не poisoning)", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["tavern_keeper"],
+                "locations": ["tavern_keeper_office"],
+                "events": [],
+                "other_evidence": ["evidence_001"]
+            },
+            "versions": { "supports": ["Трактирщик — отравитель (ложно)"], "contradicts": ["Яд не орудие"] },
+            "false_leads": ["Яд — ложный след (мотив hatred, не отравление)"],
+            "notes": ["Ложный след в ветках с Трактирщиком (мотив hatred, не отравление)."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "tavern_keeper", "role": "false", "note": "ложный след (мотив hatred)" },
+                { "victim": "artist", "killer": "tavern_keeper", "role": "false", "note": "ложный след" },
+                { "victim": "detective", "killer": "accident", "role": "accident", "note": "несчастный случай с ядом" }
+            ]
+        },
+        {
+            "id": "evidence_045",
+            "name": "Маска культа",
+            "type": "ritual",
+            "status": "confirmed",
+            "location": "attic",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит маску на чердаке"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": [] },
+            "object": {
+                "description": "Маска, найденная на чердаке. Может принадлежать Художнику (как трофей) или культисту.",
+                "condition": "на чердаке",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["На чердаке есть маска", "Маска — ритуальный предмет"],
+                "strongly_indicates": ["Маска — трофей Художника", "Маска связана с культом"],
+                "does_not_prove": ["Маска — орудие текущего убийства"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Маска — Художник", "correct": false, "confidence": "средняя" },
+                { "character": "detective", "interpretation": "Маска — трофей или культист", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["artist"],
+                "locations": ["attic"],
+                "events": ["event_010", "event_021"],
+                "other_evidence": ["evidence_004", "evidence_003"]
+            },
+            "versions": { "supports": ["Художник — убийца (ложно)"], "contradicts": ["Маска — трофей"] },
+            "false_leads": ["Маска — ложный след на Художника"],
+            "notes": ["Ложный след в ветках с Художником."],
+            "role": "false",
+            "branches": [
+                { "victim": "detective", "killer": "artist", "role": "false", "note": "ложный след" },
+                { "victim": "sailor", "killer": "artist", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_046",
+            "name": "Семейное древо",
+            "type": "document",
+            "status": "confirmed",
+            "location": "tavern_hall",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит документ в зале"],
+                "discovery_method": "обыск / осмотр"
+            },
+            "visibility": { "public": true, "known_by": ["tavern_keeper", "waitress"] },
+            "object": {
+                "description": "Документ, подтверждающий родство: Трактирщик — муж dead_wife, Официантка — их дочь.",
+                "condition": "в зале",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Трактирщик и dead_wife — муж/жена", "Официантка — дочь"],
+                "strongly_indicates": ["Трактирщик любит дочь", "Трактирщик защищал дочь"],
+                "does_not_prove": ["Трактирщик совершил убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Древо — родство", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Трактирщик — отец Официантки", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["tavern_keeper", "waitress", "dead_wife"],
+                "locations": ["tavern_hall"],
+                "events": ["event_013"],
+                "other_evidence": ["evidence_007"]
+            },
+            "versions": { "supports": ["Трактирщик — отец"], "contradicts": ["Трактирщик не отец"] },
+            "false_leads": ["Древо может выглядеть как мотив"],
+            "notes": ["Вспомогательная улика в ветках с Трактирщиком."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "защита дочери" },
+                { "victim": "artist", "killer": "tavern_keeper", "role": "secondary", "note": "защита дочери" },
+                { "victim": "doctor", "killer": "tavern_keeper", "role": "secondary", "note": "защита дочери" }
+            ]
+        },
+        {
+            "id": "evidence_047",
+            "name": "Морская карта",
+            "type": "document",
+            "status": "confirmed",
+            "location": "guest_rooms",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит карту в вещах Матроса"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["sailor"] },
+            "object": {
+                "description": "Карта с маршрутом корабля Капитана. Доказывает службу Матроса и Врача.",
+                "condition": "в вещах Матроса",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Матрос служил на корабле", "Матрос и Врач — сослуживцы"],
+                "strongly_indicates": ["Матрос дезертировал", "Матрос знал о корабле"],
+                "does_not_prove": ["Матрос совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Карта — прошлое Матроса", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Матрос — дезертир", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["sailor", "doctor", "ship_captain"],
+                "locations": ["guest_rooms"],
+                "events": ["event_001", "event_002"],
+                "other_evidence": ["evidence_006"]
+            },
+            "versions": { "supports": ["Матрос — дезертир"], "contradicts": ["Матрос чист"] },
+            "false_leads": ["Карта может выглядеть как мотив"],
+            "notes": ["Вспомогательная/ложная улика в ветках с Матросом/Врачом."],
+            "role": "false",
+            "branches": [
+                { "victim": "doctor", "killer": "sailor", "role": "false", "note": "связь с кораблём" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "ложный след" }
+            ]
+        },
+        {
+            "id": "evidence_048",
+            "name": "Долговая расписка",
+            "type": "document",
+            "status": "confirmed",
+            "location": "tavern_keeper_office",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит расписку в кабинете"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["tavern_keeper", "sailor"] },
+            "object": {
+                "description": "Расписка Матроса о долге Трактирщику. Доказывает денежную связь.",
+                "condition": "в кабинете",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": ["Матрос должен деньги Трактирщику", "Денежная связь"],
+                "strongly_indicates": ["Матрос и Трактирщик — партнёры", "Матрос мог убить за долг"],
+                "does_not_prove": ["Матрос совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Расписка — денежная связь", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Денежный мотив", "correct": true, "confidence": "средняя" }
+            ],
+            "related": {
+                "characters": ["sailor", "tavern_keeper"],
+                "locations": ["tavern_keeper_office"],
+                "events": ["event_005"],
+                "other_evidence": ["evidence_002"]
+            },
+            "versions": { "supports": ["Денежный мотив"], "contradicts": ["Нет денежного мотива"] },
+            "false_leads": ["Расписка может выглядеть как мотив"],
+            "notes": ["Вспомогательная/ложная улика в ветках с Матросом/Трактирщиком."],
+            "role": "false",
+            "branches": [
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "денежный мотив" },
+                { "victim": "detective", "killer": "sailor", "role": "false", "note": "денежный мотив" }
+            ]
+        },
+        {
+            "id": "evidence_049",
+            "name": "Письмо из ордена",
+            "type": "document",
+            "status": "confirmed",
+            "location": "attic",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит письмо в мастерской"],
+                "discovery_method": "обыск"
+            },
+            "visibility": { "public": false, "known_by": ["artist"] },
+            "object": {
+                "description": "Письмо от паладинского ордена с приказом и описанием реликвии.",
+                "condition": "в мастерской Художника",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["Художник получил приказ ордена", "Письмо описывает реликвию"],
+                "strongly_indicates": ["Художник — инквизитор", "Художник ищет реликвию"],
+                "does_not_prove": ["Художник совершил текущее убийство"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Письмо — приказ Художника", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Художник — инквизитор", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["artist"],
+                "locations": ["attic"],
+                "events": ["event_018", "event_020"],
+                "other_evidence": ["evidence_024", "evidence_011"]
+            },
+            "versions": { "supports": ["Художник — инквизитор"], "contradicts": ["Художник — просто убийца"] },
+            "false_leads": ["Письмо может выглядеть как мотив"],
+            "notes": ["Вспомогательная улика в ветках с Художником."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "detective", "killer": "artist", "role": "secondary", "note": "мотив" },
+                { "victim": "waitress", "killer": "artist", "role": "secondary", "note": "мотив" },
+                { "victim": "doctor", "killer": "artist", "role": "secondary", "note": "мотив" }
+            ]
+        },
+        {
+            "id": "evidence_050",
+            "name": "Завещание dead_wife",
+            "type": "document",
+            "status": "confirmed",
+            "location": "wife_grave",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": ["players"],
+                "discovery_conditions": ["игрок находит завещание у могилы"],
+                "discovery_method": "обыск / поиск"
+            },
+            "visibility": { "public": false, "known_by": ["dead_wife", "waitress"] },
+            "object": {
+                "description": "Завещание, оставленное dead_wife: культ передаётся дочери, реликвия — в тайнике.",
+                "condition": "у могилы dead_wife",
+                "movable": true,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": ["dead_wife оставила завещание", "Завещание о культе и реликвии"],
+                "strongly_indicates": ["Официантка — наследник культа", "Реликвия в тайнике"],
+                "does_not_prove": ["Завещание — мотив текущего убийства"]
+            },
+            "interpretations": [
+                { "character": "players", "interpretation": "Завещание — связь с культом", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Официантка — наследник", "correct": true, "confidence": "высокая" }
+            ],
+            "related": {
+                "characters": ["dead_wife", "waitress"],
+                "locations": ["wife_grave", "cult_lair"],
+                "events": ["event_019", "event_006"],
+                "other_evidence": ["evidence_008", "evidence_011"]
+            },
+            "versions": { "supports": ["Официантка — наследник"], "contradicts": ["Официантка не наследник"] },
+            "false_leads": ["Завещание может выглядеть как мотив"],
+            "notes": ["Вспомогательная улика в ветках с Официанткой/культом."],
+            "role": "secondary",
+            "branches": [
+                { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "наследование культа" },
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "мотив" }
             ]
         }
     ]

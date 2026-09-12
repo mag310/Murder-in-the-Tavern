@@ -1,16 +1,26 @@
 {
-  "id": "sheriff_office",
-  "name": "Офис Шерифа",
-  "type": "context",
-  "parent_location": "town",
-  "description": "Место, откуда начинается официальное расследование серии смертей.",
-  "characters": [
-    "sheriff",
-    "detective"
-  ],
-  "important_events": [
-    "Шериф нанимает Детектива"
-  ],
-  "clues": [],
-  "secrets": []
+    "id":  "sheriff_office",
+    "name":  "Офис Шерифа",
+    "type":  "context",
+    "parent_location":  "town",
+    "description":  "Место, откуда начинается официальное расследование серии смертей.",
+    "characters":  [
+                       "sheriff",
+                       "detective"
+                   ],
+    "important_events":  [
+                             "Шериф нанимает Детектива"
+                         ],
+    "clues":  [
+
+              ],
+    "secrets":  [
+
+                ],
+    "appearance":  "Небольшое здание в городе. Стол, шкаф с делами, карта города на стене. Пахнет бумагой и чернилами.",
+    "senses":  {
+                   "feeling":  "официальность, напряжение",
+                   "smell":  "бумага, чернила, пыль",
+                   "sound":  "тишина, скрип пера"
+               }
 }

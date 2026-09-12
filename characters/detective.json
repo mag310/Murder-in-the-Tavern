@@ -1,144 +1,184 @@
 {
-  "id": "detective",
-  "name": null,
-  "role": "Детектив",
-  "status": "main_npc",
-  "can_be_murder_victim": true,
-  "secrets": [
-    {
-      "level": "small",
-      "description": "Его нанял Шериф для расследования серии смертей в городе.",
-      "known_by": []
-    }
-  ],
-  "investigation": {
-    "employer": {
-      "primary": "sheriff",
-      "secondary": "mayor",
-      "alternative": "maniac"
-    },
-    "employer_note": "primary (Шериф) — основной наниматель (канон, event_011). secondary (Мэр) — вспомогательный вариант. alternative (Маньяк) — возможный сценарий, НЕ канон: Маньяк может тайно быть заказчиком (см. maniac.relations.money). Финальный выбор делает автор.",
-    "case": "серия смертей в городе",
-    "actual_cause_of_previous_deaths": "Маньяк",
-    "reason_previous_deaths_are_connected_to_maniac": "жертвами были члены культа",
-    "reason_investigation_reached_tavern": null
-  },
-  "relationships": {
-    "love": [],
-    "hatred": [],
-    "money": [
-      {
-        "target": "sheriff",
-        "type": "наниматель (основной вариант)"
-      },
-      {
-        "target": "mayor",
-        "type": "альтернативный наниматель (вспомогательный вариант)"
-      },
-      {
-        "target": "tavern_keeper",
-        "type": "возможный сценарий (НЕ канон): если Детектив обнаружит контрабанду Трактирщика, он может быть связан с ней по деньгам (найти доказательства / закрыть дело)",
-        "scenario": "possible_scenario",
-        "scenario_note": "Возможный сценарий, НЕ канон: в каноне наниматель Детектива — Шериф, и он НЕ знает о контрабанде Трактирщика (does_not_know). Связь появляется только если автор выберет сценарий, где Детектив сталкивается с контрабандой; тогда motivation 'money' в murder_matrix (detective->tavern_keeper) становится обоснованной."
-      }
-    ],
-    "religion": [],
-    "justice": [
-      {
-        "target": "all",
-        "type": "расследует преступления"
-      },
-      {
-        "target": "maniac",
-        "type": "расследует серию убийств"
-      }
-    ]
-  },
-  "knowledge": [
-    {
-      "level": "knows_exactly",
-      "fact": "Шериф нанял его для расследования серии смертей",
-      "target": "sheriff",
-      "reason": "Детектив нанимается Шерифом",
-      "source": "investigation"
-    },
-    {
-      "level": "knows_exactly",
-      "fact": "Его наняли для расследования серии смертей в городе",
-      "target": null,
-      "reason": "Детектив знает о деле",
-      "source": "small_secret"
-    },
-    {
-      "level": "suspects",
-      "fact": "Возможный сценарий: его могли нанять не Шериф, а Маньяк",
-      "target": "maniac",
-      "reason": "Детектив не знает, кто на самом деле заказал расследование; возможно, это Маньяк",
-      "source": "investigation"
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о культе в таверне",
-      "target": null,
-      "reason": "Детектив не знает о культе",
-      "source": null
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о контрабанде Трактирщика и Матроса",
-      "target": null,
-      "reason": "Детектив не знает о контрабанде",
-      "source": null
-    },
-    {
-      "level": "suspects",
-      "fact": "Возможный сценарий: если Детектив обнаружит доказательства контрабанды, он может столкнуться с ней (связь по money)",
-      "target": "tavern_keeper",
-      "reason": "Возможный сценарий, НЕ канон: в каноне Детектив НЕ знает о контрабанде (does_not_know); подозрение появляется только если автор выберет сценарий, где он находит доказательства",
-      "source": "relationship",
-      "scenario": "possible_scenario"
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о Маньяке как серийном убийце (пока не расследует)",
-      "target": "maniac",
-      "reason": "Детектив пока не знает о Маньяке",
-      "source": null
-    }
-  ],
-  "false_beliefs": [],
-  "external_links": [
-    "sheriff_office",
-    "town",
-    "previous_crime_scenes"
-  ],
-  "daily_schedule": [
-    {
-      "time": "night",
-      "location": "guest_rooms",
-      "activity": "спит в комнате гостя (следы пьянства, evidence_005)"
-    },
-    {
-      "time": "morning",
-      "location": "tavern_hall",
-      "activity": "встречается с гостями, расспрашивает"
-    },
-    {
-      "time": "day",
-      "location": "tavern_yard",
-      "activity": "проходит по двору, осматривает следы"
-    },
-    {
-      "time": "evening",
-      "location": "tavern_hall",
-      "activity": "расследует серию смертей, допрашивает"
-    },
-    {
-      "time": "midnight",
-      "location": "guest_rooms",
-      "activity": "записывает наблюдения в записную книжку",
-      "note": "см. event_011/012; наниматель — Шериф"
-    }
-  ],
-  "organizations": []
+    "id":  "detective",
+    "name":  null,
+    "role":  "Детектив",
+    "status":  "main_npc",
+    "can_be_murder_victim":  true,
+    "secrets":  [
+                    {
+                        "level":  "small",
+                        "description":  "Его нанял Шериф для расследования серии смертей в городе.",
+                        "known_by":  [
+
+                                     ]
+                    }
+                ],
+    "investigation":  {
+                          "employer":  {
+                                           "primary":  "sheriff",
+                                           "secondary":  "mayor",
+                                           "alternative":  "artist"
+                                       },
+                          "employer_note":  "primary (Шериф) — основной наниматель (канон, event_011). secondary (Мэр) — вспомогательный вариант. alternative (Художник) — возможный сценарий, НЕ канон: Художник может тайно быть заказчиком (см. artist.relations.money). Финальный выбор делает автор.",
+                          "case":  "серия смертей в городе",
+                          "actual_cause_of_previous_deaths":  "Художник",
+                          "reason_previous_deaths_are_connected_to_artist":  "жертвами были члены культа",
+                          "reason_investigation_reached_tavern":  null
+                      },
+    "relationships":  {
+                          "love":  [
+
+                                   ],
+                          "hatred":  [
+
+                                     ],
+                          "money":  [
+                                        {
+                                            "target":  "sheriff",
+                                            "type":  "наниматель (основной вариант)"
+                                        },
+                                        {
+                                            "target":  "mayor",
+                                            "type":  "альтернативный наниматель (вспомогательный вариант)"
+                                        },
+                                        {
+                                            "target":  "tavern_keeper",
+                                            "type":  "возможный сценарий (НЕ канон): если Детектив обнаружит контрабанду Трактирщика, он может быть связан с ней по деньгам (найти доказательства / закрыть дело)",
+                                            "scenario":  "possible_scenario",
+                                            "scenario_note":  "Возможный сценарий, НЕ канон: в каноне наниматель Детектива — Шериф, и он НЕ знает о контрабанде Трактирщика (does_not_know). Связь появляется только если автор выберет сценарий, где Детектив сталкивается с контрабандой; тогда motivation \u0027money\u0027 в murder_matrix (detective-\u003etavern_keeper) становится обоснованной."
+                                        }
+                                    ],
+                          "religion":  [
+
+                                       ],
+                          "justice":  [
+                                          {
+                                              "target":  "all",
+                                              "type":  "расследует преступления"
+                                          },
+                                          {
+                                              "target":  "artist",
+                                              "type":  "расследует серию убийств"
+                                          }
+                                      ]
+                      },
+    "knowledge":  [
+                      {
+                          "level":  "knows_exactly",
+                          "fact":  "Шериф нанял его для расследования серии смертей",
+                          "target":  "sheriff",
+                          "reason":  "Детектив нанимается Шерифом",
+                          "source":  "investigation"
+                      },
+                      {
+                          "level":  "knows_exactly",
+                          "fact":  "Его наняли для расследования серии смертей в городе",
+                          "target":  null,
+                          "reason":  "Детектив знает о деле",
+                          "source":  "small_secret"
+                      },
+                      {
+                          "level":  "suspects",
+                          "fact":  "Возможный сценарий: его могли нанять не Шериф, а Художник",
+                          "target":  "artist",
+                          "reason":  "Детектив не знает, кто на самом деле заказал расследование; возможно, это Художник",
+                          "source":  "investigation"
+                      },
+                      {
+                          "level":  "does_not_know",
+                          "fact":  "Не знает о культе в таверне",
+                          "target":  null,
+                          "reason":  "Детектив не знает о культе",
+                          "source":  null
+                      },
+                      {
+                          "level":  "does_not_know",
+                          "fact":  "Не знает о контрабанде Трактирщика и Матроса",
+                          "target":  null,
+                          "reason":  "Детектив не знает о контрабанде",
+                          "source":  null
+                      },
+                      {
+                          "level":  "suspects",
+                          "fact":  "Возможный сценарий: если Детектив обнаружит доказательства контрабанды, он может столкнуться с ней (связь по money)",
+                          "target":  "tavern_keeper",
+                          "reason":  "Возможный сценарий, НЕ канон: в каноне Детектив НЕ знает о контрабанде (does_not_know); подозрение появляется только если автор выберет сценарий, где он находит доказательства",
+                          "source":  "relationship",
+                          "scenario":  "possible_scenario"
+                      },
+                      {
+                          "level":  "does_not_know",
+                          "fact":  "Не знает о Художнике как серийном убийце (пока не расследует)",
+                          "target":  "artist",
+                          "reason":  "Детектив пока не знает о Художнике",
+                          "source":  null
+                      }
+                  ],
+    "false_beliefs":  [
+
+                      ],
+    "external_links":  [
+                           "sheriff_office",
+                           "town",
+                           "previous_crime_scenes"
+                       ],
+    "daily_schedule":  [
+                           {
+                               "time":  "night",
+                               "location":  "guest_rooms",
+                               "activity":  "спит в комнате гостя (следы пьянства, evidence_005)"
+                           },
+                           {
+                               "time":  "morning",
+                               "location":  "tavern_hall",
+                               "activity":  "встречается с гостями, расспрашивает"
+                           },
+                           {
+                               "time":  "day",
+                               "location":  "tavern_yard",
+                               "activity":  "проходит по двору, осматривает следы"
+                           },
+                           {
+                               "time":  "evening",
+                               "location":  "tavern_hall",
+                               "activity":  "расследует серию смертей, допрашивает"
+                           },
+                           {
+                               "time":  "midnight",
+                               "location":  "guest_rooms",
+                               "activity":  "записывает наблюдения в записную книжку",
+                               "note":  "см. event_011/012; наниматель — Шериф"
+                           }
+                       ],
+    "organizations":  [
+
+                      ],
+    "appearance":  {
+                       "face":  "усталое, с мешками под глазами; щетина, седые виски; глаза — цепкие, внимательные, но чуть мутные (постоянно пьян); нос — красноватый",
+                       "clothing":  "мятый плащ, тёмный костюм, шляпа с широкими полями; на поясе — блокнот и карандаш; обувь — стоптанная, но крепкая; в кармане — фляжка (постоянно)",
+                       "build":  "среднее, чуть грузное, с привычкой сутулиться",
+                       "age":  "~50 лет",
+                       "distinguishing_marks":  [
+                                                    "постоянно что-то записывает",
+                                                    "когда пьёт — становится подозрительным и агрессивным",
+                                                    "ночью бормочет что-то во сне"
+                                                ]
+                   },
+    "senses":  {
+                   "smell":  "алкоголь, табак"
+               },
+    "hidden":  [
+                   {
+                       "description":  "Следы пьянства Детектива",
+                       "evidence":  [
+                                        "evidence_005"
+                                    ]
+                   },
+                   {
+                       "description":  "Разбитая бутылка",
+                       "evidence":  [
+                                        "evidence_017"
+                                    ]
+                   }
+               ]
 }

@@ -15,7 +15,7 @@
   ],
   "leader": "tavern_keeper",
   "location": "tavern",
-  "secret": "Тайный контрабандный бизнес (см. smugglers); тайная логово культа в подвале (см. cult).",
+  "secret": "Тайный контрабандный бизнес (см. smugglers); тайное логово культа в подвале (см. cult).",
   "conflicts_with": [
     "paladin_order"
   ]
