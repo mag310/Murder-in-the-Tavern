@@ -1,22 +1,22 @@
 {
-  "id": "tavern",
-  "name": "Таверна",
-  "type": "business",
-  "description": "Таверна на возвышенности, где происходит действие. Владелец — Трактирщик.",
-  "members": [
-    {
-      "character": "tavern_keeper",
-      "role": "владелец / владелец-работодатель"
-    },
-    {
-      "character": "waitress",
-      "role": "работник (официантка), дочь владельца"
-    }
-  ],
-  "leader": "tavern_keeper",
-  "location": "tavern",
-  "secret": "Тайный контрабандный бизнес (см. smugglers); тайное логово культа в подвале (см. cult).",
-  "conflicts_with": [
-    "paladin_order"
-  ]
+    "id": "tavern",
+    "name": "Таверна",
+    "type": "business",
+    "description": "Таверна на возвышенности, где происходит действие. Владелец — Трактирщик.",
+    "members": [
+        {
+            "character": "tavern_keeper",
+            "role": "владелец / владелец-работодатель"
+        },
+        {
+            "character": "waitress",
+            "role": "работник (официантка), дочь владельца"
+        }
+    ],
+    "leader": "tavern_keeper",
+    "location": "tavern",
+    "secret": "Тайный контрабандный бизнес (см. smugglers); тайное логово культа в подвале (см. cult).",
+    "conflicts_with": [
+        "paladin_order"
+    ]
 }

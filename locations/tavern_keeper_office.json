@@ -1,82 +1,80 @@
 {
-    "id":  "tavern_keeper_office",
-    "name":  "Кабинет владельца",
-    "type":  "gameplay",
-    "parent_location":  "tavern",
-    "description":  "Личное помещение Владельца таверны.",
-    "characters":  [
-                       "tavern_keeper"
-                   ],
-    "important_events":  [
-
-                         ],
-    "clues":  [
-
-              ],
-    "secrets":  [
-                    "контрабанда"
-                ],
-    "mechanical_features":  [
-                                "тайники",
-                                "документы",
-                                "счета",
-                                "переписка",
-                                "запрещённые товары"
-                            ],
-    "appearance":  "Небольшая комната за стойкой. Тяжёлый стол, кресло, шкаф с бумагами. На стенах — полки с книгами (некоторые — запрещённые). В углу — сейф. Окно выходит во двор. На столе — счёты, перья, чернильница. Пахнет пылью и старой бумагой.",
-    "senses":  {
-                   "feeling":  "тайна, напряжение",
-                   "smell":  "пыль, бумага, чернила, лёгкий запах спирта",
-                   "sound":  "тишина, скрип стула"
-               },
-    "hidden":  [
-                   {
-                       "description":  "Контейнеры с запрещёнными напитками",
-                       "evidence":  [
-                                        "evidence_001"
-                                    ]
-                   },
-                   {
-                       "description":  "Записная книжка Трактирщика",
-                       "evidence":  [
-                                        "evidence_002"
-                                    ]
-                   },
-                   {
-                       "description":  "Кинжал Трактирщика",
-                       "evidence":  [
-                                        "evidence_016"
-                                    ]
-                   },
-                   {
-                       "description":  "Дневник Трактирщика",
-                       "evidence":  [
-                                        "evidence_018"
-                                    ]
-                   },
-                   {
-                       "description":  "Письмо Матроса с угрозой",
-                       "evidence":  [
-                                        "evidence_019"
-                                    ]
-                   },
-                   {
-                       "description":  "Тайник Трактирщика",
-                       "evidence":  [
-                                        "evidence_032"
-                                    ]
-                   },
-                   {
-                       "description":  "Флакон яда",
-                       "evidence":  [
-                                        "evidence_044"
-                                    ]
-                   },
-                   {
-                       "description":  "Долговая расписка",
-                       "evidence":  [
-                                        "evidence_048"
-                                    ]
-                   }
-               ]
+    "id": "tavern_keeper_office",
+    "name": "Кабинет владельца",
+    "type": "gameplay",
+    "parent_location": "tavern",
+    "description": "Личное помещение Владельца таверны.",
+    "characters": [
+        "tavern_keeper"
+    ],
+    "important_events": [
+    ],
+    "clues": [
+    ],
+    "secrets": [
+        "контрабанда"
+    ],
+    "mechanical_features": [
+        "тайники",
+        "документы",
+        "счета",
+        "переписка",
+        "запрещённые товары"
+    ],
+    "appearance": "Небольшая комната за стойкой. Тяжёлый стол, кресло, шкаф с бумагами. На стенах — полки с книгами (некоторые — запрещённые). В углу — сейф. Окно выходит во двор. На столе — счёты, перья, чернильница. Пахнет пылью и старой бумагой.",
+    "senses": {
+        "feeling": "тайна, напряжение",
+        "smell": "пыль, бумага, чернила, лёгкий запах спирта",
+        "sound": "тишина, скрип стула"
+    },
+    "hidden": [
+        {
+            "description": "Контейнеры с запрещёнными напитками",
+            "evidence": [
+                "evidence_001"
+            ]
+        },
+        {
+            "description": "Записная книжка Трактирщика",
+            "evidence": [
+                "evidence_002"
+            ]
+        },
+        {
+            "description": "Кинжал Трактирщика",
+            "evidence": [
+                "evidence_016"
+            ]
+        },
+        {
+            "description": "Дневник Трактирщика",
+            "evidence": [
+                "evidence_018"
+            ]
+        },
+        {
+            "description": "Письмо Матроса с угрозой",
+            "evidence": [
+                "evidence_019"
+            ]
+        },
+        {
+            "description": "Тайник Трактирщика",
+            "evidence": [
+                "evidence_032"
+            ]
+        },
+        {
+            "description": "Флакон яда",
+            "evidence": [
+                "evidence_044"
+            ]
+        },
+        {
+            "description": "Долговая расписка",
+            "evidence": [
+                "evidence_048"
+            ]
+        }
+    ]
 }

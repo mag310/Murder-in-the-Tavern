@@ -1,103 +1,100 @@
 {
-    "id":  "guest_rooms",
-    "name":  "Комнаты гостей",
-    "type":  "gameplay",
-    "parent_location":  "tavern",
-    "description":  "Комнаты постояльцев. Личные вещи персонажей могут содержать улики и ложные следы. Отдельная комната Официантки — waitress_room (см. locations/waitress_room.json).",
-    "characters":  [
-                       "sailor",
-                       "doctor",
-                       "detective",
-                       "artist",
-                       "waitress"
-                   ],
-    "important_events":  [
-
-                         ],
-    "clues":  [
-
-              ],
-    "secrets":  [
-
-                ],
-    "mechanical_features":  [
-                                "личные вещи",
-                                "документы",
-                                "тайники",
-                                "следы пребывания"
-                            ],
-    "appearance":  "Коридор на втором этаже. Несколько дверей. За каждой — небольшая комната: кровать, стол, стул, окно. У каждого гостя — свои вещи. Пахнет пылью, потом и страхом.",
-    "senses":  {
-                   "feeling":  "напряжение, тайна",
-                   "smell":  "пыль, пот, алкоголь (из комнаты Детектива)",
-                   "sound":  "скрип половиц, храп, бормотание"
-               },
-    "hidden":  [
-                   {
-                       "description":  "Следы пьянства Детектива",
-                       "evidence":  [
-                                        "evidence_005"
-                                    ]
-                   },
-                   {
-                       "description":  "Ложная улика на Матроса",
-                       "evidence":  [
-                                        "evidence_006"
-                                    ]
-                   },
-                   {
-                       "description":  "Разбитая бутылка",
-                       "evidence":  [
-                                        "evidence_017"
-                                    ]
-                   },
-                   {
-                       "description":  "Записка Врача",
-                       "evidence":  [
-                                        "evidence_022"
-                                    ]
-                   },
-                   {
-                       "description":  "Медицинский журнал Врача",
-                       "evidence":  [
-                                        "evidence_023"
-                                    ]
-                   },
-                   {
-                       "description":  "Следы ритуала на теле",
-                       "evidence":  [
-                                        "evidence_026"
-                                    ]
-                   },
-                   {
-                       "description":  "Тайник Матроса",
-                       "evidence":  [
-                                        "evidence_031"
-                                    ]
-                   },
-                   {
-                       "description":  "Тайник Врача",
-                       "evidence":  [
-                                        "evidence_033"
-                                    ]
-                   },
-                   {
-                       "description":  "Поддельное письмо",
-                       "evidence":  [
-                                        "evidence_041"
-                                    ]
-                   },
-                   {
-                       "description":  "Чужая кровь на одежде",
-                       "evidence":  [
-                                        "evidence_042"
-                                    ]
-                   },
-                   {
-                       "description":  "Морская карта",
-                       "evidence":  [
-                                        "evidence_047"
-                                    ]
-                   }
-               ]
+    "id": "guest_rooms",
+    "name": "Комнаты гостей",
+    "type": "gameplay",
+    "parent_location": "tavern",
+    "description": "Комнаты постояльцев. Личные вещи персонажей могут содержать улики и ложные следы. Отдельная комната Официантки — waitress_room (см. locations/waitress_room.json).",
+    "characters": [
+        "sailor",
+        "doctor",
+        "detective",
+        "artist",
+        "waitress"
+    ],
+    "important_events": [
+    ],
+    "clues": [
+    ],
+    "secrets": [
+    ],
+    "mechanical_features": [
+        "личные вещи",
+        "документы",
+        "тайники",
+        "следы пребывания"
+    ],
+    "appearance": "Коридор на втором этаже. Несколько дверей. За каждой — небольшая комната: кровать, стол, стул, окно. У каждого гостя — свои вещи. Пахнет пылью, потом и страхом.",
+    "senses": {
+        "feeling": "напряжение, тайна",
+        "smell": "пыль, пот, алкоголь (из комнаты Детектива)",
+        "sound": "скрип половиц, храп, бормотание"
+    },
+    "hidden": [
+        {
+            "description": "Следы пьянства Детектива",
+            "evidence": [
+                "evidence_005"
+            ]
+        },
+        {
+            "description": "Ложная улика на Матроса",
+            "evidence": [
+                "evidence_006"
+            ]
+        },
+        {
+            "description": "Разбитая бутылка",
+            "evidence": [
+                "evidence_017"
+            ]
+        },
+        {
+            "description": "Записка Врача",
+            "evidence": [
+                "evidence_022"
+            ]
+        },
+        {
+            "description": "Медицинский журнал Врача",
+            "evidence": [
+                "evidence_023"
+            ]
+        },
+        {
+            "description": "Следы ритуала на теле",
+            "evidence": [
+                "evidence_026"
+            ]
+        },
+        {
+            "description": "Тайник Матроса",
+            "evidence": [
+                "evidence_031"
+            ]
+        },
+        {
+            "description": "Тайник Врача",
+            "evidence": [
+                "evidence_033"
+            ]
+        },
+        {
+            "description": "Поддельное письмо",
+            "evidence": [
+                "evidence_041"
+            ]
+        },
+        {
+            "description": "Чужая кровь на одежде",
+            "evidence": [
+                "evidence_042"
+            ]
+        },
+        {
+            "description": "Морская карта",
+            "evidence": [
+                "evidence_047"
+            ]
+        }
+    ]
 }

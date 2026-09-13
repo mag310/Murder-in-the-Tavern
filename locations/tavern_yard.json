@@ -1,54 +1,51 @@
-{
-    "id":  "tavern_yard",
-    "name":  "Двор",
-    "type":  "gameplay",
-    "parent_location":  "tavern",
-    "description":  "Внешняя территория таверны, частично окружённая водой из-за наводнения.",
-    "characters":  [
-                       "tavern_keeper",
-                       "sailor",
-                       "detective",
-                       "artist"
-                   ],
-    "important_events":  [
-
-                         ],
-    "clues":  [
-
-              ],
-    "secrets":  [
-
-                ],
-    "mechanical_features":  [
-                                "следы",
-                                "грязь",
-                                "вода",
-                                "ограниченные пути перемещения"
-                            ],
-    "appearance":  "Внешняя территория таверны. Размокшая земля, грязь, лужи. Частично окружён водой. У входа — следы ног, колеи от телег. В углу — колодец. У стены — поленница. Пахнет мокрой землёй, дымом и магией.",
-    "senses":  {
-                   "feeling":  "изоляция, тревога",
-                   "smell":  "мокрая земля, дым, магия",
-                   "sound":  "дождь, ветер, плеск воды"
-               },
-    "hidden":  [
-                   {
-                       "description":  "Потоп как заклинание",
-                       "evidence":  [
-                                        "evidence_010"
-                                    ]
-                   },
-                   {
-                       "description":  "Аура заклинания",
-                       "evidence":  [
-                                        "evidence_027"
-                                    ]
-                   },
-                   {
-                       "description":  "Мокрые следы",
-                       "evidence":  [
-                                        "evidence_039"
-                                    ]
-                   }
-               ]
+﻿{
+    "id": "tavern_yard",
+    "name": "Двор",
+    "type": "gameplay",
+    "parent_location": "tavern",
+    "description": "Внешняя территория таверны, частично окружённая водой из-за наводнения.",
+    "characters": [
+        "tavern_keeper",
+        "sailor",
+        "detective",
+        "artist"
+    ],
+    "important_events": [
+    ],
+    "clues": [
+    ],
+    "secrets": [
+    ],
+    "mechanical_features": [
+        "следы",
+        "грязь",
+        "вода",
+        "ограниченные пути перемещения"
+    ],
+    "appearance": "Внешняя территория таверны. Размокшая земля, грязь, лужи. Частично окружён водой. У входа — следы ног, колеи от телег. В углу — колодец. У стены — поленница. Пахнет мокрой землёй, дымом и магией.",
+    "senses": {
+        "feeling": "изоляция, тревога",
+        "smell": "мокрая земля, дым, магия",
+        "sound": "дождь, ветер, плеск воды"
+    },
+    "hidden": [
+        {
+            "description": "Потоп как заклинание",
+            "evidence": [
+                "evidence_010"
+            ]
+        },
+        {
+            "description": "Аура заклинания",
+            "evidence": [
+                "evidence_027"
+            ]
+        },
+        {
+            "description": "Мокрые следы",
+            "evidence": [
+                "evidence_039"
+            ]
+        }
+    ]
 }

@@ -234,12 +234,12 @@
                                "activity":  "спит в своей комнате; перед сном делает записи в дневник",
                                "note":  "за пару недель до игровых событий призрак Жены приходит к ней (event_015); дневник — evidence_009"
                            },
-                           {
-                               "time":  "morning",
-                               "location":  "cult_lair",
-                               "activity":  "молится в тайной комнате культа",
-                               "note":  "см. event_006; тайное святилище; молитвы тёмным богам (event_016)"
-                           },
+                            {
+                                "time":  "morning",
+                                "location":  "cult_lair",
+                                "activity":  "молится в тайной комнате культа",
+                                "note":  "см. event_006; тайное святилище; молитвы тёмным богам (event_016). Порядок в слоте morning: (1) dead_wife приходит в waitress_room (раннее утро, event_015) → (2) waitress уходит в cult_lair молиться (этот слот). Расхождение resolved."
+                            },
                            {
                                "time":  "day",
                                "location":  "tavern_hall",

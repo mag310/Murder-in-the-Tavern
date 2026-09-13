@@ -127,12 +127,12 @@
                                "activity":  "обитает у Могилы жены",
                                "note":  "один из входов к убежищу культа (cult_lair)"
                            },
-                           {
-                               "time":  "morning",
-                               "location":  "waitress_room",
-                               "activity":  "приходит к Официантке, пока та спит, и рассказывает ей об убийстве",
-                               "note":  "event_015: призрак приходит к Официантке (Официантка спит в waitress_room ночью/утром, см. waitress.daily_schedule)"
-                           },
+                            {
+                                "time":  "morning",
+                                "location":  "waitress_room",
+                                "activity":  "приходит к Официантке на рассвете (раннее утро, до того, как Официантка уходит молиться), и рассказывает ей об убийстве",
+                                "note":  "event_015: призрак приходит к Официантке в waitress_room в раннее утро (до morning-смены Официантки). Порядок в слоте morning: (1) dead_wife приходит в waitress_room → (2) waitress уходит в cult_lair молиться (waitress.daily_schedule.morning). Расхождение resolved: призрак раньше, Официантка позже, в одном morning-слоте."
+                            },
                            {
                                "time":  "day",
                                "location":  "tavern_hall",

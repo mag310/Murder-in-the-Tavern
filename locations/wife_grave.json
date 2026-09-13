@@ -1,52 +1,52 @@
 {
-    "id":  "wife_grave",
-    "name":  "Могила жены",
-    "type":  "gameplay",
-    "parent_location":  "tavern",
-    "description":  "Могила жены Трактирщика (dead_wife). Место обитания призрака dead_wife. На ней один из входов к убежищу культа.",
-    "characters":  [
-                       "dead_wife"
-                   ],
-    "important_events":  [
-                             "event_015",
-                             "event_019"
-                         ],
-    "clues":  [
-                  "evidence_008"
-              ],
-    "secrets":  [
-                    "призрак dead_wife обитает здесь",
-                    "на могиле один из входов к убежищу культа"
-                ],
-    "mechanical_features":  [
-                                "вход к культистам",
-                                "связь с basement",
-                                "призрак dead_wife"
-                            ],
-    "appearance":  "Небольшой холмик за таверной, у самого края воды. Каменная плита с именем. Рядом — засохшие цветы. На плите — символ культа (едва заметный). Пахнет холодом, цветами и чем-то потусторонним. Здесь обитает призрак dead_wife.",
-    "senses":  {
-                   "feeling":  "печаль, тайна, страх",
-                   "smell":  "холод, цветы, земля",
-                   "sound":  "ветер, шёпот, тишина"
-               },
-    "hidden":  [
-                   {
-                       "description":  "Призрак Жены",
-                       "evidence":  [
-                                        "evidence_008"
-                                    ]
-                   },
-                   {
-                       "description":  "Показания призрака",
-                       "evidence":  [
-                                        "evidence_036"
-                                    ]
-                   },
-                   {
-                       "description":  "Завещание dead_wife",
-                       "evidence":  [
-                                        "evidence_050"
-                                    ]
-                   }
-               ]
+    "id": "wife_grave",
+    "name": "Могила жены",
+    "type": "gameplay",
+    "parent_location": "tavern",
+    "description": "Могила жены Трактирщика (dead_wife). Место обитания призрака dead_wife. На ней один из входов к убежищу культа.",
+    "characters": [
+        "dead_wife"
+    ],
+    "important_events": [
+        "event_015",
+        "event_019"
+    ],
+    "clues": [
+        "evidence_008"
+    ],
+    "secrets": [
+        "призрак dead_wife обитает здесь",
+        "на могиле один из входов к убежищу культа"
+    ],
+    "mechanical_features": [
+        "вход к культистам",
+        "связь с basement",
+        "призрак dead_wife"
+    ],
+    "appearance": "Небольшой холмик за таверной, у самого края воды. Каменная плита с именем. Рядом — засохшие цветы. На плите — символ культа (едва заметный). Пахнет холодом, цветами и чем-то потусторонним. Здесь обитает призрак dead_wife.",
+    "senses": {
+        "feeling": "печаль, тайна, страх",
+        "smell": "холод, цветы, земля",
+        "sound": "ветер, шёпот, тишина"
+    },
+    "hidden": [
+        {
+            "description": "Призрак Жены",
+            "evidence": [
+                "evidence_008"
+            ]
+        },
+        {
+            "description": "Показания призрака",
+            "evidence": [
+                "evidence_036"
+            ]
+        },
+        {
+            "description": "Завещание dead_wife",
+            "evidence": [
+                "evidence_050"
+            ]
+        }
+    ]
 }

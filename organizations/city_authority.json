@@ -1,24 +1,24 @@
 {
-  "id": "city_authority",
-  "name": "Городская власть",
-  "type": "government",
-  "description": "Городская власть: Шериф (основной) и Мэр (альтернативный). Нанимают Детектива для расследования серии смертей.",
-  "members": [
-    {
-      "character": "sheriff",
-      "role": "шериф (основной наниматель)",
-      "status": "active"
-    },
-    {
-      "character": "mayor",
-      "role": "мэр (альтернативный наниматель)",
-      "status": "active"
-    }
-  ],
-  "leader": "sheriff",
-  "location": "town",
-  "secret": null,
-  "conflicts_with": [
-    "smugglers"
-  ]
+    "id": "city_authority",
+    "name": "Городская власть",
+    "type": "government",
+    "description": "Городская власть: Шериф (основной) и Мэр (альтернативный). Нанимают Детектива для расследования серии смертей.",
+    "members": [
+        {
+            "character": "sheriff",
+            "role": "шериф (основной наниматель)",
+            "status": "active"
+        },
+        {
+            "character": "mayor",
+            "role": "мэр (альтернативный наниматель)",
+            "status": "active"
+        }
+    ],
+    "leader": "sheriff",
+    "location": "town",
+    "secret": null,
+    "conflicts_with": [
+        "smugglers"
+    ]
 }

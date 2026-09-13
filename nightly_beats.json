@@ -56,11 +56,12 @@
         },
         {
             "phase": "chapter_5_dawn",
-            "hour": "05:45–07:00",
+            "hour": "05:45–07:15",
             "beats": [
                 { "npc": "varies", "action": "кто-то из NPC находит тело (если по расписанию должен быть в локации убийства)", "location": "varies", "note": "см. daily_schedule.morning каждого NPC" },
                 { "npc": "varies", "action": "или NPC привлекают внимание игроков к тому, что одного из персонажей не хватает, и просят помочь найти его", "location": "tavern_hall" },
-                { "npc": "dead_wife", "action": "приходит к Официантке (waitress_room) — но Официантка утром в cult_lair (см. waitress.daily_schedule.morning)", "location": "waitress_room", "note": "расхождение: см. todo.md (dead_wife morning vs waitress morning)" }
+                { "npc": "dead_wife", "action": "приходит к Официантке (waitress_room) в раннее утро (до morning-смены Официантки, event_015)", "location": "waitress_room", "note": "решено: dead_wife раньше, waitress уходит в cult_lair позже — в одном morning-слоте (см. dead_wife.daily_schedule.morning + waitress.daily_schedule.morning)" },
+                { "npc": "varies", "action": "07:15 — кто-то из NPC по daily_schedule.morning попадает в локации, где видят воду (tavern_hall/tavern_yard/dock), и обращает внимание, что река вышла из берегов (event_030). Запускается таймер потопа.", "location": "tavern_hall", "event": "event_030", "note": "привязка event_030 к morning-расписанию: NPC идёт по утренней смене и замечает воду (см. event_030.facts, flood_mechanic.json)" }
             ]
         },
         {

@@ -1,24 +1,24 @@
 {
-  "id": "smugglers",
-  "name": "Контрабандисты",
-  "type": "crime",
-  "description": "Тайная группа контрабандистов: Трактирщик (продавец) и Матрос (поставщик). Не связана с текущим убийством.",
-  "members": [
-    {
-      "character": "tavern_keeper",
-      "role": "покупатель / продавец",
-      "status": "active"
-    },
-    {
-      "character": "sailor",
-      "role": "поставщик запрещённых товаров",
-      "status": "active"
-    }
-  ],
-  "leader": "tavern_keeper",
-  "location": "tavern_keeper_office",
-  "secret": "Контрабанда скрыта; Официантка подозревает о ней, но не знает деталей.",
-  "conflicts_with": [
-    "city_authority"
-  ]
+    "id": "smugglers",
+    "name": "Контрабандисты",
+    "type": "crime",
+    "description": "Тайная группа контрабандистов: Трактирщик (продавец) и Матрос (поставщик). Не связана с текущим убийством.",
+    "members": [
+        {
+            "character": "tavern_keeper",
+            "role": "покупатель / продавец",
+            "status": "active"
+        },
+        {
+            "character": "sailor",
+            "role": "поставщик запрещённых товаров",
+            "status": "active"
+        }
+    ],
+    "leader": "tavern_keeper",
+    "location": "tavern_keeper_office",
+    "secret": "Контрабанда скрыта; Официантка подозревает о ней, но не знает деталей.",
+    "conflicts_with": [
+        "city_authority"
+    ]
 }
