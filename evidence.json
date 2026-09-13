@@ -291,14 +291,14 @@
             "name": "Ложные следы Художника",
             "type": "physical",
             "status": "confirmed",
-            "location": "attic",
+            "location": "mansard",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": [
                     "players"
                 ],
                 "discovery_conditions": [
-                    "игрок обыскивает чердак"
+                     "игрок обыскивает мансарду"
                 ],
                 "discovery_method": "обыск"
             },
@@ -309,7 +309,7 @@
                 ]
             },
             "object": {
-                "description": "Предметы, оставленные Художником на чердаке (художественная мастерская: холсты, краски, мольберт, миски с кровью), которые могут выглядеть как улики убийства.",
+                 "description": "Предметы, оставленные Художником на мансарде (художественная мастерская: холсты, краски, мольберт, миски с кровью), которые могут выглядеть как улики убийства.",
                 "condition": "загрязнены, но не связаны с текущим убийством",
                 "movable": true,
                 "hidden": false
@@ -347,7 +347,7 @@
                     "detective"
                 ],
                 "locations": [
-                    "attic"
+                     "mansard"
                 ],
                 "events": [
                     "event_009",
@@ -368,7 +368,7 @@
                 ]
             },
             "false_leads": [
-                "Улики на чердаке (мастерская, evidence_012) могут быть приняты за доказательства текущего убийства",
+                 "Улики на мансарде (мастерская, evidence_012) могут быть приняты за доказательства текущего убийства",
                 "Художник выглядит как подозреваемый, но не имеет отношения к текущему убийству"
             ],
             "notes": [
@@ -1038,17 +1038,17 @@
             "name": "Художественная мастерская Художника (картины-треш-расчленёнка)",
             "type": "physical",
             "status": "confirmed",
-            "location": "attic",
+            "location": "mansard",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": [
                     "players"
                 ],
                 "discovery_conditions": [
-                    "игрок обыскивает чердак (attic)",
+                    "игрок обыскивает мансарду (mansard)",
                     "игрок осматривает художественную мастерскую"
                 ],
-                "discovery_method": "обыск / осмотр чердака"
+                 "discovery_method": "обыск / осмотр мансарды"
             },
             "visibility": {
                 "public": false,
@@ -1058,14 +1058,14 @@
                 ]
             },
             "object": {
-                "description": "Художественная мастерская Художника на чердаке: холсты, краски, мольберт, миски с кровью. На картинах — мрачная треш-расчленёнка: то, что Художник видел в логовах культа, то, что случалось с жертвами на алтарях, то, как он расправлялся с культистами. Картины безумно качественные и эстетически прекрасные — редкое сочетание безумия и таланта.",
+                 "description": "Художественная мастерская Художника на мансарде: холсты, краски, мольберт, миски с кровью. На картинах — мрачная треш-расчленёнка: то, что Художник видел в логовах культа, то, что случалось с жертвами на алтарях, то, как он расправлялся с культистами. Картины безумно качественные и эстетически прекрасные — редкое сочетание безумия и таланта.",
                 "condition": "целая мастерская, картины в разных стадиях",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
                 "objectively_proves": [
-                    "Художник арендовал чердак под видом 'вольного художника' (event_021)",
+                    "Художник арендовал мансарду под видом 'вольного художника' (event_021)",
                     "Художник действительно рисует (мастерская настоящая, не прикрытие)"
                 ],
                 "strongly_indicates": [
@@ -1099,7 +1099,7 @@
                     "waitress"
                 ],
                 "locations": [
-                    "attic"
+                     "mansard"
                 ],
                 "events": [
                     "event_021",
@@ -1582,12 +1582,12 @@
             "name": "Приказ ордена",
             "type": "document",
             "status": "confirmed",
-            "location": "attic",
+            "location": "mansard",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
                 "discovery_conditions": ["игрок находит приказ в мастерской Художника"],
-                "discovery_method": "обыск чердака"
+                 "discovery_method": "обыск мансарды"
             },
             "visibility": { "public": false, "known_by": ["artist"] },
             "object": {
@@ -1607,7 +1607,7 @@
             ],
             "related": {
                 "characters": ["artist"],
-                "locations": ["attic"],
+                 "locations": ["mansard"],
                 "events": ["event_018", "event_020"],
                 "other_evidence": ["evidence_011", "evidence_004"]
             },
@@ -1627,7 +1627,7 @@
             "name": "Наброски Художника",
             "type": "document",
             "status": "confirmed",
-            "location": "attic",
+            "location": "mansard",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -1652,7 +1652,7 @@
             ],
             "related": {
                 "characters": ["artist", "waitress"],
-                "locations": ["attic", "cult_lair"],
+                 "locations": ["mansard", "cult_lair"],
                 "events": ["event_018", "event_021"],
                 "other_evidence": ["evidence_012", "evidence_011"]
             },
@@ -2018,7 +2018,7 @@
             "name": "Тайник Художника",
             "type": "physical",
             "status": "confirmed",
-            "location": "attic",
+            "location": "mansard",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -2043,7 +2043,7 @@
             ],
             "related": {
                 "characters": ["artist"],
-                "locations": ["attic"],
+                 "locations": ["mansard"],
                 "events": ["event_021"],
                 "other_evidence": ["evidence_012", "evidence_004"]
             },
@@ -2191,7 +2191,7 @@
             "name": "Следы на чердачной лестнице",
             "type": "forensic",
             "status": "confirmed",
-            "location": "attic",
+            "location": "mansard",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -2200,14 +2200,14 @@
             },
             "visibility": { "public": false, "known_by": [] },
             "object": {
-                "description": "Грязные следы, ведущие с чердака в комнату Детектива. Подводят к Художнику (ложно).",
+                 "description": "Грязные следы, ведущие с мансарды в комнату Детектива. Подводят к Художнику (ложно).",
                 "condition": "следы на лестнице",
                 "movable": false,
                 "hidden": false
             },
             "facts": {
-                "objectively_proves": ["С чердака ведут следы", "Следы ведут к комнате Детектива"],
-                "strongly_indicates": ["Кто-то ходил с чердака", "Художник мог быть в комнате"],
+                 "objectively_proves": ["С мансарды ведут следы", "Следы ведут к комнате Детектива"],
+                 "strongly_indicates": ["Кто-то ходил с мансарды", "Художник мог быть в комнате"],
                 "does_not_prove": ["Художник — убийца"]
             },
             "interpretations": [
@@ -2216,7 +2216,7 @@
             ],
             "related": {
                 "characters": ["artist", "detective"],
-                "locations": ["attic", "guest_rooms"],
+                 "locations": ["mansard", "guest_rooms"],
                 "events": ["event_021"],
                 "other_evidence": ["evidence_004"]
             },
@@ -2494,22 +2494,22 @@
             "name": "Маска культа",
             "type": "ritual",
             "status": "confirmed",
-            "location": "attic",
+            "location": "mansard",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
-                "discovery_conditions": ["игрок находит маску на чердаке"],
+                 "discovery_conditions": ["игрок находит маску на мансарде"],
                 "discovery_method": "обыск"
             },
             "visibility": { "public": false, "known_by": [] },
             "object": {
-                "description": "Маска, найденная на чердаке. Может принадлежать Художнику (как трофей) или культисту.",
-                "condition": "на чердаке",
+                 "description": "Маска, найденная на мансарде. Может принадлежать Художнику (как трофей) или культисту.",
+                 "condition": "на мансарде",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
-                "objectively_proves": ["На чердаке есть маска", "Маска — ритуальный предмет"],
+                 "objectively_proves": ["На мансарде есть маска", "Маска — ритуальный предмет"],
                 "strongly_indicates": ["Маска — трофей Художника", "Маска связана с культом"],
                 "does_not_prove": ["Маска — орудие текущего убийства"]
             },
@@ -2519,7 +2519,7 @@
             ],
             "related": {
                 "characters": ["artist"],
-                "locations": ["attic"],
+                 "locations": ["mansard"],
                 "events": ["event_010", "event_021"],
                 "other_evidence": ["evidence_004", "evidence_003"]
             },
@@ -2667,7 +2667,7 @@
             "name": "Письмо из ордена",
             "type": "document",
             "status": "confirmed",
-            "location": "attic",
+            "location": "mansard",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -2692,7 +2692,7 @@
             ],
             "related": {
                 "characters": ["artist"],
-                "locations": ["attic"],
+                 "locations": ["mansard"],
                 "events": ["event_018", "event_020"],
                 "other_evidence": ["evidence_024", "evidence_011"]
             },

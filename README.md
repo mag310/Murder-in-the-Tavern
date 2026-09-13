@@ -273,12 +273,12 @@ JSON Schema для валидации `murder_matrix.json`.
 - кабинет Трактирщика;
 - подвал;
 - логово культа;
-- чердак;
+- мансарда;
 - склад таверны.
 
 ## Top-level локация
 
-`tavern` — top-level контекстная локация, представляющая всё здание таверны. Все gameplay-локации (`tavern_hall`, `tavern_keeper_office`, `basement`, `cult_lair`, `attic`, `guest_rooms`, `tavern_yard`, `tavern_storage`) являются её частями (`parent_location: "tavern"`). Локация `tavern_keeper_office` (нормализовано из `tavern_owner_office`).
+`tavern` — top-level контекстная локация, представляющая всё здание таверны. Все gameplay-локации (`tavern_hall`, `tavern_keeper_office`, `basement`, `cult_lair`, `mansard`, `guest_rooms`, `tavern_yard`, `tavern_storage`) являются её частями (`parent_location: "tavern"`). Локация `tavern_keeper_office` (нормализовано из `tavern_owner_office`).
 
 ## Нормализация имён локаций
 

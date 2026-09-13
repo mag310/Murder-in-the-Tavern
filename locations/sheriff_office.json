@@ -1,7 +1,7 @@
 {
     "id":  "sheriff_office",
     "name":  "Офис Шерифа",
-    "type":  "context",
+    "type":  "gameplay",
     "parent_location":  "town",
     "description":  "Место, откуда начинается официальное расследование серии смертей.",
     "characters":  [
