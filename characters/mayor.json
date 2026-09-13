@@ -1,72 +1,72 @@
 ﻿{
-  "id": "mayor",
-  "name": null,
-  "role": "Мэр",
-  "status": "context_npc",
-  "can_be_murder_victim": false,
-  "secrets": [],
-  "relationships": {
-    "love": [],
-    "hatred": [],
-    "money": [
-      {
-        "target": "detective",
-        "type": "альтернативный наниматель (вспомогательный вариант)"
-      }
+    "id": "mayor",
+    "name": null,
+    "role": "Мэр",
+    "status": "context_npc",
+    "can_be_murder_victim": false,
+    "secrets": [],
+    "relationships": {
+        "love": [],
+        "hatred": [],
+        "money": [
+            {
+                "target": "detective",
+                "type": "альтернативный наниматель (вспомогательный вариант)"
+            }
+        ],
+        "religion": [],
+        "justice": [
+            {
+                "target": "detective",
+                "type": "альтернативный заказчик расследования (вспомогательный вариант)"
+            }
+        ]
+    },
+    "knowledge": [
+        {
+            "level": "knows_exactly",
+            "fact": "Он может нанять Детектива для расследования (вспомогательный вариант)",
+            "target": "detective",
+            "reason": "Мэр — альтернативный наниматель",
+            "source": "relationship"
+        },
+        {
+            "level": "knows_exactly",
+            "fact": "В городе происходит серия смертей",
+            "target": null,
+            "reason": "Мэр знает о серии смертей",
+            "source": "relationship"
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о культе в таверне",
+            "target": null,
+            "reason": "Мэр не знает о культе",
+            "source": null
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о контрабанде Трактирщика и Матроса",
+            "target": null,
+            "reason": "Мэр не знает о контрабанде",
+            "source": null
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о Художнике как серийном убийце",
+            "target": "artist",
+            "reason": "Мэр не знает о Художнике",
+            "source": null
+        }
     ],
-    "religion": [],
-    "justice": [
-      {
-        "target": "detective",
-        "type": "альтернативный заказчик расследования (вспомогательный вариант)"
-      }
+    "false_beliefs": [],
+    "daily_schedule": null,
+    "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: town.",
+    "organizations": [
+        {
+            "organization": "city_authority",
+            "role": "мэр (альтернативный наниматель)",
+            "status": "active"
+        }
     ]
-  },
-  "knowledge": [
-    {
-      "level": "knows_exactly",
-      "fact": "Он может нанять Детектива для расследования (вспомогательный вариант)",
-      "target": "detective",
-      "reason": "Мэр — альтернативный наниматель",
-      "source": "relationship"
-    },
-    {
-      "level": "knows_exactly",
-      "fact": "В городе происходит серия смертей",
-      "target": null,
-      "reason": "Мэр знает о серии смертей",
-      "source": "relationship"
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о культе в таверне",
-      "target": null,
-      "reason": "Мэр не знает о культе",
-      "source": null
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о контрабанде Трактирщика и Матроса",
-      "target": null,
-      "reason": "Мэр не знает о контрабанде",
-      "source": null
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о Художнике как серийном убийце",
-      "target": "artist",
-      "reason": "Мэр не знает о Художнике",
-      "source": null
-    }
-  ],
-  "false_beliefs": [],
-  "daily_schedule": null,
-  "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: town.",
-  "organizations": [
-    {
-      "organization": "city_authority",
-      "role": "мэр (альтернативный наниматель)",
-      "status": "active"
-    }
-  ]
 }

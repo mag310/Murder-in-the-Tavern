@@ -1,73 +1,73 @@
 ﻿{
-    "id":  "sheriff",
-    "name":  null,
-    "role":  "Шериф",
-    "status":  "main_npc",
-    "can_be_murder_victim":  false,
-    "status_note":  "Шериф — активный NPC (был context_npc): в прологе (chapter_1_city) он в городе, даёт задание, в городе. В таверне не живёт, но присутствует в прологе. НЕ жертва d6 (can_be_murder_victim: false) — 6 d6-жертв (Трактирщик/Матрос/Официантка/Врач/Детектив/Художник) намеренно ограничено (см. README, Механика d6). Шериф — наниматель Детектива, не подозреваемый.",
-    "secrets":  [],
-    "relationships":  {
-                          "love":  [],
-                          "hatred":  [],
-                          "money":  [
-                                        {
-                                            "target":  "detective",
-                                            "type":  "наниматель"
-                                        }
-                                    ],
-                          "religion":  [],
-                          "justice":  [
-                                          {
-                                              "target":  "detective",
-                                              "type":  "заказчик расследования"
-                                          }
-                                      ]
-                      },
-    "knowledge":  [
-                      {
-                          "level":  "knows_exactly",
-                          "fact":  "Он нанимает Детектива для расследования серии смертей",
-                          "target":  "detective",
-                          "reason":  "Шериф нанимает Детектива",
-                          "source":  "relationship"
-                      },
-                      {
-                          "level":  "knows_exactly",
-                          "fact":  "В городе происходит серия смертей",
-                          "target":  null,
-                          "reason":  "Шериф знает о серии смертей",
-                          "source":  "relationship"
-                      },
-                      {
-                          "level":  "does_not_know",
-                          "fact":  "Не знает о культе в таверне",
-                          "target":  null,
-                          "reason":  "Шериф не знает о культе",
-                          "source":  null
-                      },
-                      {
-                          "level":  "does_not_know",
-                          "fact":  "Не знает о контрабанде Трактирщика и Матроса",
-                          "target":  null,
-                          "reason":  "Шериф не знает о контрабанде",
-                          "source":  null
-                      },
-                      {
-                          "level":  "does_not_know",
-                          "fact":  "Не знает о Художнике как серийном убийце (пока не расследует)",
-                          "target":  "artist",
-                          "reason":  "Шериф не знает о Художнике",
-                          "source":  null
-                      }
-                  ],
-    "false_beliefs":  [],
-    "daily_schedule":  null,
-    "daily_schedule_note":  "Активный NPC (был context_npc). В прологе (chapter_1_city, 14:00–17:30) — в городе (town, sheriff_office). В таверне не живёт; расписание внутри таверны не имеет. Обычно находится в: sheriff_office (пролог), town (пролог).",
-    "organizations":  [
-                          {
-                              "organization":  "city_authority",
-                              "role":  "шериф (основной наниматель Детектива)",
-                              "status":  "active"
-                          }
-                      ]
+    "id": "sheriff",
+    "name": null,
+    "role": "Шериф",
+    "status": "main_npc",
+    "can_be_murder_victim": false,
+    "status_note": "Шериф — активный NPC (был context_npc): в прологе (chapter_1_city) он в городе, даёт задание, в городе. В таверне не живёт, но присутствует в прологе. НЕ жертва d6 (can_be_murder_victim: false) — 6 d6-жертв (Трактирщик/Матрос/Официантка/Врач/Детектив/Художник) намеренно ограничено (см. README, Механика d6). Шериф — наниматель Детектива, не подозреваемый.",
+    "secrets": [],
+    "relationships": {
+        "love": [],
+        "hatred": [],
+        "money": [
+            {
+                "target": "detective",
+                "type": "наниматель"
+            }
+        ],
+        "religion": [],
+        "justice": [
+            {
+                "target": "detective",
+                "type": "заказчик расследования"
+            }
+        ]
+    },
+    "knowledge": [
+        {
+            "level": "knows_exactly",
+            "fact": "Он нанимает Детектива для расследования серии смертей",
+            "target": "detective",
+            "reason": "Шериф нанимает Детектива",
+            "source": "relationship"
+        },
+        {
+            "level": "knows_exactly",
+            "fact": "В городе происходит серия смертей",
+            "target": null,
+            "reason": "Шериф знает о серии смертей",
+            "source": "relationship"
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о культе в таверне",
+            "target": null,
+            "reason": "Шериф не знает о культе",
+            "source": null
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о контрабанде Трактирщика и Матроса",
+            "target": null,
+            "reason": "Шериф не знает о контрабанде",
+            "source": null
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о Художнике как серийном убийце (пока не расследует)",
+            "target": "artist",
+            "reason": "Шериф не знает о Художнике",
+            "source": null
+        }
+    ],
+    "false_beliefs": [],
+    "daily_schedule": null,
+    "daily_schedule_note": "Активный NPC (был context_npc). В прологе (chapter_1_city, 14:00–17:30) — в городе (town, sheriff_office). В таверне не живёт; расписание внутри таверны не имеет. Обычно находится в: sheriff_office (пролог), town (пролог).",
+    "organizations": [
+        {
+            "organization": "city_authority",
+            "role": "шериф (основной наниматель Детектива)",
+            "status": "active"
+        }
+    ]
 }

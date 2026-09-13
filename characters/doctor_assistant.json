@@ -1,0 +1,59 @@
+{
+    "id": "doctor_assistant",
+    "name": null,
+    "role": "Ассистент Доктора",
+    "status": "context_npc",
+    "can_be_murder_victim": false,
+    "secrets": [
+    ],
+    "relationships": {
+        "love": [],
+        "hatred": [],
+        "money": [
+            {
+                "target": "doctor",
+                "type": "ассистент / подчинённый"
+            }
+        ],
+        "religion": [],
+        "justice": [
+            {
+                "target": "sheriff",
+                "type": "может информировать о деле"
+            }
+        ]
+    },
+    "knowledge": [
+        {
+            "level": "knows_exactly",
+            "fact": "Доктор снимает комнату в таверне за городом",
+            "target": "doctor",
+            "reason": "Ассистент знает, где сейчас Доктор",
+            "source": "relationship"
+        },
+        {
+            "level": "knows_exactly",
+            "fact": "В городе происходит серия смертей, тела в морге",
+            "target": null,
+            "reason": "Ассистент работает в морге",
+            "source": "observation"
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о культе в таверне",
+            "target": null,
+            "reason": "Ассистент не знает о культе",
+            "source": null
+        }
+    ],
+    "false_beliefs": [],
+    "daily_schedule": null,
+    "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: morgue.",
+    "organizations": [
+        {
+            "organization": "city_authority",
+            "role": "ассистент Доктора (морг)",
+            "status": "active"
+        }
+    ]
+}

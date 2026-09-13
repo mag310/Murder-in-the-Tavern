@@ -1,75 +1,75 @@
 {
-  "id": "ship_captain",
-  "name": null,
-  "role": "Капитан корабля",
-  "status": "context_npc",
-  "can_be_murder_victim": false,
-  "small_secret": null,
-  "big_secret": null,
-  "relationships": {
-    "love": [],
-    "hatred": [],
-    "money": [],
-    "religion": [],
-    "justice": [
-      {
-        "target": "sailor",
-        "type": "дезертирство и кража судовой казны"
-      }
+    "id": "ship_captain",
+    "name": null,
+    "role": "Капитан корабля",
+    "status": "context_npc",
+    "can_be_murder_victim": false,
+    "small_secret": null,
+    "big_secret": null,
+    "relationships": {
+        "love": [],
+        "hatred": [],
+        "money": [],
+        "religion": [],
+        "justice": [
+            {
+                "target": "sailor",
+                "type": "дезертирство и кража судовой казны"
+            }
+        ]
+    },
+    "knowledge": [
+        {
+            "level": "knows_exactly",
+            "fact": "Матрос дезертировал с его корабля",
+            "target": "sailor",
+            "reason": "Капитан знает о дезертирстве Матроса",
+            "source": "relationship"
+        },
+        {
+            "level": "knows_exactly",
+            "fact": "Матрос украл судовую казну",
+            "target": "sailor",
+            "reason": "Капитан знает о краже",
+            "source": "relationship"
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о культе в таверне",
+            "target": null,
+            "reason": "Капитан не знает о культе",
+            "source": null
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о серийных убийствах в городе",
+            "target": null,
+            "reason": "Капитан не знает о серии убийств",
+            "source": null
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о Детективе",
+            "target": "detective",
+            "reason": "Капитан не знает о Детективе",
+            "source": null
+        }
+    ],
+    "false_beliefs": [
+        {
+            "belief": "Матрос не вернётся и не причинит вреда",
+            "correctness": "Матрос может быть в таверне и причинить вред (например, убить Трактирщика)",
+            "source": "relationship",
+            "confidence": "low"
+        }
+    ],
+    "daily_schedule": null,
+    "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: doctor_ship.",
+    "organizations": [
+        {
+            "organization": "ship_crew",
+            "role": "капитан",
+            "status": "active"
+        }
     ]
-  },
-  "knowledge": [
-    {
-      "level": "knows_exactly",
-      "fact": "Матрос дезертировал с его корабля",
-      "target": "sailor",
-      "reason": "Капитан знает о дезертирстве Матроса",
-      "source": "relationship"
-    },
-    {
-      "level": "knows_exactly",
-      "fact": "Матрос украл судовую казну",
-      "target": "sailor",
-      "reason": "Капитан знает о краже",
-      "source": "relationship"
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о культе в таверне",
-      "target": null,
-      "reason": "Капитан не знает о культе",
-      "source": null
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о серийных убийствах в городе",
-      "target": null,
-      "reason": "Капитан не знает о серии убийств",
-      "source": null
-    },
-    {
-      "level": "does_not_know",
-      "fact": "Не знает о Детективе",
-      "target": "detective",
-      "reason": "Капитан не знает о Детективе",
-      "source": null
-    }
-  ],
-  "false_beliefs": [
-    {
-      "belief": "Матрос не вернётся и не причинит вреда",
-      "correctness": "Матрос может быть в таверне и причинить вред (например, убить Трактирщика)",
-      "source": "relationship",
-      "confidence": "low"
-    }
-  ],
-  "daily_schedule": null,
-  "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: doctor_ship.",
-  "organizations": [
-    {
-      "organization": "ship_crew",
-      "role": "капитан",
-      "status": "active"
-    }
-  ]
 }
