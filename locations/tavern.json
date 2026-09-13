@@ -2,7 +2,7 @@
     "id": "tavern",
     "name": "Таверна",
     "type": "context",
-    "description": "Основное здание таверны. Все gameplay-локации (tavern_hall, tavern_keeper_office, basement, cult_lair, mansard, guest_rooms, tavern_yard, tavern_storage) являются его частями.",
+    "description": "Основное здание таверны. Все gameplay-локации (tavern_hall, tavern_keeper_office, basement, cult_lair, mansard, guest_rooms, detective_room, sailor_room, doctor_room, tavern_keeper_room, guest_room_empty_1, guest_room_empty_2, guest_room_empty_3, guest_room_empty_4, tavern_yard, smuggler_storage, kitchen_storage, meat_storage, wine_cellar, kitchen) являются его частями.",
     "characters": [
         "tavern_keeper",
         "sailor",

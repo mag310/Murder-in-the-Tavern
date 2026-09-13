@@ -1,7 +1,7 @@
 {
     "title": "Ежечасные «живые» события (NPC живут своей жизнью)",
     "note": "Каждый игровой час в таверне происходят бытовые/тайные действия NPC: общаются, едят, убивают, считают деньги, грузят товары, молятся. Это создаёт «живой» мир и даёт игрокам шанс случайно застать NPC не в той локации (по расписанию). Привязка к фазам из events.json (project.timeline) и к daily_schedule каждого персонажа.",
-    "principle": "NPC живут своей жизнью независимо от игроков. Ежечасные события = их действия + тайные сцены. Тайное время (ночь) — кульминация: культисты в cult_lair, контрабанда в basement/tavern_storage, наблюдение на мансарде (mansard).",
+    "principle": "NPC живут своей жизнью независимо от игроков. Ежечасные события = их действия + тайные сцены. Тайное время (ночь) — кульминация: культисты в cult_lair, контрабанда в basement/smuggler_storage, наблюдение на мансарде (mansard).",
     "beats": [
         {
             "phase": "chapter_2_tavern",
@@ -20,7 +20,7 @@
                 { "npc": "waitress", "action": "обслуживает вечерний зал, наблюдает за гостями", "location": "tavern_hall", "source": "daily_schedule.evening" },
                 { "npc": "doctor", "action": "беседует с Официанткой, конфликт с Трактирщиком", "location": "tavern_hall", "source": "daily_schedule.evening" },
                 { "npc": "detective", "action": "расследует серию смертей, допрашивает", "location": "tavern_hall", "source": "daily_schedule.evening" },
-                { "npc": "sailor", "action": "привозит запрещённые товары Трактирщику", "location": "tavern_storage", "source": "daily_schedule.evening" }
+                { "npc": "sailor", "action": "привозит запрещённые товары Трактирщику", "location": "smuggler_storage", "source": "daily_schedule.evening" }
             ]
         },
         {
@@ -29,8 +29,8 @@
             "beats": [
                 { "npc": "tavern_keeper", "action": "закрывает таверну, проверяет счёт и переписку; тайно хранит контрабанду в тайнике кабинета", "location": "tavern_keeper_office", "source": "daily_schedule.night" },
                 { "npc": "waitress", "action": "делает записи в дневник (evidence_009) перед сном", "location": "waitress_room", "source": "daily_schedule.night" },
-                { "npc": "sailor", "action": "спит в комнате гостя; скрыто хранит улики/личное", "location": "guest_rooms", "source": "daily_schedule.night" },
-                { "npc": "detective", "action": "спит в комнате гостя (следы пьянства, evidence_005)", "location": "guest_rooms", "source": "daily_schedule.night" },
+                { "npc": "sailor", "action": "спит в комнате гостя; скрыто хранит улики/личное", "location": "sailor_room", "source": "daily_schedule.night" },
+                { "npc": "detective", "action": "спит в комнате гостя (следы пьянства, evidence_005)", "location": "detective_room", "source": "daily_schedule.night" },
                 { "npc": "artist", "action": "присматривает с мансарды; рисует в мастерской (треш-расчленёнка)", "location": "mansard", "source": "daily_schedule.night" },
                 { "npc": "dead_wife", "action": "обитает у Могилы жены (wife_grave)", "location": "wife_grave", "source": "daily_schedule.night" }
             ]

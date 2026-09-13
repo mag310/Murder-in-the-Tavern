@@ -386,7 +386,7 @@
             "name": "Следы пьянства Детектива",
             "type": "behavior",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "detective_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": [
@@ -440,7 +440,7 @@
                     "detective"
                 ],
                 "locations": [
-                    "guest_rooms"
+                    "detective_room"
                 ],
                 "events": [],
                 "other_evidence": [
@@ -474,7 +474,7 @@
             "name": "Ложная улика на Матроса",
             "type": "physical",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "sailor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": [
@@ -529,7 +529,7 @@
                     "tavern_keeper"
                 ],
                 "locations": [
-                    "guest_rooms"
+                    "sailor_room"
                 ],
                 "events": [
                     "event_002",
@@ -1185,7 +1185,7 @@
             "name": "Нож Матроса",
             "type": "physical",
             "status": "confirmed",
-            "location": "tavern_storage",
+            "location": "smuggler_storage",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -1210,7 +1210,7 @@
             ],
             "related": {
                 "characters": ["sailor", "dead_wife"],
-                "locations": ["tavern_storage"],
+                "locations": ["smuggler_storage"],
                 "events": ["event_004", "event_005"],
                 "other_evidence": ["evidence_002"]
             },
@@ -1274,7 +1274,7 @@
             "name": "Разбитая бутылка",
             "type": "physical",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "detective_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -1299,7 +1299,7 @@
             ],
             "related": {
                 "characters": ["detective"],
-                "locations": ["guest_rooms"],
+                "locations": ["detective_room"],
                 "events": [],
                 "other_evidence": ["evidence_005"]
             },
@@ -1405,7 +1405,7 @@
             "name": "Счёт за контрабанду",
             "type": "document",
             "status": "confirmed",
-            "location": "tavern_storage",
+            "location": "smuggler_storage",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -1430,7 +1430,7 @@
             ],
             "related": {
                 "characters": ["tavern_keeper", "sailor"],
-                "locations": ["tavern_storage"],
+                "locations": ["smuggler_storage"],
                 "events": ["event_005"],
                 "other_evidence": ["evidence_001", "evidence_002"]
             },
@@ -1492,7 +1492,7 @@
             "name": "Записка Врача",
             "type": "document",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "doctor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -1517,7 +1517,7 @@
             ],
             "related": {
                 "characters": ["doctor", "waitress"],
-                "locations": ["guest_rooms"],
+                "locations": ["doctor_room"],
                 "events": ["event_008"],
                 "other_evidence": ["evidence_003"]
             },
@@ -1537,7 +1537,7 @@
             "name": "Медицинский журнал Врача",
             "type": "medical",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "doctor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -1562,7 +1562,7 @@
             ],
             "related": {
                 "characters": ["doctor"],
-                "locations": ["guest_rooms"],
+                "locations": ["doctor_room"],
                 "events": ["event_010"],
                 "other_evidence": ["evidence_003"]
             },
@@ -1671,16 +1671,16 @@
             "name": "Следы ритуала на теле",
             "type": "ritual",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "doctor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
-                "discovery_conditions": ["игрок осматривает тело жертвы"],
-                "discovery_method": "осмотр тела"
+                "discovery_conditions": ["игрок находит записи Доктора в его комнате", "игрок осматривает тела в morgue"],
+                "discovery_method": "обыск / осмотр записей"
             },
             "visibility": { "public": false, "known_by": [] },
             "object": {
-                "description": "На теле жертвы — символ культа, нарисованный кровью. Совпадает с символами в cult_lair.",
+                "description": "Зарисовки Доктора: символ культа, нарисованный кровью на теле жертвы. Совпадает с символами в cult_lair. Записи сделаны Доктором после обследования тел в morgue.",
                 "condition": "символ на теле",
                 "movable": false,
                 "hidden": false
@@ -1696,7 +1696,7 @@
             ],
             "related": {
                 "characters": ["waitress", "doctor"],
-                "locations": ["guest_rooms", "cult_lair"],
+                "locations": ["doctor_room", "morgue", "cult_lair"],
                 "events": ["event_006"],
                 "other_evidence": ["evidence_003", "evidence_011"]
             },
@@ -1887,7 +1887,7 @@
             "name": "Тайник Матроса",
             "type": "physical",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "sailor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -1912,7 +1912,7 @@
             ],
             "related": {
                 "characters": ["sailor"],
-                "locations": ["guest_rooms"],
+                "locations": ["sailor_room"],
                 "events": ["event_002", "event_003"],
                 "other_evidence": ["evidence_006"]
             },
@@ -1973,7 +1973,7 @@
             "name": "Тайник Врача",
             "type": "physical",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "doctor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -1998,7 +1998,7 @@
             ],
             "related": {
                 "characters": ["doctor"],
-                "locations": ["guest_rooms"],
+                "locations": ["doctor_room"],
                 "events": ["event_007"],
                 "other_evidence": ["evidence_013", "evidence_003"]
             },
@@ -2215,8 +2215,8 @@
                 { "character": "detective", "interpretation": "Следы не доказывают убийство", "correct": true, "confidence": "высокая" }
             ],
             "related": {
-                "characters": ["artist", "detective"],
-                 "locations": ["mansard", "guest_rooms"],
+                 "characters": ["artist", "detective"],
+                  "locations": ["mansard", "detective_room"],
                 "events": ["event_021"],
                 "other_evidence": ["evidence_004"]
             },
@@ -2320,7 +2320,7 @@
             "name": "Поддельное письмо",
             "type": "document",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "sailor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -2345,7 +2345,7 @@
             ],
             "related": {
                 "characters": ["sailor"],
-                "locations": ["guest_rooms"],
+                "locations": ["sailor_room"],
                 "events": [],
                 "other_evidence": ["evidence_006"]
             },
@@ -2363,7 +2363,7 @@
             "name": "Чужая кровь на одежде",
             "type": "forensic",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "sailor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -2388,7 +2388,7 @@
             ],
             "related": {
                 "characters": ["sailor", "dead_wife"],
-                "locations": ["guest_rooms"],
+                "locations": ["sailor_room"],
                 "events": ["event_004"],
                 "other_evidence": ["evidence_006", "evidence_014"]
             },
@@ -2407,7 +2407,7 @@
             "name": "Сломанный нож",
             "type": "physical",
             "status": "confirmed",
-            "location": "tavern_storage",
+            "location": "smuggler_storage",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -2432,7 +2432,7 @@
             ],
             "related": {
                 "characters": [],
-                "locations": ["tavern_storage"],
+                "locations": ["smuggler_storage"],
                 "events": [],
                 "other_evidence": ["evidence_014"]
             },
@@ -2581,7 +2581,7 @@
             "name": "Морская карта",
             "type": "document",
             "status": "confirmed",
-            "location": "guest_rooms",
+            "location": "sailor_room",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
@@ -2606,7 +2606,7 @@
             ],
             "related": {
                 "characters": ["sailor", "doctor", "ship_captain"],
-                "locations": ["guest_rooms"],
+                "locations": ["sailor_room"],
                 "events": ["event_001", "event_002"],
                 "other_evidence": ["evidence_006"]
             },

@@ -236,7 +236,7 @@
     "daily_schedule": [
         {
             "time": "night",
-            "location": "guest_rooms",
+            "location": "sailor_room",
             "activity": "спит в комнате гостя",
             "note": "скрыто хранит улики/личное"
         },
@@ -247,13 +247,13 @@
         },
         {
             "time": "day",
-            "location": "tavern_storage",
+            "location": "smuggler_storage",
             "activity": "помогает на складе как \u0027работник\u0027, фактически ведёт контрабанду",
             "note": "тайный деловой партнёр Трактирщика (event_005)"
         },
         {
             "time": "evening",
-            "location": "tavern_storage",
+            "location": "smuggler_storage",
             "activity": "привозит запрещённые товары Трактирщику"
         },
         {

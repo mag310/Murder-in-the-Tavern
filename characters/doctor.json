@@ -151,7 +151,7 @@
     "daily_schedule": [
         {
             "time": "night",
-            "location": "guest_rooms",
+            "location": "doctor_room",
             "activity": "спит в комнате гостя"
         },
         {

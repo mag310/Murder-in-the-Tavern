@@ -44,9 +44,12 @@
                 "dock",
                 "basement",
                 "cult_lair",
-                "tavern_storage"
+                "smuggler_storage",
+                "kitchen_storage",
+                "meat_storage",
+                "wine_cellar"
             ],
-            "note": "Подвал и логово культа — затапливаются первыми. КЛЮЧ к разгадке (cult_lair) физически тонет первым → игрокам надо успеть до того, как их закроет. Ялик (dock) можно отвязать на этом этапе (путь 5)."
+            "note": "Подвал и логово культа — затапливаются первыми. КЛЮЧ к разгадке (cult_lair) физически тонет первым → игрокам надо успеть до того, как их закроет. Ялик (dock) можно отвязать на этом этапе (путь 5). Хранилища (kitchen_storage, meat_storage, wine_cellar, smuggler_storage) — тоже тонут на этом этапе."
         },
         {
             "hour": "+7..+12",
@@ -72,9 +75,17 @@
             "level": "2 этаж",
             "blocked": [
                 "guest_rooms",
-                "waitress_room"
+                "waitress_room",
+                "detective_room",
+                "sailor_room",
+                "doctor_room",
+                "tavern_keeper_room",
+                "guest_room_empty_1",
+                "guest_room_empty_2",
+                "guest_room_empty_3",
+                "guest_room_empty_4"
             ],
-            "note": "Комнаты гостей (guest_rooms) и комната Официантки (waitress_room) — 2 этаж."
+            "note": "2 этаж: коридор (guest_rooms), комнаты персонала (waitress_room, detective_room, sailor_room, doctor_room, tavern_keeper_room) и пустые комнаты (guest_room_empty_1..4) — 2 этаж. 48 гостей / 6 = 8 комнат."
         },
         {
             "hour": "+23..+24",
