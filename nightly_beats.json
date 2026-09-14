@@ -57,8 +57,20 @@
                 },
                 {
                     "npc": "sailor",
-                    "action": "привозит запрещённые товары Трактирщику",
+                    "action": "привозит конкретные запрещённые товары (Devil's Bane, Pesh, Flayleaf, Grit — инструменты культа Дагона) Трактирщику",
                     "location": "smuggler_storage",
+                    "source": "daily_schedule.evening"
+                },
+                {
+                    "npc": "artist",
+                    "action": "тайно покупает Лист-живодёр (Flayleaf) у Трактирщика (~18:00–19:00); потом рисует в мастерской (треш-расчленёнка)",
+                    "location": "tavern_hall",
+                    "source": "daily_schedule.evening"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "тайно продаёт Художнику Лист-живодёр (Flayleaf) (~18:00–19:00); знает о его зависимости",
+                    "location": "tavern_hall",
                     "source": "daily_schedule.evening"
                 }
             ]
