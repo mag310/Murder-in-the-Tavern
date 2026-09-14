@@ -75,7 +75,7 @@ JSON Schema для валидации **одной** локации из кат�
 - `council_of_thieves` — Совет Воров (Council of Thieves) — знаменитый Совет Воров Весткроуна, реальная власть в городе; связан с Шерифом; пока без участников (crime);
 - `hellknights` — Хелл-кайты (Hellknights) — орден, охотится на демонических культистов (создан в 4573 AR в ответ на «Белую Чуму»); связан с Шерифом; пока без участников (order);
 - `city_authority` — Городская власть (government);
-- `paladin_order` — Орден чёрной розы / старые паладины (покровитель Художника — Шелин, извращённый путь) (order);
+- `paladin_order` — Орден из Мендева (паладины-крестоносцы; покровитель Художника — Шелин, извращённый путь) — НЕ путать с «Орденом чёрной розы» (Cheliax/Asmodeus) (order);
 - `smugglers` — Контрабандисты (crime);
 - `ship_crew` — Экипаж корабля (crew);
 - `chelax_bureaucracy` — Бюрократия Челии (House Thrune) (government).
@@ -338,7 +338,7 @@ JSON Schema для валидации `murder_matrix.json`.
 `tavern` — top-level контекстная локация, представляющая всё здание таверны. Все gameplay-локации (`tavern_hall`,
 `tavern_keeper_office`, `basement`, `cult_lair`, `mansard`, `guest_rooms`, `tavern_yard`, `smuggler_storage`,
 `kitchen_storage`, `meat_storage`, `wine_cellar`, `kitchen`, `detective_room`, `sailor_room`, `doctor_room`,
-`tavern_keeper_room`, `guest_room_empty_1`, `guest_room_empty_2`, `guest_room_empty_3`, `guest_room_empty_4`) являются её частями
+`tavern_keeper_room`, `guest_room_empty_1`, `guest_room_empty_2`, `guest_room_empty_3`) являются её частями
 (`parent_location: "tavern"` или через `guest_rooms`/`basement`). `tavern_keeper_office` (нормализовано из
 `tavern_owner_office`). `morgue`, `dock`, `sheriff_office` — gameplay-локации, но `parent_location: "town"`
 (в городе, не в таверне). `tavern_storage` — устаревшее название (см. `basement` и конкретные хранилища).
@@ -347,7 +347,7 @@ JSON Schema для валидации `murder_matrix.json`.
 
 - `yard` → `tavern_yard` (нормализовано в `characters/<id>.json` и `daily_schedule`);
 - `tavern_storage` → `smuggler_storage` (контрабанда) + `kitchen_storage`/`meat_storage`/`wine_cellar` (припасы) — пересобран в подвале;
-- `guest_rooms` → context (коридор 2 этажа); комнаты: `detective_room`, `sailor_room`, `doctor_room`, `tavern_keeper_room`, `guest_room_empty_1..4`;
+- `guest_rooms` → context (коридор 2 этажа); комнаты: `detective_room`, `sailor_room`, `doctor_room`, `tavern_keeper_room`, `guest_room_empty_1..3`;
 - `tavern` — добавлена как top-level context-локация (представитель таверны в целом);
 - `tavern_owner_office` → `tavern_keeper_office` (нормализовано в `locations.json` и `characters.json`);
 - `tavern_owner` → `tavern_keeper` (переименован ID персонажа «Владелец» → «Трактирщик»);
