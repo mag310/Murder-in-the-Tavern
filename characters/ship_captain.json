@@ -1,20 +1,28 @@
 {
     "id": "ship_captain",
     "name": "капитан Алессандро Маретти",
-    "role": "Капитан корабля",
+    "role": "Капитан корабля «Чёрная Сирена» (La Sirena Nera)",
     "status": "context_npc",
     "can_be_murder_victim": false,
-    "small_secret": null,
-    "big_secret": null,
+    "secrets": [],
     "relationships": {
         "love": [],
         "hatred": [],
-        "money": [],
+        "money": [
+            {
+                "target": "doctor",
+                "type": "бывший сослуживец с одного корабля «Чёрная Сирена»: Доктор служил на его корабле как судовый врач (sirena_nera_crew)"
+            }
+        ],
         "religion": [],
         "justice": [
             {
                 "target": "sailor",
                 "type": "дезертирство и кража судовой казны"
+            },
+            {
+                "target": "doctor",
+                "type": "бывший сослуживец с одного корабля «Чёрная Сирена» (sirena_nera_crew)"
             }
         ]
     },
@@ -32,6 +40,20 @@
             "target": "sailor",
             "reason": "Капитан знает о краже",
             "source": "relationship"
+        },
+        {
+            "level": "knows_only",
+            "fact": "Капитан знает, что Доктор служил с ним на одном корабле как судовый врач",
+            "target": "doctor",
+            "reason": "Капитан знает Доктора как бывшего сослуживца, но не знает о его нынешних связях",
+            "source": "relationship"
+        },
+        {
+            "level": "does_not_know",
+            "fact": "Не знает о Моряке, пришедшем в таверну",
+            "target": "sailor",
+            "reason": "Капитан не знает, что Моряк в таверне",
+            "source": null
         },
         {
             "level": "does_not_know",
@@ -64,11 +86,11 @@
         }
     ],
     "daily_schedule": null,
-    "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: doctor_ship.",
+    "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: chernaya_sirena (корабль «Чёрная Сирена»).",
     "organizations": [
         {
-            "organization": "ship_crew",
-            "role": "капитан",
+            "organization": "sirena_nera_crew",
+            "role": "капитан «Чёрной Сирены»",
             "status": "active"
         }
     ],

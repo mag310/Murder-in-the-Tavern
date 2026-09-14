@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "tavern_yard",
     "name": "Двор",
     "type": "gameplay",
@@ -32,19 +32,19 @@
         {
             "description": "Потоп как заклинание",
             "evidence": [
-                "evidence_010"
+                "flood_spell"
             ]
         },
         {
             "description": "Аура заклинания",
             "evidence": [
-                "evidence_027"
+                "blood_evidence"
             ]
         },
         {
             "description": "Мокрые следы",
             "evidence": [
-                "evidence_039"
+                "blood_traces"
             ]
         }
     ]

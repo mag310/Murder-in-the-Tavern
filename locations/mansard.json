@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "mansard",
     "name": "Мансарда",
     "type": "gameplay",
@@ -11,12 +11,12 @@
         "event_021"
     ],
     "clues": [
-        "evidence_004",
-        "evidence_012",
-        "evidence_058",
-        "evidence_066",
-        "evidence_074",
-        "evidence_075"
+        "artist_traces",
+        "artist_workshop",
+        "shield_soul_whisper",
+        "artist_diary",
+        "flayleaf_residue",
+        "devil_bane_residue"
     ],
     "secrets": [
         "художественная мастерская Художника (тайная личность \u0027вольный художник\u0027)",
@@ -42,91 +42,91 @@
         {
             "description": "Ложные следы Художника",
             "evidence": [
-                "evidence_004"
+                "artist_traces"
             ]
         },
         {
             "description": "Художественная мастерская Художника (картины-треш-расчленёнка)",
             "evidence": [
-                "evidence_012"
+                "artist_workshop"
             ]
         },
         {
             "description": "Приказ ордена",
             "evidence": [
-                "evidence_024"
+                "order_order"
             ]
         },
         {
             "description": "Наброски Художника",
             "evidence": [
-                "evidence_025"
+                "artist_sketches"
             ]
         },
         {
             "description": "Тайник Художника",
             "evidence": [
-                "evidence_034"
+                "artist_hiding"
             ]
         },
         {
             "description": "Следы на мансардной лестнице",
             "evidence": [
-                "evidence_038"
+                "cord_to_cult_lair"
             ]
         },
         {
             "description": "Маска культа",
             "evidence": [
-                "evidence_045"
+                "cult_mask"
             ]
         },
         {
             "description": "Письмо из ордена",
             "evidence": [
-                "evidence_049"
+                "order_letter"
             ]
         },
         {
             "description": "Пыльная глефа «Шёпот Душ» (оружие Шелин, висит на стене)",
             "evidence": [
-                "evidence_058"
+                "shield_soul_whisper"
             ]
         },
         {
             "description": "Дневник Художника (обложка с символом ордена)",
             "evidence": [
-                "evidence_066"
+                "artist_diary"
             ]
         },
         {
             "description": "Слёзы Размира (Tears of Razmir) — топливо безумия Художника",
             "evidence": [
-                "evidence_071"
+                "tears_razmir"
             ]
         },
         {
             "description": "Эфир (Aether) — усиление божественных способностей Художника",
             "evidence": [
-                "evidence_072"
+                "aether"
             ]
         },
         {
             "description": "Белладонна (Belladonna) — религиозное самоистязание Художника",
             "evidence": [
-                "evidence_073"
+                "belladonna"
             ]
         },
         {
             "description": "Лист-живодёр (Flayleaf) — не сильно спрятан (в ящике/под мастерской)",
             "evidence": [
-                "evidence_074"
+                "flayleaf_residue"
             ]
         },
         {
             "description": "«Погибель Дьявола» (Devil's Bane) — в сундуках рядом с глефой",
             "evidence": [
-                "evidence_075"
+                "devil_bane_residue"
             ]
         }
     ]

@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "tavern_keeper_office",
     "name": "Кабинет владельца",
     "type": "gameplay",
@@ -31,49 +31,49 @@
         {
             "description": "Контрабанда (Devil's Bane, Pesh, Flayleaf, Grit — инструменты культа Дагона)",
             "evidence": [
-                "evidence_001"
+                "contraband"
             ]
         },
         {
             "description": "Записная книжка Трактирщика",
             "evidence": [
-                "evidence_002"
+                "tavernkeeper_notebook"
             ]
         },
         {
             "description": "Кинжал Трактирщика",
             "evidence": [
-                "evidence_016"
+                "tavernkeeper_diary"
             ]
         },
         {
             "description": "Дневник Трактирщика",
             "evidence": [
-                "evidence_018"
+                "threat_letter"
             ]
         },
         {
             "description": "Письмо Моряка с угрозой",
             "evidence": [
-                "evidence_019"
+                "sailor_threat_letter"
             ]
         },
         {
             "description": "Тайник Трактирщика",
             "evidence": [
-                "evidence_032"
+                "tavernkeeper_hiding"
             ]
         },
         {
             "description": "Флакон яда",
             "evidence": [
-                "evidence_044"
+                "potion_poison"
             ]
         },
         {
             "description": "Долговая расписка",
             "evidence": [
-                "evidence_048"
+                "debt_note"
             ]
         }
     ]

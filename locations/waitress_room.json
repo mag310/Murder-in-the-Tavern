@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "waitress_room",
     "name": "Комната Официантки",
     "type": "gameplay",
@@ -12,8 +12,8 @@
         "event_016"
     ],
     "clues": [
-        "evidence_009",
-        "evidence_008"
+        "waitress_diary",
+        "wife_ghost"
     ],
     "secrets": [
         "дневник Официантки",
@@ -34,25 +34,25 @@
         {
             "description": "Дневник Официантки",
             "evidence": [
-                "evidence_009"
+                "waitress_diary"
             ]
         },
         {
             "description": "Дневник Официантки (часть 2)",
             "evidence": [
-                "evidence_021"
+                "waitress_diary_secret"
             ]
         },
         {
             "description": "Заклинательный фокус Официантки",
             "evidence": [
-                "evidence_028"
+                "waitress_focus"
             ]
         },
         {
             "description": "Тайник Официантки",
             "evidence": [
-                "evidence_035"
+                "waitress_hiding"
             ]
         }
     ]

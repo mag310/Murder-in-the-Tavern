@@ -1,4 +1,4 @@
-{
+﻿{
     "_meta": {
         "description": "Матрица 6x6: кто убил кого + уликa. Строки = УБИЙЦА, столбцы = ЖЕРТВА.",
         "characters": [
@@ -18,55 +18,55 @@
             "detective": "Детектив"
         },
         "evidence_index": {
-            "evidence_001": "Контрабанда: «Погибель Дьявола», пеш, лист-живодёр, грязь (конкретные запрещённые PF2e-товары, инструменты культа Дагона; в тайнике Трактирщика)",
-            "evidence_002": "Записная книжка Трактирщика (деловая связь с Моряком, угрозы)",
-            "evidence_003": "Ритуальные предметы культа (Официантка = верховная жрица, Врач = член культа)",
-            "evidence_004": "Ложные следы Художника на мансарде (mansard)",
-            "evidence_005": "Следы пьянства Детектива (detective_room)",
-            "evidence_006": "Ложная улика на Моряка (в комнате Моряка)",
-            "evidence_007": "Портрет жены (dead_wife) в зале — связь Трактирщик↔dead_wife↔Официантка",
-            "evidence_008": "Призрак Жены (dead_wife): Моряк убил мать Официантки, угрожал ей",
-            "evidence_009": "Дневник Официантки (потоп = её заклинание, молитва Дагону — ритуал Дагона)",
-            "evidence_010": "Потоп как заклинание (изолирует таверну, неестественный потоп)",
-            "evidence_011": "Реликвия ордена (мумифицированный череп святого) в cult_lair",
-            "evidence_012": "Художественная мастерская Художника (картины-треш-расчленёнка)",
-            "evidence_013": "Ритуальный кинжал Врача",
-            "evidence_014": "Нож Моряка",
-            "evidence_016": "Кинжал Трактирщика",
-            "evidence_017": "Разбитая бутылка",
-            "evidence_018": "Дневник Трактирщика",
-            "evidence_019": "Письмо Моряка с угрозой",
-            "evidence_020": "Счёт за контрабанду",
-            "evidence_021": "Дневник Официантки (часть 2)",
-            "evidence_022": "Записка Врача",
-            "evidence_023": "Медицинский журнал Врача",
-            "evidence_024": "Приказ ордена",
-            "evidence_025": "Наброски Художника",
-            "evidence_026": "Следы ритуала на теле",
-            "evidence_027": "Аура заклинания",
-            "evidence_028": "Заклинательный фокус Официантки",
-            "evidence_029": "Свеча из культа",
-            "evidence_030": "Печать культа",
-            "evidence_031": "Тайник Моряка",
-            "evidence_032": "Тайник Трактирщика",
-            "evidence_033": "Тайник Врача",
-            "evidence_034": "Тайник Художника",
-            "evidence_035": "Тайник Официантки",
-            "evidence_036": "Показания призрака",
-            "evidence_037": "Шёпот в подвале",
-            "evidence_038": "Следы на чердачной лестнице",
-            "evidence_039": "Мокрые следы",
-            "evidence_040": "Запах благовоний",
-            "evidence_041": "Поддельное письмо",
-            "evidence_042": "Чужая кровь на одежде",
-            "evidence_043": "Сломанный нож",
-            "evidence_044": "Флакон яда",
-            "evidence_045": "Маска культа",
-            "evidence_046": "Семейное древо",
-            "evidence_047": "Морская карта",
-            "evidence_048": "Долговая расписка",
-            "evidence_049": "Письмо из ордена",
-            "evidence_050": "Завещание dead_wife"
+            "contraband": "Контрабанда: «Погибель Дьявола», пеш, лист-живодёр, грязь (конкретные запрещённые PF2e-товары, инструменты культа Дагона; в тайнике Трактирщика)",
+            "tavernkeeper_notebook": "Записная книжка Трактирщика (деловая связь с Моряком, угрозы)",
+            "cult_items": "Ритуальные предметы культа (Официантка = верховная жрица, Врач = член культа)",
+            "artist_traces": "Ложные следы Художника на мансарде (mansard)",
+            "detective_drunk": "Следы пьянства Детектива (detective_room)",
+            "sailor_false_clue": "Ложная улика на Моряка (в комнате Моряка)",
+            "wife_portrait": "Портрет жены (dead_wife) в зале — связь Трактирщик↔dead_wife↔Официантка",
+            "wife_ghost": "Призрак Жены (dead_wife): Моряк убил мать Официантки, угрожал ей",
+            "waitress_diary": "Дневник Официантки (потоп = её заклинание, молитва Дагону — ритуал Дагона)",
+            "flood_spell": "Потоп как заклинание (изолирует таверну, неестественный потоп)",
+            "reliquary_skull": "Реликвия ордена (мумифицированный череп святого) в cult_lair",
+            "artist_workshop": "Художественная мастерская Художника (картины-треш-расчленёнка)",
+            "doctor_dagger": "Ритуальный кинжал Врача",
+            "sailor_knife": "Нож Моряка",
+            "tavernkeeper_diary": "Кинжал Трактирщика",
+            "broken_bottle": "Разбитая бутылка",
+            "threat_letter": "Дневник Трактирщика",
+            "sailor_threat_letter": "Письмо Моряка с угрозой",
+            "contraband_crate": "Счёт за контрабанду",
+            "waitress_diary_secret": "Дневник Официантки (часть 2)",
+            "doctor_note": "Записка Врача",
+            "doctor_journal": "Медицинский журнал Врача",
+            "order_order": "Приказ ордена",
+            "artist_sketches": "Наброски Художника",
+            "tavernkeeper_alibi": "Следы ритуала на теле",
+            "blood_evidence": "Аура заклинания",
+            "waitress_focus": "Заклинательный фокус Официантки",
+            "letter_to_tavern": "Свеча из культа",
+            "cult_symbol": "Печать культа",
+            "sailor_hiding": "Тайник Моряка",
+            "tavernkeeper_hiding": "Тайник Трактирщика",
+            "doctor_hiding": "Тайник Врача",
+            "artist_hiding": "Тайник Художника",
+            "waitress_hiding": "Тайник Официантки",
+            "ghost_testimony": "Показания призрака",
+            "footprints": "Шёпот в подвале",
+            "cord_to_cult_lair": "Следы на чердачной лестнице",
+            "blood_traces": "Мокрые следы",
+            "poison_evidence": "Запах благовоний",
+            "fake_letter": "Поддельное письмо",
+            "ink_on_fingers": "Чужая кровь на одежде",
+            "torn_letter": "Сломанный нож",
+            "potion_poison": "Флакон яда",
+            "cult_mask": "Маска культа",
+            "blood_splatter": "Семейное древо",
+            "nautical_chart": "Морская карта",
+            "debt_note": "Долговая расписка",
+            "order_letter": "Письмо из ордена",
+            "wife_will": "Завещание dead_wife"
         },
         "legend": {
             "proof": "Улика доказывает/поддерживает, что убийца мог убить жертву (мотив/средство/связь)",
@@ -90,12 +90,12 @@
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
-                        "evidence_005",
-                        "evidence_039"
+                        "detective_drunk",
+                        "blood_traces"
                     ],
                     "false_evidence": [
-                        "evidence_001",
-                        "evidence_006"
+                        "contraband",
+                        "sailor_false_clue"
                     ],
                     "note": "Самоубийство/несчастный случай Моряка (без внешнего убийцы). Моряк — дезертир, контрабандист, мог погибнуть случайно."
                 },
@@ -104,109 +104,109 @@
                     "motivation": "hatred",
                     "probability": "high",
                     "evidence": [
-                        "evidence_002",
-                        "evidence_007",
-                        "evidence_008"
+                        "tavernkeeper_notebook",
+                        "wife_portrait",
+                        "wife_ghost"
                     ],
                     "primary_evidence": [
-                        "evidence_019"
+                        "sailor_threat_letter"
                     ],
                     "secondary_evidence": [
-                        "evidence_002",
-                        "evidence_007",
-                        "evidence_008",
-                        "evidence_014"
+                        "tavernkeeper_notebook",
+                        "wife_portrait",
+                        "wife_ghost",
+                        "sailor_knife"
                     ],
                     "false_evidence": [
-                        "evidence_001",
-                        "evidence_044"
+                        "contraband",
+                        "potion_poison"
                     ],
-                    "note": "Моряк убил жену Трактирщика (event_004) и угрожал его дочерью (event_004/015). evidence_019 (письмо с угрозой) — основной мотив; evidence_002/007/008 — вспомогательные."
+                    "note": "Моряк убил жену Трактирщика (event_004) и угрожал его дочерью (event_004/015). sailor_threat_letter (письмо с угрозой) — основной мотив; tavernkeeper_notebook/007/008 — вспомогательные."
                 },
                 "waitress": {
                     "type": "proof",
                     "motivation": "accident/hatred/religion",
-                    "probability": "medium/low/low",
+                    "probability": "medium/low",
                     "evidence": [
-                        "evidence_006",
-                        "evidence_008"
+                        "sailor_false_clue",
+                        "wife_ghost"
                     ],
                     "primary_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ],
                     "secondary_evidence": [
-                        "evidence_008",
-                        "evidence_010",
-                        "evidence_027"
+                        "wife_ghost",
+                        "flood_spell",
+                        "blood_evidence"
                     ],
                     "false_evidence": [
-                        "evidence_003",
-                        "evidence_009"
+                        "cult_items",
+                        "waitress_diary"
                     ],
-                    "note": "Подвариант A (accident/medium): Моряк случайно убивает Официантку, приставая к ней. Подвариант B (hatred/low): запугать Трактирщика. Подвариант C (religion/low): боится магии. evidence_006 — основной; evidence_008/010/027 — вспомогательные."
+                    "note": "Подвариант A (accident/medium): Моряк случайно убивает Официантку, приставая к ней. Подвариант B (hatred/low): запугать Трактирщика. Подвариант C (religion/low): боится магии. sailor_false_clue — основной; wife_ghost/010/027 — вспомогательные."
                 },
                 "doctor": {
                     "type": "proof",
                     "motivation": "justice",
                     "probability": "high",
                     "evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ],
                     "primary_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ],
                     "secondary_evidence": [
-                        "evidence_014",
-                        "evidence_033",
-                        "evidence_042",
-                        "evidence_023"
+                        "sailor_knife",
+                        "doctor_hiding",
+                        "ink_on_fingers",
+                        "doctor_journal"
                     ],
                     "false_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
-                    "note": "КАНОНИЧНЫЙ: Моряк убивает Доктора для защиты себя от преследования. evidence_006 — основной (ложная улика, выглядит как подозреваемый, но мотив — самозащита)."
+                    "note": "КАНОНИЧНЫЙ: Моряк убивает Доктора для защиты себя от преследования. sailor_false_clue — основной (ложная улика, выглядит как подозреваемый, но мотив — самозащита)."
                 },
                 "artist": {
-                    "type": "alibi",
+                    "type": "accident",
                     "motivation": "accident",
                     "probability": "low",
                     "evidence": [
-                        "evidence_006",
-                        "evidence_004"
+                        "sailor_false_clue",
+                        "artist_traces"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
-                        "evidence_005",
-                        "evidence_012"
+                        "detective_drunk",
+                        "artist_workshop"
                     ],
                     "false_evidence": [
-                        "evidence_006",
-                        "evidence_004"
+                        "sailor_false_clue",
+                        "artist_traces"
                     ],
-                    "note": "Моряк убивает Художника случайно по пьянке (accident/low). Алиби: нет строгого мотива. evidence_006/004 — ложные следы."
+                    "note": "Моряк убивает Художника случайно по пьянке (accident/low). Перенесено из alibi. sailor_false_clue/004 — ложные следы."
                 },
                 "detective": {
                     "type": "proof",
                     "motivation": "accident/money",
                     "probability": "medium/low",
                     "evidence": [
-                        "evidence_005",
-                        "evidence_001"
+                        "detective_drunk",
+                        "contraband"
                     ],
                     "primary_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "secondary_evidence": [
-                        "evidence_006",
-                        "evidence_014",
-                        "evidence_031"
+                        "sailor_false_clue",
+                        "sailor_knife",
+                        "sailor_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_002",
-                        "evidence_020"
+                        "tavernkeeper_notebook",
+                        "contraband_crate"
                     ],
-                    "note": "Подвариант A (accident/medium): Моряк убивает Детектива по пьянке. Подвариант B (money/low): если Детектив найдёт контрабанду. evidence_005 — основной."
+                    "note": "Подвариант A (accident/medium): Моряк убивает Детектива по пьянке. Подвариант B (money/low): если Детектив найдёт контрабанду. detective_drunk — основной."
                 }
             }
         },
@@ -219,24 +219,24 @@
                     "motivation": "hatred",
                     "probability": "high",
                     "evidence": [
-                        "evidence_007",
-                        "evidence_008",
-                        "evidence_010"
+                        "wife_portrait",
+                        "wife_ghost",
+                        "flood_spell"
                     ],
                     "primary_evidence": [
-                        "evidence_018"
+                        "threat_letter"
                     ],
                     "secondary_evidence": [
-                        "evidence_007",
-                        "evidence_008",
-                        "evidence_016",
-                        "evidence_019"
+                        "wife_portrait",
+                        "wife_ghost",
+                        "tavernkeeper_diary",
+                        "sailor_threat_letter"
                     ],
                     "false_evidence": [
-                        "evidence_006",
-                        "evidence_042"
+                        "sailor_false_clue",
+                        "ink_on_fingers"
                     ],
-                    "note": "Трактирщик отомстил Моряку за убийство/изнасилование его жены (event_004). evidence_018 (дневник: мотив мести) — основной; evidence_007/008/016/019 — вспомогательные."
+                    "note": "Трактирщик отомстил Моряку за убийство/изнасилование его жены (event_004). threat_letter (дневник: мотив мести) — основной; wife_portrait/008/016/019 — вспомогательные."
                 },
                 "tavern_keeper": {
                     "type": "accident_self",
@@ -247,13 +247,13 @@
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
-                        "evidence_005",
-                        "evidence_039",
-                        "evidence_044"
+                        "detective_drunk",
+                        "blood_traces",
+                        "potion_poison"
                     ],
                     "false_evidence": [
-                        "evidence_001",
-                        "evidence_006"
+                        "contraband",
+                        "sailor_false_clue"
                     ],
                     "note": "Самоубийство/несчастный случай/болезнь Трактирщика (без внешнего убийцы)."
                 },
@@ -262,78 +262,78 @@
                     "motivation": "n/a",
                     "probability": "impossible",
                     "evidence": [
-                        "evidence_007"
+                        "wife_portrait"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
                     ],
                     "false_evidence": [
-                        "evidence_007"
+                        "wife_portrait"
                     ],
-                    "note": "Трактирщик НЕ убивает Официантку (это его дочь). evidence_007 = алиби: отцовская любовь. НЕ в possible_killers матрицы waitress."
+                    "note": "Трактирщик НЕ убивает Официантку (это его дочь). wife_portrait = алиби: отцовская любовь. НЕ в possible_killers матрицы waitress."
                 },
                 "doctor": {
                     "type": "proof",
                     "motivation": "hatred",
                     "probability": "medium",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "secondary_evidence": [
-                        "evidence_016",
-                        "evidence_018",
-                        "evidence_022",
-                        "evidence_033"
+                        "tavernkeeper_diary",
+                        "threat_letter",
+                        "doctor_note",
+                        "doctor_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
-                    "note": "Трактирщик убивает Доктора, защищая дочь (Официантку) — резко против их отношений. evidence_003 (ритуальные предметы) — основной мотив."
+                    "note": "Трактирщик убивает Доктора, защищая дочь (Официантку) — резко против их отношений. cult_items (ритуальные предметы) — основной мотив."
                 },
                 "artist": {
                     "type": "proof",
                     "motivation": "justice",
                     "probability": "low",
                     "evidence": [
-                        "evidence_007"
+                        "wife_portrait"
                     ],
                     "primary_evidence": [
-                        "evidence_007"
+                        "wife_portrait"
                     ],
                     "secondary_evidence": [
-                        "evidence_016",
-                        "evidence_018",
-                        "evidence_046"
+                        "tavernkeeper_diary",
+                        "threat_letter",
+                        "blood_splatter"
                     ],
                     "false_evidence": [
-                        "evidence_012"
+                        "artist_workshop"
                     ],
-                    "note": "Трактирщик убивает Художника, если тот нападает на Официантку (дочь). evidence_007 (портрет/связь) — основной мотив: защита дочери."
+                    "note": "Трактирщик убивает Художника, если тот нападает на Официантку (дочь). wife_portrait (портрет/связь) — основной мотив: защита дочери."
                 },
                 "detective": {
                     "type": "proof",
                     "motivation": "money",
                     "probability": "medium",
                     "evidence": [
-                        "evidence_001"
+                        "contraband"
                     ],
                     "primary_evidence": [
-                        "evidence_001"
+                        "contraband"
                     ],
                     "secondary_evidence": [
-                        "evidence_002",
-                        "evidence_018",
-                        "evidence_032",
-                        "evidence_044"
+                        "tavernkeeper_notebook",
+                        "threat_letter",
+                        "tavernkeeper_hiding",
+                        "potion_poison"
                     ],
                     "false_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
-                    "note": "Трактирщик убивает Детектива, если тот найдёт доказательства контрабанды. evidence_001 (контрабанда) — основной мотив."
+                    "note": "Трактирщик убивает Детектива, если тот найдёт доказательства контрабанды. contraband (контрабанда) — основной мотив."
                 }
             }
         },
@@ -346,114 +346,114 @@
                     "motivation": "religion/justice",
                     "probability": "high/medium",
                     "evidence": [
-                        "evidence_008",
-                        "evidence_009",
-                        "evidence_010"
+                        "wife_ghost",
+                        "waitress_diary",
+                        "flood_spell"
                     ],
                     "primary_evidence": [
-                        "evidence_009"
+                        "waitress_diary"
                     ],
                     "secondary_evidence": [
-                        "evidence_008",
-                        "evidence_010",
-                        "evidence_021",
-                        "evidence_028",
-                        "evidence_036"
+                        "wife_ghost",
+                        "flood_spell",
+                        "waitress_diary_secret",
+                        "waitress_focus",
+                        "ghost_testimony"
                     ],
                     "false_evidence": [
-                        "evidence_006",
-                        "evidence_039"
+                        "sailor_false_clue",
+                        "blood_traces"
                     ],
-                    "note": "Официантка отомстила за мать: подстрекаемая призраком Жены (event_015) и затаив зло за угрозу Моряка, при помощи Дагона (потоп, event_016 — ритуал Дагона, усиленный паводком реки Адиван) задержала Моряка. evidence_009 (дневник: потоп=заклинание) — основной."
+                    "note": "Официантка отомстила за мать: подстрекаемая призраком Жены (event_015) и затаив зло за угрозу Моряка, при помощи Дагона (потоп, event_016 — ритуал Дагона, усиленный паводком реки Адиван) задержала Моряка. waitress_diary (дневник: потоп=заклинание) — основной."
                 },
                 "tavern_keeper": {
                     "type": "alibi",
                     "motivation": "n/a",
                     "probability": "impossible",
                     "evidence": [
-                        "evidence_007"
+                        "wife_portrait"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
                     ],
                     "false_evidence": [
-                        "evidence_007"
+                        "wife_portrait"
                     ],
-                    "note": "Официантка НЕ убивает Трактирщика (это её отец). evidence_007 = алиби: нет вражды/мотива. НЕ в possible_killers матрицы tavern_keeper."
+                    "note": "Официантка НЕ убивает Трактирщика (это её отец). wife_portrait = алиби: нет вражды/мотива. НЕ в possible_killers матрицы tavern_keeper."
                 },
                 "waitress": {
                     "type": "accident_self",
                     "motivation": "accident/disease",
                     "probability": "medium/low",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "false_evidence": [
-                        "evidence_009",
-                        "evidence_028"
+                        "waitress_diary",
+                        "waitress_focus"
                     ],
-                    "note": "Самоубийство/несчастный случай/болезнь Официантки (без внешнего убийцы). evidence_003 может выглядеть как улика, но не доказывает самоубийство."
+                    "note": "Самоубийство/несчастный случай/болезнь Официантки (без внешнего убийцы). cult_items может выглядеть как улика, но не доказывает самоубийство."
                 },
                 "doctor": {
                     "type": "alibi",
                     "motivation": "n/a",
                     "probability": "impossible",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
                     ],
                     "false_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
-                    "note": "Официантка НЕ убивает Доктора (это её любовник). evidence_003 = алиби: любовь, нет мотива. НЕ в possible_killers матрицы doctor."
+                    "note": "Официантка НЕ убивает Доктора (это её любовник). cult_items = алиби: любовь, нет мотива. НЕ в possible_killers матрицы doctor."
                 },
                 "artist": {
                     "type": "possible_scenario",
                     "motivation": "religion",
                     "probability": "medium",
                     "evidence": [
-                        "evidence_011",
-                        "evidence_003"
+                        "reliquary_skull",
+                        "cult_items"
                     ],
                     "primary_evidence": [
-                        "evidence_011"
+                        "reliquary_skull"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_009",
-                        "evidence_028",
-                        "evidence_036"
+                        "cult_items",
+                        "waitress_diary",
+                        "waitress_focus",
+                        "ghost_testimony"
                     ],
                     "false_evidence": [
-                        "evidence_012",
-                        "evidence_025"
+                        "artist_workshop",
+                        "artist_sketches"
                     ],
-                    "note": "Возможный сценарий (не канон): Официантка убивает Художника, если раскрывает его как охотника на культистов. На начало игры Официантка НЕ знает, что Художник — охотник, и \u0027запала\u0027 на него (love, event_021) — вражды нет. Вражда (religion, event_018) возникает только в possible_scenario. evidence_011 (реликвия) — основная; evidence_003/009/028/036 — вспомогательные."
+                    "note": "Возможный сценарий (не канон): Официантка убивает Художника, если раскрывает его как охотника на культистов. На начало игры Официантка НЕ знает, что Художник — охотник, и \u0027запала\u0027 на него (love, event_021) — вражды нет. Вражда (religion, event_018) возникает только в possible_scenario. reliquary_skull (реликвия) — основная; cult_items/009/028/036 — вспомогательные."
                 },
                 "detective": {
                     "type": "alibi",
                     "motivation": "n/a",
                     "probability": "impossible",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
                     ],
                     "false_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
-                    "note": "Официантка НЕ убивает Детектива: если он найдёт логово культа, она скорее позовёт его в культ. evidence_003 = алиби. НЕ в possible_killers матрицы detective."
+                    "note": "Официантка НЕ убивает Детектива: если он найдёт логово культа, она скорее позовёт его в культ. cult_items = алиби. НЕ в possible_killers матрицы detective."
                 }
             }
         },
@@ -466,74 +466,74 @@
                     "motivation": "love/possessed",
                     "probability": "medium/low",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_022",
-                        "evidence_033",
-                        "evidence_042"
+                        "cult_items",
+                        "doctor_note",
+                        "doctor_hiding",
+                        "ink_on_fingers"
                     ],
                     "false_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ],
-                    "note": "Подвариант A (love/medium): Врач защищал Официантку. Подвариант B (possessed/low): одержим призраком. evidence_013 (кинжал) — основной орудие; evidence_003/022/033/042 — вспомогательные."
+                    "note": "Подвариант A (love/medium): Врач защищал Официантку. Подвариант B (possessed/low): одержим призраком. doctor_dagger (кинжал) — основной орудие; cult_items/022/033/042 — вспомогательные."
                 },
                 "tavern_keeper": {
                     "type": "proof",
                     "motivation": "love",
                     "probability": "medium",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_022",
-                        "evidence_026",
-                        "evidence_033"
+                        "cult_items",
+                        "doctor_note",
+                        "tavernkeeper_alibi",
+                        "doctor_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_001",
-                        "evidence_006"
+                        "contraband",
+                        "sailor_false_clue"
                     ],
-                    "note": "Врач убивает Трактирщика по love (защита/ревность). evidence_013 (кинжал) — основной; evidence_003/022/026/033 — вспомогательные."
+                    "note": "Врач убивает Трактирщика по love (защита/ревность). doctor_dagger (кинжал) — основной; cult_items/022/026/033 — вспомогательные."
                 },
                 "waitress": {
                     "type": "alibi",
                     "motivation": "n/a",
                     "probability": "impossible",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
                     ],
                     "false_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
-                    "note": "Врач НЕ убивает Официантку (это его любовница). evidence_003 = алиби: love. НЕ в possible_killers матрицы waitress."
+                    "note": "Врач НЕ убивает Официантку (это его любовница). cult_items = алиби: love. НЕ в possible_killers матрицы waitress."
                 },
                 "doctor": {
                     "type": "accident_self",
                     "motivation": "accident/disease",
                     "probability": "medium/low",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
-                        "evidence_023"
+                        "doctor_journal"
                     ],
                     "false_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "note": "Самоубийство/несчастный случай/болезнь Доктора (без внешнего убийцы)."
                 },
@@ -542,44 +542,44 @@
                     "motivation": "love",
                     "probability": "medium",
                     "evidence": [
-                        "evidence_003",
-                        "evidence_011"
+                        "cult_items",
+                        "reliquary_skull"
                     ],
                     "primary_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "secondary_evidence": [
-                        "evidence_013",
-                        "evidence_022",
-                        "evidence_033",
-                        "evidence_040"
+                        "doctor_dagger",
+                        "doctor_note",
+                        "doctor_hiding",
+                        "poison_evidence"
                     ],
                     "false_evidence": [
-                        "evidence_012"
+                        "artist_workshop"
                     ],
-                    "note": "Подвариант A (love/medium): Доктор убивает Художника, если тот покусится на Официантку. Подвариант B (love/medium): отравление из ревности. evidence_003 — основной; evidence_013/022/033/040 — вспомогательные."
+                    "note": "Подвариант A (love/medium): Доктор убивает Художника, если тот покусится на Официантку. Подвариант B (love/medium): отравление из ревности. cult_items — основной; doctor_dagger/022/033/040 — вспомогательные."
                 },
                 "detective": {
                     "type": "proof",
                     "motivation": "love",
                     "probability": "medium",
                     "evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "primary_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_026",
-                        "evidence_029",
-                        "evidence_033"
+                        "cult_items",
+                        "tavernkeeper_alibi",
+                        "letter_to_tavern",
+                        "doctor_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_005",
-                        "evidence_012"
+                        "detective_drunk",
+                        "artist_workshop"
                     ],
-                    "note": "Доктор убивает Детектива, защищая Официантку от пьяного Детектива. evidence_013 (кинжал) — основной; evidence_005 — ложный след."
+                    "note": "Доктор убивает Детектива, защищая Официантку от пьяного Детектива. doctor_dagger (кинжал) — основной; detective_drunk — ложный след."
                 }
             }
         },
@@ -592,100 +592,99 @@
                     "motivation": "n/a",
                     "probability": "impossible",
                     "evidence": [
-                        "evidence_004"
+                        "artist_traces"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
                     ],
                     "false_evidence": [
-                        "evidence_004"
+                        "artist_traces"
                     ],
-                    "note": "Художник НЕ убивает Моряка (Моряк не культист). evidence_004 = алиби: Художник охотится на культистов. НЕ в possible_killers матрицы sailor."
+                    "note": "Художник НЕ убивает Моряка (Моряк не культист). artist_traces = алиби: Художник охотится на культистов. НЕ в possible_killers матрицы sailor."
                 },
                 "tavern_keeper": {
-                    "type": "proof",
+                    "type": "possible_scenario",
                     "motivation": "religion",
                     "probability": "low",
-                    "scenario": "possible_scenario",
                     "evidence": [
-                        "evidence_011"
+                        "reliquary_skull"
                     ],
                     "primary_evidence": [
-                        "evidence_025"
+                        "artist_sketches"
                     ],
                     "secondary_evidence": [
-                        "evidence_004",
-                        "evidence_011",
-                        "evidence_024",
-                        "evidence_034"
+                        "artist_traces",
+                        "reliquary_skull",
+                        "order_order",
+                        "artist_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_012"
+                        "artist_workshop"
                     ],
-                    "note": "Возможный сценарий (не канон): Художник убивает Трактирщика как культиста. evidence_025 (наброски) — основной; evidence_004/011/024/034 — вспомогательные."
+                    "note": "Возможный сценарий (не канон): Художник убивает Трактирщика как культиста. artist_sketches (наброски) — основной; artist_traces/011/024/034 — вспомогательные."
                 },
                 "waitress": {
                     "type": "proof",
                     "motivation": "religion",
                     "probability": "high",
                     "evidence": [
-                        "evidence_011",
-                        "evidence_003"
+                        "reliquary_skull",
+                        "cult_items"
                     ],
                     "primary_evidence": [
-                        "evidence_011"
+                        "reliquary_skull"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_024",
-                        "evidence_025",
-                        "evidence_049"
+                        "cult_items",
+                        "order_order",
+                        "artist_sketches",
+                        "order_letter"
                     ],
                     "false_evidence": [
-                        "evidence_009",
-                        "evidence_012"
+                        "waitress_diary",
+                        "artist_workshop"
                     ],
-                    "note": "КАНОНИЧНЫЙ: Художник убивает Официантку, потому что она — верховная жрица и знает, где реликвия. evidence_011 (реликвия) — основной мотив."
+                    "note": "КАНОНИЧНЫЙ: Художник убивает Официантку, потому что она — верховная жрица и знает, где реликвия. reliquary_skull (реликвия) — основной мотив."
                 },
                 "doctor": {
                     "type": "proof",
                     "motivation": "religion",
                     "probability": "low",
                     "evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "primary_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "secondary_evidence": [
-                        "evidence_011",
-                        "evidence_024",
-                        "evidence_025",
-                        "evidence_049"
+                        "reliquary_skull",
+                        "order_order",
+                        "artist_sketches",
+                        "order_letter"
                     ],
                     "false_evidence": [
-                        "evidence_013",
-                        "evidence_023"
+                        "doctor_dagger",
+                        "doctor_journal"
                     ],
-                    "note": "Художник убивает Доктора как культиста. evidence_003 (ритуальные предметы) — основной мотив."
+                    "note": "Художник убивает Доктора как культиста. cult_items (ритуальные предметы) — основной мотив."
                 },
                 "artist": {
                     "type": "accident_self",
                     "motivation": "accident/disease",
                     "probability": "low",
                     "evidence": [
-                        "evidence_004",
-                        "evidence_012"
+                        "artist_traces",
+                        "artist_workshop"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
-                        "evidence_023"
+                        "doctor_journal"
                     ],
                     "false_evidence": [
-                        "evidence_004",
-                        "evidence_012"
+                        "artist_traces",
+                        "artist_workshop"
                     ],
                     "note": "Самоубийство/несчастный случай/болезнь Художника (без внешнего убийцы)."
                 },
@@ -694,23 +693,23 @@
                     "motivation": "justice",
                     "probability": "high",
                     "evidence": [
-                        "evidence_010",
-                        "evidence_004"
+                        "flood_spell",
+                        "artist_traces"
                     ],
                     "primary_evidence": [
-                        "evidence_024"
+                        "order_order"
                     ],
                     "secondary_evidence": [
-                        "evidence_004",
-                        "evidence_025",
-                        "evidence_034",
-                        "evidence_038"
+                        "artist_traces",
+                        "artist_sketches",
+                        "artist_hiding",
+                        "cord_to_cult_lair"
                     ],
                     "false_evidence": [
-                        "evidence_005",
-                        "evidence_012"
+                        "detective_drunk",
+                        "artist_workshop"
                     ],
-                    "note": "Художник убивает Детектива, если его раскроют как убийцу культистов. evidence_024 (приказ ордена) — основной мотив: скрыть охоту."
+                    "note": "Художник убивает Детектива, если его раскроют как убийцу культистов. order_order (приказ ордена) — основной мотив: скрыть охоту."
                 }
             }
         },
@@ -723,114 +722,113 @@
                     "motivation": "accident",
                     "probability": "low",
                     "evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "primary_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "secondary_evidence": [
-                        "evidence_002",
-                        "evidence_006",
-                        "evidence_037"
+                        "tavernkeeper_notebook",
+                        "sailor_false_clue",
+                        "footprints"
                     ],
                     "false_evidence": [
-                        "evidence_042"
+                        "ink_on_fingers"
                     ],
-                    "note": "Детектив убивает Моряка по неосторожности, сильно напившись. evidence_005 (следы пьянства) — основной."
+                    "note": "Детектив убивает Моряка по неосторожности, сильно напившись. detective_drunk (следы пьянства) — основной."
                 },
                 "tavern_keeper": {
-                    "type": "proof",
+                    "type": "possible_scenario",
                     "motivation": "money",
                     "probability": "low",
-                    "scenario": "possible_scenario",
                     "evidence": [
-                        "evidence_001"
+                        "contraband"
                     ],
                     "primary_evidence": [
-                        "evidence_001"
+                        "contraband"
                     ],
                     "secondary_evidence": [
-                        "evidence_002",
-                        "evidence_005",
-                        "evidence_020",
-                        "evidence_032"
+                        "tavernkeeper_notebook",
+                        "detective_drunk",
+                        "contraband_crate",
+                        "tavernkeeper_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ],
-                    "note": "Возможный сценарий (не канон): Детектив убивает Трактирщика, если накроет контрабанду. evidence_001 (контрабанда) — основной мотив."
+                    "note": "Возможный сценарий (не канон): Детектив убивает Трактирщика, если накроет контрабанду. contraband (контрабанда) — основной мотив."
                 },
                 "waitress": {
                     "type": "alibi",
                     "motivation": "n/a",
                     "probability": "impossible",
                     "evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
                     ],
                     "false_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
-                    "note": "Детектив НЕ убивает Официантку (нет отношения/мотива). evidence_005 = ложный след. НЕ в possible_killers матрицы waitress."
+                    "note": "Детектив НЕ убивает Официантку (нет отношения/мотива). detective_drunk = ложный след. НЕ в possible_killers матрицы waitress."
                 },
                 "doctor": {
                     "type": "alibi",
                     "motivation": "n/a",
                     "probability": "impossible",
                     "evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
                     ],
                     "false_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
-                    "note": "Детектив НЕ убивает Доктора (нет отношения/мотива). evidence_005 = ложный след. НЕ в possible_killers матрицы doctor."
+                    "note": "Детектив НЕ убивает Доктора (нет отношения/мотива). detective_drunk = ложный след. НЕ в possible_killers матрицы doctor."
                 },
                 "artist": {
                     "type": "proof",
                     "motivation": "justice",
                     "probability": "medium",
                     "evidence": [
-                        "evidence_010",
-                        "evidence_004"
+                        "flood_spell",
+                        "artist_traces"
                     ],
                     "primary_evidence": [
-                        "evidence_010"
+                        "flood_spell"
                     ],
                     "secondary_evidence": [
-                        "evidence_004",
-                        "evidence_024",
-                        "evidence_025",
-                        "evidence_038"
+                        "artist_traces",
+                        "order_order",
+                        "artist_sketches",
+                        "cord_to_cult_lair"
                     ],
                     "false_evidence": [
-                        "evidence_005",
-                        "evidence_012"
+                        "detective_drunk",
+                        "artist_workshop"
                     ],
-                    "note": "Детектив убивает Художника: противопоставление личного и официального правосудия. evidence_010 (потоп/серия) — основной."
+                    "note": "Детектив убивает Художника: противопоставление личного и официального правосудия. flood_spell (потоп/серия) — основной."
                 },
                 "detective": {
                     "type": "accident_self",
                     "motivation": "accident/disease",
                     "probability": "low",
                     "evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "primary_evidence": [
                     ],
                     "secondary_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "false_evidence": [
-                        "evidence_004"
+                        "artist_traces"
                     ],
-                    "note": "Самоубийство/несчастный случай/болезнь Детектива (без внешнего убийцы). evidence_005 — мог погибнуть по пьянке."
+                    "note": "Самоубийство/несчастный случай/болезнь Детектива (без внешнего убийцы). detective_drunk — мог погибнуть по пьянке."
                 }
             }
         }

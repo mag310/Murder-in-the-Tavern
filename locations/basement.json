@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "basement",
     "name": "Подвал",
     "type": "context",
@@ -35,7 +35,7 @@
         {
             "description": "Шёпот в подвале",
             "evidence": [
-                "evidence_037"
+                "footprints"
             ]
         }
     ]

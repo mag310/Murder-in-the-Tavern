@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "morgue",
     "name": "Морг",
     "type": "gameplay",
@@ -11,7 +11,7 @@
     "important_events": [
     ],
     "clues": [
-        "evidence_039"
+        "blood_traces"
     ],
     "secrets": [
         "невостребованные тела жертв серии смертей",

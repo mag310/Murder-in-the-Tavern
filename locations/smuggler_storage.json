@@ -1,9 +1,9 @@
-{
+﻿{
     "id": "smuggler_storage",
     "name": "Тайный склад контрабандистов",
     "type": "gameplay",
     "parent_location": "basement",
-    "description": "Тайный склад контрабанды: конкретные запрещённые PF2e-товары (см. organizations/smugglers.json, поле contraband; и улики evidence_067–070), спрятанные под стеллажом. Доступ через тайную дверь в подвале. Сюда приносят товар через второй вход с улицы (задняя сторона). Связан с кабинетом (tavern_keeper_office) — там счёты и записная книжка.",
+    "description": "Тайный склад контрабанды: конкретные запрещённые PF2e-товары (см. organizations/smugglers.json, поле contraband; и улики devil_bane–070), спрятанные под стеллажом. Доступ через тайную дверь в подвале. Сюда приносят товар через второй вход с улицы (задняя сторона). Связан с кабинетом (tavern_keeper_office) — там счёты и записная книжка.",
     "characters": [
         "tavern_keeper",
         "sailor"
@@ -34,43 +34,43 @@
         {
             "description": "Счёт за контрабанду",
             "evidence": [
-                "evidence_020"
+                "contraband_crate"
             ]
         },
         {
             "description": "«Погибель Дьявола» (Devil's Bane) — мазь на оружие против дьяволов",
             "evidence": [
-                "evidence_067"
+                "devil_bane"
             ]
         },
         {
             "description": "Пеш (Pesh) — наркотик из кактуса Катапеша",
             "evidence": [
-                "evidence_068"
+                "pesh"
             ]
         },
         {
             "description": "Лист-живодёр (Flayleaf) — седатив/внушение",
             "evidence": [
-                "evidence_069"
+                "flayleaf"
             ]
         },
         {
             "description": "Грязь (Grit) — берсерк/ярость",
             "evidence": [
-                "evidence_070"
+                "grit"
             ]
         },
         {
             "description": "Сломанный нож",
             "evidence": [
-                "evidence_043"
+                "torn_letter"
             ]
         },
         {
             "description": "Нож Моряка",
             "evidence": [
-                "evidence_014"
+                "sailor_knife"
             ]
         }
     ]

@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "tavern_hall",
     "name": "Зал таверны",
     "type": "gameplay",
@@ -17,7 +17,7 @@
         "event_014"
     ],
     "clues": [
-        "evidence_007"
+        "wife_portrait"
     ],
     "secrets": [
         "портрет жены (dead_wife) на видном месте",
@@ -40,13 +40,13 @@
         {
             "description": "Портрет жены Трактирщика",
             "evidence": [
-                "evidence_007"
+                "wife_portrait"
             ]
         },
         {
             "description": "Семейное древо",
             "evidence": [
-                "evidence_046"
+                "blood_splatter"
             ]
         }
     ]

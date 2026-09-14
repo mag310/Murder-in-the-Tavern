@@ -1,7 +1,7 @@
-{
+﻿{
  "evidence": [
   {
-   "id": "evidence_001",
+   "id": "contraband",
    "name": "Контрабанда: «Погибель Дьявола», пеш, лист-живодёр, грязь",
    "type": "physical",
    "status": "confirmed",
@@ -70,7 +70,7 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_002"
+     "tavernkeeper_notebook"
     ]
    },
    "versions": {
@@ -111,7 +111,7 @@
    ]
   },
   {
-   "id": "evidence_002",
+   "id": "tavernkeeper_notebook",
    "name": "Записная книжка Трактирщика",
    "type": "document",
    "status": "confirmed",
@@ -178,7 +178,7 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_001"
+     "contraband"
     ]
    },
    "versions": {
@@ -218,7 +218,7 @@
    ]
   },
   {
-   "id": "evidence_003",
+   "id": "cult_items",
    "name": "Ритуальные предметы культа",
    "type": "physical",
    "status": "confirmed",
@@ -289,7 +289,7 @@
      "event_007"
     ],
     "other_evidence": [
-     "evidence_005"
+     "detective_drunk"
     ]
    },
    "versions": {
@@ -360,7 +360,7 @@
    ]
   },
   {
-   "id": "evidence_004",
+   "id": "artist_traces",
    "name": "Ложные следы Художника",
    "type": "physical",
    "status": "confirmed",
@@ -428,7 +428,7 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_012"
+     "artist_workshop"
     ]
    },
    "versions": {
@@ -441,7 +441,7 @@
     ]
    },
    "false_leads": [
-    "Улики на мансарде (мастерская, evidence_012) могут быть приняты за доказательства текущего убийства",
+    "Улики на мансарде (мастерская, artist_workshop) могут быть приняты за доказательства текущего убийства",
     "Художник выглядит как подозреваемый, но не имеет отношения к текущему убийству"
    ],
    "notes": [
@@ -470,7 +470,7 @@
    ]
   },
   {
-   "id": "evidence_005",
+   "id": "detective_drunk",
    "name": "Следы пьянства Детектива",
    "type": "behavior",
    "status": "confirmed",
@@ -532,7 +532,7 @@
     ],
     "events": [],
     "other_evidence": [
-     "evidence_006"
+     "sailor_false_clue"
     ]
    },
    "versions": {
@@ -578,7 +578,7 @@
    ]
   },
   {
-   "id": "evidence_006",
+   "id": "sailor_false_clue",
    "name": "Ложная улика на Моряка",
    "type": "physical",
    "status": "confirmed",
@@ -644,7 +644,7 @@
      "event_003"
     ],
     "other_evidence": [
-     "evidence_002"
+     "tavernkeeper_notebook"
     ]
    },
    "versions": {
@@ -691,7 +691,7 @@
    ]
   },
   {
-   "id": "evidence_007",
+   "id": "wife_portrait",
    "name": "Портрет жены Трактирщика",
    "type": "physical",
    "status": "confirmed",
@@ -803,7 +803,7 @@
    ]
   },
   {
-   "id": "evidence_008",
+   "id": "wife_ghost",
    "name": "Призрак Жены",
    "type": "behavior",
    "status": "confirmed",
@@ -913,7 +913,7 @@
    ]
   },
   {
-   "id": "evidence_009",
+   "id": "waitress_diary",
    "name": "Дневник Официантки",
    "type": "document",
    "status": "confirmed",
@@ -1021,7 +1021,7 @@
    ]
   },
   {
-   "id": "evidence_010",
+   "id": "flood_spell",
    "name": "Потоп как заклинание",
    "type": "environmental",
    "status": "confirmed",
@@ -1088,7 +1088,7 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_009"
+     "waitress_diary"
     ]
    },
    "versions": {
@@ -1128,7 +1128,7 @@
    ]
   },
   {
-   "id": "evidence_011",
+   "id": "reliquary_skull",
    "name": "Реликвия ордена (ковчег с мумифицированным черепом святого)",
    "type": "physical",
    "status": "confirmed",
@@ -1199,7 +1199,7 @@
      "event_006"
     ],
     "other_evidence": [
-     "evidence_003"
+     "cult_items"
     ]
    },
    "versions": {
@@ -1252,7 +1252,7 @@
    ]
   },
   {
-   "id": "evidence_012",
+   "id": "artist_workshop",
    "name": "Художественная мастерская Художника (картины-треш-расчленёнка) — прямо совпадают с отчётами о вскрытии",
    "type": "physical",
    "status": "confirmed",
@@ -1276,7 +1276,7 @@
     ]
    },
    "object": {
-    "description": "Художественная мастерская Художника на мансарде: холсты, краски, мольберт, миски с кровью. На картинах — мрачная треш-расчленёнка: то, что Художник видел в логовах культа, то, что случалось с жертвами на алтарях, то, как он расправлялся с культистами. Картины безумно качественные и эстетически прекрасные — редкое сочетание безумия и таланта. КЛЮЧ: картины ПРОСТО НАГЛО совпадают с отчётами о вскрытиях Доктора (evidence_076) — на них изображено ОДНО И ТО ЖЕ (одни и те же тела, калечащие повреждения, сцены расправ). Совпадение = прямое доказательство, что Художник ВИДЕЛ тела (был на местах убийств серии в городе).",
+    "description": "Художественная мастерская Художника на мансарде: холсты, краски, мольберт, миски с кровью. На картинах — мрачная треш-расчленёнка: то, что Художник видел в логовах культа, то, что случалось с жертвами на алтарях, то, как он расправлялся с культистами. Картины безумно качественные и эстетически прекрасные — редкое сочетание безумия и таланта. КЛЮЧ: картины ПРОСТО НАГЛО совпадают с отчётами о вскрытиях Доктора (autopsy_reports) — на них изображено ОДНО И ТО ЖЕ (одни и те же тела, калечащие повреждения, сцены расправ). Совпадение = прямое доказательство, что Художник ВИДЕЛ тела (был на местах убийств серии в городе).",
     "condition": "целая мастерская, картины в разных стадиях",
     "movable": true,
     "hidden": false
@@ -1285,7 +1285,7 @@
     "objectively_proves": [
      "Художник арендовал мансарду под видом 'вольного художника' (event_021)",
      "Художник действительно рисует (мастерская настоящая, не прикрытие)",
-     "КЛЮЧ (прямое доказательство): картины Художника и отчёты о вскрытиях (evidence_076) изображают ОДНО И ТО ЖЕ (одни и те же тела/расправы). Совпадение = Художник видел тела (был на местах убийств серии) → он маньяк серии в городе."
+     "КЛЮЧ (прямое доказательство): картины Художника и отчёты о вскрытиях (autopsy_reports) изображают ОДНО И ТО ЖЕ (одни и те же тела/расправы). Совпадение = Художник видел тела (был на местах убийств серии) → он маньяк серии в городе."
     ],
     "strongly_indicates": [
      "Художник видел логова культа и алтарные жертвы (значит, проникал в культистские места)",
@@ -1343,9 +1343,9 @@
      "event_024"
     ],
     "other_evidence": [
-     "evidence_004",
-     "evidence_011",
-     "evidence_076"
+     "artist_traces",
+     "reliquary_skull",
+     "autopsy_reports"
     ]
    },
    "versions": {
@@ -1364,7 +1364,7 @@
    ],
    "notes": [
     "Мастерская — ключ к ложной личности Художника (event_021); картины = охота на культистов.",
-    "КЛЮЧ (решение автора): картины Художника (evidence_012) ПРОСТО НАГЛО совпадают с отчётами о вскрытиях Доктора (evidence_076) — изображено одно и то же. Найдя отчёты и увидев картины, игроки получают ПРЯМОЕ доказательство, что Художник видел тела → он маньяк серии в городе. НЕ то же самое, что текущее убийство в таверне (принцип «не любое преступление = убийство»); опровергает «Художник невинен»."
+    "КЛЮЧ (решение автора): картины Художника (artist_workshop) ПРОСТО НАГЛО совпадают с отчётами о вскрытиях Доктора (autopsy_reports) — изображено одно и то же. Найдя отчёты и увидев картины, игроки получают ПРЯМОЕ доказательство, что Художник видел тела → он маньяк серии в городе. НЕ то же самое, что текущее убийство в таверне (принцип «не любое преступление = убийство»); опровергает «Художник невинен»."
    ],
    "role": "secondary",
    "branches": [
@@ -1389,7 +1389,7 @@
    ]
   },
   {
-   "id": "evidence_013",
+   "id": "doctor_dagger",
    "name": "Ритуальный кинжал Врача",
    "type": "ritual",
    "status": "confirmed",
@@ -1459,7 +1459,7 @@
      "event_007"
     ],
     "other_evidence": [
-     "evidence_003"
+     "cult_items"
     ]
    },
    "versions": {
@@ -1506,7 +1506,7 @@
    ]
   },
   {
-   "id": "evidence_014",
+   "id": "sailor_knife",
    "name": "Нож Моряка",
    "type": "physical",
    "status": "confirmed",
@@ -1575,7 +1575,7 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_002"
+     "tavernkeeper_notebook"
     ]
    },
    "versions": {
@@ -1615,7 +1615,7 @@
    ]
   },
   {
-   "id": "evidence_016",
+   "id": "tavernkeeper_diary",
    "name": "Кинжал Трактирщика",
    "type": "physical",
    "status": "confirmed",
@@ -1680,7 +1680,7 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_001"
+     "contraband"
     ]
    },
    "versions": {
@@ -1726,7 +1726,7 @@
    ]
   },
   {
-   "id": "evidence_017",
+   "id": "broken_bottle",
    "name": "Разбитая бутылка",
    "type": "physical",
    "status": "confirmed",
@@ -1788,7 +1788,7 @@
     ],
     "events": [],
     "other_evidence": [
-     "evidence_005"
+     "detective_drunk"
     ]
    },
    "versions": {
@@ -1822,7 +1822,7 @@
    ]
   },
   {
-   "id": "evidence_018",
+   "id": "threat_letter",
    "name": "Дневник Трактирщика",
    "type": "document",
    "status": "confirmed",
@@ -1890,8 +1890,8 @@
      "event_004"
     ],
     "other_evidence": [
-     "evidence_007",
-     "evidence_008"
+     "wife_portrait",
+     "wife_ghost"
     ]
    },
    "versions": {
@@ -1931,7 +1931,7 @@
    ]
   },
   {
-   "id": "evidence_019",
+   "id": "sailor_threat_letter",
    "name": "Письмо Моряка с угрозой",
    "type": "document",
    "status": "confirmed",
@@ -1999,8 +1999,8 @@
      "event_004"
     ],
     "other_evidence": [
-     "evidence_002",
-     "evidence_008"
+     "tavernkeeper_notebook",
+     "wife_ghost"
     ]
    },
    "versions": {
@@ -2012,7 +2012,7 @@
     ]
    },
    "false_leads": [
-    "Письмо может быть подделкой (см. evidence_041)"
+    "Письмо может быть подделкой (см. fake_letter)"
    ],
    "notes": [
     "Основная улика в ветке «Трактирщик убит Моряком»."
@@ -2040,7 +2040,7 @@
    ]
   },
   {
-   "id": "evidence_020",
+   "id": "contraband_crate",
    "name": "Счёт за контрабанду",
    "type": "document",
    "status": "confirmed",
@@ -2107,8 +2107,8 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_001",
-     "evidence_002"
+     "contraband",
+     "tavernkeeper_notebook"
     ]
    },
    "versions": {
@@ -2148,7 +2148,7 @@
    ]
   },
   {
-   "id": "evidence_021",
+    "id": "waitress_diary_secret",
    "name": "Дневник Официантки (часть 2)",
    "type": "document",
    "status": "confirmed",
@@ -2216,7 +2216,7 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_009"
+     "waitress_diary"
     ]
    },
    "versions": {
@@ -2250,7 +2250,7 @@
    ]
   },
   {
-   "id": "evidence_022",
+   "id": "doctor_note",
    "name": "Записка Врача",
    "type": "document",
    "status": "confirmed",
@@ -2316,7 +2316,7 @@
      "event_008"
     ],
     "other_evidence": [
-     "evidence_003"
+     "cult_items"
     ]
    },
    "versions": {
@@ -2362,7 +2362,7 @@
    ]
   },
   {
-   "id": "evidence_023",
+   "id": "doctor_journal",
    "name": "Медицинский журнал Врача",
    "type": "medical",
    "status": "confirmed",
@@ -2426,7 +2426,7 @@
      "event_010"
     ],
     "other_evidence": [
-     "evidence_003"
+     "cult_items"
     ]
    },
    "versions": {
@@ -2472,7 +2472,7 @@
    ]
   },
   {
-   "id": "evidence_024",
+   "id": "order_order",
    "name": "Приказ ордена",
    "type": "document",
    "status": "confirmed",
@@ -2538,8 +2538,8 @@
      "event_020"
     ],
     "other_evidence": [
-     "evidence_011",
-     "evidence_004"
+     "reliquary_skull",
+     "artist_traces"
     ]
    },
    "versions": {
@@ -2585,7 +2585,7 @@
    ]
   },
   {
-   "id": "evidence_025",
+   "id": "artist_sketches",
    "name": "Наброски Художника",
    "type": "document",
    "status": "confirmed",
@@ -2653,8 +2653,8 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_012",
-     "evidence_011"
+     "artist_workshop",
+     "reliquary_skull"
     ]
    },
    "versions": {
@@ -2694,7 +2694,7 @@
    ]
   },
   {
-   "id": "evidence_026",
+   "id": "tavernkeeper_alibi",
    "name": "Следы ритуала на теле",
    "type": "ritual",
    "status": "confirmed",
@@ -2761,8 +2761,8 @@
      "event_006"
     ],
     "other_evidence": [
-     "evidence_003",
-     "evidence_011"
+     "cult_items",
+     "reliquary_skull"
     ]
    },
    "versions": {
@@ -2802,7 +2802,7 @@
    ]
   },
   {
-   "id": "evidence_027",
+   "id": "blood_evidence",
    "name": "Аура заклинания",
    "type": "magical",
    "status": "confirmed",
@@ -2867,8 +2867,8 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_009",
-     "evidence_010"
+     "waitress_diary",
+     "flood_spell"
     ]
    },
    "versions": {
@@ -2902,7 +2902,7 @@
    ]
   },
   {
-   "id": "evidence_028",
+   "id": "waitress_focus",
    "name": "Заклинательный фокус Официантки",
    "type": "ritual",
    "status": "confirmed",
@@ -2968,8 +2968,8 @@
      "event_006"
     ],
     "other_evidence": [
-     "evidence_009",
-     "evidence_003"
+     "waitress_diary",
+     "cult_items"
     ]
    },
    "versions": {
@@ -3003,7 +3003,7 @@
    ]
   },
   {
-   "id": "evidence_029",
+   "id": "letter_to_tavern",
    "name": "Свеча из культа",
    "type": "ritual",
    "status": "confirmed",
@@ -3071,7 +3071,7 @@
      "event_007"
     ],
     "other_evidence": [
-     "evidence_003"
+     "cult_items"
     ]
    },
    "versions": {
@@ -3105,7 +3105,7 @@
    ]
   },
   {
-   "id": "evidence_030",
+   "id": "cult_symbol",
    "name": "Печать культа",
    "type": "ritual",
    "status": "confirmed",
@@ -3172,7 +3172,7 @@
      "event_006"
     ],
     "other_evidence": [
-     "evidence_003"
+     "cult_items"
     ]
    },
    "versions": {
@@ -3206,7 +3206,7 @@
    ]
   },
   {
-   "id": "evidence_031",
+   "id": "sailor_hiding",
    "name": "Тайник Моряка",
    "type": "physical",
    "status": "confirmed",
@@ -3272,7 +3272,7 @@
      "event_003"
     ],
     "other_evidence": [
-     "evidence_006"
+     "sailor_false_clue"
     ]
    },
    "versions": {
@@ -3306,7 +3306,7 @@
    ]
   },
   {
-   "id": "evidence_032",
+   "id": "tavernkeeper_hiding",
    "name": "Тайник Трактирщика",
    "type": "physical",
    "status": "confirmed",
@@ -3371,7 +3371,7 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_001"
+     "contraband"
     ]
    },
    "versions": {
@@ -3405,7 +3405,7 @@
    ]
   },
   {
-   "id": "evidence_033",
+   "id": "doctor_hiding",
    "name": "Тайник Врача",
    "type": "physical",
    "status": "confirmed",
@@ -3470,8 +3470,8 @@
      "event_007"
     ],
     "other_evidence": [
-     "evidence_013",
-     "evidence_003"
+     "doctor_dagger",
+     "cult_items"
     ]
    },
    "versions": {
@@ -3517,7 +3517,7 @@
    ]
   },
   {
-   "id": "evidence_034",
+   "id": "artist_hiding",
    "name": "Тайник Художника",
    "type": "physical",
    "status": "confirmed",
@@ -3582,8 +3582,8 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_012",
-     "evidence_004"
+     "artist_workshop",
+     "artist_traces"
     ]
    },
    "versions": {
@@ -3617,7 +3617,7 @@
    ]
   },
   {
-   "id": "evidence_035",
+   "id": "waitress_hiding",
    "name": "Тайник Официантки",
    "type": "physical",
    "status": "confirmed",
@@ -3683,8 +3683,8 @@
      "event_017"
     ],
     "other_evidence": [
-     "evidence_009",
-     "evidence_003"
+     "waitress_diary",
+     "cult_items"
     ]
    },
    "versions": {
@@ -3718,7 +3718,7 @@
    ]
   },
   {
-   "id": "evidence_036",
+   "id": "ghost_testimony",
    "name": "Показания призрака",
    "type": "testimony",
    "status": "confirmed",
@@ -3789,7 +3789,7 @@
      "event_004"
     ],
     "other_evidence": [
-     "evidence_008"
+     "wife_ghost"
     ]
    },
    "versions": {
@@ -3829,7 +3829,7 @@
    ]
   },
   {
-   "id": "evidence_037",
+   "id": "footprints",
    "name": "Шёпот в подвале",
    "type": "audio",
    "status": "confirmed",
@@ -3898,7 +3898,7 @@
      "event_007"
     ],
     "other_evidence": [
-     "evidence_003"
+     "cult_items"
     ]
    },
    "versions": {
@@ -3932,7 +3932,7 @@
    ]
   },
   {
-   "id": "evidence_038",
+   "id": "cord_to_cult_lair",
    "name": "Следы на чердачной лестнице",
    "type": "forensic",
    "status": "confirmed",
@@ -3997,7 +3997,7 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_004"
+     "artist_traces"
     ]
    },
    "versions": {
@@ -4031,7 +4031,7 @@
    ]
   },
   {
-   "id": "evidence_039",
+   "id": "blood_traces",
    "name": "Мокрые следы",
    "type": "forensic",
    "status": "confirmed",
@@ -4092,7 +4092,7 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_010"
+     "flood_spell"
     ]
    },
    "versions": {
@@ -4126,7 +4126,7 @@
    ]
   },
   {
-   "id": "evidence_040",
+   "id": "poison_evidence",
    "name": "Запах благовоний",
    "type": "environmental",
    "status": "confirmed",
@@ -4194,7 +4194,7 @@
      "event_006"
     ],
     "other_evidence": [
-     "evidence_003"
+     "cult_items"
     ]
    },
    "versions": {
@@ -4228,7 +4228,7 @@
    ]
   },
   {
-   "id": "evidence_041",
+   "id": "fake_letter",
    "name": "Поддельное письмо",
    "type": "document",
    "status": "confirmed",
@@ -4289,7 +4289,7 @@
     ],
     "events": [],
     "other_evidence": [
-     "evidence_006"
+     "sailor_false_clue"
     ]
    },
    "versions": {
@@ -4323,7 +4323,7 @@
    ]
   },
   {
-   "id": "evidence_042",
+   "id": "ink_on_fingers",
    "name": "Чужая кровь на одежде",
    "type": "forensic",
    "status": "confirmed",
@@ -4389,8 +4389,8 @@
      "event_004"
     ],
     "other_evidence": [
-     "evidence_006",
-     "evidence_014"
+     "sailor_false_clue",
+     "sailor_knife"
     ]
    },
    "versions": {
@@ -4430,7 +4430,7 @@
    ]
   },
   {
-   "id": "evidence_043",
+   "id": "torn_letter",
    "name": "Сломанный нож",
    "type": "physical",
    "status": "confirmed",
@@ -4488,7 +4488,7 @@
     ],
     "events": [],
     "other_evidence": [
-     "evidence_014"
+     "sailor_knife"
     ]
    },
    "versions": {
@@ -4522,7 +4522,7 @@
    ]
   },
   {
-   "id": "evidence_044",
+   "id": "potion_poison",
    "name": "Флакон яда",
    "type": "toxicological",
    "status": "confirmed",
@@ -4585,7 +4585,7 @@
     ],
     "events": [],
     "other_evidence": [
-     "evidence_001"
+     "contraband"
     ]
    },
    "versions": {
@@ -4625,7 +4625,7 @@
    ]
   },
   {
-   "id": "evidence_045",
+   "id": "cult_mask",
    "name": "Маска культа",
    "type": "ritual",
    "status": "confirmed",
@@ -4689,8 +4689,8 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_004",
-     "evidence_003"
+     "artist_traces",
+     "cult_items"
     ]
    },
    "versions": {
@@ -4724,7 +4724,7 @@
    ]
   },
   {
-   "id": "evidence_046",
+   "id": "blood_splatter",
    "name": "Семейное древо",
    "type": "document",
    "status": "confirmed",
@@ -4792,7 +4792,7 @@
      "event_013"
     ],
     "other_evidence": [
-     "evidence_007"
+     "wife_portrait"
     ]
    },
    "versions": {
@@ -4832,7 +4832,7 @@
    ]
   },
   {
-   "id": "evidence_047",
+   "id": "nautical_chart",
    "name": "Морская карта",
    "type": "document",
    "status": "confirmed",
@@ -4900,7 +4900,7 @@
      "event_002"
     ],
     "other_evidence": [
-     "evidence_006"
+     "sailor_false_clue"
     ]
    },
    "versions": {
@@ -4934,7 +4934,7 @@
    ]
   },
   {
-   "id": "evidence_048",
+   "id": "debt_note",
    "name": "Долговая расписка",
    "type": "document",
    "status": "confirmed",
@@ -5001,7 +5001,7 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_002"
+     "tavernkeeper_notebook"
     ]
    },
    "versions": {
@@ -5035,7 +5035,7 @@
    ]
   },
   {
-   "id": "evidence_049",
+   "id": "order_letter",
    "name": "Письмо из ордена",
    "type": "document",
    "status": "confirmed",
@@ -5101,8 +5101,8 @@
      "event_020"
     ],
     "other_evidence": [
-     "evidence_024",
-     "evidence_011"
+     "order_order",
+     "reliquary_skull"
     ]
    },
    "versions": {
@@ -5142,7 +5142,7 @@
    ]
   },
   {
-   "id": "evidence_050",
+   "id": "wife_will",
    "name": "Завещание dead_wife",
    "type": "document",
    "status": "confirmed",
@@ -5211,8 +5211,8 @@
      "event_006"
     ],
     "other_evidence": [
-     "evidence_008",
-     "evidence_011"
+     "wife_ghost",
+     "reliquary_skull"
     ]
    },
    "versions": {
@@ -5246,7 +5246,7 @@
    ]
   },
   {
-   "id": "evidence_051",
+   "id": "hell_knight_insignia",
    "name": "Золотой диск с глазом осьминога (символ культа Дагона)",
    "type": "ritual",
    "status": "confirmed",
@@ -5317,8 +5317,8 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_003",
-     "evidence_030"
+     "cult_items",
+     "cult_symbol"
     ]
    },
    "versions": {
@@ -5354,7 +5354,7 @@
    ]
   },
   {
-   "id": "evidence_052",
+   "id": "hell_knight_crest",
    "name": "Старинный ритуальный трезубец (оружие Дагона)",
    "type": "physical",
    "status": "confirmed",
@@ -5425,8 +5425,8 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_013",
-     "evidence_051"
+     "doctor_dagger",
+     "hell_knight_insignia"
     ]
    },
    "versions": {
@@ -5456,7 +5456,7 @@
    ]
   },
   {
-   "id": "evidence_053",
+   "id": "cult_covenant",
    "name": "Морские атрибуты (водоросли, ракушки, чешуя)",
    "type": "ritual",
    "status": "confirmed",
@@ -5525,8 +5525,8 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_051",
-     "evidence_052"
+     "hell_knight_insignia",
+     "hell_knight_crest"
     ]
    },
    "versions": {
@@ -5555,7 +5555,7 @@
    ]
   },
   {
-   "id": "evidence_054",
+   "id": "sacrificial_altar",
    "name": "Статуэтки/амулеты (осьминог, кальмар, глубоководная рыба)",
    "type": "ritual",
    "status": "confirmed",
@@ -5625,8 +5625,8 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_051",
-     "evidence_053"
+     "hell_knight_insignia",
+     "cult_covenant"
     ]
    },
    "versions": {
@@ -5655,7 +5655,7 @@
    ]
   },
   {
-   "id": "evidence_055",
+   "id": "dagon_prayer",
    "name": "Молитва культа Дагона (шёпот, «Иа! Иа!», «Ф'нглуи»)",
    "type": "audio",
    "status": "confirmed",
@@ -5728,7 +5728,7 @@
      "event_007"
     ],
     "other_evidence": [
-     "evidence_009"
+     "waitress_diary"
     ]
    },
    "versions": {
@@ -5763,7 +5763,7 @@
    ]
   },
   {
-   "id": "evidence_056",
+   "id": "cult_speech",
    "name": "Речевые особенности культистов Дагона (водная одержимость)",
    "type": "behavior",
    "status": "confirmed",
@@ -5834,7 +5834,7 @@
      "event_016"
     ],
     "other_evidence": [
-     "evidence_055"
+     "dagon_prayer"
     ]
    },
    "versions": {
@@ -5863,7 +5863,7 @@
    ]
   },
   {
-   "id": "evidence_057",
+   "id": "rainbow_bird",
    "name": "Изображение радужной певчей птицы (символ Шелин)",
    "type": "physical",
    "status": "confirmed",
@@ -5929,8 +5929,8 @@
      "event_018"
     ],
     "other_evidence": [
-     "evidence_012",
-     "evidence_025"
+     "artist_workshop",
+     "artist_sketches"
     ]
    },
    "versions": {
@@ -5966,7 +5966,7 @@
    ]
   },
   {
-   "id": "evidence_058",
+   "id": "shield_soul_whisper",
    "name": "Глефа «Шёпот Душ» (оружие Шелин)",
    "type": "physical",
    "status": "confirmed",
@@ -6032,7 +6032,7 @@
      "event_018"
     ],
     "other_evidence": [
-     "evidence_057"
+     "rainbow_bird"
     ]
    },
    "versions": {
@@ -6062,7 +6062,7 @@
    ]
   },
   {
-   "id": "evidence_059",
+   "id": "crystals",
    "name": "Кристаллы, стёкла, музыкальные инструменты (атрибуты Шелин)",
    "type": "physical",
    "status": "confirmed",
@@ -6130,8 +6130,8 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_057",
-     "evidence_058"
+     "rainbow_bird",
+     "shield_soul_whisper"
     ]
    },
    "versions": {
@@ -6160,7 +6160,7 @@
    ]
   },
   {
-   "id": "evidence_060",
+   "id": "selyn_prayer",
    "name": "Молитва/речь Шелин (поэзия, рифмы)",
    "type": "audio",
    "status": "confirmed",
@@ -6229,7 +6229,7 @@
      "event_018"
     ],
     "other_evidence": [
-     "evidence_057"
+     "rainbow_bird"
     ]
    },
    "versions": {
@@ -6258,7 +6258,7 @@
    ]
   },
   {
-   "id": "evidence_061",
+   "id": "mendev_banner",
    "name": "Знамя/брошь Мендева (белое с золотом, герб/меч/щит/солнце)",
    "type": "physical",
    "status": "confirmed",
@@ -6324,8 +6324,8 @@
      "event_018"
     ],
     "other_evidence": [
-     "evidence_057",
-     "evidence_062"
+     "rainbow_bird",
+     "yomudai_symbol"
     ]
    },
    "versions": {
@@ -6354,7 +6354,7 @@
    ]
   },
   {
-   "id": "evidence_062",
+   "id": "yomudai_symbol",
    "name": "Серебряный святой символ Иомедай (меч и солнце)",
    "type": "physical",
    "status": "confirmed",
@@ -6421,7 +6421,7 @@
      "event_018"
     ],
     "other_evidence": [
-     "evidence_061"
+     "mendev_banner"
     ]
    },
    "versions": {
@@ -6451,7 +6451,7 @@
    ]
   },
   {
-   "id": "evidence_063",
+   "id": "worldwound_map",
    "name": "Гравировка «Выдержка побеждает всё» / карта Мировой Язвы",
    "type": "physical",
    "status": "confirmed",
@@ -6517,8 +6517,8 @@
      "event_018"
     ],
     "other_evidence": [
-     "evidence_061",
-     "evidence_062"
+     "mendev_banner",
+     "yomudai_symbol"
     ]
    },
    "versions": {
@@ -6547,7 +6547,7 @@
    ]
   },
   {
-   "id": "evidence_064",
+   "id": "mendev_speech",
    "name": "Речевые особенности Художника (военный жаргон Мендева)",
    "type": "behavior",
    "status": "confirmed",
@@ -6616,7 +6616,7 @@
      "event_018"
     ],
     "other_evidence": [
-     "evidence_061"
+     "mendev_banner"
     ]
    },
    "versions": {
@@ -6645,7 +6645,7 @@
    ]
   },
   {
-   "id": "evidence_065",
+   "id": "hell_knight_covenant",
    "name": "Открытый глаз осьминога на обороте могильного камня Жены (символ Дагона)",
    "type": "physical",
    "status": "confirmed",
@@ -6683,7 +6683,7 @@
     "strongly_indicates": [
      "Культисты Дагона знали/заботились о жене Трактирщика",
      "Трактирщик (tavern_keeper) мог знать о культе (он рядом с могилой)",
-     "Связь с Официанткой (waitress) — жрецы/культисты Дагона (ракушки-серьги, evidence_007)"
+     "Связь с Официанткой (waitress) — жрецы/культисты Дагона (ракушки-серьги, wife_portrait)"
     ],
     "does_not_prove": [
      "Жена совершила текущее убийство",
@@ -6718,10 +6718,10 @@
      "event_019"
     ],
     "other_evidence": [
-     "evidence_007",
-     "evidence_050",
-     "evidence_051",
-     "evidence_055"
+     "wife_portrait",
+     "wife_will",
+     "hell_knight_insignia",
+     "dagon_prayer"
     ]
    },
    "versions": {
@@ -6739,7 +6739,7 @@
    ],
    "notes": [
     "Символ Дагона на могиле — ключ к связи dead_wife/tavern_keeper с культом (demon/Chaos, запретная ересь); усиливает ветки с Официанткой (waitress) и культистами.",
-    "Связь с evidence_007 (портрет Жены с ракушками-серьгами и кулоном-трезубцом) и evidence_051 (золотой диск с глазом осьминога)."
+    "Связь с wife_portrait (портрет Жены с ракушками-серьгами и кулоном-трезубцом) и hell_knight_insignia (золотой диск с глазом осьминога)."
    ],
    "role": "secondary",
    "branches": [
@@ -6764,7 +6764,7 @@
    ]
   },
   {
-   "id": "evidence_066",
+   "id": "artist_diary",
    "name": "Дневник Художника (обложка с символом ордена: меч остриём вниз, соловей, восходящее Солнце)",
    "type": "document",
    "status": "confirmed",
@@ -6787,7 +6787,7 @@
     ]
    },
    "object": {
-    "description": "Личный дневник Художника (artist), хранится в мансарде. На обложке — вытесанный/выжженный символ его ордена (паладинский орден Шелин): меч, направленный остриём вниз, на рукояти которого сидит соловей (bird of dawn), а всё это на фоне восходящего Солнца (rising sun). Символ ордена Шелин (Shelyn, богиня красоты, вдохновения, поэзии) — тот же, что в evidence_058 (глефа «Шёпот Душ») и evidence_057 (радужная певчая птица). В дневнике — записи о миссии из Мендева, о провале (реликвия украдена из храма), о поединке с Хелл-кайтами; в перерывах — зарисовки и стихи (кодекс Шелин).",
+    "description": "Личный дневник Художника (artist), хранится в мансарде. На обложке — вытесанный/выжженный символ его ордена (паладинский орден Шелин): меч, направленный остриём вниз, на рукояти которого сидит соловей (bird of dawn), а всё это на фоне восходящего Солнца (rising sun). Символ ордена Шелин (Shelyn, богиня красоты, вдохновения, поэзии) — тот же, что в shield_soul_whisper (глефа «Шёпот Душ») и rainbow_bird (радужная певчая птица). В дневнике — записи о миссии из Мендева, о провале (реликвия украдена из храма), о поединке с Хелл-кайтами; в перерывах — зарисовки и стихи (кодекс Шелин).",
     "condition": "целый, обложка с символом ордена, записи внутри",
     "movable": true,
     "hidden": false
@@ -6801,7 +6801,7 @@
     "strongly_indicates": [
      "Художник — бывший рыцарь-квестор Шелин из Мендева (истинная версия, не 'вольный художник')",
      "Художник пережил падение — от красоты/искусства к безумию и уродству",
-     "Символ на обложке = символ глефы (evidence_058) и радужной птицы (evidence_057) — один орден",
+     "Символ на обложке = символ глефы (shield_soul_whisper) и радужной птицы (rainbow_bird) — один орден",
      "Художник не просто серийный убийца, а падший рыцарь с личной травмой"
     ],
     "does_not_prove": [
@@ -6835,11 +6835,11 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_057",
-     "evidence_058",
-     "evidence_059",
-     "evidence_061",
-     "evidence_064"
+     "rainbow_bird",
+     "shield_soul_whisper",
+     "crystals",
+     "mendev_banner",
+     "mendev_speech"
     ]
    },
    "versions": {
@@ -6856,7 +6856,7 @@
     "Дневник может выглядеть как художественные заметки, хотя это дневник падшего рыцаря Шелин (символ ордена на обложке)"
    ],
    "notes": [
-    "Символ на обложке (меч остриём вниз + соловей + восходящее Солнце) = символ ордена Шелин; связывает evidence_057/058/059/061/064. Личная трагедия Художника (провал, реликвия украдена из родного храма в Мендеве).",
+    "Символ на обложке (меч остриём вниз + соловей + восходящее Солнце) = символ ордена Шелин; связывает rainbow_bird/058/059/061/064. Личная трагедия Художника (провал, реликвия украдена из родного храма в Мендеве).",
     "Отличает Художника от 'вольного художника' (event_021): он — бывший рыцарь-квестор Шелин из Мендева."
    ],
    "role": "primary",
@@ -6888,7 +6888,7 @@
    ]
   },
   {
-   "id": "evidence_067",
+   "id": "devil_bane",
    "name": "«Погибель Дьявола» (Devil's Bane) — мазь на оружие против дьяволов",
    "type": "physical",
    "status": "confirmed",
@@ -6958,9 +6958,9 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_001",
-     "evidence_020",
-     "evidence_068"
+     "contraband",
+     "contraband_crate",
+     "pesh"
     ]
    },
    "versions": {
@@ -6977,7 +6977,7 @@
    ],
    "notes": [
     "«Погибель Дьявола» — запрещённый в Челии товар, инструмент культа Дагона (мазь против Law/devils); покупка через Dusk Market. Контрабанда НЕ связана с текущим убийством.",
-    "Связь с organizations/smugglers.json (contraband) и evidence_001 (контейнеры)."
+    "Связь с organizations/smugglers.json (contraband) и contraband (контейнеры)."
    ],
    "role": "false",
    "branches": [
@@ -6996,7 +6996,7 @@
    ]
   },
   {
-   "id": "evidence_068",
+   "id": "pesh",
    "name": "Пеш (Pesh) — наркотик из кактуса Катапеша",
    "type": "physical",
    "status": "confirmed",
@@ -7063,8 +7063,8 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_001",
-     "evidence_067"
+     "contraband",
+     "devil_bane"
     ]
    },
    "versions": {
@@ -7099,7 +7099,7 @@
    ]
   },
   {
-   "id": "evidence_069",
+   "id": "flayleaf",
    "name": "Лист-живодёр (Flayleaf) — седатив/внушение",
    "type": "physical",
    "status": "confirmed",
@@ -7166,8 +7166,8 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_001",
-     "evidence_067"
+     "contraband",
+     "devil_bane"
     ]
    },
    "versions": {
@@ -7202,7 +7202,7 @@
    ]
   },
   {
-   "id": "evidence_070",
+   "id": "grit",
    "name": "Грязь (Grit) — берсерк/ярость",
    "type": "physical",
    "status": "confirmed",
@@ -7270,8 +7270,8 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_001",
-     "evidence_067"
+     "contraband",
+     "devil_bane"
     ]
    },
    "versions": {
@@ -7306,7 +7306,7 @@
    ]
   },
   {
-   "id": "evidence_071",
+   "id": "tears_razmir",
    "name": "Слёзы Размира (Tears of Razmir) — топливо безумия Художника",
    "type": "physical",
    "status": "confirmed",
@@ -7372,11 +7372,11 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_012",
-     "evidence_058",
-     "evidence_066",
-     "evidence_072",
-     "evidence_073"
+     "artist_workshop",
+     "shield_soul_whisper",
+     "artist_diary",
+     "aether",
+     "belladonna"
     ]
    },
    "versions": {
@@ -7392,7 +7392,7 @@
     "Наркотик может выглядеть как признак безумия-убийцы, хотя это топливо его безумия/падения (не текущего убийства)"
    ],
    "notes": [
-    "Слёзы Размира — топливо безумия/падения Художника (separate от контрабанды Моряка/Трактирщика). Связь с organizations/smugglers.json (note) и evidence_066 (дневник), evidence_058 (глефа)."
+    "Слёзы Размира — топливо безумия/падения Художника (separate от контрабанды Моряка/Трактирщика). Связь с organizations/smugglers.json (note) и artist_diary (дневник), shield_soul_whisper (глефа)."
    ],
    "role": "secondary",
    "branches": [
@@ -7411,7 +7411,7 @@
    ]
   },
   {
-   "id": "evidence_072",
+   "id": "aether",
    "name": "Эфир (Aether) — усиление божественных способностей Художника",
    "type": "physical",
    "status": "confirmed",
@@ -7477,10 +7477,10 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_071",
-     "evidence_073",
-     "evidence_058",
-     "evidence_066"
+     "tears_razmir",
+     "belladonna",
+     "shield_soul_whisper",
+     "artist_diary"
     ]
    },
    "versions": {
@@ -7515,7 +7515,7 @@
    ]
   },
   {
-   "id": "evidence_073",
+   "id": "belladonna",
    "name": "Белладонна (Belladonna) — религиозное самоистязание Художника",
    "type": "physical",
    "status": "confirmed",
@@ -7581,10 +7581,10 @@
      "event_021"
     ],
     "other_evidence": [
-     "evidence_071",
-     "evidence_072",
-     "evidence_012",
-     "evidence_066"
+     "tears_razmir",
+     "aether",
+     "artist_workshop",
+     "artist_diary"
     ]
    },
    "versions": {
@@ -7619,7 +7619,7 @@
    ]
   },
   {
-   "id": "evidence_074",
+   "id": "flayleaf_residue",
    "name": "Лист-живодёр (Flayleaf) в мансарде Художника (не сильно спрятан)",
    "type": "physical",
    "status": "confirmed",
@@ -7690,11 +7690,11 @@
      "event_005"
     ],
     "other_evidence": [
-     "evidence_066",
-     "evidence_071",
-     "evidence_072",
-     "evidence_073",
-     "evidence_069"
+     "artist_diary",
+     "tears_razmir",
+     "aether",
+     "belladonna",
+     "flayleaf"
     ]
    },
    "versions": {
@@ -7711,7 +7711,7 @@
     "Лист-живодёр может выглядеть как признак безумия-убийцы, хотя это топливо его безумия/причина прихода (не текущего убийства)"
    ],
    "notes": [
-    "Лист-живодёр в мансарде Художника (не сильно спрятан) — топливо его безумия/падения и единственная причина прихода (event_021, пересмотр). Та же контрабанда, что и evidence_069 (smuggler_storage). Связь с organizations/smugglers.json (contraband)."
+    "Лист-живодёр в мансарде Художника (не сильно спрятан) — топливо его безумия/падения и единственная причина прихода (event_021, пересмотр). Та же контрабанда, что и flayleaf (smuggler_storage). Связь с organizations/smugglers.json (contraband)."
    ],
    "role": "secondary",
    "branches": [
@@ -7730,7 +7730,7 @@
    ]
   },
   {
-   "id": "evidence_075",
+   "id": "devil_bane_residue",
    "name": "«Погибель Дьявола» (Devil's Bane) в сундуках рядом с глефой (мансарда)",
    "type": "physical",
    "status": "confirmed",
@@ -7742,7 +7742,7 @@
     ],
     "discovery_conditions": [
      "игрок обыскивает мансарду (mansard)",
-     "игрок осматривает сундуки рядом с пыльной глефой (evidence_058)"
+     "игрок осматривает сундуки рядом с пыльной глефой (shield_soul_whisper)"
     ],
     "discovery_method": "обыск сундуков в мансарде"
    },
@@ -7753,8 +7753,8 @@
     ]
    },
    "object": {
-    "description": "Склянки с мазью «Погибель Дьявола» (Devil's Bane) в сундуках рядом с пыльной глефой (evidence_058) в мансарде Художника. «Погибель Дьявола» — прямое запрещённое растение в Челии; готовят как ма́зь (unguent) и наносят на оружие, чтобы преодолеть сопротивление дьяволов (damage reduction против Law/devils). 100 gp/доза; Craft (Alchemy) DC 20, ¼ фунта растения; покупка через Сумеречный Рынок (Dusk Market), Весткрон. Для культа Дагона: демонопоклонники, тайно действующие в Челии (где власть у Асмодея, Law), используют его против прислужников Асмодея. Художник (бывший паладин Шелин) хранит «Погибель Дьявола» в сундуках рядом с глефой (оружие Шелин) — как инструмент для охоты на культистов/прислужников Асмодея.",
-    "condition": "в сундуках рядом с глефой (evidence_058)",
+    "description": "Склянки с мазью «Погибель Дьявола» (Devil's Bane) в сундуках рядом с пыльной глефой (shield_soul_whisper) в мансарде Художника. «Погибель Дьявола» — прямое запрещённое растение в Челии; готовят как ма́зь (unguent) и наносят на оружие, чтобы преодолеть сопротивление дьяволов (damage reduction против Law/devils). 100 gp/доза; Craft (Alchemy) DC 20, ¼ фунта растения; покупка через Сумеречный Рынок (Dusk Market), Весткрон. Для культа Дагона: демонопоклонники, тайно действующие в Челии (где власть у Асмодея, Law), используют его против прислужников Асмодея. Художник (бывший паладин Шелин) хранит «Погибель Дьявола» в сундуках рядом с глефой (оружие Шелин) — как инструмент для охоты на культистов/прислужников Асмодея.",
+    "condition": "в сундуках рядом с глефой (shield_soul_whisper)",
     "movable": true,
     "hidden": true
    },
@@ -7765,7 +7765,7 @@
     "strongly_indicates": [
      "«Погибель Дьявола» — запрещённый в Челии товар, инструмент для борьбы с дьяволами/Law",
      "Художник (бывший паладин) готовил оружие против прислужников Асмодея",
-     "Связь Художника с контрабандой (тот же Devil's Bane, что и в smuggler_storage, evidence_067)"
+     "Связь Художника с контрабандой (тот же Devil's Bane, что и в smuggler_storage, devil_bane)"
     ],
     "does_not_prove": [
      "Художник совершил текущее убийство"
@@ -7797,10 +7797,10 @@
      "event_018"
     ],
     "other_evidence": [
-     "evidence_058",
-     "evidence_066",
-     "evidence_074",
-     "evidence_067"
+     "shield_soul_whisper",
+     "artist_diary",
+     "flayleaf_residue",
+     "devil_bane"
     ]
    },
    "versions": {
@@ -7817,7 +7817,7 @@
     "«Погибель Дьявола» (мазь на оружие) может выглядеть как орудие убийства, хотя это инструмент для охоты на прислужников Асмодея (не текущего убийства)"
    ],
    "notes": [
-    "«Погибель Дьявола» в сундуках рядом с глефой (evidence_058) в мансарде Художника. Тот же Devil's Bane, что и в smuggler_storage (evidence_067). Связь с organizations/smugglers.json (contraband)."
+    "«Погибель Дьявола» в сундуках рядом с глефой (shield_soul_whisper) в мансарде Художника. Тот же Devil's Bane, что и в smuggler_storage (devil_bane). Связь с organizations/smugglers.json (contraband)."
    ],
    "role": "secondary",
    "branches": [
@@ -7836,7 +7836,7 @@
    ]
   },
   {
-   "id": "evidence_076",
+   "id": "autopsy_reports",
    "name": "Отчёты о вскрытии (записи Доктора о вскрытиях жертв маньяка) — прямо совпадают с картинами Художника",
    "type": "document",
    "status": "confirmed",
@@ -7860,7 +7860,7 @@
     ]
    },
    "object": {
-    "description": "В комнате Доктора (doctor_room) — пачка отчётов о вскрытиях (autopsy reports) по жертвам маньяка: описания ран, калечащих/расчленительных повреждений, времени и места смерти. Отчёты забрал Доктор из Морга (morgue, event_024: ассистент Доктора сообщил, что Доктор уберёт их поработать дома) и теперь работает с ними в таверне. КЛЮЧ: отчёты ПРОСТО НАГЛО совпадают с картинами Художника (evidence_012) — на них изображено ОДНО И ТОЖЕ (одни и те же тела, одни и те же калечащие повреждения, одни и те же сцены расправы). Если игроки наведут отчёты и увидят картины — это ПРЯМОЕ доказательство, что Художник ВИДЕЛ тела (был на местах убийств = он маньяк/серийный убийца серии в городе).",
+    "description": "В комнате Доктора (doctor_room) — пачка отчётов о вскрытиях (autopsy reports) по жертвам маньяка: описания ран, калечащих/расчленительных повреждений, времени и места смерти. Отчёты забрал Доктор из Морга (morgue, event_024: ассистент Доктора сообщил, что Доктор уберёт их поработать дома) и теперь работает с ними в таверне. КЛЮЧ: отчёты ПРОСТО НАГЛО совпадают с картинами Художника (artist_workshop) — на них изображено ОДНО И ТОЖЕ (одни и те же тела, одни и те же калечащие повреждения, одни и те же сцены расправы). Если игроки наведут отчёты и увидят картины — это ПРЯМОЕ доказательство, что Художник ВИДЕЛ тела (был на местах убийств = он маньяк/серийный убийца серии в городе).",
     "condition": "на столе / в папке, слегка разложены",
     "movable": true,
     "hidden": false
@@ -7870,7 +7870,7 @@
      "Доктор забрал отчёты о вскрытиях из Морга и работает с ними в таверне (его присутствие в таверне объяснимо — это рабочая задача, не подозрение)",
      "Серия жестоких убийств в городе реальна (отчёты о вскрытиях жертв маньяка)",
      "Отчёты — основа расследования, за которым едет Детектив (прибытие в таверну, event_024→event_029)",
-     "КЛЮЧ (прямое доказательство): отчёты о вскрытиях и картины Художника (evidence_012) изображают ОДНО И ТО ЖЕ — одни и те же тела, калечащие повреждения, сцены расправы. Совпадение = Художник был на местах убийств (видел тела) → он маньяк серии в городе (НЕ обязательно текущее убийство в таверне, но прямое доказательство его вины в серии)."
+     "КЛЮЧ (прямое доказательство): отчёты о вскрытиях и картины Художника (artist_workshop) изображают ОДНО И ТО ЖЕ — одни и те же тела, калечащие повреждения, сцены расправы. Совпадение = Художник был на местах убийств (видел тела) → он маньяк серии в городе (НЕ обязательно текущее убийство в таверне, но прямое доказательство его вины в серии)."
     ],
     "strongly_indicates": [
      "Доктор — человек, работающий с телами (связь с вскрытиями, но НЕ убийца по умолчанию)",
@@ -7935,8 +7935,8 @@
      "event_023"
     ],
     "other_evidence": [
-     "evidence_012",
-     "evidence_025"
+     "artist_workshop",
+     "artist_sketches"
     ]
    },
    "versions": {
@@ -7958,7 +7958,7 @@
     "Улика/артефакт, добавленный по решению автора: связывает mechanic прибытия Детектива (task→morgue→doctor_assistant→rain→rent room) с его присутствием в таверне.",
     "Отчёты о вскрытиях — НЕ дед-улика текущего убийства (принцип «убийство ≠ потоп», «не любое преступление = убийство»): это отдельная серия маньяка в городе.",
     "Связь с event_024 (doctor_assistant сообщает, что Доктор забрал отчёты) и event_029 (Детектив арендует комнату, чтобы переждать дождь).",
-    "КЛЮЧ (решение автора): отчёты о вскрытиях (evidence_076) ПРОСТО НАГЛО совпадают с картинами Художника (evidence_012) — изображено одно и то же (одни и те же тела/расправы). Найдя отчёты и увидев картины, игроки получают ПРЯМОЕ доказательство, что Художник видел тела → он маньяк серии в городе. Это НЕ то же самое, что текущее убийство в таверне (принцип «не любое преступление = убийство»), но опровергает «Художник невинен»."
+    "КЛЮЧ (решение автора): отчёты о вскрытиях (autopsy_reports) ПРОСТО НАГЛО совпадают с картинами Художника (artist_workshop) — изображено одно и то же (одни и те же тела/расправы). Найдя отчёты и увидев картины, игроки получают ПРЯМОЕ доказательство, что Художник видел тела → он маньяк серии в городе. Это НЕ то же самое, что текущее убийство в таверне (принцип «не любое преступление = убийство»), но опровергает «Художник невинен»."
    ],
    "role": "secondary",
    "branches": [

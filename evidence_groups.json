@@ -1,0 +1,507 @@
+{
+  "_meta": {
+    "description": "Группировка улик: 6 компроматов + 22 сценария убийства + 14 алиби/accident + ложные следы.",
+    "source": ["evidence.json", "kill_grid.json"],
+    "characters": ["sailor", "tavern_keeper", "waitress", "doctor", "artist", "detective"],
+    "character_names": {
+      "sailor": "Моряк",
+      "tavern_keeper": "Трактирщик",
+      "waitress": "Официантка",
+      "doctor": "Врач",
+      "artist": "Художник",
+      "detective": "Детектив"
+    },
+    "layers": {
+      "compromats": "6 групп — личный компромат на персонажа (не равен текущему убийству)",
+      "scenarios": "22 группы — сценарии убийства (proof + possible_scenario + 1 accident)",
+      "alibis": "8 групп — невозможные комбинации (нет мотива / родня / любовники)",
+      "accidents": "6 групп — диагональ (сам с собой: несчастный случай / самоубийство / болезнь)",
+      "false_leads": "8 групп — ложные следы, сгруппированные по персонажу-обманке"
+    }
+  },
+
+  "compromats": [
+    {
+      "id": "C1",
+      "character": "sailor",
+      "name": "Компромат: Моряк",
+      "primary": ["sailor_hiding"],
+      "secondary": ["sailor_knife", "ink_on_fingers"],
+      "proves": "Дезертир, вор (украденная казна), старая кровь на ноже (dead_wife).",
+      "does_not_prove": "Текущее убийство в таверне."
+    },
+    {
+      "id": "C2",
+      "character": "tavern_keeper",
+      "name": "Компромат: Трактирщик",
+      "primary": ["contraband"],
+      "secondary": ["contraband_crate", "tavernkeeper_hiding"],
+      "proves": "Контрабанда запрещённых товаров (Devil's Bane, Pesh, Flayleaf, Grit) — ересь в Челии.",
+      "does_not_prove": "Текущее убийство в таверне."
+    },
+    {
+      "id": "C3",
+      "character": "waitress",
+      "name": "Компромат: Официантка",
+      "primary": ["waitress_diary"],
+      "secondary": ["waitress_focus", "waitress_hiding"],
+      "proves": "Тайная жрица Дагона; потоп — её заклинание.",
+      "does_not_prove": "Текущее убийство в таверне."
+    },
+    {
+      "id": "C4",
+      "character": "doctor",
+      "name": "Компромат: Врач",
+      "primary": ["doctor_dagger"],
+      "secondary": ["doctor_hiding", "doctor_journal"],
+      "proves": "Член культа Дагона; ритуальный кинжал со следами крови.",
+      "does_not_prove": "Текущее убийство в таверне."
+    },
+    {
+      "id": "C5",
+      "character": "artist",
+      "name": "Компромат: Художник",
+      "primary": ["artist_workshop"],
+      "secondary": ["artist_diary", "tears_razmir"],
+      "proves": "Маньяк серии в городе (картины = отчёты о вскрытиях); наркотики.",
+      "does_not_prove": "Текущее убийство в таверне."
+    },
+    {
+      "id": "C6",
+      "character": "detective",
+      "name": "Компромат: Детектив",
+      "primary": ["detective_drunk"],
+      "secondary": ["broken_bottle", "blood_traces"],
+      "proves": "Пьянство; риск неосторожной смерти.",
+      "does_not_prove": "Умышленное убийство."
+    }
+  ],
+
+  "scenarios": [
+    {
+      "id": "S1",
+      "killer": "sailor",
+      "victim": "tavern_keeper",
+      "type": "proof",
+      "probability": "high",
+      "motivation": "hatred",
+      "primary": ["sailor_threat_letter"],
+      "secondary": ["tavernkeeper_notebook", "wife_portrait", "wife_ghost", "sailor_knife"],
+      "false": ["contraband", "potion_poison"],
+      "note": "Моряк убил жену Трактирщика и угрожал дочери; мотив мести."
+    },
+    {
+      "id": "S2",
+      "killer": "sailor",
+      "victim": "waitress",
+      "type": "proof",
+      "probability": "medium/low",
+      "motivation": "accident/hatred/religion",
+      "primary": ["sailor_false_clue"],
+      "secondary": ["wife_ghost", "flood_spell", "blood_evidence"],
+      "false": ["cult_items", "waitress_diary"],
+      "note": "Подварианты: случайное убийство / запугивание / страх магии."
+    },
+    {
+      "id": "S3",
+      "killer": "sailor",
+      "victim": "doctor",
+      "type": "proof",
+      "probability": "high",
+      "motivation": "justice",
+      "primary": ["sailor_false_clue"],
+      "secondary": ["sailor_knife", "doctor_hiding", "ink_on_fingers", "doctor_journal"],
+      "false": ["doctor_dagger"],
+      "note": "КАНОНИЧНЫЙ: Моряк убивает Врача для самозащиты."
+    },
+    {
+      "id": "S4",
+      "killer": "sailor",
+      "victim": "artist",
+      "type": "accident",
+      "probability": "low",
+      "motivation": "accident",
+      "primary": ["detective_drunk"],
+      "secondary": ["artist_workshop", "sailor_false_clue", "artist_traces"],
+      "false": ["sailor_false_clue", "artist_traces"],
+      "note": "Перенесено из alibi: случайное убийство по пьянке."
+    },
+    {
+      "id": "S5",
+      "killer": "sailor",
+      "victim": "detective",
+      "type": "proof",
+      "probability": "medium/low",
+      "motivation": "accident/money",
+      "primary": ["detective_drunk"],
+      "secondary": ["sailor_false_clue", "sailor_knife", "sailor_hiding"],
+      "false": ["tavernkeeper_notebook", "contraband_crate"],
+      "note": "Подварианты: по пьянке / если Детектив найдёт контрабанду."
+    },
+    {
+      "id": "S6",
+      "killer": "tavern_keeper",
+      "victim": "sailor",
+      "type": "proof",
+      "probability": "high",
+      "motivation": "hatred",
+      "primary": ["threat_letter"],
+      "secondary": ["wife_portrait", "wife_ghost", "tavernkeeper_diary", "sailor_threat_letter"],
+      "false": ["sailor_false_clue", "ink_on_fingers"],
+      "note": "Месть за жену."
+    },
+    {
+      "id": "S7",
+      "killer": "tavern_keeper",
+      "victim": "doctor",
+      "type": "proof",
+      "probability": "medium",
+      "motivation": "hatred",
+      "primary": ["cult_items"],
+      "secondary": ["tavernkeeper_diary", "threat_letter", "doctor_note", "doctor_hiding"],
+      "false": ["doctor_dagger"],
+      "note": "Защита дочери (Официантки) от их отношений."
+    },
+    {
+      "id": "S8",
+      "killer": "tavern_keeper",
+      "victim": "artist",
+      "type": "proof",
+      "probability": "low",
+      "motivation": "justice",
+      "primary": ["wife_portrait"],
+      "secondary": ["tavernkeeper_diary", "threat_letter", "blood_splatter"],
+      "false": ["artist_workshop"],
+      "note": "Если Художник нападает на Официантку."
+    },
+    {
+      "id": "S9",
+      "killer": "tavern_keeper",
+      "victim": "detective",
+      "type": "proof",
+      "probability": "medium",
+      "motivation": "money",
+      "primary": ["contraband"],
+      "secondary": ["tavernkeeper_notebook", "threat_letter", "tavernkeeper_hiding", "potion_poison"],
+      "false": ["detective_drunk"],
+      "note": "Если Детектив найдёт доказательства контрабанды."
+    },
+    {
+      "id": "S10",
+      "killer": "waitress",
+      "victim": "sailor",
+      "type": "proof",
+      "probability": "high/medium",
+      "motivation": "religion/justice",
+      "primary": ["waitress_diary"],
+      "secondary": ["wife_ghost", "flood_spell", "waitress_diary_secret", "waitress_focus", "ghost_testimony"],
+      "false": ["sailor_false_clue", "blood_traces"],
+      "note": "Месть за мать (dead_wife); потоп — ритуал Дагона."
+    },
+    {
+      "id": "S11",
+      "killer": "waitress",
+      "victim": "artist",
+      "type": "possible_scenario",
+      "probability": "medium",
+      "motivation": "religion",
+      "primary": ["reliquary_skull"],
+      "secondary": ["cult_items", "waitress_diary", "waitress_focus", "ghost_testimony"],
+      "false": ["artist_workshop", "artist_sketches"],
+      "note": "Не-канон: если Официантка раскрывает Художника как охотника на культистов."
+    },
+    {
+      "id": "S12",
+      "killer": "doctor",
+      "victim": "sailor",
+      "type": "proof",
+      "probability": "medium/low",
+      "motivation": "love/possessed",
+      "primary": ["doctor_dagger"],
+      "secondary": ["cult_items", "doctor_note", "doctor_hiding", "ink_on_fingers"],
+      "false": ["sailor_false_clue"],
+      "note": "Подварианты: защита Официантки / одержимость призраком."
+    },
+    {
+      "id": "S13",
+      "killer": "doctor",
+      "victim": "tavern_keeper",
+      "type": "proof",
+      "probability": "medium",
+      "motivation": "love",
+      "primary": ["doctor_dagger"],
+      "secondary": ["cult_items", "doctor_note", "tavernkeeper_alibi", "doctor_hiding"],
+      "false": ["contraband", "sailor_false_clue"],
+      "note": "Защита/ревность к Официантке."
+    },
+    {
+      "id": "S14",
+      "killer": "doctor",
+      "victim": "artist",
+      "type": "proof",
+      "probability": "medium",
+      "motivation": "love",
+      "primary": ["cult_items"],
+      "secondary": ["doctor_dagger", "doctor_note", "doctor_hiding", "poison_evidence"],
+      "false": ["artist_workshop"],
+      "note": "Если Художник покусится на Официантку; возможен вариант с отравлением."
+    },
+    {
+      "id": "S15",
+      "killer": "doctor",
+      "victim": "detective",
+      "type": "proof",
+      "probability": "medium",
+      "motivation": "love",
+      "primary": ["doctor_dagger"],
+      "secondary": ["cult_items", "tavernkeeper_alibi", "letter_to_tavern", "doctor_hiding"],
+      "false": ["detective_drunk", "artist_workshop"],
+      "note": "Защита Официантки от пьяного Детектива."
+    },
+    {
+      "id": "S16",
+      "killer": "artist",
+      "victim": "tavern_keeper",
+      "type": "possible_scenario",
+      "probability": "low",
+      "motivation": "religion",
+      "primary": ["artist_sketches"],
+      "secondary": ["artist_traces", "reliquary_skull", "order_order", "artist_hiding"],
+      "false": ["artist_workshop"],
+      "note": "Не-канон: Художник убивает Трактирщика как культиста."
+    },
+    {
+      "id": "S17",
+      "killer": "artist",
+      "victim": "waitress",
+      "type": "proof",
+      "probability": "high",
+      "motivation": "religion",
+      "primary": ["reliquary_skull"],
+      "secondary": ["cult_items", "order_order", "artist_sketches", "order_letter"],
+      "false": ["waitress_diary", "artist_workshop"],
+      "note": "КАНОНИЧНЫЙ: Художник убивает верховную жрицу ради реликвии."
+    },
+    {
+      "id": "S18",
+      "killer": "artist",
+      "victim": "doctor",
+      "type": "proof",
+      "probability": "low",
+      "motivation": "religion",
+      "primary": ["cult_items"],
+      "secondary": ["reliquary_skull", "order_order", "artist_sketches", "order_letter"],
+      "false": ["doctor_dagger", "doctor_journal"],
+      "note": "Художник убивает Врача как культиста."
+    },
+    {
+      "id": "S19",
+      "killer": "artist",
+      "victim": "detective",
+      "type": "proof",
+      "probability": "high",
+      "motivation": "justice",
+      "primary": ["order_order"],
+      "secondary": ["artist_traces", "artist_sketches", "artist_hiding", "cord_to_cult_lair"],
+      "false": ["detective_drunk", "artist_workshop"],
+      "note": "КАНОНИЧНЫЙ: Художник убивает Детектива, скрывая охоту."
+    },
+    {
+      "id": "S20",
+      "killer": "detective",
+      "victim": "sailor",
+      "type": "proof",
+      "probability": "low",
+      "motivation": "accident",
+      "primary": ["detective_drunk"],
+      "secondary": ["tavernkeeper_notebook", "sailor_false_clue", "footprints"],
+      "false": ["ink_on_fingers"],
+      "note": "По неосторожности, сильно напившись."
+    },
+    {
+      "id": "S21",
+      "killer": "detective",
+      "victim": "tavern_keeper",
+      "type": "possible_scenario",
+      "probability": "low",
+      "motivation": "money",
+      "primary": ["contraband"],
+      "secondary": ["tavernkeeper_notebook", "detective_drunk", "contraband_crate", "tavernkeeper_hiding"],
+      "false": ["sailor_false_clue"],
+      "note": "Не-канон: если Детектив накроет контрабанду."
+    },
+    {
+      "id": "S22",
+      "killer": "detective",
+      "victim": "artist",
+      "type": "proof",
+      "probability": "medium",
+      "motivation": "justice",
+      "primary": ["flood_spell"],
+      "secondary": ["artist_traces", "order_order", "artist_sketches", "cord_to_cult_lair"],
+      "false": ["detective_drunk", "artist_workshop"],
+      "note": "Личное против официального правосудия."
+    }
+  ],
+
+  "alibis": [
+    {
+      "id": "A1",
+      "killer": "tavern_keeper",
+      "victim": "waitress",
+      "alibi_evidence": ["wife_portrait"],
+      "reason": "Дочь — нет мотива."
+    },
+    {
+      "id": "A2",
+      "killer": "waitress",
+      "victim": "tavern_keeper",
+      "alibi_evidence": ["wife_portrait"],
+      "reason": "Отец — нет мотива."
+    },
+    {
+      "id": "A3",
+      "killer": "waitress",
+      "victim": "doctor",
+      "alibi_evidence": ["cult_items"],
+      "reason": "Любовник — нет мотива."
+    },
+    {
+      "id": "A4",
+      "killer": "waitress",
+      "victim": "detective",
+      "alibi_evidence": ["cult_items"],
+      "reason": "Нет мотива; если найдёт культ — позовёт в культ."
+    },
+    {
+      "id": "A5",
+      "killer": "doctor",
+      "victim": "waitress",
+      "alibi_evidence": ["cult_items"],
+      "reason": "Любовница — нет мотива."
+    },
+    {
+      "id": "A6",
+      "killer": "detective",
+      "victim": "waitress",
+      "alibi_evidence": ["detective_drunk"],
+      "reason": "Нет отношения/мотива."
+    },
+    {
+      "id": "A7",
+      "killer": "detective",
+      "victim": "doctor",
+      "alibi_evidence": ["detective_drunk"],
+      "reason": "Нет отношения/мотива."
+    },
+    {
+      "id": "A8",
+      "killer": "artist",
+      "victim": "sailor",
+      "alibi_evidence": ["artist_traces"],
+      "reason": "Моряк не культист."
+    }
+  ],
+
+  "accidents": [
+    {
+      "id": "D1",
+      "character": "sailor",
+      "type": "accident_self",
+      "secondary": ["detective_drunk", "blood_traces"],
+      "false": ["contraband", "sailor_false_clue"],
+      "note": "Самоубийство/несчастный случай Моряка."
+    },
+    {
+      "id": "D2",
+      "character": "tavern_keeper",
+      "type": "accident_self",
+      "secondary": ["detective_drunk", "blood_traces", "potion_poison"],
+      "false": ["contraband", "sailor_false_clue"],
+      "note": "Самоубийство/несчастный случай/болезнь Трактирщика."
+    },
+    {
+      "id": "D3",
+      "character": "waitress",
+      "type": "accident_self",
+      "secondary": ["cult_items"],
+      "false": ["waitress_diary", "waitress_focus"],
+      "note": "Самоубийство/несчастный случай/болезнь Официантки."
+    },
+    {
+      "id": "D4",
+      "character": "doctor",
+      "type": "accident_self",
+      "secondary": ["doctor_journal"],
+      "false": ["cult_items"],
+      "note": "Самоубийство/несчастный случай/болезнь Врача."
+    },
+    {
+      "id": "D5",
+      "character": "artist",
+      "type": "accident_self",
+      "secondary": ["doctor_journal"],
+      "false": ["artist_traces", "artist_workshop"],
+      "note": "Самоубийство/несчастный случай/болезнь Художника."
+    },
+    {
+      "id": "D6",
+      "character": "detective",
+      "type": "accident_self",
+      "secondary": ["detective_drunk"],
+      "false": ["artist_traces"],
+      "note": "Самоубийство/несчастный случай/болезнь Детектива."
+    }
+  ],
+
+  "false_leads": [
+    {
+      "id": "F1",
+      "decoy": "sailor",
+      "evidence": ["sailor_false_clue", "fake_letter", "ink_on_fingers", "sailor_knife"],
+      "misdirects_to": "Моряк — убийца (старая кровь, подделка)."
+    },
+    {
+      "id": "F2",
+      "decoy": "tavern_keeper",
+      "evidence": ["contraband", "potion_poison", "contraband_crate", "tavernkeeper_hiding"],
+      "misdirects_to": "Трактирщик — отравитель / контрабанда как мотив."
+    },
+    {
+      "id": "F3",
+      "decoy": "waitress",
+      "evidence": ["cult_items", "waitress_diary", "waitress_focus", "blood_evidence"],
+      "misdirects_to": "Официантка — убийца (культ = мотив)."
+    },
+    {
+      "id": "F4",
+      "decoy": "doctor",
+      "evidence": ["doctor_dagger", "doctor_journal", "doctor_hiding"],
+      "misdirects_to": "Врач — убийца (кинжал = орудие)."
+    },
+    {
+      "id": "F5",
+      "decoy": "artist",
+      "evidence": ["artist_workshop", "artist_traces", "artist_hiding", "cult_mask", "cord_to_cult_lair"],
+      "misdirects_to": "Художник — убийца в таверне."
+    },
+    {
+      "id": "F6",
+      "decoy": "detective",
+      "evidence": ["detective_drunk", "broken_bottle", "blood_traces"],
+      "misdirects_to": "Детектив — убийца по пьянке."
+    },
+    {
+      "id": "F7",
+      "decoy": "accident",
+      "evidence": ["broken_bottle", "blood_traces", "potion_poison"],
+      "misdirects_to": "Смерть по неосторожности."
+    },
+    {
+      "id": "F8",
+      "decoy": "cult",
+      "evidence": ["letter_to_tavern", "cult_symbol", "footprints", "poison_evidence", "dagon_prayer"],
+      "misdirects_to": "Культ = убийство (хотя это отдельное преступление)."
+    }
+  ]
+}

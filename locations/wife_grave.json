@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "wife_grave",
     "name": "Могила жены",
     "type": "gameplay",
@@ -12,8 +12,8 @@
         "event_019"
     ],
     "clues": [
-        "evidence_008",
-        "evidence_065"
+        "wife_ghost",
+        "hell_knight_covenant"
     ],
     "secrets": [
         "призрак dead_wife обитает здесь",
@@ -35,25 +35,25 @@
         {
             "description": "Призрак Жены",
             "evidence": [
-                "evidence_008"
+                "wife_ghost"
             ]
         },
         {
             "description": "Показания призрака",
             "evidence": [
-                "evidence_036"
+                "ghost_testimony"
             ]
         },
         {
             "description": "Завещание dead_wife",
             "evidence": [
-                "evidence_050"
+                "wife_will"
             ]
         },
         {
             "description": "Оборотная сторона могильного камня: открытый глаз осьминога (символ Дагона)",
             "evidence": [
-                "evidence_065"
+                "hell_knight_covenant"
             ]
         }
     ]

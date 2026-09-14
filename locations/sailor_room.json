@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "sailor_room",
     "name": "Комната Моряка",
     "type": "gameplay",
@@ -10,11 +10,11 @@
     "important_events": [
     ],
     "clues": [
-        "evidence_006",
-        "evidence_031",
-        "evidence_041",
-        "evidence_042",
-        "evidence_047"
+        "sailor_false_clue",
+        "sailor_hiding",
+        "fake_letter",
+        "ink_on_fingers",
+        "nautical_chart"
     ],
     "secrets": [
         "Моряк — дезертир и крадун казны, но не убийца в таверне",
@@ -36,31 +36,31 @@
         {
             "description": "Ложная улика на Моряка",
             "evidence": [
-                "evidence_006"
+                "sailor_false_clue"
             ]
         },
         {
             "description": "Тайник Моряка",
             "evidence": [
-                "evidence_031"
+                "sailor_hiding"
             ]
         },
         {
             "description": "Поддельное письмо",
             "evidence": [
-                "evidence_041"
+                "fake_letter"
             ]
         },
         {
             "description": "Чужая кровь на одежде",
             "evidence": [
-                "evidence_042"
+                "ink_on_fingers"
             ]
         },
         {
             "description": "Морская карта",
             "evidence": [
-                "evidence_047"
+                "nautical_chart"
             ]
         }
     ]

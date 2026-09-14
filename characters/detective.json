@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "detective",
     "name": "Джакомо Раньери",
     "role": "Детектив",
@@ -111,9 +111,9 @@
         },
         {
             "level": "knows_exactly",
-            "fact": "Видел отчёты о вскрытии (evidence_076) — забранные Доктором из Морга; они в комнате Доктора (doctor_room)",
+            "fact": "Видел отчёты о вскрытии (autopsy_reports) — забранные Доктором из Морга; они в комнате Доктора (doctor_room)",
             "target": "doctor",
-            "reason": "Детектив и Доктор знакомы по работе (морг/вскрытия); Детектив видел отчёты о вскрытиях (evidence_076), которые забрал Доктор из Морга (event_024)",
+            "reason": "Детектив и Доктор знакомы по работе (морг/вскрытия); Детектив видел отчёты о вскрытиях (autopsy_reports), которые забрал Доктор из Морга (event_024)",
             "source": "relationship"
         },
         {
@@ -141,7 +141,7 @@
         {
             "time": "night",
             "location": "detective_room",
-            "activity": "спит в комнате гостя (следы пьянства, evidence_005)"
+            "activity": "спит в комнате гостя (следы пьянства, detective_drunk)"
         },
         {
             "time": "morning",
@@ -184,13 +184,13 @@
         {
             "description": "Следы пьянства Детектива",
             "evidence": [
-                "evidence_005"
+                "detective_drunk"
             ]
         },
         {
             "description": "Разбитая бутылка",
             "evidence": [
-                "evidence_017"
+                "broken_bottle"
             ]
         }
     ],

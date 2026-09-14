@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "waitress",
     "name": "Виттория Вельди",
     "role": "Официантка",
@@ -230,7 +230,7 @@
             "time": "night",
             "location": "waitress_room",
             "activity": "спит в своей комнате; перед сном делает записи в дневник",
-            "note": "за пару недель до игровых событий призрак Жены приходит к ней (event_015); дневник — evidence_009"
+            "note": "за пару недель до игровых событий призрак Жены приходит к ней (event_015); дневник — waitress_diary"
         },
         {
             "time": "morning",
@@ -287,37 +287,37 @@
         {
             "description": "Дневник Официантки",
             "evidence": [
-                "evidence_009"
+                "waitress_diary"
             ]
         },
         {
             "description": "Дневник Официантки (часть 2)",
             "evidence": [
-                "evidence_021"
+                "waitress_diary_secret"
             ]
         },
         {
             "description": "Тайник Официантки",
             "evidence": [
-                "evidence_035"
+                "waitress_hiding"
             ]
         },
         {
             "description": "Заклинательный фокус Официантки",
             "evidence": [
-                "evidence_028"
+                "waitress_focus"
             ]
         },
         {
             "description": "Молитва культа Дагона (шёпот «Иа! Иа!», «Ф'нглуи»)",
             "evidence": [
-                "evidence_055"
+                "dagon_prayer"
             ]
         },
         {
             "description": "Речевые особенности культистов Дагона (водная одержимость)",
             "evidence": [
-                "evidence_056"
+                "cult_speech"
             ]
         }
     ],

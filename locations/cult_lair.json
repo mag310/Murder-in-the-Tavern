@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "cult_lair",
     "name": "Логово культа",
     "type": "gameplay",
@@ -14,8 +14,8 @@
         "event_016"
     ],
     "clues": [
-        "evidence_003",
-        "evidence_008"
+        "cult_items",
+        "wife_ghost"
     ],
     "secrets": [
         "существование культа Дагона",
@@ -40,37 +40,37 @@
         {
             "description": "Ритуальные предметы культа",
             "evidence": [
-                "evidence_003"
+                "cult_items"
             ]
         },
         {
             "description": "Реликвия ордена (ковчег с мумифицированным черепом святого)",
             "evidence": [
-                "evidence_011"
+                "reliquary_skull"
             ]
         },
         {
             "description": "Ритуальный кинжал Врача",
             "evidence": [
-                "evidence_013"
+                "doctor_dagger"
             ]
         },
         {
             "description": "Свеча из культа",
             "evidence": [
-                "evidence_029"
+                "letter_to_tavern"
             ]
         },
         {
             "description": "Печать культа",
             "evidence": [
-                "evidence_030"
+                "cult_symbol"
             ]
         },
         {
             "description": "Запах благовоний",
             "evidence": [
-                "evidence_040"
+                "poison_evidence"
             ]
         }
     ]

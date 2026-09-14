@@ -1,4 +1,4 @@
-{
+﻿{
     "matrices": [
         {
             "victim": "tavern_keeper",
@@ -18,17 +18,17 @@
                     "probability": "high",
                     "scenario_note": "Моряк убил жену Трактирщика (event_004) и угрожал его дочерью; у Моряка есть мотив убить Трактирщика, чтобы тот замолчал.",
                     "primary_evidence": [
-                        "evidence_019"
+                        "sailor_threat_letter"
                     ],
                     "secondary_evidence": [
-                        "evidence_002",
-                        "evidence_007",
-                        "evidence_008",
-                        "evidence_014"
+                        "tavernkeeper_notebook",
+                        "wife_portrait",
+                        "wife_ghost",
+                        "sailor_knife"
                     ],
                     "false_evidence": [
-                        "evidence_001",
-                        "evidence_044"
+                        "contraband",
+                        "potion_poison"
                     ]
                 },
                 {
@@ -41,17 +41,17 @@
                     "scenario": "possible_scenario",
                     "scenario_note": "Возможный сценарий (не канон): Врач убивает Трактирщика, защищая Официантку (его любовницу) от отцовской вражды/конфликта. В каноне Трактирщик лично не выносит Врача и подозревает его в связях с контрабандистами (ложное подозрение), но не убивает. Если автор выберет этот сценарий, мотив love становится обоснованным; иначе эту причину следует удалить.",
                     "primary_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_022",
-                        "evidence_026",
-                        "evidence_033"
+                        "cult_items",
+                        "doctor_note",
+                        "tavernkeeper_alibi",
+                        "doctor_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_001",
-                        "evidence_006"
+                        "contraband",
+                        "sailor_false_clue"
                     ]
                 },
                 {
@@ -64,16 +64,16 @@
                     "scenario": "possible_scenario",
                     "scenario_note": "Возможный сценарий (не канон): Художник убивает Трактирщика как культиста, если догадается, что таверна связана с культом (artist.suspects->tavern_keeper, artist.religion->tavern_keeper). В каноне Художник НЕ знает, что эта таверна — логово культа (он знает о контрабанде/Лист-живодёре, но не о культе), поэтому вероятность низкая; связка появляется только если автор выберет сценарий, где Художник догадывается о связи таверны и культа. Если автор не выбирает этот сценарий, причину следует удалить.",
                     "primary_evidence": [
-                        "evidence_025"
+                        "artist_sketches"
                     ],
                     "secondary_evidence": [
-                        "evidence_004",
-                        "evidence_011",
-                        "evidence_024",
-                        "evidence_034"
+                        "artist_traces",
+                        "reliquary_skull",
+                        "order_order",
+                        "artist_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_012"
+                        "artist_workshop"
                     ]
                 },
                 {
@@ -86,16 +86,16 @@
                     "scenario": "possible_scenario",
                     "scenario_note": "Детектив как возможный убийца — это возможный сценарий (не канон), связанный с тайным заказом Художника (artist.money -> detective). В каноне наниматель Детектива — Шериф, и у Детектива нет мотива убить Трактирщика по money. Если автор выберет этот сценарий, мотив становится обоснованным; иначе эту причину следует удалить.",
                     "primary_evidence": [
-                        "evidence_001"
+                        "contraband"
                     ],
                     "secondary_evidence": [
-                        "evidence_002",
-                        "evidence_005",
-                        "evidence_020",
-                        "evidence_032"
+                        "tavernkeeper_notebook",
+                        "detective_drunk",
+                        "contraband_crate",
+                        "tavernkeeper_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ]
                 },
                 {
@@ -105,13 +105,13 @@
                     "probability": "medium",
                     "primary_evidence": [],
                     "secondary_evidence": [
-                        "evidence_005",
-                        "evidence_039",
-                        "evidence_044"
+                        "detective_drunk",
+                        "blood_traces",
+                        "potion_poison"
                     ],
                     "false_evidence": [
-                        "evidence_001",
-                        "evidence_006"
+                        "contraband",
+                        "sailor_false_clue"
                     ]
                 }
             ],
@@ -121,8 +121,8 @@
                 "Причина смерти"
             ],
             "required_evidence": [
-                "evidence_001",
-                "evidence_002"
+                "contraband",
+                "tavernkeeper_notebook"
             ],
             "required_evidence_note": "Улики расставляют подозреваемых и ложные следы. Основная улика в ветке — см. primary/secondary/false в kill_grid.json.",
             "false_leads": [
@@ -133,9 +133,9 @@
                 "Официантка теряет отца",
                 "Тайна Владельца (жена, убита Моряком) может быть раскрыта",
                 "Контрабанда Владельца может быть раскрыта",
-                "Портрет жены в зале может быть обнаружен как улика (evidence_007)",
-                "Призрак dead_wife может быть обнаружен как улика (evidence_008)",
-                "Дневник Официантки может быть обнаружен как улика (evidence_009)"
+                "Портрет жены в зале может быть обнаружен как улика (wife_portrait)",
+                "Призрак dead_wife может быть обнаружен как улика (wife_ghost)",
+                "Дневник Официантки может быть обнаружен как улика (waitress_diary)"
             ]
         },
         {
@@ -156,17 +156,17 @@
                     "probability": "high",
                     "scenario_note": "Трактирщик отомстил Моряку за убийство и изнасилование его жены (event_004). Воспользовался удачным моментом: потоп (заклинание Официантки, event_016) задержал Моряка в таверне.",
                     "primary_evidence": [
-                        "evidence_018"
+                        "threat_letter"
                     ],
                     "secondary_evidence": [
-                        "evidence_007",
-                        "evidence_008",
-                        "evidence_016",
-                        "evidence_019"
+                        "wife_portrait",
+                        "wife_ghost",
+                        "tavernkeeper_diary",
+                        "sailor_threat_letter"
                     ],
                     "false_evidence": [
-                        "evidence_006",
-                        "evidence_042"
+                        "sailor_false_clue",
+                        "ink_on_fingers"
                     ]
                 },
                 {
@@ -178,18 +178,18 @@
                     "probability": "high",
                     "scenario_note": "Официантка отомстила за мать: подстрекаемая призраком Жены (event_015) и затаив зло за угрозу Моряка, она при помощи Дагона (потоп, event_016 — ритуал Дагона, усиленный паводком реки Адиван) задержала Моряка и принесла его в жертву культа Дагона (cult_lair, event_006/007).",
                     "primary_evidence": [
-                        "evidence_009"
+                        "waitress_diary"
                     ],
                     "secondary_evidence": [
-                        "evidence_008",
-                        "evidence_010",
-                        "evidence_021",
-                        "evidence_028",
-                        "evidence_036"
+                        "wife_ghost",
+                        "flood_spell",
+                        "waitress_diary_secret",
+                        "waitress_focus",
+                        "ghost_testimony"
                     ],
                     "false_evidence": [
-                        "evidence_006",
-                        "evidence_039"
+                        "sailor_false_clue",
+                        "blood_traces"
                     ]
                 },
                 {
@@ -201,15 +201,15 @@
                     "probability": "medium",
                     "scenario_note": "Подвариант: Моряк начал распускать руки и угрожал Официантке; она убила его в самообороне (мотивировано event_015: угроза Моряка дочери).",
                     "primary_evidence": [
-                        "evidence_009"
+                        "waitress_diary"
                     ],
                     "secondary_evidence": [
-                        "evidence_008",
-                        "evidence_021",
-                        "evidence_036"
+                        "wife_ghost",
+                        "waitress_diary_secret",
+                        "ghost_testimony"
                     ],
                     "false_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ]
                 },
                 {
@@ -221,16 +221,16 @@
                     "probability": "medium",
                     "scenario_note": "Подвариант A: Врач защищал Официантку от приставаний Моряка.",
                     "primary_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_022",
-                        "evidence_033",
-                        "evidence_042"
+                        "cult_items",
+                        "doctor_note",
+                        "doctor_hiding",
+                        "ink_on_fingers"
                     ],
                     "false_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ]
                 },
                 {
@@ -242,15 +242,15 @@
                     "probability": "low",
                     "scenario_note": "Подвариант B: Врач был одурманен Официанткой или одержим призраком Мёртвой жены и совершил месть за мать Официантки (supernatural; см. dead_wife, event_015).",
                     "primary_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_008",
-                        "evidence_036"
+                        "cult_items",
+                        "wife_ghost",
+                        "ghost_testimony"
                     ],
                     "false_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ]
                 },
                 {
@@ -260,17 +260,17 @@
                         "detective"
                     ],
                     "probability": "low",
-                    "scenario_note": "Детектив убил Моряка по неосторожности, сильно напившись (см. detective.daily_schedule: следы пьянства, evidence_005).",
+                    "scenario_note": "Детектив убил Моряка по неосторожности, сильно напившись (см. detective.daily_schedule: следы пьянства, detective_drunk).",
                     "primary_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "secondary_evidence": [
-                        "evidence_002",
-                        "evidence_006",
-                        "evidence_037"
+                        "tavernkeeper_notebook",
+                        "sailor_false_clue",
+                        "footprints"
                     ],
                     "false_evidence": [
-                        "evidence_042"
+                        "ink_on_fingers"
                     ]
                 },
                 {
@@ -280,11 +280,11 @@
                     "probability": "medium",
                     "primary_evidence": [],
                     "secondary_evidence": [
-                        "evidence_005",
-                        "evidence_039"
+                        "detective_drunk",
+                        "blood_traces"
                     ],
                     "false_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ]
                 }
             ],
@@ -294,8 +294,8 @@
                 "Причина смерти"
             ],
             "required_evidence": [
-                "evidence_002",
-                "evidence_006"
+                "tavernkeeper_notebook",
+                "sailor_false_clue"
             ],
             "required_evidence_note": "Улики расставляют подозреваемых и ложные следы. Основная улика в ветке — см. primary/secondary/false в kill_grid.json.",
             "false_leads": [
@@ -309,7 +309,7 @@
                 "Врач теряет врага",
                 "Официантка отомстила за мать: раскрытие культа и её жертвенного ритуала (event_015/016/006/007)",
                 "Потоп (заклинание Официантки, event_016) может быть раскрыт как причина задержания Моряка",
-                "Призрак dead_wife может быть обнаружен как улика/свидетель (evidence_008), но не является убийцей"
+                "Призрак dead_wife может быть обнаружен как улика/свидетель (wife_ghost), но не является убийцей"
             ]
         },
         {
@@ -326,19 +326,19 @@
                         "artist"
                     ],
                     "probability": "high",
-                    "scenario_note": "КАНОНИЧНЫЙ: Художник убивает Официантку, потому что она — верховная жрица/лидер культистов и знает, где реликвия его ордена (мумифицированный череп святого, evidence_011). Мотив: вернуть реликвию и покарать культистов (event_018, event_020).",
+                    "scenario_note": "КАНОНИЧНЫЙ: Художник убивает Официантку, потому что она — верховная жрица/лидер культистов и знает, где реликвия его ордена (мумифицированный череп святого, reliquary_skull). Мотив: вернуть реликвию и покарать культистов (event_018, event_020).",
                     "primary_evidence": [
-                        "evidence_011"
+                        "reliquary_skull"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_024",
-                        "evidence_025",
-                        "evidence_049"
+                        "cult_items",
+                        "order_order",
+                        "artist_sketches",
+                        "order_letter"
                     ],
                     "false_evidence": [
-                        "evidence_009",
-                        "evidence_012"
+                        "waitress_diary",
+                        "artist_workshop"
                     ]
                 },
                 {
@@ -350,16 +350,16 @@
                     "probability": "medium",
                     "scenario_note": "Подвариант A: Моряк убивает Официантку случайно, приставая к ней (sailor.daily_schedule: приставания; waitress.daily_schedule day/evening: обслуживает в зале).",
                     "primary_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ],
                     "secondary_evidence": [
-                        "evidence_008",
-                        "evidence_042",
-                        "evidence_014"
+                        "wife_ghost",
+                        "ink_on_fingers",
+                        "sailor_knife"
                     ],
                     "false_evidence": [
-                        "evidence_003",
-                        "evidence_009"
+                        "cult_items",
+                        "waitress_diary"
                     ]
                 },
                 {
@@ -371,16 +371,16 @@
                     "probability": "low",
                     "scenario_note": "Подвариант B: Моряк убивает Официантку, чтобы запугать Трактирщика — выполняет старую угрозу (event_004: угроза убить дочь, если Трактирщик не согласится; event_015: Моряк угрожал Официантке).",
                     "primary_evidence": [
-                        "evidence_019"
+                        "sailor_threat_letter"
                     ],
                     "secondary_evidence": [
-                        "evidence_008",
-                        "evidence_042",
-                        "evidence_014"
+                        "wife_ghost",
+                        "ink_on_fingers",
+                        "sailor_knife"
                     ],
                     "false_evidence": [
-                        "evidence_003",
-                        "evidence_009"
+                        "cult_items",
+                        "waitress_diary"
                     ]
                 },
                 {
@@ -392,15 +392,15 @@
                     "probability": "low",
                     "scenario_note": "Подвариант C: Моряк узнаёт, что Официантка — культист, и убивает её, боясь её магии и проклятия (НОВАЯ ЧЕРТА Моряка: он боится магии; см. event_016: Официантка — верховная жрица, заклинание потоп).",
                     "primary_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_010",
-                        "evidence_027"
+                        "cult_items",
+                        "flood_spell",
+                        "blood_evidence"
                     ],
                     "false_evidence": [
-                        "evidence_009"
+                        "waitress_diary"
                     ]
                 },
                 {
@@ -410,11 +410,11 @@
                     "probability": "medium",
                     "primary_evidence": [],
                     "secondary_evidence": [
-                        "evidence_039"
+                        "blood_traces"
                     ],
                     "false_evidence": [
-                        "evidence_003",
-                        "evidence_009"
+                        "cult_items",
+                        "waitress_diary"
                     ]
                 },
                 {
@@ -424,10 +424,10 @@
                     "probability": "low",
                     "primary_evidence": [],
                     "secondary_evidence": [
-                        "evidence_023"
+                        "doctor_journal"
                     ],
                     "false_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ]
                 }
             ],
@@ -437,9 +437,9 @@
                 "Причина смерти"
             ],
             "required_evidence": [
-                "evidence_003",
-                "evidence_004",
-                "evidence_011"
+                "cult_items",
+                "artist_traces",
+                "reliquary_skull"
             ],
             "required_evidence_note": "Улики расставляют подозреваемых и ложные следы. Основная улика в ветке — см. primary/secondary/false в kill_grid.json.",
             "false_leads": [
@@ -454,9 +454,9 @@
                 "Врач теряет любовницу",
                 "Художник теряет цель",
                 "Культ может быть раскрыт",
-                "Реликвия ордена (мумифицированный череп святого, evidence_011) может быть раскрыта/похищена",
+                "Реликвия ордена (мумифицированный череп святого, reliquary_skull) может быть раскрыта/похищена",
                 "Потоп (заклинание Официантки, event_016) может быть раскрыт",
-                "Дневник Официантки может быть обнаружен как улика (evidence_009)"
+                "Дневник Официантки может быть обнаружен как улика (waitress_diary)"
             ]
         },
         {
@@ -476,16 +476,16 @@
                     "probability": "high",
                     "scenario_note": "КАНОНИЧНЫЙ: Моряк убивает Доктора для защиты себя от преследования (sailor.suspects: Врач мог прийти в таверну по его душу за дезертирство и кражу казны; sailor false_belief: Врач может знать о его прошлого). Моряк считает, что Доктор его выдаст, и убивает его, чтобы тот замолчал.",
                     "primary_evidence": [
-                        "evidence_006"
+                        "sailor_false_clue"
                     ],
                     "secondary_evidence": [
-                        "evidence_014",
-                        "evidence_033",
-                        "evidence_042",
-                        "evidence_023"
+                        "sailor_knife",
+                        "doctor_hiding",
+                        "ink_on_fingers",
+                        "doctor_journal"
                     ],
                     "false_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ]
                 },
                 {
@@ -497,16 +497,16 @@
                     "probability": "medium",
                     "scenario_note": "Трактирщик убивает Доктора, защищая дочь (Официантку) — резко против их отношений (tavern_keeper.hatred->doctor, tavern_keeper.knows_exactly: резко против любовной связи Официантки и Врача).",
                     "primary_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "secondary_evidence": [
-                        "evidence_016",
-                        "evidence_018",
-                        "evidence_022",
-                        "evidence_033"
+                        "tavernkeeper_diary",
+                        "threat_letter",
+                        "doctor_note",
+                        "doctor_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ]
                 },
                 {
@@ -518,17 +518,17 @@
                     "probability": "low",
                     "scenario_note": "Художник убивает Доктора как культиста (члена культа, последователя) (artist.religion->doctor, artist.justice->doctor; event_018: охота на культистов за украденную реликвию).",
                     "primary_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "secondary_evidence": [
-                        "evidence_011",
-                        "evidence_024",
-                        "evidence_025",
-                        "evidence_049"
+                        "reliquary_skull",
+                        "order_order",
+                        "artist_sketches",
+                        "order_letter"
                     ],
                     "false_evidence": [
-                        "evidence_013",
-                        "evidence_023"
+                        "doctor_dagger",
+                        "doctor_journal"
                     ]
                 },
                 {
@@ -538,10 +538,10 @@
                     "probability": "medium",
                     "primary_evidence": [],
                     "secondary_evidence": [
-                        "evidence_039"
+                        "blood_traces"
                     ],
                     "false_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ]
                 },
                 {
@@ -551,10 +551,10 @@
                     "probability": "low",
                     "primary_evidence": [],
                     "secondary_evidence": [
-                        "evidence_023"
+                        "doctor_journal"
                     ],
                     "false_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ]
                 }
             ],
@@ -564,9 +564,9 @@
                 "Причина смерти"
             ],
             "required_evidence": [
-                "evidence_003",
-                "evidence_006",
-                "evidence_011"
+                "cult_items",
+                "sailor_false_clue",
+                "reliquary_skull"
             ],
             "required_evidence_note": "Улики расставляют подозреваемых и ложные следы. Основная улика в ветке — см. primary/secondary/false в kill_grid.json.",
             "false_leads": [
@@ -579,7 +579,7 @@
                 "Официантка теряет любовника",
                 "Моряк теряет врага",
                 "Культ теряет члена",
-                "Реликвия ордена (evidence_011) может быть раскрыта/похищена"
+                "Реликвия ордена (reliquary_skull) может быть раскрыта/похищена"
             ]
         },
         {
@@ -598,18 +598,18 @@
                         "sailor"
                     ],
                     "probability": "medium",
-                    "scenario_note": "Подвариант A: Моряк убивает Детектива случайно, по пьянке (см. detective.daily_schedule: следы пьянства, evidence_005).",
+                    "scenario_note": "Подвариант A: Моряк убивает Детектива случайно, по пьянке (см. detective.daily_schedule: следы пьянства, detective_drunk).",
                     "primary_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "secondary_evidence": [
-                        "evidence_006",
-                        "evidence_014",
-                        "evidence_031"
+                        "sailor_false_clue",
+                        "sailor_knife",
+                        "sailor_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_002",
-                        "evidence_020"
+                        "tavernkeeper_notebook",
+                        "contraband_crate"
                     ]
                 },
                 {
@@ -621,15 +621,15 @@
                     "probability": "low",
                     "scenario_note": "Подвариант B: Моряк убивает Детектива, если тот найдёт доказательства контрабанды (sailor.knowledge: контрабанда Трактирщика и Моряка; event_005).",
                     "primary_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "secondary_evidence": [
-                        "evidence_006",
-                        "evidence_020",
-                        "evidence_048"
+                        "sailor_false_clue",
+                        "contraband_crate",
+                        "debt_note"
                     ],
                     "false_evidence": [
-                        "evidence_002"
+                        "tavernkeeper_notebook"
                     ]
                 },
                 {
@@ -641,16 +641,16 @@
                     "probability": "medium",
                     "scenario_note": "Трактирщик убивает Детектива, если тот найдёт доказательства контрабанды (tavern_keeper.small_secret: контрабанда; event_005). Мотив: закрыть дело о контрабанде.",
                     "primary_evidence": [
-                        "evidence_001"
+                        "contraband"
                     ],
                     "secondary_evidence": [
-                        "evidence_002",
-                        "evidence_018",
-                        "evidence_032",
-                        "evidence_044"
+                        "tavernkeeper_notebook",
+                        "threat_letter",
+                        "tavernkeeper_hiding",
+                        "potion_poison"
                     ],
                     "false_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ]
                 },
                 {
@@ -660,19 +660,19 @@
                         "doctor"
                     ],
                     "probability": "medium",
-                    "scenario_note": "Доктор убивает Детектива, защищая Официантку от пьяного Детектива (doctor.love->waitress; detective.daily_schedule: следы пьянства, evidence_005).",
+                    "scenario_note": "Доктор убивает Детектива, защищая Официантку от пьяного Детектива (doctor.love->waitress; detective.daily_schedule: следы пьянства, detective_drunk).",
                     "primary_evidence": [
-                        "evidence_013"
+                        "doctor_dagger"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_026",
-                        "evidence_029",
-                        "evidence_033"
+                        "cult_items",
+                        "tavernkeeper_alibi",
+                        "letter_to_tavern",
+                        "doctor_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_005",
-                        "evidence_012"
+                        "detective_drunk",
+                        "artist_workshop"
                     ]
                 },
                 {
@@ -684,17 +684,17 @@
                     "probability": "high",
                     "scenario_note": "Художник убивает Детектива, если его раскроют как убийцу культистов в городе (event_010: серия убийств; artist.justice->detective: противопоставление тайного и официального правосудия). Мотив: замолвить дело, чтобы скрыть свои убийства.",
                     "primary_evidence": [
-                        "evidence_024"
+                        "order_order"
                     ],
                     "secondary_evidence": [
-                        "evidence_004",
-                        "evidence_025",
-                        "evidence_034",
-                        "evidence_038"
+                        "artist_traces",
+                        "artist_sketches",
+                        "artist_hiding",
+                        "cord_to_cult_lair"
                     ],
                     "false_evidence": [
-                        "evidence_005",
-                        "evidence_012"
+                        "detective_drunk",
+                        "artist_workshop"
                     ]
                 },
                 {
@@ -704,10 +704,10 @@
                     "probability": "low",
                     "primary_evidence": [],
                     "secondary_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "false_evidence": [
-                        "evidence_004"
+                        "artist_traces"
                     ]
                 }
             ],
@@ -717,8 +717,8 @@
                 "Причина смерти"
             ],
             "required_evidence": [
-                "evidence_005",
-                "evidence_004"
+                "detective_drunk",
+                "artist_traces"
             ],
             "required_evidence_note": "Улики расставляют подозреваемых и ложные следы. Основная улика в ветке — см. primary/secondary/false в kill_grid.json.",
             "false_leads": [
@@ -752,17 +752,17 @@
                     "scenario": "possible_scenario",
                     "scenario_note": "Возможный сценарий (не канон): Официантка убивает Художника, если тот находит убежище культа (cult_lair) и раскрывает её принадлежность. На начало игры Официантка НЕ знает, что Художник — охотник на культистов (и не знает, что эта таверна — логово культа), поэтому она 'запала' на него (love, event_021) и вражды нет. Вражда (religion, event_018) возникает только в сценарии, где она узнаёт его истинную природу. Если автор не выбирает этот сценарий, причину следует удалить.",
                     "primary_evidence": [
-                        "evidence_011"
+                        "reliquary_skull"
                     ],
                     "secondary_evidence": [
-                        "evidence_003",
-                        "evidence_009",
-                        "evidence_028",
-                        "evidence_036"
+                        "cult_items",
+                        "waitress_diary",
+                        "waitress_focus",
+                        "ghost_testimony"
                     ],
                     "false_evidence": [
-                        "evidence_012",
-                        "evidence_025"
+                        "artist_workshop",
+                        "artist_sketches"
                     ]
                 },
                 {
@@ -774,16 +774,16 @@
                     "probability": "medium",
                     "scenario_note": "Подвариант A: Доктор убивает Художника, если тот покусится на Официантку как на верховную жрицу (artist.religion->doctor: потенциальный враг как член культа; artist.justice->doctor: самосуд: охота на культиста).",
                     "primary_evidence": [
-                        "evidence_003"
+                        "cult_items"
                     ],
                     "secondary_evidence": [
-                        "evidence_013",
-                        "evidence_022",
-                        "evidence_033",
-                        "evidence_040"
+                        "doctor_dagger",
+                        "doctor_note",
+                        "doctor_hiding",
+                        "poison_evidence"
                     ],
                     "false_evidence": [
-                        "evidence_012"
+                        "artist_workshop"
                     ]
                 },
                 {
@@ -795,15 +795,15 @@
                     "probability": "medium",
                     "scenario_note": "Подвариант B: Доктор отравляет Художника из ревности (Официантка уделяет ему много внимания и флиртует с Художником, event_021; waitress.daily_schedule day: флорт с Художником).",
                     "primary_evidence": [
-                        "evidence_044"
+                        "potion_poison"
                     ],
                     "secondary_evidence": [
-                        "evidence_022",
-                        "evidence_033",
-                        "evidence_023"
+                        "doctor_note",
+                        "doctor_hiding",
+                        "doctor_journal"
                     ],
                     "false_evidence": [
-                        "evidence_012"
+                        "artist_workshop"
                     ]
                 },
                 {
@@ -815,15 +815,15 @@
                     "probability": "low",
                     "scenario_note": "Трактирщик убивает Художника, если тот нападает на Официантку (дочь). Мотив: защита дочери (тavern_keeper.love->waitress: отцовская любовь; tavern_keeper.hatred->doctor: резко против отношений Официантки).",
                     "primary_evidence": [
-                        "evidence_007"
+                        "wife_portrait"
                     ],
                     "secondary_evidence": [
-                        "evidence_016",
-                        "evidence_018",
-                        "evidence_022"
+                        "tavernkeeper_diary",
+                        "threat_letter",
+                        "doctor_note"
                     ],
                     "false_evidence": [
-                        "evidence_012"
+                        "artist_workshop"
                     ]
                 },
                 {
@@ -833,17 +833,17 @@
                         "sailor"
                     ],
                     "probability": "low",
-                    "scenario_note": "Моряк убивает Художника случайно, по пьянке. Причина конфликта: Моряк не понимает творчества Художника (artist.secrets: 'вольный художник', картины-расчленёнка, event_021). См. detective.daily_schedule: следы пьянства, evidence_005.",
+                    "scenario_note": "Моряк убивает Художника случайно, по пьянке. Причина конфликта: Моряк не понимает творчества Художника (artist.secrets: 'вольный художник', картины-расчленёнка, event_021). См. detective.daily_schedule: следы пьянства, detective_drunk.",
                     "primary_evidence": [
-                        "evidence_005"
+                        "detective_drunk"
                     ],
                     "secondary_evidence": [
-                        "evidence_004",
-                        "evidence_012",
-                        "evidence_034"
+                        "artist_traces",
+                        "artist_workshop",
+                        "artist_hiding"
                     ],
                     "false_evidence": [
-                        "evidence_011"
+                        "reliquary_skull"
                     ]
                 },
                 {
@@ -855,17 +855,17 @@
                     "probability": "medium",
                     "scenario_note": "Детектив убивает Художника: противопоставление личного (тайного) и официального правосудия (artist.justice->detective). Детектив расследует серию убийств (event_010/011/012).",
                     "primary_evidence": [
-                        "evidence_010"
+                        "flood_spell"
                     ],
                     "secondary_evidence": [
-                        "evidence_004",
-                        "evidence_024",
-                        "evidence_025",
-                        "evidence_038"
+                        "artist_traces",
+                        "order_order",
+                        "artist_sketches",
+                        "cord_to_cult_lair"
                     ],
                     "false_evidence": [
-                        "evidence_005",
-                        "evidence_012"
+                        "detective_drunk",
+                        "artist_workshop"
                     ]
                 },
                 {
@@ -875,10 +875,10 @@
                     "probability": "low",
                     "primary_evidence": [],
                     "secondary_evidence": [
-                        "evidence_023"
+                        "doctor_journal"
                     ],
                     "false_evidence": [
-                        "evidence_004"
+                        "artist_traces"
                     ]
                 }
             ],
@@ -888,8 +888,8 @@
                 "Причина смерти"
             ],
             "required_evidence": [
-                "evidence_004",
-                "evidence_003"
+                "artist_traces",
+                "cult_items"
             ],
             "required_evidence_note": "Улики расставляют подозреваемых и ложные следы. Основная улика в ветке — см. primary/secondary/false в kill_grid.json.",
             "false_leads": [

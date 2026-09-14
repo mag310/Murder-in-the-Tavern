@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "pier",
     "name": "Причал",
     "type": "gameplay",
@@ -10,7 +10,7 @@
     "important_events": [
     ],
     "clues": [
-        "evidence_047"
+        "nautical_chart"
     ],
     "secrets": [
         "тайный груз контрабандистов (smugglers)",

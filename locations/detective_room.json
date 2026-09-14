@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "detective_room",
     "name": "Комната Детектива",
     "type": "gameplay",
@@ -12,8 +12,8 @@
         "event_012"
     ],
     "clues": [
-        "evidence_005",
-        "evidence_017"
+        "detective_drunk",
+        "broken_bottle"
     ],
     "secrets": [
         "Детектив постоянно пьян, но это НЕ улика на убийство"
@@ -34,13 +34,13 @@
         {
             "description": "Следы пьянства Детектива",
             "evidence": [
-                "evidence_005"
+                "detective_drunk"
             ]
         },
         {
             "description": "Разбитая бутылка",
             "evidence": [
-                "evidence_017"
+                "broken_bottle"
             ]
         }
     ]

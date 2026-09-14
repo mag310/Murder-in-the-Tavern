@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "dead_wife",
     "name": "Изабелла Вельди",
     "role": "Мёртвая жена Трактирщика (мать Официантки; призрак, обитает у Могилы жены)",
@@ -133,7 +133,7 @@
             "time": "day",
             "location": "tavern_hall",
             "activity": "обитает рядом с портретом жены на видном месте в зале",
-            "note": "evidence_007: портрет как деталь интерьера; призрак может появляться рядом с портретом"
+            "note": "wife_portrait: портрет как деталь интерьера; призрак может появляться рядом с портретом"
         },
         {
             "time": "evening",
@@ -179,19 +179,19 @@
         {
             "description": "Призрак Жены",
             "evidence": [
-                "evidence_008"
+                "wife_ghost"
             ]
         },
         {
             "description": "Показания призрака",
             "evidence": [
-                "evidence_036"
+                "ghost_testimony"
             ]
         },
         {
             "description": "Завещание dead_wife",
             "evidence": [
-                "evidence_050"
+                "wife_will"
             ]
         }
     ],

@@ -1,4 +1,4 @@
-{
+﻿{
     "id": "guest_rooms",
     "name": "Коридор 2-го этажа",
     "type": "context",
@@ -31,69 +31,69 @@
     },
     "hidden": [
         {
-            "description": "Следы пьянства Детектива (evidence_005)",
+            "description": "Следы пьянства Детектива (detective_drunk)",
             "evidence": [
-                "evidence_005"
+                "detective_drunk"
             ]
         },
         {
-            "description": "Ложная улика на Моряка (evidence_006)",
+            "description": "Ложная улика на Моряка (sailor_false_clue)",
             "evidence": [
-                "evidence_006"
+                "sailor_false_clue"
             ]
         },
         {
-            "description": "Разбитая бутылка (evidence_017)",
+            "description": "Разбитая бутылка (broken_bottle)",
             "evidence": [
-                "evidence_017"
+                "broken_bottle"
             ]
         },
         {
-            "description": "Записка Врача (evidence_022)",
+            "description": "Записка Врача (doctor_note)",
             "evidence": [
-                "evidence_022"
+                "doctor_note"
             ]
         },
         {
-            "description": "Медицинский журнал Врача (evidence_023)",
+            "description": "Медицинский журнал Врача (doctor_journal)",
             "evidence": [
-                "evidence_023"
+                "doctor_journal"
             ]
         },
         {
-            "description": "Следы ритуала на теле (evidence_026)",
+            "description": "Следы ритуала на теле (tavernkeeper_alibi)",
             "evidence": [
-                "evidence_026"
+                "tavernkeeper_alibi"
             ]
         },
         {
-            "description": "Тайник Моряка (evidence_031)",
+            "description": "Тайник Моряка (sailor_hiding)",
             "evidence": [
-                "evidence_031"
+                "sailor_hiding"
             ]
         },
         {
-            "description": "Тайник Врача (evidence_033)",
+            "description": "Тайник Врача (doctor_hiding)",
             "evidence": [
-                "evidence_033"
+                "doctor_hiding"
             ]
         },
         {
-            "description": "Поддельное письмо (evidence_041)",
+            "description": "Поддельное письмо (fake_letter)",
             "evidence": [
-                "evidence_041"
+                "fake_letter"
             ]
         },
         {
-            "description": "Чужая кровь на одежде (evidence_042)",
+            "description": "Чужая кровь на одежде (ink_on_fingers)",
             "evidence": [
-                "evidence_042"
+                "ink_on_fingers"
             ]
         },
         {
-            "description": "Морская карта (evidence_047)",
+            "description": "Морская карта (nautical_chart)",
             "evidence": [
-                "evidence_047"
+                "nautical_chart"
             ]
         }
     ]

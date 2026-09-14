@@ -61,7 +61,7 @@
                 "array",
                 "null"
             ],
-            "description": "Массив тайн персонажа. Каждая тайна имеет level: 'small' (малая) или 'big' (большая). Заменяет прежние small_secret/big_secret (по одной).",
+            "description": "Массив тайн персонажа. Каждая тайна имеет level: 'small' (малая), 'medium' (средняя) или 'big' (большая) — уровень задается внутри объекта секрета. Заменяет прежние small_secret/big_secret (по одной).",
             "items": {
                 "$ref": "#/$defs/secret"
             }
@@ -172,14 +172,15 @@
                 "null"
             ],
             "properties": {
-                "level": {
-                    "type": "string",
-                    "enum": [
-                        "small",
-                        "big"
-                    ],
-                    "description": "Уровень тайны: small (малая) или big (большая)."
-                },
+                 "level": {
+                     "type": "string",
+                     "enum": [
+                         "small",
+                         "medium",
+                         "big"
+                     ],
+                     "description": "Уровень тайны: small (малая), medium (средняя) или big (большая). Задается внутри объекта секрета."
+                 },
                 "description": {
                     "type": [
                         "string",
