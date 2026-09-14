@@ -7,68 +7,198 @@
             "phase": "chapter_2_tavern",
             "hour": "18:00–19:00",
             "beats": [
-                { "npc": "artist", "action": "спускается с мансарды, Официантка флirtует с ним, Доктор раздражён", "event": "event_027", "location": "tavern_hall" },
-                { "npc": "waitress", "action": "уходит на кухню за ужином, Доктор следует", "event": "event_028", "location": "kitchen" },
-                { "npc": "tavern_keeper", "action": "конфликт с Доктором на кухне (повышенный тон, хлопок дверью)", "event": "event_028", "location": "kitchen" },
-                { "npc": "tavern_keeper", "action": "предлагает гостям заночевать (ливень)", "event": "event_029", "location": "tavern_hall" }
+                {
+                    "npc": "artist",
+                    "action": "спускается с мансарды, Официантка флirtует с ним, Доктор раздражён",
+                    "event": "event_027",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "уходит на кухню за ужином, Доктор следует",
+                    "event": "event_028",
+                    "location": "kitchen"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "конфликт с Доктором на кухне (повышенный тон, хлопок дверью)",
+                    "event": "event_028",
+                    "location": "kitchen"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "предлагает гостям заночевать (ливень)",
+                    "event": "event_029",
+                    "location": "tavern_hall"
+                }
             ]
         },
         {
             "phase": "chapter_3_night",
             "hour": "20:00–22:00",
             "beats": [
-                { "npc": "waitress", "action": "обслуживает вечерний зал, наблюдает за гостями", "location": "tavern_hall", "source": "daily_schedule.evening" },
-                { "npc": "doctor", "action": "беседует с Официанткой, конфликт с Трактирщиком", "location": "tavern_hall", "source": "daily_schedule.evening" },
-                { "npc": "detective", "action": "расследует серию смертей, допрашивает", "location": "tavern_hall", "source": "daily_schedule.evening" },
-                { "npc": "sailor", "action": "привозит запрещённые товары Трактирщику", "location": "smuggler_storage", "source": "daily_schedule.evening" }
+                {
+                    "npc": "waitress",
+                    "action": "обслуживает вечерний зал, наблюдает за гостями",
+                    "location": "tavern_hall",
+                    "source": "daily_schedule.evening"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "беседует с Официанткой, конфликт с Трактирщиком",
+                    "location": "tavern_hall",
+                    "source": "daily_schedule.evening"
+                },
+                {
+                    "npc": "detective",
+                    "action": "расследует серию смертей, допрашивает",
+                    "location": "tavern_hall",
+                    "source": "daily_schedule.evening"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "привозит запрещённые товары Трактирщику",
+                    "location": "smuggler_storage",
+                    "source": "daily_schedule.evening"
+                }
             ]
         },
         {
             "phase": "chapter_3_night",
             "hour": "22:00–00:00",
             "beats": [
-                { "npc": "tavern_keeper", "action": "закрывает таверну, проверяет счёт и переписку; тайно хранит контрабанду в тайнике кабинета", "location": "tavern_keeper_office", "source": "daily_schedule.night" },
-                { "npc": "waitress", "action": "делает записи в дневник (evidence_009) перед сном", "location": "waitress_room", "source": "daily_schedule.night" },
-                { "npc": "sailor", "action": "спит в комнате гостя; скрыто хранит улики/личное", "location": "sailor_room", "source": "daily_schedule.night" },
-                { "npc": "detective", "action": "спит в комнате гостя (следы пьянства, evidence_005)", "location": "detective_room", "source": "daily_schedule.night" },
-                { "npc": "artist", "action": "присматривает с мансарды; рисует в мастерской (треш-расчленёнка)", "location": "mansard", "source": "daily_schedule.night" },
-                { "npc": "dead_wife", "action": "обитает у Могилы жены (wife_grave)", "location": "wife_grave", "source": "daily_schedule.night" }
+                {
+                    "npc": "tavern_keeper",
+                    "action": "закрывает таверну, проверяет счёт и переписку; тайно хранит контрабанду в тайнике кабинета",
+                    "location": "tavern_keeper_office",
+                    "source": "daily_schedule.night"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "делает записи в дневник (evidence_009) перед сном",
+                    "location": "waitress_room",
+                    "source": "daily_schedule.night"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "спит в комнате гостя; скрыто хранит улики/личное",
+                    "location": "sailor_room",
+                    "source": "daily_schedule.night"
+                },
+                {
+                    "npc": "detective",
+                    "action": "спит в комнате гостя (следы пьянства, evidence_005)",
+                    "location": "detective_room",
+                    "source": "daily_schedule.night"
+                },
+                {
+                    "npc": "artist",
+                    "action": "присматривает с мансарды; рисует в мастерской (треш-расчленёнка)",
+                    "location": "mansard",
+                    "source": "daily_schedule.night"
+                },
+                {
+                    "npc": "dead_wife",
+                    "action": "обитает у Могилы жены (wife_grave)",
+                    "location": "wife_grave",
+                    "source": "daily_schedule.night"
+                }
             ]
         },
         {
             "phase": "chapter_3_night",
             "hour": "00:00–02:00",
             "beats": [
-                { "npc": "waitress", "action": "проводит собрание культа (тайная смена)", "location": "cult_lair", "source": "daily_schedule.midnight" },
-                { "npc": "doctor", "action": "участвует в собрании культа", "location": "cult_lair", "source": "daily_schedule.midnight" },
-                { "npc": "dead_wife", "action": "присутствует у входа к логову культа", "location": "cult_lair", "source": "daily_schedule.midnight" },
-                { "npc": "tavern_keeper", "action": "тайно получает контрабанду от Матроса (event_005)", "location": "tavern_keeper_office", "source": "daily_schedule.midnight" },
-                { "npc": "sailor", "action": "следит за таверной во дворе; опасается, что Врач выдал его прошлое", "location": "tavern_yard", "source": "daily_schedule.midnight" },
-                { "npc": "artist", "action": "рисует/присматривает с мансарды (возможный сценарий: охота на культистов)", "location": "mansard", "source": "daily_schedule.midnight" }
+                {
+                    "npc": "waitress",
+                    "action": "проводит собрание культа (тайная смена)",
+                    "location": "cult_lair",
+                    "source": "daily_schedule.midnight"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "участвует в собрании культа",
+                    "location": "cult_lair",
+                    "source": "daily_schedule.midnight"
+                },
+                {
+                    "npc": "dead_wife",
+                    "action": "присутствует у входа к логову культа",
+                    "location": "cult_lair",
+                    "source": "daily_schedule.midnight"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "тайно получает контрабанду от Моряка (event_005)",
+                    "location": "tavern_keeper_office",
+                    "source": "daily_schedule.midnight"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "следит за таверной во дворе; опасается, что Врач выдал его прошлое",
+                    "location": "tavern_yard",
+                    "source": "daily_schedule.midnight"
+                },
+                {
+                    "npc": "artist",
+                    "action": "рисует/присматривает с мансарды (возможный сценарий: охота на культистов)",
+                    "location": "mansard",
+                    "source": "daily_schedule.midnight"
+                }
             ]
         },
         {
             "phase": "chapter_4_murder",
             "hour": "~02:00",
             "beats": [
-                { "npc": "all", "action": "происходит убийство (жертва определяется д6)", "location": "varies", "note": "см. murder_matrix.json" }
+                {
+                    "npc": "all",
+                    "action": "происходит убийство (жертва определяется д6)",
+                    "location": "varies",
+                    "note": "см. murder_matrix.json"
+                }
             ]
         },
         {
             "phase": "chapter_5_dawn",
             "hour": "05:45–07:15",
             "beats": [
-                { "npc": "varies", "action": "кто-то из NPC находит тело (если по расписанию должен быть в локации убийства)", "location": "varies", "note": "см. daily_schedule.morning каждого NPC" },
-                { "npc": "varies", "action": "или NPC привлекают внимание игроков к тому, что одного из персонажей не хватает, и просят помочь найти его", "location": "tavern_hall" },
-                { "npc": "dead_wife", "action": "приходит к Официантке (waitress_room) в раннее утро (до morning-смены Официантки, event_015)", "location": "waitress_room", "note": "решено: dead_wife раньше, waitress уходит в cult_lair позже — в одном morning-слоте (см. dead_wife.daily_schedule.morning + waitress.daily_schedule.morning)" },
-                { "npc": "varies", "action": "07:15 — кто-то из NPC по daily_schedule.morning попадает в локации, где видят воду (tavern_hall/tavern_yard/dock), и обращает внимание, что река вышла из берегов (event_030). Запускается таймер потопа.", "location": "tavern_hall", "event": "event_030", "note": "привязка event_030 к morning-расписанию: NPC идёт по утренней смене и замечает воду (см. event_030.facts, flood_mechanic.json)" }
+                {
+                    "npc": "varies",
+                    "action": "кто-то из NPC находит тело (если по расписанию должен быть в локации убийства)",
+                    "location": "varies",
+                    "note": "см. daily_schedule.morning каждого NPC"
+                },
+                {
+                    "npc": "varies",
+                    "action": "или NPC привлекают внимание игроков к тому, что одного из персонажей не хватает, и просят помочь найти его",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "dead_wife",
+                    "action": "приходит к Официантке (waitress_room) в раннее утро (до morning-смены Официантки, event_015)",
+                    "location": "waitress_room",
+                    "note": "решено: dead_wife раньше, waitress уходит в cult_lair позже — в одном morning-слоте (см. dead_wife.daily_schedule.morning + waitress.daily_schedule.morning)"
+                },
+                {
+                    "npc": "varies",
+                    "action": "07:15 — кто-то из NPC по daily_schedule.morning попадает в локации, где видят воду (tavern_hall/tavern_yard/quay), и обращает внимание, что река вышла из берегов (event_030). Запускается таймер потопа.",
+                    "location": "tavern_hall",
+                    "event": "event_030",
+                    "note": "привязка event_030 к morning-расписанию: NPC идёт по утренней смене и замечает воду (см. event_030.facts, flood_mechanic.json)"
+                }
             ]
         },
         {
             "phase": "chapter_6_flood",
             "hour": "07:15 и далее (каждый час)",
             "beats": [
-                { "npc": "all", "action": "таймер потопа: уровень воды прибывает, блокирует локации снизу вверх", "location": "varies", "note": "см. flood_mechanic.json" }
+                {
+                    "npc": "all",
+                    "action": "таймер потопа: уровень воды прибывает, блокирует локации снизу вверх",
+                    "location": "varies",
+                    "note": "см. flood_mechanic.json"
+                }
             ]
         }
     ]

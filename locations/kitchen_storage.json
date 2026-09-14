@@ -1,9 +1,9 @@
 {
     "id": "kitchen_storage",
-    "name": "Хранилище кухни",
+    "name": "Кладовая",
     "type": "gameplay",
     "parent_location": "basement",
-    "description": "Хранилище для кухни: овощи, крупы, мука. Запасы на ежедневное готовку. Связано с кухней (kitchen) — оттуда сюда носят продукты.",
+    "description": "Кладовая: овощи, крупы, мука. Запасы на ежедневное готовку. Связано с кухней (kitchen) — оттуда сюда носят продукты.",
     "characters": [
         "tavern_keeper",
         "waitress"

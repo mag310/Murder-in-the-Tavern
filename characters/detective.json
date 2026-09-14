@@ -89,7 +89,7 @@
         },
         {
             "level": "does_not_know",
-            "fact": "Не знает о контрабанде Трактирщика и Матроса",
+            "fact": "Не знает о контрабанде Трактирщика и Моряка",
             "target": null,
             "reason": "Детектив не знает о контрабанде",
             "source": null
@@ -115,7 +115,7 @@
     "external_links": [
         "sheriff_office",
         "town",
-        "previous_crime_scenes"
+        "city_streets"
     ],
     "daily_schedule": [
         {

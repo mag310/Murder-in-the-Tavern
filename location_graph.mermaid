@@ -1,0 +1,183 @@
+%%{
+    init: {
+        'theme': 'base',
+        'flowchart': {
+            'curve': 'basis',
+            'nodeSpacing': 30,
+            'rankSpacing': 60,
+            'padding': 10
+        }
+    }
+}%%
+graph TD
+
+    %% =========================================================
+    %% ВНУТРЕННИЕ ПОМЕЩЕНИЯ
+    %% =========================================================
+
+    subgraph B["Подвал"]
+        KST["Кладовая"]
+        MST["Ледник"]
+        WINE["Винный погреб"]
+        SMUG["Тайный склад контрабандистов"]
+        CLAIR["Логово культа"]
+    end
+
+    subgraph F1["1 этаж"]
+        HALL["Общий зал таверны"]
+        KITCHEN["Кухня"]
+        OFFICE["Кабинет владельца"]
+    end
+
+    subgraph F2["2 этаж"]
+        FOYER["Фойе 2-го этажа"]
+        GR["Коридор 2-го этажа"]
+
+        subgraph STAFF["Комнаты жильцов"]
+            TKROOM["Комната Трактирщика"]
+            WROOM["Комната Официантки"]
+            ROOM["Комната Доктора"]
+            SROOM["Комната Моряка"]
+        end
+
+        subgraph GUEST["Комнаты постояльцев"]
+            DROOM["Комната Детектива"]
+            E1["Пустая комната 1"]
+            E2["Пустая комната 2"]
+            E3["Пустая комната 3"]
+        end
+    end
+
+    subgraph MANS["Мансарда"]
+        MANSARD["Художественная мастерская"]
+    end
+
+    %% =========================================================
+    %% ВНЕШНИЕ ПОМЕЩЕНИЯ
+    %% =========================================================
+
+    subgraph EXT["Двор"]
+        YARD["Двор перед таверной"]
+        STABLE["Конюшня"]
+        GRAVE["Могила жены Трактирщика"]
+    end
+
+    subgraph DOCK["Пристань"]
+        PIER["Причал"]
+        SHED["Лодочный сарай"]
+        QUAY["Набережная"]
+    end
+
+    subgraph TUN["Тайный туннель"]
+        TUNNEL["Тайный туннель"]
+    end
+
+    %% =========================================================
+    %% ДОПОЛНИТЕЛЬНЫЕ ЛОКАЦИИ
+    %% =========================================================
+
+    subgraph TOWN["Город"]
+        SHERIFF["Офис Шерифа"]
+        MORGUE["Морг"]
+        TOWNGATE["Городские ворота"]
+        PORT["Порт"]
+        STREETS["Улицы города"]
+    end
+
+    subgraph ROAD["Тракт"]
+        ROAD_R["Тракт"]
+        BRIDGE["Мост через реку"]
+    end
+
+    %% =========================================================
+    %% ПЕРЕХОДЫ (двусторонние: одна ветвь = связь в обе стороны)
+    %% =========================================================
+
+    %% --- 1 этаж ---
+    YARD ==>|главный вход| HALL
+    HALL ==>|дверь в кабинет| OFFICE
+    HALL ==>|дверь на кухню| KITCHEN
+    HALL ==>|лестница на 2 этаж| FOYER
+    KITCHEN ==>|лестница в подвал| KST
+    HALL -.->|задняя дверь| QUAY
+
+    %% --- 2 этаж ---
+    FOYER ==>|лестница на мансарду| MANSARD
+    FOYER ==>|выход в коридор| GR
+    GR --- TKROOM
+    GR --- WROOM
+    GR --- ROOM
+    GR --- SROOM
+    GR --- DROOM
+    GR --- E1
+    GR --- E2
+    GR --- E3
+
+    %% --- Подвал ---
+    KST -.->|лестница на 1 этаж| HALL
+    KST ==>|дверь в ледник| MST
+    KST ==>|проход в погреб| WINE
+    KST ==>|потайная дверь| SMUG
+    WINE ==>|скрытый люк| CLAIR
+    CLAIR ==>|вход к культистам| GRAVE
+
+    %% --- Двор ---
+    YARD ==>|главные ворота| BRIDGE
+    YARD ==>|ворота конюшни| STABLE
+    YARD ==>|незаметная тропа| GRAVE
+    YARD -.->|тропинка за таверну| QUAY
+
+    %% --- Пристань ---
+    PIER ==>|ворота лодочного сарая| SHED
+    QUAY ==>|двери лодочного сарая| SHED
+    PIER ==>|река| PORT
+
+    %% --- Тайный туннель (сарай <-> тайный склад) ---
+    SHED -.->|скрытый решётчатый люк| TUNNEL
+    TUNNEL ==>|герметичные крепкие ворота| SMUG
+
+    %% --- Город ---
+    TOWNGATE ==>|городские ворота| STREETS
+    TOWNGATE ==>|городские ворота| BRIDGE
+    STREETS ==>|река| PORT
+    SHERIFF -.->|двери офиса| STREETS
+    MORGUE -.->|двери морга| STREETS
+    PORT -.->|ворота порта| STREETS
+
+    %% =========================================================
+    %% ВЕРТИКАЛЬНЫЙ «ПОЗВОНИК» (этажи строго один под другим)
+    %% =========================================================
+    MANSARD ~~~ FOYER
+    FOYER ~~~ HALL
+    HALL ~~~ KST
+    KST ~~~ CLAIR
+    QUAY ~~~ YARD
+    YARD ~~~ BRIDGE
+    BRIDGE ~~~ STREETS
+
+    %% =========================================================
+    %% КЛАССЫ
+    %% =========================================================
+    classDef floor fill:#e8f5e9, stroke:#2e7d32;
+    classDef corridor fill:#f5f0e1, stroke:#b8960b;
+    classDef staff fill:#f3e5f5, stroke:#6a1b9a;
+    classDef guest fill:#e1f5fe, stroke:#0288d1;
+    classDef storage fill:#e1f5fe, stroke:#0288d1;
+    classDef cult fill:#fdecea, stroke:#c62828;
+    classDef outdoor fill:#e0f2f1, stroke:#00695c;
+    classDef port fill:#d7f3ec, stroke:#00796b;
+    classDef town fill:#eceff1, stroke:#455a64;
+    classDef road fill:#efebe9, stroke:#8d6e63;
+    classDef tunnel fill:#e8e0f0, stroke:#5e35b1;
+
+    class HALL,KITCHEN,OFFICE floor;
+    class FOYER,GR corridor;
+    class TKROOM,WROOM,ROOM,SROOM staff;
+    class DROOM,E1,E2,E3 guest;
+    class KST,MST,WINE,SMUG storage;
+    class CLAIR cult;
+    class YARD,STABLE,GRAVE outdoor;
+    class QUAY,SHED,PIER port;
+    class SHERIFF,MORGUE,TOWNGATE,PORT,STREETS town;
+    class BRIDGE,ROAD_R road;
+    class TUNNEL tunnel;

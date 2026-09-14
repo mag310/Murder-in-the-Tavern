@@ -122,28 +122,28 @@
             },
             "facts": {
                 "objectively_proves": [
-                    "Матрос привозит Владельцу запрещённые товары",
-                    "У Владельца есть деловая связь с Матросом"
+                    "Моряк привозит Владельцу запрещённые товары",
+                    "У Владельца есть деловая связь с Моряком"
                 ],
                 "strongly_indicates": [
-                    "Матрос и Трактирщик работают вместе в теневом бизнесе",
-                    "Трактирщик не считает Матроса обычным клиентом"
+                    "Моряк и Трактирщик работают вместе в теневом бизнесе",
+                    "Трактирщик не считает Моряка обычным клиентом"
                 ],
                 "does_not_prove": [
-                    "Матрос убил кого-то в таверне",
+                    "Моряк убил кого-то в таверне",
                     "Трактирщик знает о текущем убийстве"
                 ]
             },
             "interpretations": [
                 {
                     "character": "players",
-                    "interpretation": "Матрос — деловой партнёр Владельца, не убийца",
+                    "interpretation": "Моряк — деловой партнёр Владельца, не убийца",
                     "correct": true,
                     "confidence": "высокая"
                 },
                 {
                     "character": "detective",
-                    "interpretation": "Матрос — потенциально опасный контрабандист",
+                    "interpretation": "Моряк — потенциально опасный контрабандист",
                     "correct": true,
                     "confidence": "высокая"
                 }
@@ -168,14 +168,14 @@
                     "Контрабанда — реальный, но отдельный от убийства конфликт"
                 ],
                 "contradicts": [
-                    "Матрос — случайный посетитель"
+                    "Моряк — случайный посетитель"
                 ]
             },
             "false_leads": [
                 "Записная книжка может выглядеть как доказательство убийства, если игрок не читает её внимательно"
             ],
             "notes": [
-                "Связывает Владельца и Матроса, но не указывает на убийство"
+                "Связывает Владельца и Моряка, но не указывает на убийство"
             ],
             "role": "secondary",
             "branches": [
@@ -471,7 +471,7 @@
         },
         {
             "id": "evidence_006",
-            "name": "Ложная улика на Матроса",
+            "name": "Ложная улика на Моряка",
             "type": "physical",
             "status": "confirmed",
             "location": "sailor_room",
@@ -481,7 +481,7 @@
                     "players"
                 ],
                 "discovery_conditions": [
-                    "игрок находит улику в комнате Матроса"
+                    "игрок находит улику в комнате Моряка"
                 ],
                 "discovery_method": "обыск"
             },
@@ -492,33 +492,33 @@
                 ]
             },
             "object": {
-                "description": "Ложная улика, оставленная в комнате Матроса, которая может выглядеть как доказательство убийства.",
+                "description": "Ложная улика, оставленная в комнате Моряка, которая может выглядеть как доказательство убийства.",
                 "condition": "загрязнена, но не связана с убийством",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
                 "objectively_proves": [
-                    "Матрос был в таверне"
+                    "Моряк был в таверне"
                 ],
                 "strongly_indicates": [
-                    "Матрос может выглядеть как подозреваемый"
+                    "Моряк может выглядеть как подозреваемый"
                 ],
                 "does_not_prove": [
-                    "Матрос совершил текущее убийство",
-                    "Матрос знает о жертве"
+                    "Моряк совершил текущее убийство",
+                    "Моряк знает о жертве"
                 ]
             },
             "interpretations": [
                 {
                     "character": "players",
-                    "interpretation": "Матрос — убийца (неправильно)",
+                    "interpretation": "Моряк — убийца (неправильно)",
                     "correct": false,
                     "confidence": "средняя"
                 },
                 {
                     "character": "detective",
-                    "interpretation": "Матрос — контрабандист, но не убийца",
+                    "interpretation": "Моряк — контрабандист, но не убийца",
                     "correct": true,
                     "confidence": "высокая"
                 }
@@ -541,18 +541,18 @@
             },
             "versions": {
                 "supports": [
-                    "Матрос — убийца (ложная версия)"
+                    "Моряк — убийца (ложная версия)"
                 ],
                 "contradicts": [
-                    "Матрос чист"
+                    "Моряк чист"
                 ]
             },
             "false_leads": [
-                "Улика в комнате Матроса может быть принята за доказательство убийства",
-                "Матрос выглядит как подозреваемый, но не имеет отношения к убийству"
+                "Улика в комнате Моряка может быть принята за доказательство убийства",
+                "Моряк выглядит как подозреваемый, но не имеет отношения к убийству"
             ],
             "notes": [
-                "Ложный след: Матрос не убийца, но выглядит как подозреваемый"
+                "Ложный след: Моряк не убийца, но выглядит как подозреваемый"
             ],
             "role": "false",
             "branches": [
@@ -679,7 +679,7 @@
                 ]
             },
             "object": {
-                "description": "Призрак Жены (dead_wife) приходит к Официантке за пару недель до игровых событий и рассказывает ей, что Матрос убил её (dead_wife) и угрожал Официантке.",
+                "description": "Призрак Жены (dead_wife) приходит к Официантке за пару недель до игровых событий и рассказывает ей, что Моряк убил её (dead_wife) и угрожал Официантке.",
                 "condition": "видим только Официантке (и игрокам, если она расскажет)",
                 "movable": false,
                 "hidden": true
@@ -687,11 +687,11 @@
             "facts": {
                 "objectively_proves": [
                     "Официантка видела призрака Жены",
-                    "Официантка узнала, что Матрос убил её мать (dead_wife)"
+                    "Официантка узнала, что Моряк убил её мать (dead_wife)"
                 ],
                 "strongly_indicates": [
-                    "Матрос угрожал Официантке",
-                    "У Официантки есть мотив против Матроса"
+                    "Моряк угрожал Официантке",
+                    "У Официантки есть мотив против Моряка"
                 ],
                 "does_not_prove": [
                     "Официантка совершила текущее убийство",
@@ -701,13 +701,13 @@
             "interpretations": [
                 {
                     "character": "players",
-                    "interpretation": "Официантка узнала, что Матрос убил её мать",
+                    "interpretation": "Официантка узнала, что Моряк убил её мать",
                     "correct": true,
                     "confidence": "высокая"
                 },
                 {
                     "character": "detective",
-                    "interpretation": "У Официантки есть мотив против Матроса",
+                    "interpretation": "У Официантки есть мотив против Моряка",
                     "correct": true,
                     "confidence": "высокая"
                 }
@@ -731,8 +731,8 @@
             },
             "versions": {
                 "supports": [
-                    "Официантка знает, что Матрос убил её мать",
-                    "У Официантки есть мотив против Матроса"
+                    "Официантка знает, что Моряк убил её мать",
+                    "У Официантки есть мотив против Моряка"
                 ],
                 "contradicts": []
             },
@@ -773,7 +773,7 @@
                 ]
             },
             "object": {
-                "description": "Личный дневник Официантки. В нём есть записи о её молитве тёмным богам и о том, что потоп — её заклинание, чтобы задержать Матроса в таверне.",
+                "description": "Личный дневник Официантки. В нём есть записи о её молитве тёмным богам и о том, что потоп — её заклинание, чтобы задержать Моряка в таверне.",
                 "condition": "целый, лежит в комнате Официантки",
                 "movable": true,
                 "hidden": false
@@ -784,8 +784,8 @@
                     "Официантка знает, что потоп — её заклинание"
                 ],
                 "strongly_indicates": [
-                    "Официантка вызвала потоп, чтобы задержать Матроса",
-                    "У Официантки есть мотив задержать Матроса в таверне"
+                    "Официантка вызвала потоп, чтобы задержать Моряка",
+                    "У Официантки есть мотив задержать Моряка в таверне"
                 ],
                 "does_not_prove": [
                     "Официантка совершила текущее убийство",
@@ -801,7 +801,7 @@
                 },
                 {
                     "character": "detective",
-                    "interpretation": "У Официантки есть мотив задержать Матроса",
+                    "interpretation": "У Официантки есть мотив задержать Моряка",
                     "correct": true,
                     "confidence": "высокая"
                 }
@@ -823,7 +823,7 @@
             "versions": {
                 "supports": [
                     "Официантка вызвала потоп",
-                    "У Официантки есть мотив задержать Матроса"
+                    "У Официантки есть мотив задержать Моряка"
                 ],
                 "contradicts": [
                     "Потоп — естественное наводнение"
@@ -837,7 +837,7 @@
             ],
             "role": "primary",
             "branches": [
-                { "victim": "sailor", "killer": "waitress", "role": "primary", "note": "потоп = заклинание, задержка Матроса" },
+                { "victim": "sailor", "killer": "waitress", "role": "primary", "note": "потоп = заклинание, задержка Моряка" },
                 { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "магия Официантки" },
                 { "victim": "detective", "killer": "accident", "role": "accident", "note": "случайность" }
             ]
@@ -929,7 +929,7 @@
             ],
             "role": "secondary",
             "branches": [
-                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "потоп задержал Матроса" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "secondary", "note": "потоп задержал Моряка" },
                 { "victim": "artist", "killer": "detective", "role": "secondary", "note": "потоп/серия" },
                 { "victim": "detective", "killer": "artist", "role": "secondary", "note": "потоп/серия" }
             ]
@@ -1182,7 +1182,7 @@
         },
         {
             "id": "evidence_014",
-            "name": "Нож Матроса",
+            "name": "Нож Моряка",
             "type": "physical",
             "status": "confirmed",
             "location": "smuggler_storage",
@@ -1200,12 +1200,12 @@
                 "hidden": true
             },
             "facts": {
-                "objectively_proves": ["Матрос владеет ножом", "На ноже следы старой крови"],
-                "strongly_indicates": ["Нож использовался ранее (против dead_wife)", "Матрос мог использовать его как орудие"],
-                "does_not_prove": ["Нож — орудие текущего убийства", "Матрос совершил текущее убийство"]
+                "objectively_proves": ["Моряк владеет ножом", "На ноже следы старой крови"],
+                "strongly_indicates": ["Нож использовался ранее (против dead_wife)", "Моряк мог использовать его как орудие"],
+                "does_not_prove": ["Нож — орудие текущего убийства", "Моряк совершил текущее убийство"]
             },
             "interpretations": [
-                { "character": "players", "interpretation": "Нож Матроса — орудие убийства", "correct": false, "confidence": "средняя" },
+                { "character": "players", "interpretation": "Нож Моряка — орудие убийства", "correct": false, "confidence": "средняя" },
                 { "character": "detective", "interpretation": "Нож старый, кровь не свежая", "correct": true, "confidence": "высокая" }
             ],
             "related": {
@@ -1214,13 +1214,13 @@
                 "events": ["event_004", "event_005"],
                 "other_evidence": ["evidence_002"]
             },
-            "versions": { "supports": ["Матрос убийца"], "contradicts": ["Матрос не имеет орудия"] },
+            "versions": { "supports": ["Моряк убийца"], "contradicts": ["Моряк не имеет орудия"] },
             "false_leads": ["Нож может быть принят за орудие, хотя кровь старая (event_004)"],
             "notes": ["Ложный/вспомогательный след в большинстве веток."],
             "role": "false",
             "branches": [
-                { "victim": "tavern_keeper", "killer": "sailor", "role": "secondary", "note": "подводит к Матросу как потенциальному убийце" },
-                { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "ложный след на Матроса" },
+                { "victim": "tavern_keeper", "killer": "sailor", "role": "secondary", "note": "подводит к Моряку как потенциальному убийце" },
+                { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "ложный след на Моряка" },
                 { "victim": "waitress", "killer": "sailor", "role": "false", "note": "ложный след" }
             ]
         },
@@ -1326,13 +1326,13 @@
             },
             "visibility": { "public": false, "known_by": ["tavern_keeper"] },
             "object": {
-                "description": "Личные записи Трактирщика: любовь к жене, ненависть к Матросу, страх за дочь. Мотив мести.",
+                "description": "Личные записи Трактирщика: любовь к жене, ненависть к Моряку, страх за дочь. Мотив мести.",
                 "condition": "целый, в кабинете",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
-                "objectively_proves": ["Трактирщик ненавидит Матроса", "Трактирщик любит дочь"],
+                "objectively_proves": ["Трактирщик ненавидит Моряка", "Трактирщик любит дочь"],
                 "strongly_indicates": ["У Трактирщика есть мотив мести", "Трактирщик защищал дочь"],
                 "does_not_prove": ["Трактирщик совершил конкретное убийство"]
             },
@@ -1348,7 +1348,7 @@
             },
             "versions": { "supports": ["Трактирщик — мститель"], "contradicts": ["Трактирщик безмотивен"] },
             "false_leads": ["Дневник может выглядеть как мотив, не доказывающий убийство"],
-            "notes": ["Основная улика в ветке «Трактирщик убил Матроса» (murder_matrix)."],
+            "notes": ["Основная улика в ветке «Трактирщик убил Моряка» (murder_matrix)."],
             "role": "primary",
             "branches": [
                 { "victim": "sailor", "killer": "tavern_keeper", "role": "primary", "note": "мотив мести" },
@@ -1358,7 +1358,7 @@
         },
         {
             "id": "evidence_019",
-            "name": "Письмо Матроса с угрозой",
+            "name": "Письмо Моряка с угрозой",
             "type": "document",
             "status": "confirmed",
             "location": "tavern_keeper_office",
@@ -1370,18 +1370,18 @@
             },
             "visibility": { "public": false, "known_by": ["tavern_keeper", "sailor"] },
             "object": {
-                "description": "Старое письмо (или копия) с угрозой убить дочь, если Трактирщик не согласится. Подпись Матроса.",
-                "condition": "подписано Матросом, в тайнике",
+                "description": "Старое письмо (или копия) с угрозой убить дочь, если Трактирщик не согласится. Подпись Моряка.",
+                "condition": "подписано Моряком, в тайнике",
                 "movable": true,
                 "hidden": true
             },
             "facts": {
-                "objectively_proves": ["Матрос угрожал убить дочь", "Трактирщик получил угрозу"],
-                "strongly_indicates": ["У Матроса есть мотив замолчать Трактирщика", "Трактирщик хранит угрозу как доказательство"],
-                "does_not_prove": ["Матрос совершил текущее убийство"]
+                "objectively_proves": ["Моряк угрожал убить дочь", "Трактирщик получил угрозу"],
+                "strongly_indicates": ["У Моряка есть мотив замолчать Трактирщика", "Трактирщик хранит угрозу как доказательство"],
+                "does_not_prove": ["Моряк совершил текущее убийство"]
             },
             "interpretations": [
-                { "character": "players", "interpretation": "Письмо — мотив Матроса", "correct": true, "confidence": "высокая" },
+                { "character": "players", "interpretation": "Письмо — мотив Моряка", "correct": true, "confidence": "высокая" },
                 { "character": "detective", "interpretation": "Угроза подтверждает связь", "correct": true, "confidence": "высокая" }
             ],
             "related": {
@@ -1390,9 +1390,9 @@
                 "events": ["event_004"],
                 "other_evidence": ["evidence_002", "evidence_008"]
             },
-            "versions": { "supports": ["Матрос — угрожающий"], "contradicts": ["Матрос безмотивен"] },
+            "versions": { "supports": ["Моряк — угрожающий"], "contradicts": ["Моряк безмотивен"] },
             "false_leads": ["Письмо может быть подделкой (см. evidence_041)"],
-            "notes": ["Основная улика в ветке «Трактирщик убит Матросом»."],
+            "notes": ["Основная улика в ветке «Трактирщик убит Моряком»."],
             "role": "primary",
             "branches": [
                 { "victim": "tavern_keeper", "killer": "sailor", "role": "primary", "note": "мотив мести" },
@@ -1414,13 +1414,13 @@
             },
             "visibility": { "public": false, "known_by": ["tavern_keeper", "sailor"] },
             "object": {
-                "description": "Накладная на запрещённые товары с подписью Матроса. Доказывает деловую связь.",
+                "description": "Накладная на запрещённые товары с подписью Моряка. Доказывает деловую связь.",
                 "condition": "подписана, на складе",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
-                "objectively_proves": ["Матрос и Трактирщик — деловые партнёры"],
+                "objectively_proves": ["Моряк и Трактирщик — деловые партнёры"],
                 "strongly_indicates": ["Трафик контрабанды через таверну"],
                 "does_not_prove": ["Кто-то из них убийца"]
             },
@@ -1458,14 +1458,14 @@
             },
             "visibility": { "public": false, "known_by": ["waitress"] },
             "object": {
-                "description": "Записи о призраке матери, о страхе перед Матросом, о молитвах тёмным богам.",
+                "description": "Записи о призраке матери, о страхе перед Моряком, о молитвах тёмным богам.",
                 "condition": "в комнате Официантки",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
                 "objectively_proves": ["Официантка видела призрака Жены", "Официантка молилась тёмным богам"],
-                "strongly_indicates": ["У Официантки есть мотив против Матроса", "Официантка вызывала потоп"],
+                "strongly_indicates": ["У Официантки есть мотив против Моряка", "Официантка вызывала потоп"],
                 "does_not_prove": ["Официантка совершила конкретное убийство"]
             },
             "interpretations": [
@@ -1480,7 +1480,7 @@
             },
             "versions": { "supports": ["Официантка — мстительница"], "contradicts": ["Официантка безмотивна"] },
             "false_leads": ["Дневник может выглядеть как мотив, не доказывающий убийство"],
-            "notes": ["Основная улика в ветке «Матрос убит Официанткой»."],
+            "notes": ["Основная улика в ветке «Моряк убит Официанткой»."],
             "role": "primary",
             "branches": [
                 { "victim": "sailor", "killer": "waitress", "role": "primary", "note": "мотив мести" },
@@ -1749,7 +1749,7 @@
             "notes": ["Вспомогательная улика в ветках с Официанткой."],
             "role": "secondary",
             "branches": [
-                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "задержка Матроса" },
+                { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "задержка Моряка" },
                 { "victim": "artist", "killer": "waitress", "role": "secondary", "note": "магия Официантки" }
             ]
         },
@@ -1884,7 +1884,7 @@
         },
         {
             "id": "evidence_031",
-            "name": "Тайник Матроса",
+            "name": "Тайник Моряка",
             "type": "physical",
             "status": "confirmed",
             "location": "sailor_room",
@@ -1902,13 +1902,13 @@
                 "hidden": true
             },
             "facts": {
-                "objectively_proves": ["Матрос украл казну", "Матрос хранит тайник"],
-                "strongly_indicates": ["Матрос — дезертир/вор", "У Матроса есть тайное имущество"],
-                "does_not_prove": ["Матрос совершил текущее убийство"]
+                "objectively_proves": ["Моряк украл казну", "Моряк хранит тайник"],
+                "strongly_indicates": ["Моряк — дезертир/вор", "У Моряка есть тайное имущество"],
+                "does_not_prove": ["Моряк совершил текущее убийство"]
             },
             "interpretations": [
-                { "character": "players", "interpretation": "Тайник — тайна Матроса", "correct": true, "confidence": "высокая" },
-                { "character": "detective", "interpretation": "Матрос скрывает имущество", "correct": true, "confidence": "высокая" }
+                { "character": "players", "interpretation": "Тайник — тайна Моряка", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Моряк скрывает имущество", "correct": true, "confidence": "высокая" }
             ],
             "related": {
                 "characters": ["sailor"],
@@ -1916,12 +1916,12 @@
                 "events": ["event_002", "event_003"],
                 "other_evidence": ["evidence_006"]
             },
-            "versions": { "supports": ["Матрос — дезертир"], "contradicts": ["Матрос чист"] },
+            "versions": { "supports": ["Моряк — дезертир"], "contradicts": ["Моряк чист"] },
             "false_leads": ["Тайник может выглядеть как мотив"],
-            "notes": ["Вспомогательная/ложная улика в ветках с Матросом."],
+            "notes": ["Вспомогательная/ложная улика в ветках с Моряком."],
             "role": "false",
             "branches": [
-                { "victim": "detective", "killer": "sailor", "role": "false", "note": "тайна Матроса" },
+                { "victim": "detective", "killer": "sailor", "role": "false", "note": "тайна Моряка" },
                 { "victim": "sailor", "killer": "tavern_keeper", "role": "false", "note": "ложный след" }
             ]
         },
@@ -2119,8 +2119,8 @@
                 "hidden": true
             },
             "facts": {
-                "objectively_proves": ["Призрак Жены знает о Матросе", "Призрак рассказывает об угрозах"],
-                "strongly_indicates": ["Матрос убил dead_wife", "Матрос угрожал Официантке"],
+                "objectively_proves": ["Призрак Жены знает о Моряке", "Призрак рассказывает об угрозах"],
+                "strongly_indicates": ["Моряк убил dead_wife", "Моряк угрожал Официантке"],
                 "does_not_prove": ["Призрак — свидетель текущего убийства"]
             },
             "interpretations": [
@@ -2133,9 +2133,9 @@
                 "events": ["event_015", "event_004"],
                 "other_evidence": ["evidence_008"]
             },
-            "versions": { "supports": ["Матрос убийца (past)"], "contradicts": ["Матрос не убийца"] },
+            "versions": { "supports": ["Моряк убийца (past)"], "contradicts": ["Моряк не убийца"] },
             "false_leads": ["Показания призрака могут быть ложными (призрак может обманывать)"],
-            "notes": ["Вспомогательная улика в ветках с Матросом/Официанткой."],
+            "notes": ["Вспомогательная улика в ветках с Моряком/Официанткой."],
             "role": "secondary",
             "branches": [
                 { "victim": "sailor", "killer": "waitress", "role": "secondary", "note": "мотив мести" },
@@ -2324,23 +2324,23 @@
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
-                "discovery_conditions": ["игрок находит письмо в комнате Матроса"],
+                "discovery_conditions": ["игрок находит письмо в комнате Моряка"],
                 "discovery_method": "обыск"
             },
             "visibility": { "public": false, "known_by": [] },
             "object": {
-                "description": "Письмо, якобы от Матроса, с признанием. На самом деле подделка (кто-то подставил).",
-                "condition": "в комнате Матроса",
+                "description": "Письмо, якобы от Моряка, с признанием. На самом деле подделка (кто-то подставил).",
+                "condition": "в комнате Моряка",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
-                "objectively_proves": ["В комнате Матроса есть письмо", "Письмо выглядит как признание"],
-                "strongly_indicates": ["Матрос — подозреваемый", "Письмо может быть подделкой"],
-                "does_not_prove": ["Матрос совершил убийство"]
+                "objectively_proves": ["В комнате Моряка есть письмо", "Письмо выглядит как признание"],
+                "strongly_indicates": ["Моряк — подозреваемый", "Письмо может быть подделкой"],
+                "does_not_prove": ["Моряк совершил убийство"]
             },
             "interpretations": [
-                { "character": "players", "interpretation": "Письмо — признание Матроса", "correct": false, "confidence": "средняя" },
+                { "character": "players", "interpretation": "Письмо — признание Моряка", "correct": false, "confidence": "средняя" },
                 { "character": "detective", "interpretation": "Письмо может быть подделкой", "correct": true, "confidence": "высокая" }
             ],
             "related": {
@@ -2349,9 +2349,9 @@
                 "events": [],
                 "other_evidence": ["evidence_006"]
             },
-            "versions": { "supports": ["Матрос — убийца (ложно)"], "contradicts": ["Письмо подделка"] },
-            "false_leads": ["Письмо — ложный след на Матроса"],
-            "notes": ["Ложный след в ветках с Матросом."],
+            "versions": { "supports": ["Моряк — убийца (ложно)"], "contradicts": ["Письмо подделка"] },
+            "false_leads": ["Письмо — ложный след на Моряка"],
+            "notes": ["Ложный след в ветках с Моряком."],
             "role": "false",
             "branches": [
                 { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "подделка" },
@@ -2367,20 +2367,20 @@
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
-                "discovery_conditions": ["игрок находит кровь на одежде Матроса"],
+                "discovery_conditions": ["игрок находит кровь на одежде Моряка"],
                 "discovery_method": "обыск / осмотр"
             },
             "visibility": { "public": false, "known_by": ["sailor"] },
             "object": {
-                "description": "Одежда Матроса с кровью (не его). Может быть кровью жены Трактирщика (старая) или жертвы.",
+                "description": "Одежда Моряка с кровью (не его). Может быть кровью жены Трактирщика (старая) или жертвы.",
                 "condition": "кровь на одежде",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
-                "objectively_proves": ["На одежде Матроса кровь", "Кровь не Матроса"],
+                "objectively_proves": ["На одежде Моряка кровь", "Кровь не Моряка"],
                 "strongly_indicates": ["Кровь может быть старой (dead_wife)", "Кровь может быть жертвы"],
-                "does_not_prove": ["Матрос совершил текущее убийство"]
+                "does_not_prove": ["Моряк совершил текущее убийство"]
             },
             "interpretations": [
                 { "character": "players", "interpretation": "Кровь — убийство", "correct": false, "confidence": "средняя" },
@@ -2392,9 +2392,9 @@
                 "events": ["event_004"],
                 "other_evidence": ["evidence_006", "evidence_014"]
             },
-            "versions": { "supports": ["Матрос — убийца (ложно)"], "contradicts": ["Кровь старая"] },
-            "false_leads": ["Кровь — ложный след на Матроса"],
-            "notes": ["Ложный/вспомогательный след в ветках с Матросом."],
+            "versions": { "supports": ["Моряк — убийца (ложно)"], "contradicts": ["Кровь старая"] },
+            "false_leads": ["Кровь — ложный след на Моряка"],
+            "notes": ["Ложный/вспомогательный след в ветках с Моряком."],
             "role": "false",
             "branches": [
                 { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "ложный след" },
@@ -2585,24 +2585,24 @@
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": ["players"],
-                "discovery_conditions": ["игрок находит карту в вещах Матроса"],
+                "discovery_conditions": ["игрок находит карту в вещах Моряка"],
                 "discovery_method": "обыск"
             },
             "visibility": { "public": false, "known_by": ["sailor"] },
             "object": {
-                "description": "Карта с маршрутом корабля Капитана. Доказывает службу Матроса и Врача.",
-                "condition": "в вещах Матроса",
+                "description": "Карта с маршрутом корабля Капитана. Доказывает службу Моряка и Врача.",
+                "condition": "в вещах Моряка",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
-                "objectively_proves": ["Матрос служил на корабле", "Матрос и Врач — сослуживцы"],
-                "strongly_indicates": ["Матрос дезертировал", "Матрос знал о корабле"],
-                "does_not_prove": ["Матрос совершил текущее убийство"]
+                "objectively_proves": ["Моряк служил на корабле", "Моряк и Врач — сослуживцы"],
+                "strongly_indicates": ["Моряк дезертировал", "Моряк знал о корабле"],
+                "does_not_prove": ["Моряк совершил текущее убийство"]
             },
             "interpretations": [
-                { "character": "players", "interpretation": "Карта — прошлое Матроса", "correct": true, "confidence": "высокая" },
-                { "character": "detective", "interpretation": "Матрос — дезертир", "correct": true, "confidence": "высокая" }
+                { "character": "players", "interpretation": "Карта — прошлое Моряка", "correct": true, "confidence": "высокая" },
+                { "character": "detective", "interpretation": "Моряк — дезертир", "correct": true, "confidence": "высокая" }
             ],
             "related": {
                 "characters": ["sailor", "doctor", "ship_captain"],
@@ -2610,9 +2610,9 @@
                 "events": ["event_001", "event_002"],
                 "other_evidence": ["evidence_006"]
             },
-            "versions": { "supports": ["Матрос — дезертир"], "contradicts": ["Матрос чист"] },
+            "versions": { "supports": ["Моряк — дезертир"], "contradicts": ["Моряк чист"] },
             "false_leads": ["Карта может выглядеть как мотив"],
-            "notes": ["Вспомогательная/ложная улика в ветках с Матросом/Врачом."],
+            "notes": ["Вспомогательная/ложная улика в ветках с Моряком/Врачом."],
             "role": "false",
             "branches": [
                 { "victim": "doctor", "killer": "sailor", "role": "false", "note": "связь с кораблём" },
@@ -2633,15 +2633,15 @@
             },
             "visibility": { "public": false, "known_by": ["tavern_keeper", "sailor"] },
             "object": {
-                "description": "Расписка Матроса о долге Трактирщику. Доказывает денежную связь.",
+                "description": "Расписка Моряка о долге Трактирщику. Доказывает денежную связь.",
                 "condition": "в кабинете",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
-                "objectively_proves": ["Матрос должен деньги Трактирщику", "Денежная связь"],
-                "strongly_indicates": ["Матрос и Трактирщик — партнёры", "Матрос мог убить за долг"],
-                "does_not_prove": ["Матрос совершил текущее убийство"]
+                "objectively_proves": ["Моряк должен деньги Трактирщику", "Денежная связь"],
+                "strongly_indicates": ["Моряк и Трактирщик — партнёры", "Моряк мог убить за долг"],
+                "does_not_prove": ["Моряк совершил текущее убийство"]
             },
             "interpretations": [
                 { "character": "players", "interpretation": "Расписка — денежная связь", "correct": true, "confidence": "высокая" },
@@ -2655,7 +2655,7 @@
             },
             "versions": { "supports": ["Денежный мотив"], "contradicts": ["Нет денежного мотива"] },
             "false_leads": ["Расписка может выглядеть как мотив"],
-            "notes": ["Вспомогательная/ложная улика в ветках с Матросом/Трактирщиком."],
+            "notes": ["Вспомогательная/ложная улика в ветках с Моряком/Трактирщиком."],
             "role": "false",
             "branches": [
                 { "victim": "tavern_keeper", "killer": "sailor", "role": "false", "note": "денежный мотив" },
