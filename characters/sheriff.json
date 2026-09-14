@@ -122,5 +122,6 @@
         }
     ],
     "race": "человек",
-    "alignment": null
+    "alignment": null,
+    "nickname": null
 }

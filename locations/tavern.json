@@ -1,6 +1,6 @@
 {
     "id": "tavern",
-    "name": "Таверна",
+    "name": "Lacrime della Madreperla (Слезы устрицы)",
     "type": "context",
     "description": "Основное здание таверны. Все gameplay-локации (tavern_hall, tavern_keeper_office, basement, cult_lair, mansard, guest_rooms, detective_room, sailor_room, doctor_room, tavern_keeper_room, guest_room_empty_1, guest_room_empty_2, guest_room_empty_3, tavern_yard, smuggler_storage, kitchen_storage, meat_storage, wine_cellar, kitchen) являются его частями.",
     "characters": [
@@ -11,14 +11,11 @@
         "detective",
         "artist"
     ],
-    "important_events": [
-    ],
-    "clues": [
-    ],
-    "secrets": [
-    ],
+    "important_events": [],
+    "clues": [],
+    "secrets": [],
     "parent_location": null,
-    "appearance": "Двухэтажное здание на возвышенности. Стены — толстые, из тёмного камня и дерева. Крыша — черепичная, с мхом. К дверям ведёт размокшая тропа. Вокруг — вода. Таверна стоит как остров в море. Из труб идёт дым — внутри тепло.",
+    "appearance": "Двухэтажное здание на возвышенности. Стены — толстые, из тёмного камня и дерева. Крыша — черепичная, с мхом. К дверям ведёт размокшая тропа. Вокруг — вода. Таверна стоит как остров в море. Из труб идёт дым — внутри тепло. Над воротами висит щит — герб таверны: изображение плачущей морской раковины (оyster, из которой капают «слёзы»), вырезанное в темном дереве/металле; погнутые края, сочащийся мох. Щит — символ названия.",
     "senses": {
         "feeling": "изоляция, тепло внутри, холод снаружи",
         "smell": "дым, жареное мясо, мокрое дерево",

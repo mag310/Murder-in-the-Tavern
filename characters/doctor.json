@@ -1,6 +1,6 @@
 {
     "id": "doctor",
-    "name": null,
+    "name": "доктор Элио Вентури",
     "role": "Врач",
     "status": "main_npc",
     "can_be_murder_victim": true,
@@ -275,5 +275,6 @@
         }
     ],
     "race": "человек",
-    "alignment": null
+    "alignment": null,
+    "nickname": "«Доктор Вентури»"
 }

@@ -1,6 +1,6 @@
 {
     "id": "tavern_keeper",
-    "name": null,
+    "name": "Гаэтано Вельди",
     "role": "Трактирщик",
     "status": "main_npc",
     "can_be_murder_victim": true,
@@ -307,5 +307,6 @@
         }
     ],
     "race": "человек",
-    "alignment": null
+    "alignment": null,
+    "nickname": "«Старый Гаэтано»"
 }

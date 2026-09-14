@@ -1,6 +1,6 @@
 {
     "id": "artist",
-    "name": null,
+    "name": "Лучиано Аврелиан",
     "role": "Художник",
     "status": "main_npc",
     "can_be_murder_victim": true,
@@ -430,5 +430,6 @@
         }
     ],
     "race": "аасимар",
-    "alignment": null
+    "alignment": null,
+    "nickname": "«Маэстро»"
 }

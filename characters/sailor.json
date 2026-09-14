@@ -1,6 +1,6 @@
 {
     "id": "sailor",
-    "name": null,
+    "name": "Лучиано «Кайрэн» Марроне",
     "role": "Моряк",
     "status": "main_npc",
     "can_be_murder_victim": true,
@@ -322,5 +322,6 @@
         }
     ],
     "race": "полуэльф",
-    "alignment": null
+    "alignment": null,
+    "nickname": "«Ржавый»"
 }

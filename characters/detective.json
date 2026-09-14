@@ -1,6 +1,6 @@
 {
     "id": "detective",
-    "name": null,
+    "name": "Джакомо Раньери",
     "role": "Детектив",
     "status": "main_npc",
     "can_be_murder_victim": true,
@@ -195,5 +195,6 @@
         }
     ],
     "race": "человек",
-    "alignment": null
+    "alignment": null,
+    "nickname": "«Джек»"
 }

@@ -1,6 +1,6 @@
 {
     "id": "waitress",
-    "name": null,
+    "name": "Виттория Вельди",
     "role": "Официантка",
     "status": "main_npc",
     "can_be_murder_victim": true,
@@ -322,5 +322,6 @@
         }
     ],
     "race": "человек",
-    "alignment": null
+    "alignment": null,
+    "nickname": "«Госпожа Виттория»"
 }

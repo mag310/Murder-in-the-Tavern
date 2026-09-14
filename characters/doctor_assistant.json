@@ -1,6 +1,6 @@
 {
     "id": "doctor_assistant",
-    "name": null,
+    "name": "Тобиа Бандини",
     "role": "Ассистент Доктора",
     "status": "context_npc",
     "can_be_murder_victim": false,
@@ -91,5 +91,6 @@
         }
     ],
     "race": "полурослик",
-    "alignment": null
+    "alignment": null,
+    "nickname": null
 }

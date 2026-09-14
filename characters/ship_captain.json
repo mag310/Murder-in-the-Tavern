@@ -1,6 +1,6 @@
 {
     "id": "ship_captain",
-    "name": null,
+    "name": "капитан Алессандро Маретти",
     "role": "Капитан корабля",
     "status": "context_npc",
     "can_be_murder_victim": false,
@@ -72,6 +72,7 @@
             "status": "active"
         }
     ],
-    "race": null,
-    "alignment": null
+    "race": "человек",
+    "alignment": null,
+    "nickname": "«Солёный Алехандро»"
 }

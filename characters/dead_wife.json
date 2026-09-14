@@ -1,6 +1,6 @@
 {
     "id": "dead_wife",
-    "name": null,
+    "name": "Изабелла Вельди",
     "role": "Мёртвая жена Трактирщика (мать Официантки; призрак, обитает у Могилы жены)",
     "status": "ghost",
     "can_be_murder_victim": false,
@@ -196,5 +196,6 @@
         }
     ],
     "race": "человек",
-    "alignment": null
+    "alignment": null,
+    "nickname": "«Госпожа Изабелла»"
 }
