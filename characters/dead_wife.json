@@ -33,8 +33,7 @@
                 "type": "убийца"
             }
         ],
-        "money": [
-        ],
+        "money": [],
         "religion": [
             {
                 "target": "waitress",
@@ -110,8 +109,7 @@
             "source": "event_004"
         }
     ],
-    "false_beliefs": [
-    ],
+    "false_beliefs": [],
     "death": {
         "killed_by": "sailor",
         "cause": "murder",
@@ -196,5 +194,7 @@
                 "evidence_050"
             ]
         }
-    ]
+    ],
+    "race": "человек",
+    "alignment": null
 }

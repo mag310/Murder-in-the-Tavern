@@ -4,8 +4,7 @@
     "role": "Ассистент Доктора",
     "status": "context_npc",
     "can_be_murder_victim": false,
-    "secrets": [
-    ],
+    "secrets": [],
     "relationships": {
         "love": [],
         "hatred": [],
@@ -16,6 +15,20 @@
             }
         ],
         "religion": [],
+        "work": [
+            {
+                "target": "doctor",
+                "type": "знакомы по работе (Морг): оба работают в Морге (morgue); Ассистент — подчинённый Доктора"
+            },
+            {
+                "target": "detective",
+                "type": "знакомы по работе (Морг): иногда пересекаются в Морге по делу (расследование серии)"
+            },
+            {
+                "target": "waitress",
+                "type": "виделись (пересекались)"
+            }
+        ],
         "justice": [
             {
                 "target": "sheriff",
@@ -44,6 +57,27 @@
             "target": null,
             "reason": "Ассистент не знает о культе",
             "source": null
+        },
+        {
+            "level": "knows_exactly",
+            "fact": "Доктор — его начальник, оба работают в Морге (morgue)",
+            "target": "doctor",
+            "reason": "Ассистент и Доктор работают вместе в Морге",
+            "source": "relationship"
+        },
+        {
+            "level": "knows_only",
+            "fact": "Детектив расследует серию убийств; они иногда пересекаются в Морге по работе",
+            "target": "detective",
+            "reason": "Ассистент и Детектив знакомы по работе (Морг), пересекаются по делу",
+            "source": "relationship"
+        },
+        {
+            "level": "knows_only",
+            "fact": "Виделся с Официанткой (waitress) — они пересекались",
+            "target": "waitress",
+            "reason": "Ассистент виделся с Официанткой",
+            "source": "relationship"
         }
     ],
     "false_beliefs": [],
@@ -51,9 +85,11 @@
     "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: morgue.",
     "organizations": [
         {
-            "organization": "city_authority",
-            "role": "ассистент Доктора (морг)",
+            "organization": "morgue",
+            "role": "ассистент Доктора",
             "status": "active"
         }
-    ]
+    ],
+    "race": "полурослик",
+    "alignment": null
 }

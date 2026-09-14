@@ -37,10 +37,18 @@
             ],
             "description": "Статус персонажа: main_npc (активный персонаж в игре — не строго «6 d6-жертв»; напр. Шериф активен в прологе, но can_be_murder_victim: false), context_npc (контекстный вне игры), ghost (мертвый персонаж — призрак, действующий в игре, но не живой и не жертва)."
         },
-        "can_be_murder_victim": {
-            "type": "boolean",
-            "description": "Может ли персонаж быть жертвой текущего убийства. true — для персонажей в таверне, false — для контекстных персонажей вне таверны"
-        },
+    "can_be_murder_victim": {
+      "type": "boolean",
+      "description": "Может ли персонаж быть жертвой текущего убийства (true для персонажей в таверне, false для контекстных/призраков)."
+    },
+    "race": {
+      "type": ["string", "null"],
+      "description": "Расса персонажа (напр. 'человек', 'полуэльф', 'аасимар', 'полурослик'). null — не определено."
+    },
+    "alignment": {
+      "type": ["string", "null"],
+      "description": "Мировоззрение (PF2e alignment: Lawful Good/Neutral Good/Chaotic Good/Lawful Neutral/True Neutral/Lawful Evil/Neutral Evil/Chaotic Evil). null — не определено."
+    },
         "secrets": {
             "type": [
                 "array",

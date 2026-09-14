@@ -71,5 +71,7 @@
             "role": "капитан",
             "status": "active"
         }
-    ]
+    ],
+    "race": null,
+    "alignment": null
 }

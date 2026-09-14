@@ -12,10 +12,6 @@
     - [ ] Выбрать 1 из 4 вариантов из README (жертва связана с таверной / след ведёт к таверне / случайный визит /
       наводнение как триггер).
     - [ ] Описать этот механизм в `README.md` или в `events.json` (стартовый event).
-- [ ] **Каноничность побочных убийств**
-    - [ ] Пройтись по `events.json` и `murder_matrix.json`.
-    - [ ] Для каждого убийства NPC (не текущего) решить: это обязательный сюжет или опция для Мастера?
-    - [ ] Отметить статус в `events.json` (например, `status: "canonical"` или `status: "optional"`).
 - [ ] **Призрак (dead_wife) как possible_killer**
     - [ ] dead_wife — `ghost` с `can_be_murder_victim: false`, но указан в `possible_killers` всех 6 матриц
       `murder_matrix.json`.
