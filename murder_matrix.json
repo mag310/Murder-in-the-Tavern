@@ -266,8 +266,7 @@
                     ],
                     "secondary_evidence": [
                         "tavernkeeper_notebook",
-                        "sailor_false_clue",
-                        "footprints"
+                        "sailor_false_clue"
                     ],
                     "false_evidence": [
                         "ink_on_fingers"

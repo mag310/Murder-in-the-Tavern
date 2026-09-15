@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="387">
+ <properties>
+  <property name="capacity" value="15"/>
+  <property name="era" value="medieval"/>
+  <property name="floor" value="0"/>
+  <property name="name" value="Подвал трактира"/>
+  <property name="scale" value="1 клетка = 5 футов = 64 px"/>
+  <property name="size_ft" value="150x100"/>
+ </properties>
+ <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="6" columns="6">
+  <image source="tiles.png" width="384" height="64"/>
+ </tileset>
+ <tileset firstgid="7" name="object_sprites" tilewidth="256" tileheight="128" tilecount="11" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="worktable.png" width="128" height="64"/>
+  </tile>
+  <tile id="1">
+   <image source="window.png" width="64" height="24"/>
+  </tile>
+  <tile id="2">
+   <image source="table.png" width="256" height="64"/>
+  </tile>
+  <tile id="3">
+   <image source="stove.png" width="64" height="64"/>
+  </tile>
+  <tile id="4">
+   <image source="painting.png" width="128" height="24"/>
+  </tile>
+  <tile id="5">
+   <image source="hearth.png" width="128" height="128"/>
+  </tile>
+  <tile id="6">
+   <image source="fireplace_obj.png" width="128" height="128"/>
+  </tile>
+  <tile id="7">
+   <image source="door.png" width="64" height="64"/>
+  </tile>
+  <tile id="8">
+   <image source="coffee_table.png" width="64" height="64"/>
+  </tile>
+  <tile id="9">
+   <image source="bench.png" width="256" height="64"/>
+  </tile>
+  <tile id="10">
+   <image source="armchair.png" width="64" height="64"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="18" name="fireplace_wide_3x1" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="fireplace_wide_3x1.png" width="192" height="64"/>
+ </tileset>
+ <tileset firstgid="19" name="fireplace_wide_with_fire" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="fireplace_wide_with_fire.png" width="192" height="64"/>
+ </tileset>
+ <layer id="10" name="Винный погреб (wine)" width="30" height="20">
+  <properties>
+   <property name="name" value="wine"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="9" name="Ледник (mst)" width="30" height="20">
+  <properties>
+   <property name="name" value="mst"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="Кладовая (kst)" width="30" height="20">
+  <properties>
+   <property name="name" value="kst"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="11" name="Логово культистов (clair)" width="30" height="20">
+  <properties>
+   <property name="name" value="clair"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="12" name="Склад контрабандистов (smug)" width="30" height="20">
+  <properties>
+   <property name="name" value="smug"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="walls" width="30" height="20">
+  <data encoding="csv">
+2,2,2,2,2,0,0,2,2,2,2,2,2,2,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,
+2,2,2,2,2,2,2,0,2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,2,0,0,0,0,2,2,2,2,2,0,0,0,2,2,0,0,0,2,2,2,2,2,0,0,0,0,2,2
+</data>
+ </layer>
+ <objectgroup color="#ffaa00" id="2" name="objects">
+  <object id="300" name="stairs-up-kitchen" type="stairs" x="64" y="64" width="64" height="320">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="label" value="Вверх, на кухню"/>
+    <property name="to" value="KITCHEN"/>
+   </properties>
+  </object>
+  <object id="301" name="door-mst" type="door" gid="14" x="448" y="768" width="64" height="64">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="label" value="Дверь в ледник"/>
+    <property name="side" value="west"/>
+    <property name="to" value="mst"/>
+   </properties>
+  </object>
+  <object id="302" name="door-wine" type="door" gid="14" x="704" y="768" width="64" height="64">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="label" value="Дверь в винный погреб"/>
+    <property name="side" value="east"/>
+    <property name="to" value="wine"/>
+   </properties>
+  </object>
+  <object id="303" name="door-street" type="door" gid="14" x="0" y="640" width="64" height="64">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="label" value="Второй вход с улицы"/>
+    <property name="side" value="west"/>
+    <property name="to" value="YARD"/>
+   </properties>
+  </object>
+  <object id="304" name="secret-door-smug" type="secret_door" gid="14" x="1280" y="640" width="64" height="64">
+   <properties>
+    <property name="discovery" value="Шёпот в подвале / следы на полу"/>
+    <property name="from" value="kst"/>
+    <property name="hidden" type="bool" value="true"/>
+    <property name="label" value="Тайная дверь (замаскирована под стеллаж)"/>
+    <property name="side" value="east"/>
+    <property name="to" value="smug"/>
+   </properties>
+  </object>
+  <object id="305" name="secret-hatch-clair" type="secret_door" gid="14" x="1280" y="832" width="64" height="64">
+   <properties>
+    <property name="discovery" value="Запах благовоний / шёпот"/>
+    <property name="from" value="wine"/>
+    <property name="hidden" type="bool" value="true"/>
+    <property name="label" value="Скрытый люк в логово культа"/>
+    <property name="side" value="east"/>
+    <property name="to" value="clair"/>
+   </properties>
+  </object>
+  <object id="306" name="stairs-tunnel" type="stairs" x="1856" y="448" width="64" height="128">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="label" value="Тайный туннель (уходит за край карты)"/>
+    <property name="to" value="TUNNEL"/>
+   </properties>
+  </object>
+  <object id="307" name="altar-cult" type="ritual" x="1536" y="1088" width="128" height="64">
+   <properties>
+    <property name="from" value="CLAIR"/>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Алтарь культа Дагона. Под алтарём — ковчег с реликвией (reliquary_skull)."/>
+   </properties>
+  </object>
+  <object id="308" name="reliquary-skull" type="container" x="1536" y="832" width="64" height="64">
+   <properties>
+    <property name="evidence" value="reliquary_skull"/>
+    <property name="from" value="CLAIR"/>
+    <property name="hidden" type="bool" value="true"/>
+    <property name="note" value="Ковчег с мумифицированным черепом святого (реликвия ордена)"/>
+   </properties>
+  </object>
+  <object id="309" name="doctor-dagger" type="ritual" x="1536" y="1088" width="64" height="64">
+   <properties>
+    <property name="evidence" value="doctor_dagger"/>
+    <property name="from" value="CLAIR"/>
+    <property name="hidden" type="bool" value="true"/>
+    <property name="note" value="Ритуальный кинжал Врача (за алтарём)"/>
+   </properties>
+  </object>
+  <object id="310" name="cult-items" type="clue" x="1408" y="832" width="64" height="64">
+   <properties>
+    <property name="evidence" value="cult_items"/>
+    <property name="from" value="CLAIR"/>
+    <property name="note" value="Ритуальные предметы культа: свечи, печать, символы Дагона"/>
+   </properties>
+  </object>
+  <object id="311" name="cult-symbol" type="clue" x="832" y="768" width="64" height="64">
+   <properties>
+    <property name="evidence" value="cult_symbol"/>
+    <property name="from" value="CLAIR"/>
+    <property name="note" value="Печать культа (символ Дагона)"/>
+   </properties>
+  </object>
+  <object id="312" name="hell-knight-insignia" type="clue" x="1088" y="768" width="64" height="64">
+   <properties>
+    <property name="evidence" value="hell_knight_insignia"/>
+    <property name="from" value="CLAIR"/>
+    <property name="note" value="Золотой диск с глазом осьминога (символ культа Дагона)"/>
+   </properties>
+  </object>
+  <object id="313" name="hell-knight-crest" type="ritual" x="1728" y="832" width="64" height="64">
+   <properties>
+    <property name="evidence" value="hell_knight_crest"/>
+    <property name="from" value="CLAIR"/>
+    <property name="hidden" type="bool" value="true"/>
+    <property name="note" value="Старинный ритуальный трезубец (оружие Дагона)"/>
+   </properties>
+  </object>
+  <object id="314" name="cult-covenant" type="clue" x="1472" y="960" width="64" height="64">
+   <properties>
+    <property name="evidence" value="cult_covenant"/>
+    <property name="from" value="CLAIR"/>
+    <property name="note" value="Морские атрибуты: водоросли, ракушки, чешуя"/>
+   </properties>
+  </object>
+  <object id="315" name="sacrificial-altar" type="clue" x="1664" y="960" width="64" height="64">
+   <properties>
+    <property name="evidence" value="sacrificial_altar"/>
+    <property name="from" value="CLAIR"/>
+    <property name="note" value="Статуэтки/амулеты: осьминог, кальмар, глубоководная рыба"/>
+   </properties>
+  </object>
+  <object id="316" name="letter-to-tavern" type="clue" x="1792" y="1024" width="64" height="64">
+   <properties>
+    <property name="evidence" value="letter_to_tavern"/>
+    <property name="from" value="CLAIR"/>
+    <property name="note" value="Свеча из культа (с остатками крови)"/>
+   </properties>
+  </object>
+  <object id="317" name="dagon-prayer" type="clue" x="1344" y="960" width="64" height="64">
+   <properties>
+    <property name="evidence" value="dagon_prayer"/>
+    <property name="from" value="CLAIR"/>
+    <property name="note" value="Молитва культа Дагона (шёпот, «Иа! Иа!», «Ф'нглуи»)"/>
+   </properties>
+  </object>
+  <object id="318" name="contraband-crate" type="container" x="1728" y="640" width="128" height="64">
+   <properties>
+    <property name="evidence" value="contraband_crate"/>
+    <property name="from" value="smug"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="note" value="Ящики с контрабандой: Devil's Bane, Pesh, Flayleaf, Grit"/>
+   </properties>
+  </object>
+  <object id="319" name="devil-bane" type="clue" x="1408" y="448" width="64" height="64">
+   <properties>
+    <property name="evidence" value="devil_bane"/>
+    <property name="from" value="SMUG"/>
+    <property name="note" value="«Погибель Дьявола» (Devil's Bane) — мазь на оружие против дьяволов"/>
+   </properties>
+  </object>
+  <object id="320" name="pesh" type="clue" x="1536" y="128" width="64" height="64">
+   <properties>
+    <property name="evidence" value="pesh"/>
+    <property name="from" value="SMUG"/>
+    <property name="note" value="Пеш (Pesh) — наркотик из кактуса Катапеша"/>
+   </properties>
+  </object>
+  <object id="321" name="flayleaf" type="clue" x="1408" y="192" width="64" height="64">
+   <properties>
+    <property name="evidence" value="flayleaf"/>
+    <property name="from" value="SMUG"/>
+    <property name="note" value="Лист-живодёр (Flayleaf) — седатив/внушение"/>
+   </properties>
+  </object>
+  <object id="322" name="grit" type="clue" x="1792" y="192" width="64" height="64">
+   <properties>
+    <property name="evidence" value="grit"/>
+    <property name="from" value="SMUG"/>
+    <property name="note" value="Грязь (Grit) — берсерк/ярость"/>
+   </properties>
+  </object>
+  <object id="323" name="sailor-knife" type="clue" x="1728" y="320" width="64" height="64">
+   <properties>
+    <property name="evidence" value="sailor_knife"/>
+    <property name="from" value="SMUG"/>
+    <property name="note" value="Нож Моряка (среди контрабанды, следы старой крови)"/>
+   </properties>
+  </object>
+  <object id="324" name="torn-letter" type="clue" x="1664" y="192" width="64" height="64">
+   <properties>
+    <property name="evidence" value="torn_letter"/>
+    <property name="from" value="SMUG"/>
+    <property name="note" value="Сломанный нож (не подходит по форме раны)"/>
+   </properties>
+  </object>
+  <object id="326" name="meat-rack" type="furniture" x="64" y="768" width="320" height="64">
+   <properties>
+    <property name="from" value="MST"/>
+    <property name="note" value="Полки с мясом, крюки для мяса"/>
+   </properties>
+  </object>
+  <object id="327" name="meat-barrel" type="furniture" x="512" y="896" width="64" height="64">
+   <properties>
+    <property name="from" value="MST"/>
+    <property name="note" value="Бочки с рассолом"/>
+   </properties>
+  </object>
+  <object id="328" name="wine-barrel" type="furniture" x="640" y="832" width="128" height="64">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Бочки с вином и элем"/>
+   </properties>
+  </object>
+  <object id="329" name="wine-rack" type="furniture" x="1216" y="1088" width="64" height="128">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Полки с бутылками"/>
+   </properties>
+  </object>
+  <object id="330" name="storage-shelf" type="furniture" x="512" y="128" width="64" height="256">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="331" name="storage-barrel" type="furniture" x="128" y="448" width="64" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="note" value="Бочки с соленьями"/>
+   </properties>
+  </object>
+  <object id="332" name="smug-shelf" type="furniture" x="1792" y="64" width="64" height="192">
+   <properties>
+    <property name="from" value="smug"/>
+    <property name="note" value="Стеллажи с товарами, прикрытыми тканью"/>
+   </properties>
+  </object>
+  <object id="333" name="smug-lamp" type="furniture" x="1600" y="384" width="64" height="64">
+   <properties>
+    <property name="from" value="smug"/>
+    <property name="note" value="Масляная лампа (тусклый свет)"/>
+   </properties>
+  </object>
+  <object id="334" name="cult-candle" type="furniture" x="1664" y="1024" width="64" height="64">
+   <properties>
+    <property name="from" value="CLAIR"/>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Свечи вокруг алтаря"/>
+   </properties>
+  </object>
+  <object id="335" name="wife-grave-entrance" type="stairs" x="1856" y="832" width="64" height="64">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="from" value="clair"/>
+    <property name="label" value="Вход к культистам через Могилу жены"/>
+    <property name="to" value="WIFE_GRAVE"/>
+   </properties>
+  </object>
+  <object id="336" name="vent-mst" type="vent" gid="8" x="0" y="1088" width="64" height="192">
+   <properties>
+    <property name="from" value="mst"/>
+    <property name="light" type="bool" value="false"/>
+    <property name="note" value="Вентиляционная отдушина ледника (приток холодного воздуха с улицы)"/>
+    <property name="vent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="337" name="vent-wine" type="vent" gid="8" x="704" y="1280" width="192" height="64">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="light" type="bool" value="false"/>
+    <property name="note" value="Вентиляционная отдушина винного погреба (вытяжка винных паров)"/>
+    <property name="vent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="338" name="vent-kst" type="vent" gid="8" x="320" y="64" width="128" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="light" type="bool" value="false"/>
+    <property name="note" value="Вентиляционная отдушина кладовой (тяга, чтобы не скапливался газ)"/>
+    <property name="vent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="339" name="vent-clair-hidden" type="vent" gid="8" x="1536" y="1280" width="256" height="64">
+   <properties>
+    <property name="discovery" value="Запах благовоний / дым из щели"/>
+    <property name="from" value="clair"/>
+    <property name="hidden" type="bool" value="true"/>
+    <property name="light" type="bool" value="false"/>
+    <property name="note" value="Скрытая отдушина логова культа (замаскирована под вентиляцию, на деле — для ритуального дыма/благовоний)"/>
+    <property name="vent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="340" name="vent-kst" type="vent" gid="8" x="896" y="64" width="128" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="light" type="bool" value="false"/>
+    <property name="note" value="Вентиляционная отдушина кладовой (тяга, чтобы не скапливался газ)"/>
+    <property name="vent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="341" name="vent-mst" type="vent" gid="8" x="128" y="1280" width="256" height="64">
+   <properties>
+    <property name="from" value="MST"/>
+    <property name="light" type="bool" value="false"/>
+    <property name="note" value="Вентиляционная отдушина ледника (приток холодного воздуха с улицы)"/>
+    <property name="vent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="342" name="wine-barrel" type="furniture" x="640" y="960" width="128" height="64">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Бочки с вином и элем"/>
+   </properties>
+  </object>
+  <object id="343" name="wine-barrel" type="furniture" x="640" y="1088" width="128" height="64">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Бочки с вином и элем"/>
+   </properties>
+  </object>
+  <object id="344" name="wine-rack" type="furniture" x="1088" y="1088" width="64" height="128">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Полки с бутылками"/>
+   </properties>
+  </object>
+  <object id="345" name="wine-rack" type="furniture" x="960" y="1088" width="64" height="128">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Полки с бутылками"/>
+   </properties>
+  </object>
+  <object id="346" name="wine-rack" type="furniture" x="832" y="1088" width="64" height="128">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Полки с бутылками"/>
+   </properties>
+  </object>
+  <object id="347" name="wine-rack" type="furniture" x="832" y="896" width="64" height="128">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Полки с бутылками"/>
+   </properties>
+  </object>
+  <object id="348" name="wine-rack" type="furniture" x="960" y="896" width="64" height="128">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Полки с бутылками"/>
+   </properties>
+  </object>
+  <object id="349" name="wine-rack" type="furniture" x="1088" y="896" width="64" height="128">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Полки с бутылками"/>
+   </properties>
+  </object>
+  <object id="350" name="wine-rack" type="furniture" x="1216" y="896" width="64" height="128">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="note" value="Полки с бутылками"/>
+   </properties>
+  </object>
+  <object id="351" name="vent-wine" type="vent" gid="8" x="1024" y="1280" width="192" height="64">
+   <properties>
+    <property name="from" value="WINE"/>
+    <property name="light" type="bool" value="false"/>
+    <property name="note" value="Вентиляционная отдушина винного погреба (вытяжка винных паров)"/>
+    <property name="vent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="352" name="meat-barrel" type="furniture" x="512" y="1024" width="64" height="64">
+   <properties>
+    <property name="from" value="MST"/>
+    <property name="note" value="Бочки с рассолом"/>
+   </properties>
+  </object>
+  <object id="353" name="meat-barrel" type="furniture" x="512" y="1152" width="64" height="64">
+   <properties>
+    <property name="from" value="MST"/>
+    <property name="note" value="Бочки с рассолом"/>
+   </properties>
+  </object>
+  <object id="354" name="meat-rack" type="furniture" x="64" y="896" width="64" height="256">
+   <properties>
+    <property name="from" value="MST"/>
+    <property name="note" value="Полки с мясом, крюки для мяса"/>
+   </properties>
+  </object>
+  <object id="355" name="meat-rack" type="furniture" x="192" y="896" width="64" height="256">
+   <properties>
+    <property name="from" value="MST"/>
+    <property name="note" value="Полки с мясом, крюки для мяса"/>
+   </properties>
+  </object>
+  <object id="356" name="meat-rack" type="furniture" x="320" y="896" width="64" height="256">
+   <properties>
+    <property name="from" value="MST"/>
+    <property name="note" value="Полки с мясом, крюки для мяса"/>
+   </properties>
+  </object>
+  <object id="357" name="storage-shelf" type="furniture" x="640" y="128" width="64" height="256">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="358" name="storage-shelf" type="furniture" x="384" y="128" width="64" height="256">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="359" name="storage-shelf" type="furniture" x="256" y="128" width="64" height="256">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="360" name="storage-shelf" type="furniture" x="768" y="128" width="64" height="256">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="361" name="storage-shelf" type="furniture" x="960" y="128" width="64" height="256">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="362" name="storage-shelf" type="furniture" x="1088" y="128" width="64" height="256">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="363" name="storage-shelf" type="furniture" x="896" y="640" width="256" height="64">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="364" name="storage-shelf" type="furniture" x="1216" y="128" width="64" height="256">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="365" name="storage-shelf" type="furniture" x="1216" y="448" width="64" height="128">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="367" name="storage-shelf" type="furniture" x="384" y="448" width="192" height="64">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="369" name="storage-shelf" type="furniture" x="640" y="448" width="128" height="64">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="370" name="storage-shelf" type="furniture" x="832" y="448" width="64" height="128">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="371" name="storage-shelf" type="furniture" x="960" y="448" width="64" height="128">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="372" name="storage-shelf" type="furniture" x="1088" y="448" width="64" height="128">
+   <properties>
+    <property name="from" value="kst"/>
+    <property name="note" value="Полки с мешками: крупы, мука, овощи"/>
+   </properties>
+  </object>
+  <object id="373" name="storage-barrel" type="furniture" x="192" y="512" width="64" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="note" value="Бочки с соленьями"/>
+   </properties>
+  </object>
+  <object id="374" name="storage-barrel" type="furniture" x="128" y="576" width="64" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="note" value="Бочки с соленьями"/>
+   </properties>
+  </object>
+  <object id="375" name="storage-barrel" type="furniture" x="192" y="576" width="64" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="note" value="Бочки с соленьями"/>
+   </properties>
+  </object>
+  <object id="376" name="storage-barrel" type="furniture" x="512" y="576" width="64" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="note" value="Бочки с соленьями"/>
+   </properties>
+  </object>
+  <object id="377" name="storage-barrel" type="furniture" x="192" y="640" width="64" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="note" value="Бочки с соленьями"/>
+   </properties>
+  </object>
+  <object id="378" name="storage-barrel" type="furniture" x="128" y="640" width="64" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="note" value="Бочки с соленьями"/>
+   </properties>
+  </object>
+  <object id="379" name="storage-barrel" type="furniture" x="256" y="640" width="64" height="64">
+   <properties>
+    <property name="from" value="KST"/>
+    <property name="note" value="Бочки с соленьями"/>
+   </properties>
+  </object>
+  <object id="380" name="smug-shelf" type="furniture" x="1664" y="64" width="64" height="192">
+   <properties>
+    <property name="from" value="smug"/>
+    <property name="note" value="Стеллажи с товарами, прикрытыми тканью"/>
+   </properties>
+  </object>
+  <object id="381" name="smug-shelf" type="furniture" x="1536" y="64" width="64" height="192">
+   <properties>
+    <property name="from" value="smug"/>
+    <property name="note" value="Стеллажи с товарами, прикрытыми тканью"/>
+   </properties>
+  </object>
+  <object id="382" name="smug-shelf" type="furniture" x="1408" y="64" width="64" height="192">
+   <properties>
+    <property name="from" value="smug"/>
+    <property name="note" value="Стеллажи с товарами, прикрытыми тканью"/>
+   </properties>
+  </object>
+  <object id="383" name="smug-shelf" type="furniture" x="1408" y="384" width="64" height="192">
+   <properties>
+    <property name="from" value="smug"/>
+    <property name="note" value="Стеллажи с товарами, прикрытыми тканью"/>
+   </properties>
+  </object>
+  <object id="385" name="contraband-crate" type="container" x="1536" y="640" width="128" height="64">
+   <properties>
+    <property name="evidence" value="contraband_crate"/>
+    <property name="from" value="smug"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="note" value="Ящики с контрабандой: Devil's Bane, Pesh, Flayleaf, Grit"/>
+   </properties>
+  </object>
+  <object id="386" name="contraband-crate" type="container" x="1728" y="320" width="128" height="64">
+   <properties>
+    <property name="evidence" value="contraband_crate"/>
+    <property name="from" value="smug"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="note" value="Ящики с контрабандой: Devil's Bane, Pesh, Flayleaf, Grit"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="5" name="дымоходы" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="stairs" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

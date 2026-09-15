@@ -536,8 +536,7 @@
             ],
             "secondary": [
                 "tavernkeeper_notebook",
-                "sailor_false_clue",
-                "footprints"
+                "sailor_false_clue"
             ],
             "false": [
                 "ink_on_fingers"
@@ -825,7 +824,6 @@
             "evidence": [
                 "letter_to_tavern",
                 "cult_symbol",
-                "footprints",
                 "poison_evidence",
                 "dagon_prayer"
             ],

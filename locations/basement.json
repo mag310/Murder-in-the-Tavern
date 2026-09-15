@@ -32,11 +32,5 @@
         "sound": "капли, шёпот, скрип тайной двери"
     },
     "hidden": [
-        {
-            "description": "Шёпот в подвале",
-            "evidence": [
-                "footprints"
-            ]
-        }
     ]
 }
