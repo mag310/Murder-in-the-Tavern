@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="298">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="299">
  <properties>
   <property name="capacity" value="20"/>
   <property name="era" value="medieval"/>
@@ -350,6 +350,7 @@
     <property name="notice" value="пустой деревянный сундук, запирающийся на ключ."/>
    </properties>
   </object>
+  <object id="298" name="chair-guest_1" type="chair" gid="17" x="960" y="448" width="64" height="64"/>
  </objectgroup>
  <layer id="5" name="дымоходы" width="30" height="20">
   <data encoding="csv">
