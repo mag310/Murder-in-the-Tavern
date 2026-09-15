@@ -190,7 +190,7 @@
   </object>
   <object id="287" name="worktable-artist" type="worktable" gid="7" x="1408" y="1216" width="128" height="64">
    <properties>
-    <property name="from" value="mansard"/>
+    <property name="from" value="artist_room"/>
     <property name="note" value="Письменный стол "/>
    </properties>
   </object>
@@ -217,31 +217,31 @@
   </object>
   <object id="291" name="shield_soul_whisper" type="weapon" gid="18" x="1536" y="1024" width="64" height="128">
    <properties>
-    <property name="from" value="mansard"/>
+    <property name="from" value="artist_room"/>
     <property name="note" value="Пыльная глефа «Шёпот Душ» (оружие Шелин) на стене"/>
    </properties>
   </object>
   <object id="292" name="artist_hiding" type="container" gid="19" x="1792" y="448" width="64" height="128">
    <properties>
-    <property name="from" value="mansard"/>
+    <property name="from" value="attic_room_1"/>
     <property name="note" value="Сундук с «Погибелью Дьявола» (Devil's Bane) и тайник с наркотиками"/>
    </properties>
   </object>
   <object id="293" name="flayleaf_residue" type="container" gid="20" x="1536" y="1216" width="64.4204" height="64.1412">
    <properties>
-    <property name="from" value="mansard"/>
+    <property name="from" value="artist_room"/>
     <property name="note" value="Ящик с Лист-живодёром (Flayleaf) — не сильно спрятан"/>
    </properties>
   </object>
   <object id="296" name="order_order" type="document" x="1408" y="1152" width="64" height="64">
    <properties>
-    <property name="from" value="mansard"/>
+    <property name="from" value="artist_room"/>
     <property name="note" value="Приказ ордена (тайник Художника)"/>
    </properties>
   </object>
   <object id="297" name="artist_diary" type="document" x="1472" y="1152" width="64" height="64">
    <properties>
-    <property name="from" value="mansard"/>
+    <property name="from" value="artist_room"/>
     <property name="note" value="Дневник Художника (обложка с символом ордена Шелин)"/>
    </properties>
   </object>
@@ -253,7 +253,7 @@
   </object>
   <object id="299" name="crystals" type="clue" x="1408" y="1152" width="64" height="64">
    <properties>
-    <property name="from" value="mansard"/>
+    <property name="from" value="artist_room"/>
     <property name="note" value="Кристаллы, стёкла, сломанная лютня (атрибуты Шелин)"/>
    </properties>
   </object>
@@ -266,7 +266,7 @@
   </object>
   <object id="308" name="bed-artist" type="bed" gid="7" x="1536" y="1024" width="64" height="128">
    <properties>
-    <property name="from" value="mansard"/>
+    <property name="from" value="artist_room"/>
    </properties>
   </object>
   <object id="309" name="fireplace-artist" type="fireplace" gid="19" x="1344" y="1024" width="64" height="128">

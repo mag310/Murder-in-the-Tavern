@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="281">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="298">
  <properties>
   <property name="capacity" value="20"/>
   <property name="era" value="medieval"/>
@@ -181,24 +181,24 @@
   <object id="223" name="bed-sailor" type="bed" gid="7" x="320" y="192" width="64" height="128"/>
   <object id="224" name="bed-detective" type="bed" gid="7" x="320" y="1024" width="64" height="128"/>
   <object id="225" name="bed-guest_1" type="bed" gid="7" x="1152" y="256" width="128" height="192"/>
-  <object id="226" name="bed-guest_2" type="bed" gid="7" x="960" y="1024" width="128" height="192"/>
-  <object id="227" name="bed-guest_3" type="bed" gid="7" x="1536" y="1024" width="64" height="128"/>
+  <object id="227" name="bed-guest_3" type="bed" gid="7" x="1472" y="896" width="128" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_3"/>
+    <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
+   </properties>
+  </object>
   <object id="228" name="desk-tavern_keeper" type="desk" gid="15" x="1472" y="128" width="128" height="64"/>
   <object id="229" name="desk-waitress" type="desk" gid="15" x="640" y="128" width="64" height="64"/>
   <object id="230" name="desk-doctor" type="desk" gid="15" x="704" y="1216" width="128" height="64"/>
   <object id="231" name="desk-sailor" type="desk" gid="15" x="448" y="128" width="128" height="64"/>
   <object id="232" name="desk-detective" type="desk" gid="15" x="384" y="1216" width="128" height="64"/>
   <object id="233" name="desk-guest_1" type="desk" gid="15" x="960" y="320" width="64" height="64"/>
-  <object id="234" name="desk-guest_2" type="desk" gid="15" x="1024" y="1216" width="192" height="64"/>
-  <object id="235" name="desk-guest_3" type="desk" gid="15" x="1408" y="1216" width="128" height="64"/>
   <object id="236" name="chair-tavern_keeper" type="chair" gid="17" x="1536" y="256" width="64" height="64"/>
   <object id="237" name="chair-waitress" type="chair" gid="17" x="832" y="448" width="64" height="64"/>
   <object id="238" name="chair-doctor" type="chair" gid="17" x="768" y="1088" width="64" height="64"/>
   <object id="239" name="chair-sailor" type="chair" gid="17" x="512" y="256" width="64" height="64"/>
   <object id="240" name="chair-detective" type="chair" gid="17" x="448" y="1152" width="64" height="64"/>
   <object id="241" name="chair-guest_1" type="chair" gid="17" x="960" y="192" width="64" height="64"/>
-  <object id="242" name="chair-guest_2" type="chair" gid="17" x="1088" y="1152" width="64" height="64"/>
-  <object id="243" name="chair-guest_3" type="chair" gid="17" x="1472" y="1088" width="64" height="64"/>
   <object id="244" name="window-tavern_keeper" type="window" gid="8" x="1408" y="64" width="128" height="64"/>
   <object id="245" name="window-waitress" type="window" gid="8" x="704" y="64" width="128" height="64"/>
   <object id="246" name="window-doctor" type="window" gid="8" x="704" y="1280" width="128" height="64"/>
@@ -263,6 +263,91 @@
    <properties>
     <property name="hazard" type="bool" value="false"/>
     <property name="note" value="камин в гостевой комнате 1"/>
+   </properties>
+  </object>
+  <object id="283" name="bed-guest_3" type="bed" gid="7" x="1472" y="1024" width="128" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_3"/>
+    <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
+   </properties>
+  </object>
+  <object id="285" name="bed-guest_3" type="bed" gid="7" x="1472" y="1152" width="128" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_3"/>
+    <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
+   </properties>
+  </object>
+  <object id="286" name="bed-guest_2" type="bed" gid="7" x="960" y="896" width="128" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_2"/>
+    <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
+   </properties>
+  </object>
+  <object id="287" name="bed-guest_2" type="bed" gid="7" x="960" y="1024" width="128" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_2"/>
+    <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
+   </properties>
+  </object>
+  <object id="288" name="bed-guest_2" type="bed" gid="7" x="960" y="1152" width="128" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_2"/>
+    <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
+   </properties>
+  </object>
+  <object id="289" name="bed-guest_2" type="bed" gid="7" x="1152" y="1152" width="128" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_2"/>
+    <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
+   </properties>
+  </object>
+  <object id="290" name="chest-guest_2" x="960" y="768" width="64" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_2"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="notice" value="пустой деревянный сундук, запирающийся на ключ."/>
+   </properties>
+  </object>
+  <object id="291" name="chest-guest_2" x="960" y="896" width="64" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_2"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="notice" value="пустой деревянный сундук, запирающийся на ключ."/>
+   </properties>
+  </object>
+  <object id="292" name="chest-guest_2" x="960" y="1024" width="64" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_2"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="notice" value="пустой деревянный сундук, запирающийся на ключ."/>
+   </properties>
+  </object>
+  <object id="293" name="chest-guest_2" x="1216" y="1152" width="64" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_2"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="notice" value="пустой деревянный сундук, запирающийся на ключ."/>
+   </properties>
+  </object>
+  <object id="294" name="chest-guest_3" x="1536" y="896" width="64" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_3"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="notice" value="пустой деревянный сундук, запирающийся на ключ."/>
+   </properties>
+  </object>
+  <object id="295" name="chest-guest_3" x="1536" y="1024" width="64" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_3"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="notice" value="пустой деревянный сундук, запирающийся на ключ."/>
+   </properties>
+  </object>
+  <object id="297" name="chest-guest_3" x="1536" y="768" width="64" height="64">
+   <properties>
+    <property name="from" value="guest_room_empty_3"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="notice" value="пустой деревянный сундук, запирающийся на ключ."/>
    </properties>
   </object>
  </objectgroup>

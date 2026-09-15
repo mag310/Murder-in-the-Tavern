@@ -50,6 +50,11 @@ graph TD
 
     subgraph MANS["Мансарда"]
         MANSARD["Художественная мастерская"]
+        ARTROOM["Жилая комната Художника"]
+        SMOKER["Коптильня"]
+        ATTIC1["Чердачная комната №1"]
+        ATTIC2["Чердачная комната №2"]
+        ATTIC3["Чердачная комната №3"]
     end
 
     %% =========================================================
@@ -104,6 +109,11 @@ graph TD
     %% --- 2 этаж ---
     FOYER <==>|лестница на мансарду| MANSARD
     FOYER <==>|выход в коридор| GR
+    MANSARD <==>|дверь в коптильню| SMOKER
+    MANSARD <==>|дверь в жилую комнату Художника| ARTROOM
+    MANSARD <==>|дверь в чердак №1| ATTIC1
+    MANSARD <==>|дверь в чердак №2| ATTIC2
+    MANSARD <==>|дверь в чердак №3| ATTIC3
     GR --- TKROOM
     GR --- WROOM
     GR --- ROOM
@@ -169,8 +179,10 @@ graph TD
     classDef town fill:#eceff1, stroke:#455a64;
     classDef road fill:#efebe9, stroke:#8d6e63;
     classDef tunnel fill:#e8e0f0, stroke:#5e35b1;
+    classDef mansard fill:#f5e1d0, stroke:#c0592b;
 
     class HALL,KITCHEN,OFFICE floor;
+    class MANSARD,ARTROOM,SMOKER,ATTIC1,ATTIC2,ATTIC3 mansard;
     class FOYER,GR corridor;
     class TKROOM,WROOM,ROOM,SROOM staff;
     class DROOM,E1,E2,E3 guest;
