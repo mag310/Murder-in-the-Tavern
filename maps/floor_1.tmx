@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="210">
+ <properties>
+  <property name="capacity" value="50"/>
+  <property name="era" value="medieval"/>
+  <property name="floor" value="1"/>
+  <property name="name" value="Первый этаж трактира"/>
+  <property name="scale" value="1 клетка = 5 футов = 64 px"/>
+  <property name="size_ft" value="150x100"/>
+ </properties>
+ <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="6" columns="6">
+  <image source="tiles.png" width="384" height="64"/>
+ </tileset>
+ <tileset firstgid="7" name="object_sprites" tilewidth="256" tileheight="128" tilecount="11" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="worktable.png" width="128" height="64"/>
+  </tile>
+  <tile id="1">
+   <image source="window.png" width="64" height="24"/>
+  </tile>
+  <tile id="2">
+   <image source="table.png" width="256" height="64"/>
+  </tile>
+  <tile id="3">
+   <image source="stove.png" width="64" height="64"/>
+  </tile>
+  <tile id="4">
+   <image source="painting.png" width="128" height="24"/>
+  </tile>
+  <tile id="5">
+   <image source="hearth.png" width="128" height="128"/>
+  </tile>
+  <tile id="6">
+   <image source="fireplace_obj.png" width="128" height="128"/>
+  </tile>
+  <tile id="7">
+   <image source="door.png" width="64" height="64"/>
+  </tile>
+  <tile id="8">
+   <image source="coffee_table.png" width="64" height="64"/>
+  </tile>
+  <tile id="9">
+   <image source="bench.png" width="256" height="64"/>
+  </tile>
+  <tile id="10">
+   <image source="armchair.png" width="64" height="64"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="18" name="fireplace_wide_3x1" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="fireplace_wide_3x1.png" width="192" height="64"/>
+ </tileset>
+ <tileset firstgid="19" name="fireplace_wide_with_fire" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="fireplace_wide_with_fire.png" width="192" height="64"/>
+ </tileset>
+ <layer id="1" name="floor" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,3,3,3,3,3,3,0,1,1,1,1,0,4,4,0,4,4,0,3,3,3,3,3,3,3,3,0,
+0,0,0,3,3,3,3,3,3,0,1,1,1,1,0,4,4,0,4,4,0,3,3,3,3,3,3,3,3,0,
+0,0,0,3,3,3,3,3,3,0,1,1,1,1,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3,0,
+0,0,0,3,3,3,3,3,3,0,1,1,1,1,0,4,4,4,4,4,0,3,3,3,3,3,3,3,3,0,
+0,0,0,3,3,3,3,3,3,0,1,1,1,1,0,4,4,4,4,4,0,3,3,3,3,3,3,3,3,0,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="walls" width="30" height="20">
+  <data encoding="csv">
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,2,0,0,0,0,0,0,2,0,0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,2,0,0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,2,0,0,0,0,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,0,2,0,0,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
+2,2,2,2,2,2,2,2,2,2,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
+</data>
+ </layer>
+ <objectgroup color="#ffaa00" id="2" name="objects">
+  <object id="81" type="window" gid="8" x="448" y="1280" width="256" height="64"/>
+  <object id="84" type="table" gid="9" x="192" y="1088" width="256" height="64"/>
+  <object id="85" type="table" gid="9" x="832" y="1152" width="256" height="64"/>
+  <object id="86" type="table" gid="9" x="1472" y="1088" width="256" height="64"/>
+  <object id="87" type="table" gid="9" x="1472" y="640" width="256" height="64"/>
+  <object id="88" type="table" gid="9" x="832" y="640" width="256" height="64"/>
+  <object id="89" type="table" gid="9" x="192" y="640" width="256" height="64"/>
+  <object id="94" type="bench" gid="16" x="192" y="1152" width="256" height="64"/>
+  <object id="95" type="bench" gid="16" x="192" y="1024" width="256" height="64"/>
+  <object id="96" type="bench" gid="16" x="832" y="1024" width="256" height="64"/>
+  <object id="97" type="bench" gid="16" x="832" y="1088" width="256" height="64"/>
+  <object id="98" type="bench" gid="16" x="1472" y="1024" width="256" height="64"/>
+  <object id="99" type="bench" gid="16" x="1472" y="1152" width="256" height="64"/>
+  <object id="100" type="bench" gid="16" x="1472" y="576" width="256" height="64"/>
+  <object id="101" type="bench" gid="16" x="1472" y="704" width="256" height="64"/>
+  <object id="102" type="bench" gid="16" x="832" y="576" width="256" height="64"/>
+  <object id="103" type="bench" gid="16" x="832" y="704" width="256" height="64"/>
+  <object id="104" type="bench" gid="16" x="192" y="704" width="256" height="64"/>
+  <object id="105" type="bench" gid="16" x="192" y="576" width="256" height="64"/>
+  <object id="108" type="armchair" gid="17" x="704" y="192" width="64" height="64"/>
+  <object id="109" type="armchair" gid="17" x="704" y="320" width="64" height="64"/>
+  <object id="116" type="painting" gid="11" x="576" y="320" width="64" height="192"/>
+  <object id="123" gid="8" x="128" y="1280" width="256" height="64"/>
+  <object id="128" gid="8" x="1216" y="1280" width="256" height="64"/>
+  <object id="151" gid="8" x="256" y="64" width="128" height="64"/>
+  <object id="153" gid="8" x="1408" y="64" width="128" height="64"/>
+  <object id="154" type="window" gid="8" x="1536" y="64" width="128" height="64"/>
+  <object id="157" gid="8" x="1856" y="320" width="64" height="192"/>
+  <object id="159" gid="8" x="1856" y="1088" width="64" height="192"/>
+  <object id="162" gid="8" x="0" y="1088" width="64" height="192"/>
+  <object id="169" type="armchair" gid="17" x="1664" y="192" width="64" height="64"/>
+  <object id="171" type="armchair" gid="17" x="1472" y="256" width="64" height="64"/>
+  <object id="172" gid="8" x="1536" y="1280" width="256" height="64"/>
+  <object id="174" name="door-quay" type="door" gid="14" x="0" y="704" width="64" height="64">
+   <properties>
+    <property name="label" value="Выход на набережную"/>
+    <property name="side" value="west"/>
+    <property name="to" value="QUAY"/>
+   </properties>
+  </object>
+  <object id="175" name="door-quay" type="door" gid="14" x="0" y="832" width="64" height="64">
+   <properties>
+    <property name="label" value="Выход на набережную"/>
+    <property name="side" value="west"/>
+    <property name="to" value="QUAY"/>
+   </properties>
+  </object>
+  <object id="176" name="door-main-yard" type="door" gid="14" x="1856" y="704" width="64" height="64">
+   <properties>
+    <property name="label" value="Главный вход со двора"/>
+    <property name="side" value="east"/>
+    <property name="to" value="YARD"/>
+   </properties>
+  </object>
+  <object id="177" name="door-main-yard" type="door" gid="14" x="1856" y="832" width="64" height="64">
+   <properties>
+    <property name="label" value="Главный вход со двора"/>
+    <property name="side" value="east"/>
+    <property name="to" value="YARD"/>
+   </properties>
+  </object>
+  <object id="178" name="hearth-central" type="hearth" gid="12" x="576" y="1088" width="128" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Большой очаг в центре зала"/>
+   </properties>
+  </object>
+  <object id="179" name="hearth-central" type="hearth" gid="12" x="576" y="704" width="128" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Большой очаг в центре зала"/>
+   </properties>
+  </object>
+  <object id="180" name="stairs-down-cellar" type="stairs" x="64" y="64" width="64" height="320">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="label" value="В подвал"/>
+    <property name="to" value="KST"/>
+   </properties>
+  </object>
+  <object id="181" name="door-quay" type="door" gid="14" x="128" y="128" width="64" height="64">
+   <properties>
+    <property name="label" value="Дверь в подвал"/>
+    <property name="to" value="KST"/>
+   </properties>
+  </object>
+  <object id="182" name="door-kitchen-hall" type="door" gid="14" x="384" y="448" width="128" height="64">
+   <properties>
+    <property name="from" value="KITCHEN"/>
+    <property name="side" value="east"/>
+    <property name="to" value="HALL"/>
+   </properties>
+  </object>
+  <object id="183" name="kitchen-stove" type="stove" gid="10" x="512" y="192" width="64" height="64">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="184" name="kitchen-stove" type="stove" gid="10" x="512" y="320" width="64" height="64">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="185" name="kitchen-stove" type="stove" gid="10" x="512" y="256" width="64" height="64">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="187" name="door-wc-men" type="door" gid="14" x="1024" y="256" width="64" height="64">
+   <properties>
+    <property name="side" value="south"/>
+    <property name="to" value="MEN_WC"/>
+   </properties>
+  </object>
+  <object id="188" name="door-wc-women" type="door" gid="14" x="1152" y="256" width="64" height="64">
+   <properties>
+    <property name="side" value="south"/>
+    <property name="to" value="WOMEN_WC"/>
+   </properties>
+  </object>
+  <object id="189" name="door-wc" type="door" gid="14" x="1088" y="448" width="64" height="64">
+   <properties>
+    <property name="side" value="south"/>
+    <property name="to" value="WC"/>
+   </properties>
+  </object>
+  <object id="190" name="coffee-table" type="coffee_table" gid="15" x="704" y="256" width="64" height="64"/>
+  <object id="191" name="fireplace" type="fireplace" gid="19" x="832" y="320" width="64" height="192">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Камин между кухней и залом"/>
+   </properties>
+  </object>
+  <object id="192" name="fireplace-tavern_keeper_office" type="fireplace" gid="19" x="1344" y="320" width="64" height="192">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Камин в кабинете Трактирщика"/>
+   </properties>
+  </object>
+  <object id="193" name="door-tavern_keeper_office" type="door" gid="14" x="1664" y="448" width="128" height="64">
+   <properties>
+    <property name="side" value="south"/>
+    <property name="to" value="tavern_keeper_office"/>
+   </properties>
+  </object>
+  <object id="194" name="stairs-up-foyer" type="stairs" x="1728" y="832" width="128" height="384">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="label" value="На 2 этаж"/>
+    <property name="to" value="FOYER"/>
+   </properties>
+  </object>
+  <object id="195" name="kitchen-worktable" type="worktable" gid="7" x="256" y="384" width="128" height="64"/>
+  <object id="196" name="kitchen-worktable" type="worktable" gid="7" x="192" y="384" width="64" height="256"/>
+  <object id="198" name="tavern_keeper-worktable" type="worktable" gid="7" x="1536" y="320" width="64" height="192"/>
+  <object id="199" name="hearth-central" type="hearth" gid="12" x="1216" y="704" width="128" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Большой очаг в центре зала"/>
+   </properties>
+  </object>
+  <object id="200" name="hearth-central" type="hearth" gid="12" x="1216" y="1088" width="128" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Большой очаг в центре зала"/>
+   </properties>
+  </object>
+  <object id="201" gid="8" x="0" y="320" width="64" height="192"/>
+  <object id="203" gid="8" x="704" y="64" width="128" height="64"/>
+  <object id="204" gid="8" x="1024" y="64" width="64" height="64"/>
+  <object id="205" gid="8" x="1152" y="64" width="64" height="64"/>
+  <object id="206" gid="8" x="384" y="64" width="128" height="64"/>
+  <object id="207" type="window" gid="8" x="960" y="1280" width="192" height="64"/>
+  <object id="209" type="window" gid="8" x="768" y="1280" width="192" height="64"/>
+ </objectgroup>
+ <layer id="5" name="дымоходы" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="stairs" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

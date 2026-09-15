@@ -200,15 +200,23 @@
 
 ### 26.1. Текст приключения как сценарий для мастера
 
-- [ ] **Синопсис и предыстория**: что произошло на самом деле, кто виноват, кто что скрывает (→ из `characters/secrets`,
-  `murder_matrix`, `events`).
-- [ ] **Хронология событий**: что было до игры / во время / при бездействии (→ `nightly_beats`, `events`, `flood_mechanic.timer`).
-- [ ] **Схема расследования**: узлы, улики, связи, красные сельди, тупики, альт. пути (→ `murder_matrix` + `evidence` +
-  `kill_grid`).
-- [ ] **Мотивации и секреты NPC**: чего хотят, что знают, чего боятся, как реагируют (→ `characters` + `interrogations`).
-- [ ] **Ветвление**: что если игроки пойдут не туда, провалят проверку, арестуют не того, убьют свидетеля (→ `murder_matrix`,
-  `murder_matrix.special_consequences`).
-- [ ] **Финал: несколько вариантов** (→ `flood_mechanic.endings` + `resolution_paths` — уже есть 4 endings + 6 paths).
+- [x] **Синопсис и предыстория**: что произошло на самом деле, кто виноват, кто что скрывает (→ из `characters/secrets`,
+  `murder_matrix`, `events`). Реализовано в `module.md` §1, §2.1.
+- [x] **Хронология событий**: что было до игры / во время / при бездействии (→ `nightly_beats`, `events`, `flood_mechanic.timer`).
+  Реализовано в `module.md` §2.
+- [x] **Схема расследования**: узлы, улики, связи, красные сельди, тупики, альт. пути (→ `murder_matrix` + `evidence` +
+  `kill_grid`). Реализовано в `module.md` §3.
+- [x] **Мотивации и секреты NPC**: чего хотят, что знают, чего боятся, как реагируют (→ `characters` + `interrogations`).
+  Реализовано в `module.md` §4.
+- [x] **Ветвление**: что если игроки пойдут не туда, провалят проверку, арестуют не того, убьют свидетеля (→ `murder_matrix`,
+  `murder_matrix.special_consequences`). Реализовано в `module.md` §5.
+- [x] **Финал: несколько вариантов** (→ `flood_mechanic.endings` + `resolution_paths` — 4 endings + 6 paths). Реализовано в
+  `module.md` §6.
+
+> `module.md` (≈23.5 КБ) — первый человекочитаемый GM-facing модуль, сгенерирован из данных (все факты сверены с
+> `events.json`/`flood_mechanic`/`murder_matrix`/`characters/`/`interrogations/`). Разбит на части в каталоге
+> `publication/` (`README.md` + `00-synopsis` … `07-status`). Осталось: handouts (§26.2), игровые карты (§26.3),
+> инструменты мастера (§26.4), PF2e-слой (§6), behavior layer (§15), end states (§19).
 
 ### 26.2. Материалы для игроков (handouts)
 
