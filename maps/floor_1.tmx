@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="210">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="212">
  <properties>
   <property name="capacity" value="50"/>
   <property name="era" value="medieval"/>
@@ -64,10 +64,10 @@
 0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,0,
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
@@ -88,8 +88,8 @@
 2,2,2,2,2,2,2,2,2,2,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
@@ -104,21 +104,21 @@
  <objectgroup color="#ffaa00" id="2" name="objects">
   <object id="81" type="window" gid="8" x="448" y="1280" width="256" height="64"/>
   <object id="84" type="table" gid="9" x="192" y="1088" width="256" height="64"/>
-  <object id="85" type="table" gid="9" x="832" y="1152" width="256" height="64"/>
+  <object id="85" type="table" gid="9" x="576" y="1152" width="256" height="64"/>
   <object id="86" type="table" gid="9" x="1472" y="1088" width="256" height="64"/>
   <object id="87" type="table" gid="9" x="1472" y="640" width="256" height="64"/>
-  <object id="88" type="table" gid="9" x="832" y="640" width="256" height="64"/>
+  <object id="88" type="table" gid="9" x="1088" y="1088" width="256" height="64"/>
   <object id="89" type="table" gid="9" x="192" y="640" width="256" height="64"/>
   <object id="94" type="bench" gid="16" x="192" y="1152" width="256" height="64"/>
   <object id="95" type="bench" gid="16" x="192" y="1024" width="256" height="64"/>
-  <object id="96" type="bench" gid="16" x="832" y="1024" width="256" height="64"/>
-  <object id="97" type="bench" gid="16" x="832" y="1088" width="256" height="64"/>
+  <object id="96" type="bench" gid="16" x="576" y="1024" width="256" height="64"/>
+  <object id="97" type="bench" gid="16" x="576" y="1088" width="256" height="64"/>
   <object id="98" type="bench" gid="16" x="1472" y="1024" width="256" height="64"/>
   <object id="99" type="bench" gid="16" x="1472" y="1152" width="256" height="64"/>
   <object id="100" type="bench" gid="16" x="1472" y="576" width="256" height="64"/>
   <object id="101" type="bench" gid="16" x="1472" y="704" width="256" height="64"/>
-  <object id="102" type="bench" gid="16" x="832" y="576" width="256" height="64"/>
-  <object id="103" type="bench" gid="16" x="832" y="704" width="256" height="64"/>
+  <object id="102" type="bench" gid="16" x="1088" y="1024" width="256" height="64"/>
+  <object id="103" type="bench" gid="16" x="1088" y="1152" width="256" height="64"/>
   <object id="104" type="bench" gid="16" x="192" y="704" width="256" height="64"/>
   <object id="105" type="bench" gid="16" x="192" y="576" width="256" height="64"/>
   <object id="108" type="armchair" gid="17" x="704" y="192" width="64" height="64"/>
@@ -161,18 +161,6 @@
     <property name="label" value="Главный вход со двора"/>
     <property name="side" value="east"/>
     <property name="to" value="YARD"/>
-   </properties>
-  </object>
-  <object id="178" name="hearth-central" type="hearth" gid="12" x="576" y="1088" width="128" height="128">
-   <properties>
-    <property name="hazard" type="bool" value="true"/>
-    <property name="note" value="Большой очаг в центре зала"/>
-   </properties>
-  </object>
-  <object id="179" name="hearth-central" type="hearth" gid="12" x="576" y="704" width="128" height="128">
-   <properties>
-    <property name="hazard" type="bool" value="true"/>
-    <property name="note" value="Большой очаг в центре зала"/>
    </properties>
   </object>
   <object id="180" name="stairs-down-cellar" type="stairs" x="64" y="64" width="64" height="320">
@@ -257,13 +245,7 @@
   <object id="195" name="kitchen-worktable" type="worktable" gid="7" x="256" y="384" width="128" height="64"/>
   <object id="196" name="kitchen-worktable" type="worktable" gid="7" x="192" y="384" width="64" height="256"/>
   <object id="198" name="tavern_keeper-worktable" type="worktable" gid="7" x="1536" y="320" width="64" height="192"/>
-  <object id="199" name="hearth-central" type="hearth" gid="12" x="1216" y="704" width="128" height="128">
-   <properties>
-    <property name="hazard" type="bool" value="true"/>
-    <property name="note" value="Большой очаг в центре зала"/>
-   </properties>
-  </object>
-  <object id="200" name="hearth-central" type="hearth" gid="12" x="1216" y="1088" width="128" height="128">
+  <object id="199" name="hearth-central" type="hearth" gid="12" x="832" y="768" width="256" height="128">
    <properties>
     <property name="hazard" type="bool" value="true"/>
     <property name="note" value="Большой очаг в центре зала"/>
@@ -276,6 +258,18 @@
   <object id="206" gid="8" x="384" y="64" width="128" height="64"/>
   <object id="207" type="window" gid="8" x="960" y="1280" width="192" height="64"/>
   <object id="209" type="window" gid="8" x="768" y="1280" width="192" height="64"/>
+  <object id="210" name="fireplace" type="fireplace" gid="19" x="576" y="832" width="128" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Камин между кухней и залом"/>
+   </properties>
+  </object>
+  <object id="211" name="fireplace" type="fireplace" gid="19" x="1216" y="832" width="128" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Камин между кухней и залом"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="5" name="дымоходы" width="30" height="20">
   <data encoding="csv">

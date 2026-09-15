@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="281">
+ <properties>
+  <property name="capacity" value="20"/>
+  <property name="era" value="medieval"/>
+  <property name="floor" value="2"/>
+  <property name="name" value="Второй этаж трактира"/>
+  <property name="scale" value="1 клетка = 5 футов = 64 px"/>
+  <property name="size_ft" value="150x100"/>
+ </properties>
+ <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="6" columns="6">
+  <image source="../../../Загрузки/tiles.png" width="384" height="64"/>
+ </tileset>
+ <tileset firstgid="7" name="object_sprites" tilewidth="256" tileheight="128" tilecount="11" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../../../Загрузки/worktable.png" width="128" height="64"/>
+  </tile>
+  <tile id="1">
+   <image source="../../../Загрузки/window.png" width="64" height="24"/>
+  </tile>
+  <tile id="2">
+   <image source="../../../Загрузки/table.png" width="256" height="64"/>
+  </tile>
+  <tile id="3">
+   <image source="../../../Загрузки/stove.png" width="64" height="64"/>
+  </tile>
+  <tile id="4">
+   <image source="../../../Загрузки/painting.png" width="128" height="24"/>
+  </tile>
+  <tile id="5">
+   <image source="../../../Загрузки/hearth.png" width="128" height="128"/>
+  </tile>
+  <tile id="6">
+   <image source="../../../Загрузки/fireplace_obj.png" width="128" height="128"/>
+  </tile>
+  <tile id="7">
+   <image source="../../../Загрузки/door.png" width="64" height="64"/>
+  </tile>
+  <tile id="8">
+   <image source="../../../Загрузки/coffee_table.png" width="64" height="64"/>
+  </tile>
+  <tile id="9">
+   <image source="../../../Загрузки/bench.png" width="256" height="64"/>
+  </tile>
+  <tile id="10">
+   <image source="../../../Загрузки/armchair.png" width="64" height="64"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="18" name="fireplace_wide_3x1" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="../../../Загрузки/fireplace_wide_3x1.png" width="192" height="64"/>
+ </tileset>
+ <tileset firstgid="19" name="fireplace_wide_with_fire" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="../../../Загрузки/fireplace_wide_with_fire.png" width="192" height="64"/>
+ </tileset>
+ <tileset firstgid="20" name="fireplace_wide_with_fire" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="fireplace_wide_with_fire.png" width="192" height="64"/>
+ </tileset>
+ <layer id="1" name="floor" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="walls" width="30" height="20">
+  <data encoding="csv">
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
+</data>
+ </layer>
+ <objectgroup color="#ffaa00" id="2" name="objects">
+  <object id="210" name="door-tavern_keeper_room" type="door" gid="14" x="1408" y="576" width="128" height="64">
+   <properties>
+    <property name="from" value="GR"/>
+    <property name="side" value="north"/>
+    <property name="to" value="tavern_keeper_room"/>
+   </properties>
+  </object>
+  <object id="211" name="door-waitress_room" type="door" gid="14" x="704" y="576" width="128" height="64">
+   <properties>
+    <property name="from" value="GR"/>
+    <property name="side" value="north"/>
+    <property name="to" value="waitress_room"/>
+   </properties>
+  </object>
+  <object id="212" name="door-doctor_room" type="door" gid="14" x="704" y="768" width="128" height="64">
+   <properties>
+    <property name="from" value="GR"/>
+    <property name="side" value="south"/>
+    <property name="to" value="doctor_room"/>
+   </properties>
+  </object>
+  <object id="213" name="door-sailor_room" type="door" gid="14" x="384" y="576" width="128" height="64">
+   <properties>
+    <property name="from" value="GR"/>
+    <property name="side" value="north"/>
+    <property name="to" value="sailor_room"/>
+   </properties>
+  </object>
+  <object id="214" name="door-detective_room" type="door" gid="14" x="384" y="768" width="128" height="64">
+   <properties>
+    <property name="from" value="GR"/>
+    <property name="side" value="south"/>
+    <property name="to" value="detective_room"/>
+   </properties>
+  </object>
+  <object id="215" name="door-guest_room_empty_1" type="door" gid="14" x="1024" y="576" width="128" height="64">
+   <properties>
+    <property name="from" value="GR"/>
+    <property name="side" value="north"/>
+    <property name="to" value="guest_room_empty_1"/>
+   </properties>
+  </object>
+  <object id="216" name="door-guest_room_empty_2" type="door" gid="14" x="1024" y="768" width="128" height="64">
+   <properties>
+    <property name="from" value="GR"/>
+    <property name="side" value="south"/>
+    <property name="to" value="guest_room_empty_2"/>
+   </properties>
+  </object>
+  <object id="217" name="door-guest_room_empty_3" type="door" gid="14" x="1408" y="768" width="128" height="64">
+   <properties>
+    <property name="from" value="GR"/>
+    <property name="side" value="south"/>
+    <property name="to" value="guest_room_empty_3"/>
+   </properties>
+  </object>
+  <object id="218" name="stairs-down-hall" type="stairs" x="1728" y="832" width="128" height="384">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="label" value="Вниз, в общий зал"/>
+    <property name="to" value="HALL"/>
+   </properties>
+  </object>
+  <object id="219" name="stairs-up-mansard" type="stairs" x="64" y="128" width="128" height="320">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="label" value="На мансарду"/>
+    <property name="to" value="MANSARD"/>
+   </properties>
+  </object>
+  <object id="220" name="bed-tavern_keeper" type="bed" gid="7" x="1344" y="192" width="64" height="128"/>
+  <object id="221" name="bed-waitress" type="bed" gid="7" x="704" y="256" width="128" height="192"/>
+  <object id="222" name="bed-doctor" type="bed" gid="7" x="832" y="1024" width="64" height="128"/>
+  <object id="223" name="bed-sailor" type="bed" gid="7" x="320" y="192" width="64" height="128"/>
+  <object id="224" name="bed-detective" type="bed" gid="7" x="320" y="1024" width="64" height="128"/>
+  <object id="225" name="bed-guest_1" type="bed" gid="7" x="1152" y="256" width="128" height="192"/>
+  <object id="226" name="bed-guest_2" type="bed" gid="7" x="960" y="1024" width="128" height="192"/>
+  <object id="227" name="bed-guest_3" type="bed" gid="7" x="1536" y="1024" width="64" height="128"/>
+  <object id="228" name="desk-tavern_keeper" type="desk" gid="15" x="1472" y="128" width="128" height="64"/>
+  <object id="229" name="desk-waitress" type="desk" gid="15" x="640" y="128" width="64" height="64"/>
+  <object id="230" name="desk-doctor" type="desk" gid="15" x="704" y="1216" width="128" height="64"/>
+  <object id="231" name="desk-sailor" type="desk" gid="15" x="448" y="128" width="128" height="64"/>
+  <object id="232" name="desk-detective" type="desk" gid="15" x="384" y="1216" width="128" height="64"/>
+  <object id="233" name="desk-guest_1" type="desk" gid="15" x="960" y="320" width="64" height="64"/>
+  <object id="234" name="desk-guest_2" type="desk" gid="15" x="1024" y="1216" width="192" height="64"/>
+  <object id="235" name="desk-guest_3" type="desk" gid="15" x="1408" y="1216" width="128" height="64"/>
+  <object id="236" name="chair-tavern_keeper" type="chair" gid="17" x="1536" y="256" width="64" height="64"/>
+  <object id="237" name="chair-waitress" type="chair" gid="17" x="832" y="448" width="64" height="64"/>
+  <object id="238" name="chair-doctor" type="chair" gid="17" x="768" y="1088" width="64" height="64"/>
+  <object id="239" name="chair-sailor" type="chair" gid="17" x="512" y="256" width="64" height="64"/>
+  <object id="240" name="chair-detective" type="chair" gid="17" x="448" y="1152" width="64" height="64"/>
+  <object id="241" name="chair-guest_1" type="chair" gid="17" x="960" y="192" width="64" height="64"/>
+  <object id="242" name="chair-guest_2" type="chair" gid="17" x="1088" y="1152" width="64" height="64"/>
+  <object id="243" name="chair-guest_3" type="chair" gid="17" x="1472" y="1088" width="64" height="64"/>
+  <object id="244" name="window-tavern_keeper" type="window" gid="8" x="1408" y="64" width="128" height="64"/>
+  <object id="245" name="window-waitress" type="window" gid="8" x="704" y="64" width="128" height="64"/>
+  <object id="246" name="window-doctor" type="window" gid="8" x="704" y="1280" width="128" height="64"/>
+  <object id="247" name="window-sailor" type="window" gid="8" x="384" y="64" width="128" height="64"/>
+  <object id="248" name="window-detective" type="window" gid="8" x="384" y="1280" width="128" height="64"/>
+  <object id="249" name="window-guest_1" type="window" gid="8" x="1024" y="64" width="192" height="64"/>
+  <object id="250" name="window-guest_2" type="window" gid="8" x="1024" y="1280" width="192" height="64"/>
+  <object id="251" name="window-guest_3" type="window" gid="8" x="1408" y="1280" width="128" height="64"/>
+  <object id="252" name="window-foyer" type="window" gid="8" x="1856" y="768" width="64" height="256"/>
+  <object id="253" name="window-foyer" type="window" gid="8" x="0" y="768" width="64" height="256"/>
+  <object id="254" name="desk-waitress" type="desk" gid="15" x="832" y="128" width="64" height="64"/>
+  <object id="255" name="chair" type="chair" gid="17" x="192" y="832" width="64" height="64"/>
+  <object id="256" name="chair" type="chair" gid="17" x="192" y="1024" width="64" height="64"/>
+  <object id="257" name="chair" type="chair" gid="17" x="192" y="1216" width="64" height="64"/>
+  <object id="259" name="window-foyer" type="window" gid="8" x="0" y="1088" width="64" height="192"/>
+  <object id="260" name="window-foyer" type="window" gid="8" x="0" y="384" width="64" height="192"/>
+  <object id="261" name="window-foyer" type="window" gid="8" x="1856" y="1088" width="64" height="192"/>
+  <object id="262" name="window-foyer" type="window" gid="8" x="1856" y="384" width="64" height="192"/>
+  <object id="267" name="fireplace-detective" type="fireplace" gid="13" x="512" y="1024" width="64" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="false"/>
+    <property name="note" value="камин в комнате детектива"/>
+   </properties>
+  </object>
+  <object id="271" name="fireplace-sailor" type="fireplace" gid="20" x="512" y="384" width="64" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Камин в комнате Моряка"/>
+   </properties>
+  </object>
+  <object id="272" name="fireplace-waitress" type="fireplace" gid="20" x="640" y="384" width="64" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="камин к комнате Официантки"/>
+   </properties>
+  </object>
+  <object id="274" name="fireplace-tavernkeeper" type="fireplace" gid="20" x="1344" y="384" width="64" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="камин в комнате Трактирщика"/>
+   </properties>
+  </object>
+  <object id="275" name="fireplace-doctor" type="fireplace" gid="20" x="640" y="1024" width="64" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="камин в комнате доктора"/>
+   </properties>
+  </object>
+  <object id="277" name="fireplace-guest_2" type="fireplace" gid="13" x="1216" y="1024" width="64" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="false"/>
+    <property name="note" value="камин в гостевой комнате 2"/>
+   </properties>
+  </object>
+  <object id="279" name="fireplace-guest_3" type="fireplace" gid="13" x="1344" y="1024" width="64" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="false"/>
+    <property name="note" value="камин в гостевой комнате 3"/>
+   </properties>
+  </object>
+  <object id="280" name="fireplace-guest_1" type="fireplace" gid="13" x="1216" y="384" width="64" height="128">
+   <properties>
+    <property name="hazard" type="bool" value="false"/>
+    <property name="note" value="камин в гостевой комнате 1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="5" name="дымоходы" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="stairs" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
