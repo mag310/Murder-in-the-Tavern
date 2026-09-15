@@ -133,6 +133,9 @@
             "items": {
                 "$ref": "#/$defs/hiddenDetail"
             }
+        },
+        "speech_profile": {
+            "$ref": "#/$defs/speechProfile"
         }
     },
     "additionalProperties": true,
@@ -599,6 +602,96 @@
                     "items": {
                         "type": "string"
                     }
+                }
+            },
+            "additionalProperties": true
+        },
+        "speechProfile": {
+            "type": "object",
+            "description": "Постоянный речевой профиль персонажа: КАК он произносит ответы по уровням L1–L4 (не заменяет сами ответы L1–L4, а описывает подачу). Поле в characters/{id}.json.",
+            "properties": {
+                "register": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Речевой регистр (напр. 'грубый, морской, полуэльфийский')."
+                },
+                "pace": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Темп речи (напр. 'рваный, с паузами и повторами')."
+                },
+                "volume": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Громкость/громкость по уровням (напр. 'громкий, но в L4 — глухой шёпот')."
+                },
+                "lexicon": {
+                    "type": "array",
+                    "description": "Характерные слова/выражения персонажа (напр. ['трюм', 'казна', 'дьявол']).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "syntax": {
+                    "type": "array",
+                    "description": "Особенности синтаксиса (напр. ['короткие рубленые фразы', 'вопросы вместо ответов']).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "catchphrases": {
+                    "type": "array",
+                    "description": "Клички/повторы (напр. ['Слушай сюда', 'Ты меня понял?']).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "gestures": {
+                    "type": "array",
+                    "description": "Жесты/маниры (напр. ['крутит перстень', 'не смотрит в глаза']).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "level_styles": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "description": "Как меняются подача/голос по уровням L1–L4 (не заменяет ответы, описывает, как их произносить).",
+                    "properties": {
+                        "L1": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "L2": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "L3": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "L4": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true
