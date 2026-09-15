@@ -1,0 +1,163 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "interrogations.schema.json",
+    "title": "Interrogation",
+    "description": "Допрос одного main_npc. По одному файлу на персонаж в каталоге interrogations/: interrogations/{character_id}.json. Текст вопросов и ответов — инлайн, без внешних ссылок.",
+    "type": "object",
+    "required": [
+        "character_id",
+        "name",
+        "role",
+        "status",
+        "base_questions",
+        "scenarios"
+    ],
+    "properties": {
+        "character_id": {
+            "type": "string",
+            "description": "ID персонажа (совпадает с именем файла и с ID в characters/). Напр. sailor."
+        },
+        "name": {
+            "type": "string",
+            "description": "Имя/название персонажа. Напр. Моряк."
+        },
+        "role": {
+            "type": "string",
+            "description": "Роль/должность. Напр. Моряк."
+        },
+        "status": {
+            "type": "string",
+            "description": "Статус допрашиваемого: main_npc (активный персонаж в игре) или ghost / speak_with_dead (недавно умершего — допрос через призрак/сpeak_with_dead)."
+        },
+        "initial_attitude": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Начальное отношение к игроку (напр. «настороженный, агрессивный»). Определяет стартовый уровень ответа и доверие."
+        },
+        "default_reliability": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "По умолчанию надёжность ответов персонажа (напр. mixed, reliable, unreliable)."
+        },
+        "base_questions": {
+            "type": "object",
+            "description": "Общие вопросы-ответы, одинаковые во всех сценариях. Подтягиваются автоматически в каждый сценарий. В scenarios[].questions пишется только отличие (override). Ключ — ID вопроса (A1, B5, Z3 и т.д.).",
+            "patternProperties": {
+                "^[A-Z][0-9]+$": {
+                    "$ref": "#/$defs/question"
+                }
+            },
+            "additionalProperties": false
+        },
+        "scenarios": {
+            "type": "array",
+            "description": "Массив сценариев. Каждый — только отличия от base_questions (override).",
+            "items": {
+                "$ref": "#/$defs/scenario"
+            }
+        }
+    },
+    "additionalProperties": true,
+    "$defs": {
+        "question": {
+            "type": "object",
+            "required": [
+                "q"
+            ],
+            "description": "Один вопрос с ответами по уровням L1–L4. В base_questions — общие ответы; в scenarios[].questions — override (можно задать только тот уровень, который отличается).",
+            "properties": {
+                "q": {
+                    "type": "string",
+                    "description": "Текст вопроса."
+                },
+                "L1": {
+                    "type": "string",
+                    "description": "Ответ на уровне L1 (Неприязнь: откровенно лжёт или отказывается отвечать; критический провал проверки)."
+                },
+                "L2": {
+                    "type": "string",
+                    "description": "Ответ на уровне L2 (Обычное: очевидное/общеизвестное; провал проверки)."
+                },
+                "L3": {
+                    "type": "string",
+                    "description": "Ответ на уровне L3 (Малый секрет: secret.level small/medium; успех проверки)."
+                },
+                "L4": {
+                    "type": "string",
+                    "description": "Ответ на уровне L4 (Большой секрет: secret.level big; критический успех)."
+                }
+            },
+            "additionalProperties": true
+        },
+        "scenario": {
+            "type": "object",
+            "required": [
+                "id",
+                "victim",
+                "murder",
+                "true_evidence",
+                "false_evidence",
+                "questions"
+            ],
+            "description": "Сценарий (d6-маппинг). Только отличия от base_questions. Если questions пустой — берётся всё из base_questions; если в questions есть ключ (напр. A6) — он замещает A6 из base_questions в этом сценарии.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "pattern": "^S0?\\d\\d$",
+                    "description": "ID сценария: S + 2 цифры d6. Первая цифра — номер жертвы (d6), вторая — номер убийца (d6). Ведущий 0 (S0X) — несчастный случай (murder: null, cause: accident). d6-маппинг: 1=Трактирщик, 2=Моряк, 3=Официантка, 4=Врач, 5=Детектив, 6=Художник."
+                },
+                "victim": {
+                    "type": "string",
+                    "description": "ID жертвы (character_id)."
+                },
+                "murder": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "ID убийцы (character_id). null — несчастный случай (S0X)."
+                },
+                "cause": {
+                    "type": "string",
+                    "description": "Причина смерти. Обязательно только для S0X (несчастный случай, напр. accident); иначе может отсутствовать."
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Необязательный комментарий к сценарию (мотив, подварианты)."
+                },
+                "true_evidence": {
+                    "type": "array",
+                    "description": "Улики, которые повышают уровень ответа при демонстрации (L1→L2→L3→L4). ID из evidence.json.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "false_evidence": {
+                    "type": "array",
+                    "description": "Улики, которые понижают уровень ответа при демонстрации (L4→L3→L2→L1). ID из evidence.json.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "questions": {
+                    "type": "object",
+                    "description": "Только вопросы, которые ОТЛИЧАЮТСЯ от base_questions (override). Ключ — ID вопроса; значение замещает соответствующий вопрос из base_questions в этом сценарии.",
+                    "patternProperties": {
+                        "^[A-Z][0-9]+$": {
+                            "$ref": "#/$defs/question"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": true
+        }
+    }
+}
