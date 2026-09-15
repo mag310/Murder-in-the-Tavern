@@ -24,6 +24,16 @@
 - [ ] **Мёртвые ссылки в дверях `mansard.tmx`** — `to="smoker_room"` / `to="artist_room"` / `to=""` / 3 двери без `to`.
   Локации `smoker_room`/`artist_room`/`attic_room_1..3` созданы — нужно поправить ссылки в дверях карты (то, что ты
   сделаешь сам).
+- [ ] **Карта двора `maps/yard.tmx`** — создать. Покрывает `tavern_yard`, `stable`, `wife_grave` (двор перед таверной,
+  конюшня, могила жены). Подвал (`basement.tmx`) уже имеет `door-street` → `YARD`, но двор как отдельная карта
+  отсутствует.
+- [ ] **Карта берега реки `maps/riverbank.tmx`** (или `pier.tmx`) — создать. Покрывает `quay` (набережная), `pier`
+  (причал), `shed` (лодочный сарай). `floor_1.tmx` уже имеет `door-quay` → `QUAY`, `quay`/`pier`/`shed` — в графе,
+  но .tmx-карты для берега нет.
+- [ ] **Город, тракт, мост — не карты** (решение автора). `sheriff_office`, `morgue`, `town_gate`, `port`,
+  `city_streets`, `road`, `bridge` остаются контекстными (не gameplay) — .tmx-карты для них НЕ нужны. `river` уже
+  `context`; `road` уже `context`. `bridge` сейчас `gameplay` (parent `road`) — перевести в `context` при
+  следующем проходе.
 
 ## 5. Публикация
 
