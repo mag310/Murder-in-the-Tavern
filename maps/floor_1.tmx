@@ -239,7 +239,7 @@
    <properties>
     <property name="direction" value="up"/>
     <property name="label" value="На 2 этаж"/>
-    <property name="to" value="FOYER"/>
+    <property name="to" value="foyer_2f"/>
    </properties>
   </object>
   <object id="195" name="kitchen-worktable" type="worktable" gid="7" x="256" y="384" width="128" height="64"/>

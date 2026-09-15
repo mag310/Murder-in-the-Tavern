@@ -91,7 +91,7 @@
             "character": "artist",
             "name": "Компромат: Художник",
             "primary": [
-                "artist_workshop"
+                "artist_cube"
             ],
             "secondary": [
                 "artist_diary",
@@ -191,7 +191,7 @@
                 "detective_drunk"
             ],
             "secondary": [
-                "artist_workshop",
+                "artist_cube",
                 "sailor_false_clue",
                 "artist_traces"
             ],
@@ -281,7 +281,7 @@
                 "blood_splatter"
             ],
             "false": [
-                "artist_workshop"
+                "artist_cube"
             ],
             "note": "Если Художник нападает на Официантку."
         },
@@ -346,7 +346,7 @@
                 "ghost_testimony"
             ],
             "false": [
-                "artist_workshop",
+                "artist_cube",
                 "artist_sketches"
             ],
             "note": "Не-канон: если Официантка раскрывает Художника как охотника на культистов."
@@ -411,7 +411,7 @@
                 "poison_evidence"
             ],
             "false": [
-                "artist_workshop"
+                "artist_cube"
             ],
             "note": "Если Художник покусится на Официантку; возможен вариант с отравлением."
         },
@@ -433,7 +433,7 @@
             ],
             "false": [
                 "detective_drunk",
-                "artist_workshop"
+                "artist_cube"
             ],
             "note": "Защита Официантки от пьяного Детектива."
         },
@@ -454,7 +454,7 @@
                 "artist_hiding"
             ],
             "false": [
-                "artist_workshop"
+                "artist_cube"
             ],
             "note": "Не-канон: Художник убивает Трактирщика как культиста."
         },
@@ -476,7 +476,7 @@
             ],
             "false": [
                 "waitress_diary",
-                "artist_workshop"
+                "artist_cube"
             ],
             "note": "КАНОНИЧНЫЙ: Художник убивает верховную жрицу ради реликвии."
         },
@@ -520,7 +520,7 @@
             ],
             "false": [
                 "detective_drunk",
-                "artist_workshop"
+                "artist_cube"
             ],
             "note": "КАНОНИЧНЫЙ: Художник убивает Детектива, скрывая охоту."
         },
@@ -583,7 +583,7 @@
             ],
             "false": [
                 "detective_drunk",
-                "artist_workshop"
+                "artist_cube"
             ],
             "note": "Личное против официального правосудия."
         }
@@ -726,7 +726,7 @@
             ],
             "false": [
                 "artist_traces",
-                "artist_workshop"
+                "artist_cube"
             ],
             "note": "Самоубийство/несчастный случай/болезнь Художника."
         },
@@ -791,7 +791,7 @@
             "id": "F5",
             "decoy": "artist",
             "evidence": [
-                "artist_workshop",
+                "artist_cube",
                 "artist_traces",
                 "artist_hiding",
                 "cult_mask",

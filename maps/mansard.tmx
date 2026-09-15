@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="317">
+ <properties>
+  <property name="capacity" value="1"/>
+  <property name="era" value="medieval"/>
+  <property name="floor" value="3"/>
+  <property name="name" value="Мансарда (художественная мастерская)"/>
+  <property name="scale" value="1 клетка = 5 футов = 64 px"/>
+  <property name="size_ft" value="150x100"/>
+ </properties>
+ <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="6" columns="6">
+  <image source="tiles.png" width="384" height="64"/>
+ </tileset>
+ <tileset firstgid="7" name="object_sprites" tilewidth="256" tileheight="128" tilecount="11" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="worktable.png" width="128" height="64"/>
+  </tile>
+  <tile id="1">
+   <image source="window.png" width="64" height="24"/>
+  </tile>
+  <tile id="2">
+   <image source="table.png" width="256" height="64"/>
+  </tile>
+  <tile id="3">
+   <image source="stove.png" width="64" height="64"/>
+  </tile>
+  <tile id="4">
+   <image source="painting.png" width="128" height="24"/>
+  </tile>
+  <tile id="5">
+   <image source="hearth.png" width="128" height="128"/>
+  </tile>
+  <tile id="6">
+   <image source="fireplace_obj.png" width="128" height="128"/>
+  </tile>
+  <tile id="7">
+   <image source="door.png" width="64" height="64"/>
+  </tile>
+  <tile id="8">
+   <image source="coffee_table.png" width="64" height="64"/>
+  </tile>
+  <tile id="9">
+   <image source="bench.png" width="256" height="64"/>
+  </tile>
+  <tile id="10">
+   <image source="armchair.png" width="64" height="64"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="18" name="fireplace_wide_3x1" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="fireplace_wide_3x1.png" width="192" height="64"/>
+ </tileset>
+ <tileset firstgid="19" name="fireplace_wide_with_fire" tilewidth="192" tileheight="64" tilecount="1" columns="1">
+  <image source="fireplace_wide_with_fire.png" width="192" height="64"/>
+ </tileset>
+ <layer id="1" name="floor" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,
+0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,
+0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,
+0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,
+0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,
+0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="6" name="коптильня" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,
+0,0,0,0,0,4,4,4,4,0,4,4,4,4,0,4,4,4,4,4,0,4,4,4,4,0,0,0,0,0,
+0,0,0,0,0,4,4,4,4,0,4,4,4,4,0,4,4,4,4,4,0,4,4,4,4,0,0,0,0,0,
+0,0,0,0,0,4,4,4,4,0,4,4,4,4,0,4,4,4,4,4,0,4,4,4,4,0,0,0,0,0,
+0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,
+0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="чердачные комнаты с косым потолком" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,
+0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,
+0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,
+0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,
+0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,
+0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,
+0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="walls" width="30" height="20">
+  <data encoding="csv">
+0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,
+0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,
+0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,
+2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,2,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,2,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,2,2,0,0,2,2,
+2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,
+2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,
+0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2,0,0,2,0,
+0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2,0,2,0,0,
+0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#ffaa00" id="2" name="objects">
+  <object id="281" name="stairs-down-foyer" type="stairs" x="64" y="128" width="128" height="320">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="from" value="mansard"/>
+    <property name="label" value="Вниз, в фойе 2-го этажа"/>
+    <property name="to" value="foyer_2f"/>
+   </properties>
+  </object>
+  <object id="286" name="easel" type="worktable" gid="7" x="896" y="960" width="128" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Мольберт Художника. На нём один из незаконченных скетчей (artist_sketches)"/>
+   </properties>
+  </object>
+  <object id="287" name="worktable-artist" type="worktable" gid="7" x="1408" y="1216" width="128" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Письменный стол "/>
+   </properties>
+  </object>
+  <object id="288" name="painting-artist_cube" type="painting" gid="11" x="704" y="576" width="64" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note">Картина «Куб I» на стене.
+«Куб I» — торс, разрезанный на модули</property>
+   </properties>
+  </object>
+  <object id="289" name="painting-artist_masonry" type="painting" gid="11" x="576" y="576" width="64" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note">Картина &quot;Кладка&quot;.
+«Кладка» — конечности, уложенные рядами.</property>
+   </properties>
+  </object>
+  <object id="290" name="painting-artist_sketch_modules" type="painting" gid="11" x="832" y="576" width="64" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note">Картина &quot;Набросок&quot;.
+«Набросок» — контур тела, размеченный на модули (архитектурный чертёж)</property>
+   </properties>
+  </object>
+  <object id="291" name="shield_soul_whisper" type="weapon" gid="18" x="1536" y="1024" width="64" height="128">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Пыльная глефа «Шёпот Душ» (оружие Шелин) на стене"/>
+   </properties>
+  </object>
+  <object id="292" name="artist_hiding" type="container" gid="19" x="1792" y="448" width="64" height="128">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Сундук с «Погибелью Дьявола» (Devil's Bane) и тайник с наркотиками"/>
+   </properties>
+  </object>
+  <object id="293" name="flayleaf_residue" type="container" gid="20" x="1536" y="1216" width="64.4204" height="64.1412">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Ящик с Лист-живодёром (Flayleaf) — не сильно спрятан"/>
+   </properties>
+  </object>
+  <object id="296" name="order_order" type="document" x="1408" y="1152" width="64" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Приказ ордена (тайник Художника)"/>
+   </properties>
+  </object>
+  <object id="297" name="artist_diary" type="document" x="1472" y="1152" width="64" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Дневник Художника (обложка с символом ордена Шелин)"/>
+   </properties>
+  </object>
+  <object id="298" name="rainbow_bird" type="clue" x="832" y="832" width="64" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Изображение радужной певчей птицы (символ Шелин)"/>
+   </properties>
+  </object>
+  <object id="299" name="crystals" type="clue" x="1408" y="1152" width="64" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Кристаллы, стёкла, сломанная лютня (атрибуты Шелин)"/>
+   </properties>
+  </object>
+  <object id="307" name="painting-artist_bacon" type="painting" gid="11" x="960" y="576" width="64" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note">Картина &quot;Бекон&quot;.
+«Бекон» — тонкие полосы плоти, свёрнутые в рулоны.</property>
+   </properties>
+  </object>
+  <object id="308" name="bed-artist" type="bed" gid="7" x="1536" y="1024" width="64" height="128">
+   <properties>
+    <property name="from" value="mansard"/>
+   </properties>
+  </object>
+  <object id="309" name="fireplace-artist" type="fireplace" gid="19" x="1344" y="1024" width="64" height="128">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Камин в комнате Художника"/>
+   </properties>
+  </object>
+  <object id="310" name="worktable-artist" type="worktable" gid="7" x="832" y="960" width="64" height="128">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="note" value="Письменный стол Художника с инструментами для рисования"/>
+   </properties>
+  </object>
+  <object id="311" name="fireplace-artist" type="fireplace" gid="19" x="640" y="1024" width="64" height="128">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="hazard" type="bool" value="true"/>
+    <property name="note" value="Камин в комнате Художника"/>
+   </properties>
+  </object>
+  <object id="312" name="door-smoker_room" type="door" gid="14" x="384" y="512" width="128" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="side" value="north"/>
+    <property name="to" value="smoker_room"/>
+   </properties>
+  </object>
+  <object id="313" name="door-artist_room" type="door" gid="14" x="1408" y="832" width="128" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="side" value="south"/>
+    <property name="to" value="artist_room"/>
+   </properties>
+  </object>
+  <object id="314" name="door" type="door" gid="14" x="128" y="832" width="128" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="side" value="south"/>
+   </properties>
+  </object>
+  <object id="315" name="door" type="door" gid="14" x="1664" y="832" width="128" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="side" value="south"/>
+   </properties>
+  </object>
+  <object id="316" name="door" type="door" gid="14" x="1664" y="512" width="128" height="64">
+   <properties>
+    <property name="from" value="mansard"/>
+    <property name="side" value="north"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Окна">
+  <object id="302" name="window-mansard-south" type="window" gid="8" x="640" y="1280" width="640" height="64"/>
+  <object id="303" name="window-mansard-east" type="window" gid="8" x="1856" y="768" width="64" height="256"/>
+  <object id="304" name="window-mansard-north" type="window" gid="8" x="1280" y="64" width="192" height="64"/>
+  <object id="305" name="window-mansard-north" type="window" gid="8" x="448" y="64" width="192" height="64"/>
+  <object id="306" name="window-mansard-west" type="window" gid="8" x="0" y="768" width="64" height="256"/>
+ </objectgroup>
+ <layer id="5" name="дымоходы" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="stairs" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

@@ -9,49 +9,49 @@
   <property name="size_ft" value="150x100"/>
  </properties>
  <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="6" columns="6">
-  <image source="../../../Загрузки/tiles.png" width="384" height="64"/>
+  <image source="tiles.png" width="384" height="64"/>
  </tileset>
  <tileset firstgid="7" name="object_sprites" tilewidth="256" tileheight="128" tilecount="11" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../../Загрузки/worktable.png" width="128" height="64"/>
+   <image source="worktable.png" width="128" height="64"/>
   </tile>
   <tile id="1">
-   <image source="../../../Загрузки/window.png" width="64" height="24"/>
+   <image source="window.png" width="64" height="24"/>
   </tile>
   <tile id="2">
-   <image source="../../../Загрузки/table.png" width="256" height="64"/>
+   <image source="table.png" width="256" height="64"/>
   </tile>
   <tile id="3">
-   <image source="../../../Загрузки/stove.png" width="64" height="64"/>
+   <image source="stove.png" width="64" height="64"/>
   </tile>
   <tile id="4">
-   <image source="../../../Загрузки/painting.png" width="128" height="24"/>
+   <image source="painting.png" width="128" height="24"/>
   </tile>
   <tile id="5">
-   <image source="../../../Загрузки/hearth.png" width="128" height="128"/>
+   <image source="hearth.png" width="128" height="128"/>
   </tile>
   <tile id="6">
-   <image source="../../../Загрузки/fireplace_obj.png" width="128" height="128"/>
+   <image source="fireplace_obj.png" width="128" height="128"/>
   </tile>
   <tile id="7">
-   <image source="../../../Загрузки/door.png" width="64" height="64"/>
+   <image source="door.png" width="64" height="64"/>
   </tile>
   <tile id="8">
-   <image source="../../../Загрузки/coffee_table.png" width="64" height="64"/>
+   <image source="coffee_table.png" width="64" height="64"/>
   </tile>
   <tile id="9">
-   <image source="../../../Загрузки/bench.png" width="256" height="64"/>
+   <image source="bench.png" width="256" height="64"/>
   </tile>
   <tile id="10">
-   <image source="../../../Загрузки/armchair.png" width="64" height="64"/>
+   <image source="armchair.png" width="64" height="64"/>
   </tile>
  </tileset>
  <tileset firstgid="18" name="fireplace_wide_3x1" tilewidth="192" tileheight="64" tilecount="1" columns="1">
-  <image source="../../../Загрузки/fireplace_wide_3x1.png" width="192" height="64"/>
+  <image source="fireplace_wide_3x1.png" width="192" height="64"/>
  </tileset>
  <tileset firstgid="19" name="fireplace_wide_with_fire" tilewidth="192" tileheight="64" tilecount="1" columns="1">
-  <image source="../../../Загрузки/fireplace_wide_with_fire.png" width="192" height="64"/>
+  <image source="fireplace_wide_with_fire.png" width="192" height="64"/>
  </tileset>
  <tileset firstgid="20" name="fireplace_wide_with_fire" tilewidth="192" tileheight="64" tilecount="1" columns="1">
   <image source="fireplace_wide_with_fire.png" width="192" height="64"/>
@@ -165,14 +165,14 @@
    <properties>
     <property name="direction" value="down"/>
     <property name="label" value="Вниз, в общий зал"/>
-    <property name="to" value="HALL"/>
+    <property name="to" value="tavern_hall"/>
    </properties>
   </object>
   <object id="219" name="stairs-up-mansard" type="stairs" x="64" y="128" width="128" height="320">
    <properties>
     <property name="direction" value="up"/>
     <property name="label" value="На мансарду"/>
-    <property name="to" value="MANSARD"/>
+    <property name="to" value="mansard"/>
    </properties>
   </object>
   <object id="220" name="bed-tavern_keeper" type="bed" gid="7" x="1344" y="192" width="64" height="128"/>
