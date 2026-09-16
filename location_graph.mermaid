@@ -85,7 +85,7 @@ graph TD
     %% =========================================================
 
     subgraph TOWN["Город"]
-        SHERIFF["Офис Шерифа"]
+        DUKSTATAR["Офис Дуксотара"]
         MORGUE["Морг"]
         TOWNGATE["Городские ворота"]
         PORT["Порт"]
@@ -157,7 +157,7 @@ graph TD
     TOWNGATE <==>|городские ворота| STREETS
     TOWNGATE <==>|городские ворота| BRIDGE
     STREETS <==>|река| PORT
-    SHERIFF <==>|двери офиса| STREETS
+    DUKSTATAR <==>|двери офиса| STREETS
     MORGUE <==>|двери морга| STREETS
     PORT <==>|ворота порта| STREETS
 
@@ -197,6 +197,6 @@ graph TD
     class CLAIR cult;
     class YARD,STABLE,GRAVE,WELL,WOOD,BARN outdoor;
     class QUAY,SHED,PIER port;
-    class SHERIFF,MORGUE,TOWNGATE,PORT,STREETS town;
+    class DUKSTATAR,MORGUE,TOWNGATE,PORT,STREETS town;
     class BRIDGE,ROAD_R road;
     class TUNNEL tunnel;

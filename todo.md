@@ -30,7 +30,7 @@
 - [ ] **Карта берега реки `maps/riverbank.tmx`** (или `pier.tmx`) — создать. Покрывает `quay` (набережная), `pier`
   (причал), `shed` (лодочный сарай). `floor_1.tmx` уже имеет `door-quay` → `QUAY`, `quay`/`pier`/`shed` — в графе,
   но .tmx-карты для берега нет.
-- [ ] **Город, тракт, мост — не карты** (решение автора). `sheriff_office`, `morgue`, `town_gate`, `port`,
+- [ ] **Город, тракт, мост — не карты** (решение автора). `dukstatar_office`, `morgue`, `town_gate`, `port`,
   `city_streets`, `road`, `bridge` остаются контекстными (не gameplay) — .tmx-карты для них НЕ нужны. `river` уже
   `context`; `road` уже `context`. `bridge` сейчас `gameplay` (parent `road`) — перевести в `context` при
   следующем проходе.

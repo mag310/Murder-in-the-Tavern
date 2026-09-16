@@ -1,15 +1,15 @@
 {
-    "id": "sheriff_office",
-    "name": "Офис Шерифа",
+    "id": "dukstatar_office",
+    "name": "Офис Дуксотара",
     "type": "gameplay",
     "parent_location": "town",
     "description": "Место, откуда начинается официальное расследование серии смертей.",
     "characters": [
-        "sheriff",
+        "dukstatar",
         "detective"
     ],
     "important_events": [
-        "Шериф нанимает Детектива"
+        "Дуксотар нанимает Детектива"
     ],
     "clues": [
     ],

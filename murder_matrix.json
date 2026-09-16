@@ -77,28 +77,6 @@
                     ]
                 },
                 {
-                    "type": "murder",
-                    "motivation": "money",
-                    "related_characters": [
-                        "detective"
-                    ],
-                    "probability": "low",
-                    "scenario": "possible_scenario",
-                    "scenario_note": "Детектив как возможный убийца — это возможный сценарий (не канон), связанный с тайным заказом Художника (artist.money -> detective). В каноне наниматель Детектива — Шериф, и у Детектива нет мотива убить Трактирщика по money. Если автор выберет этот сценарий, мотив становится обоснованным; иначе эту причину следует удалить.",
-                    "primary_evidence": [
-                        "contraband"
-                    ],
-                    "secondary_evidence": [
-                        "tavernkeeper_notebook",
-                        "detective_drunk",
-                        "contraband_crate",
-                        "tavernkeeper_hiding"
-                    ],
-                    "false_evidence": [
-                        "sailor_false_clue"
-                    ]
-                },
-                {
                     "type": "accident",
                     "motivation": "accident",
                     "related_characters": [],
