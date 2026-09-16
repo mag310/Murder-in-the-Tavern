@@ -65,6 +65,9 @@ graph TD
         YARD["Двор перед таверной"]
         STABLE["Конюшня"]
         GRAVE["Могила жены Трактирщика"]
+        WELL["Колодец"]
+        WOOD["Дровница"]
+        BARN["Сарай"]
     end
 
     subgraph DOCK["Пристань"]
@@ -135,6 +138,10 @@ graph TD
     YARD <==>|главные ворота| BRIDGE
     YARD <==>|ворота конюшни| STABLE
     YARD <==>|незаметная тропа| GRAVE
+    YARD --- WELL
+    YARD --- WOOD
+    YARD <==>|ворота сарая| BARN
+    YARD -.->|дверь лодочного сарая| SHED
     YARD -.->|тропинка за таверну| QUAY
 
     %% --- Пристань ---
@@ -188,7 +195,7 @@ graph TD
     class DROOM,E1,E2,E3 guest;
     class KST,MST,WINE,SMUG storage;
     class CLAIR cult;
-    class YARD,STABLE,GRAVE outdoor;
+    class YARD,STABLE,GRAVE,WELL,WOOD,BARN outdoor;
     class QUAY,SHED,PIER port;
     class SHERIFF,MORGUE,TOWNGATE,PORT,STREETS town;
     class BRIDGE,ROAD_R road;

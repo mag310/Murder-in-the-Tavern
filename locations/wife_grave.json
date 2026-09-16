@@ -2,8 +2,8 @@
     "id": "wife_grave",
     "name": "Могила жены",
     "type": "gameplay",
-    "parent_location": "tavern",
-    "description": "Могила жены Трактирщика (dead_wife). Место обитания призрака dead_wife. На ней один из входов к убежищу культа.",
+    "parent_location": "tavern_yard",
+    "description": "Могила жены Трактирщика (dead_wife), на территории двора (tavern_yard), у самого края обрыва над рекой. Место обитания призрака dead_wife. На ней один из входов к убежищу культа (cult_lair).",
     "characters": [
         "dead_wife"
     ],
