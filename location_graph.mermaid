@@ -96,6 +96,10 @@ graph TD
         TOWNGATE["Городские ворота"]
         PORT["Порт"]
         STREETS["Улицы города"]
+        COT["Совет Воров"]
+        TRIV["Тривардум"]
+        DUSK["Ночной рынок"]
+        SIRENA["Чёрная Сирена"]
     end
 
     subgraph ROAD["Тракт"]
@@ -170,6 +174,10 @@ graph TD
     DUKSTATAR <==>|двери офиса| STREETS
     MORGUE <==>|двери морга| STREETS
     PORT <==>|ворота порта| STREETS
+    STREETS <==>|тайные переулки| COT
+    STREETS <==>|торговый район| TRIV
+    STREETS <==>|северные руины| DUSK
+    PORT <==>|причал корабля| SIRENA
 
     %% =========================================================
     %% ВЕРТИКАЛЬНЫЙ «ПОЗВОНИК» (этажи строго один под другим)
@@ -207,6 +215,6 @@ graph TD
     class CLAIR cult;
     class YARD,STABLE,GRAVE,WELL,WOOD,BARN outdoor;
     class QUAY,SHED,PIER port;
-    class DUKSTATAR,MORGUE,TOWNGATE,PORT,STREETS town;
+    class DUKSTATAR,MORGUE,TOWNGATE,PORT,STREETS,COT,TRIV,DUSK,SIRENA town;
     class BRIDGE,ROAD_R road;
     class TUNNEL tunnel;

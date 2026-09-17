@@ -2,7 +2,8 @@
     "id": "ship_captain",
     "name": "капитан Алессандро Маретти",
     "role": "Капитан корабля «Чёрная Сирена» (La Sirena Nera)",
-    "status": "context_npc",
+    "status": "main_npc",
+    "status_note": "Капитан «Чёрной Сирены» (chernaya_sirena), доступен игрокам в порту (port) и в торговом центре Тривардум (trivardum). НЕ жертва d6 (can_be_murder_victim: false). Знает о дезертирстве Моряка и краже казны.",
     "can_be_murder_victim": false,
     "secrets": [],
     "relationships": {
@@ -86,7 +87,7 @@
         }
     ],
     "daily_schedule": null,
-    "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: chernaya_sirena (корабль «Чёрная Сирена»).",
+    "daily_schedule_note": "Активный NPC вне таверны; не имеет расписания внутри таверны. Обычно находится в: chernaya_sirena (корабль «Чёрная Сирена» в порту, port) и trivardum (Тривардум — центр торговли, где он встречается с контрабандистами/заказывает товар).",
     "organizations": [
         {
             "organization": "sirena_nera_crew",
