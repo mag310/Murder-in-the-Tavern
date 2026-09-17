@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="317">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="321">
  <properties>
   <property name="capacity" value="1"/>
   <property name="era" value="medieval"/>
@@ -77,7 +77,10 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="6" name="коптильня" width="30" height="20">
+ <layer id="6" name="smoker_room" width="30" height="20">
+  <properties>
+   <property name="note" value="коптильня"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,
@@ -101,7 +104,10 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="8" name="чердачные комнаты с косым потолком" width="30" height="20">
+ <layer id="8" name="attic_rooms" width="30" height="20">
+  <properties>
+   <property name="note" value="чердачные комнаты с косым потолком"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,
@@ -125,6 +131,19 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="10" name="rooms">
+  <object id="317" name="smoker_rooms" type="room" x="320" y="64" width="1280" height="384">
+   <properties>
+    <property name="name" value="Коптильня"/>
+   </properties>
+  </object>
+  <object id="318" name="attic_room_1" type="room" x="1664" y="64">
+   <properties>
+    <property name="note" value="Чердачная комната 1"/>
+   </properties>
+   <polygon points="0,0 0,384 128,384 192,384 192,128 128,128 128,64 64,64 64,0"/>
+  </object>
+ </objectgroup>
  <layer id="9" name="artist_workshop" width="30" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -323,6 +342,18 @@
     <property name="side" value="north"/>
     <property name="to" value="attic_room_1"/>
    </properties>
+  </object>
+  <object id="319" name="attic_room_2" x="1664" y="832">
+   <properties>
+    <property name="note" value="Чердачная комната 2"/>
+   </properties>
+   <polygon points="0,0 0,384 64,384 64,320 128,320 128,256 192,256 192,0"/>
+  </object>
+  <object id="320" name="attic_room_3" x="64" y="832">
+   <properties>
+    <property name="note" value="Чердачная комната 3"/>
+   </properties>
+   <polygon points="0,0 192,0 192,384 128,384 128,320 64,320 64,256 0,256"/>
   </object>
  </objectgroup>
  <objectgroup id="7" name="Окна">

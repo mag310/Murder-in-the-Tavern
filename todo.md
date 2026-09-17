@@ -24,16 +24,36 @@
 - [ ] **Мёртвые ссылки в дверях `mansard.tmx`** — `to="smoker_room"` / `to="artist_room"` / `to=""` / 3 двери без `to`.
   Локации `smoker_room`/`artist_room`/`attic_room_1..3` созданы — нужно поправить ссылки в дверях карты (то, что ты
   сделаешь сам).
-- [ ] **Карта двора `maps/yard.tmx`** — создать. Покрывает `tavern_yard`, `stable`, `wife_grave` (двор перед таверной,
-  конюшня, могила жены). Подвал (`basement.tmx`) уже имеет `door-street` → `YARD`, но двор как отдельная карта
-  отсутствует.
-- [ ] **Карта берега реки `maps/dock.tmx`** — создать. Покрывает `quay` (набережная), `pier`
-  (причал), `shed` (лодочный сарай). `floor_1.tmx` уже имеет `door-quay` → `QUAY`, `quay`/`pier`/`shed` — в графе,
-  но .tmx-карты для берега нет.
+- [x] **Карта двора `maps/yard.tmx`** — создана. Покрывает `tavern_yard`, `stable`, `wife_grave` (двор перед таверной,
+  конюшня, могила жены).
+- [x] **Карта берега реки `maps/dock.tmx`** — создана. Покрывает `quay` (набережная), `pier` (причал), `shed` (лодочный
+  сарай), `tunnel`, `river`.
+- [ ] **Карта заднего двора `maps/backyard.tmx`** — создать. Локация `backyard` (задний двор) создана в `locations/`,
+  добавлена в `location_graph.mermaid`, `flood_mechanic.json` (+4..+6), `quay/tavern_yard/tavern_hall` — но .tmx-карты
+  нет. На ней: восточная дверь (→ tavern_hall), тропа вокруг таверны (→ tavern_yard), лесенка (→ quay), обрыв (→ river),
+  сундук с контрабандой (contraband_crate).
 - [ ] **Город, тракт, мост — не карты** (решение автора). `dukstatar_office`, `morgue`, `town_gate`, `port`,
   `city_streets`, `road`, `bridge` остаются контекстными (не gameplay) — .tmx-карты для них НЕ нужны. `river` уже
   `context`; `road` уже `context`. `bridge` сейчас `gameplay` (parent `road`) — перевести в `context` при
   следующем проходе.
+
+## 4. Согласованность карт и текстов (из проверки `dock.tmx`)
+
+> Раздел: приведение текстов в соответствие с картой `dock.tmx` и создание `backyard`.
+
+- [x] **`locations/shed.json`** — ворота сарая (юг) → река (river), двери (север) → набережная (quay); согласовано с
+  `dock.tmx` `shed-gates`/`shed-door`.
+- [x] **`locations/pier.json`** — убрано ложное «ворота лодочного сарая ведут к причалу» (карта: ворота → river).
+- [x] **`location_graph.mermaid`** — `SHED`/ворота → `RIVER` (добавлена нода `RIVER`); `QUAY`/двери ↔ `SHED`
+  сохранено; `BACKYARD` — отдельный subgraph `BACK` (связи: `YARD ⇄ BACKYARD`, `BACKYARD ⇄ HALL`, `BACKYARD ⇄ QUAY`,
+  `BACKYARD → RIVER`).
+- [x] **Мёртвые ссылки `yard.tmx`/`riverbank`** — `linked_secondary_map`/`riverbank.tmx` в проекте больше нет (grep: 0
+  срабатываний). Объект `back-path-to-quay` (id=6) согласован с `backyard`: `to="backyard"`, `label="тропинка за
+  таверну (→ backyard)"`, `note="backyard — на отдельной карте"`.
+- [x] **`locations/backyard.json`** — создана локация «Задний двор» (третий вход: восточная дверь из `tavern_hall`,
+  тропа вокруг таверны из `tavern_yard`, лесенка с `quay`, обрыв к `river`); добавлена в `flood_mechanic.json` (+4..+6),
+  `quay/tavern_yard/tavern_hall`.
+- [x] **`maps/dock.tmx`** — `stairs` (quay → backyard) метки/ссылки приведены к `backyard`.
 
 ## 5. Публикация
 

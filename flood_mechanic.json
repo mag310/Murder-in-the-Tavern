@@ -98,9 +98,10 @@
    "level": "уровень земли",
    "blocked": [
     "wife_grave",
-    "tavern_yard"
+    "tavern_yard",
+    "backyard"
    ],
-   "note": "Могила (wife_grave) и двор (tavern_yard) — на уровне земли. dead_wife как призрак может проходить сквозь воду (sm. dead_wife.appearance)."
+   "note": "Могила (wife_grave), двор (tavern_yard) и задний двор (backyard) — на уровне земли. dead_wife как призрак может проходить сквозь воду (sm. dead_wife.appearance)."
   },
   {
    "hour": "+13..+18",

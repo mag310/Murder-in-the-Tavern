@@ -361,13 +361,14 @@
     <property name="to" value="river"/>
    </properties>
   </object>
-  <object id="22" name="stairs" type="stairs" x="1024" y="0" width="256" height="128">
-   <properties>
-    <property name="from" value="quay"/>
-    <property name="note" value="Лесница на задний двор"/>
-    <property name="to" value="backyard"/>
-   </properties>
-  </object>
+   <object id="22" name="stairs" type="stairs" x="1024" y="0" width="256" height="128">
+    <properties>
+     <property name="from" value="quay"/>
+     <property name="note" value="Лесница на задний двор"/>
+     <property name="to" value="backyard"/>
+     <property name="label" value="Лесенка на задний двор"/>
+    </properties>
+   </object>
   <object id="24" name="shed-door" type="door" gid="28" x="1344" y="704" width="128" height="64">
    <properties>
     <property name="from" value="shed"/>

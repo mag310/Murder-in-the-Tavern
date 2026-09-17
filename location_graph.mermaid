@@ -70,6 +70,11 @@ graph TD
         BARN["Сарай"]
     end
 
+    subgraph BACK["Задний двор"]
+        BACKYARD["Задний двор"]
+
+    end
+
     subgraph DOCK["Пристань"]
         PIER["Причал"]
         SHED["Лодочный сарай"]
@@ -143,7 +148,11 @@ graph TD
     YARD --- WOOD
     YARD <==>|ворота сарая| BARN
     YARD -.->|дверь лодочного сарая| SHED
-    YARD -.->|тропинка за таверну| QUAY
+    YARD -.->|тропинка за таверну| BACKYARD
+    BACKYARD <==>|тропинка вокруг таверны| YARD
+    BACKYARD <==>|восточная дверь| HALL
+    BACKYARD <==>|лесенка| QUAY
+    BACKYARD -.->|обрыв| RIVER
 
     %% --- Пристань ---
     RIVER <==>|ворота лодочного сарая| SHED
