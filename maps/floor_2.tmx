@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="299">
+<map version="1.10" tiledversion="1.12.2-2-geb83ddb9" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="301">
  <properties>
   <property name="capacity" value="20"/>
   <property name="era" value="medieval"/>
@@ -55,6 +55,12 @@
  </tileset>
  <tileset firstgid="20" name="fireplace_wide_with_fire" tilewidth="192" tileheight="64" tilecount="1" columns="1">
   <image source="fireplace_wide_with_fire.png" width="192" height="64"/>
+ </tileset>
+ <tileset firstgid="21" name="bed_tiles" tilewidth="128" tileheight="64" tilecount="32" columns="4">
+  <image source="bed_tiles.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="53" name="bed_tiles" tilewidth="64" tileheight="64" tilecount="64" columns="8">
+  <image source="bed_tiles.png" width="512" height="512"/>
  </tileset>
  <layer id="1" name="floor" width="30" height="20">
   <data encoding="csv">
@@ -175,13 +181,13 @@
     <property name="to" value="mansard"/>
    </properties>
   </object>
-  <object id="220" name="bed-tavern_keeper" type="bed" gid="7" x="1344" y="192" width="64" height="128"/>
-  <object id="221" name="bed-waitress" type="bed" gid="7" x="704" y="256" width="128" height="192"/>
-  <object id="222" name="bed-doctor" type="bed" gid="7" x="832" y="1024" width="64" height="128"/>
-  <object id="223" name="bed-sailor" type="bed" gid="7" x="320" y="192" width="64" height="128"/>
-  <object id="224" name="bed-detective" type="bed" gid="7" x="320" y="1024" width="64" height="128"/>
-  <object id="225" name="bed-guest_1" type="bed" gid="7" x="1152" y="256" width="128" height="192"/>
-  <object id="227" name="bed-guest_3" type="bed" gid="7" x="1472" y="896" width="128" height="64">
+  <object id="220" name="bed-tavern_keeper" type="bed" gid="53" x="1344" y="192" width="64" height="128"/>
+  <object id="221" name="bed-waitress" type="bed" gid="53" x="704" y="256" width="128" height="192"/>
+  <object id="222" name="bed-doctor" type="bed" gid="53" x="832" y="1024" width="64" height="128"/>
+  <object id="223" name="bed-sailor" type="bed" gid="53" x="320" y="192" width="64" height="128"/>
+  <object id="224" name="bed-detective" type="bed" gid="53" x="320" y="1024" width="64" height="128"/>
+  <object id="225" name="bed-guest_1" type="bed" gid="53" x="1152" y="256" width="128" height="192"/>
+  <object id="227" name="bed-guest_3" type="bed" gid="53" x="1472" y="896" width="128" height="64">
    <properties>
     <property name="from" value="guest_room_empty_3"/>
     <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
@@ -265,37 +271,37 @@
     <property name="note" value="камин в гостевой комнате 1"/>
    </properties>
   </object>
-  <object id="283" name="bed-guest_3" type="bed" gid="7" x="1472" y="1024" width="128" height="64">
+  <object id="283" name="bed-guest_3" type="bed" gid="29" x="1472" y="1024" width="128" height="64">
    <properties>
     <property name="from" value="guest_room_empty_3"/>
     <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
    </properties>
   </object>
-  <object id="285" name="bed-guest_3" type="bed" gid="7" x="1472" y="1152" width="128" height="64">
+  <object id="285" name="bed-guest_3" type="bed" gid="29" x="1472" y="1152" width="128" height="64">
    <properties>
     <property name="from" value="guest_room_empty_3"/>
     <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
    </properties>
   </object>
-  <object id="286" name="bed-guest_2" type="bed" gid="7" x="960" y="896" width="128" height="64">
+  <object id="286" name="bed-guest_2" type="bed" gid="29" x="960" y="896" width="128" height="64">
    <properties>
     <property name="from" value="guest_room_empty_2"/>
     <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
    </properties>
   </object>
-  <object id="287" name="bed-guest_2" type="bed" gid="7" x="960" y="1024" width="128" height="64">
+  <object id="287" name="bed-guest_2" type="bed" gid="29" x="960" y="1024" width="128" height="64">
    <properties>
     <property name="from" value="guest_room_empty_2"/>
     <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
    </properties>
   </object>
-  <object id="288" name="bed-guest_2" type="bed" gid="7" x="960" y="1152" width="128" height="64">
+  <object id="288" name="bed-guest_2" type="bed" gid="29" x="960" y="1152" width="128" height="64">
    <properties>
     <property name="from" value="guest_room_empty_2"/>
     <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
    </properties>
   </object>
-  <object id="289" name="bed-guest_2" type="bed" gid="7" x="1152" y="1152" width="128" height="64">
+  <object id="289" name="bed-guest_2" type="bed" gid="29" x="1152" y="1152" width="128" height="64">
    <properties>
     <property name="from" value="guest_room_empty_2"/>
     <property name="notice" value="Двухэтажная деревянная кровать, соломенные матрасы."/>
