@@ -293,7 +293,7 @@
  </layer>
  <layer id="3" name="river" width="50" height="60" locked="1">
   <properties>
-   <property name="note" value="река Адиван"/>
+   <property name="note" value="река Адивиан"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

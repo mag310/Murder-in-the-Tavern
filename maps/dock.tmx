@@ -2,9 +2,9 @@
 <map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="40" height="35" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="29">
  <properties>
   <property name="cell_scale" value="1 клетка = 1 м = 64 px"/>
-  <property name="east" value="обрыв, русло реки Адиван"/>
+  <property name="east" value="обрыв, русло реки Адивиан"/>
   <property name="north" value="двор таверны"/>
-  <property name="south" value="река Адиван / открытая вода"/>
+  <property name="south" value="река Адивиан / открытая вода"/>
   <property name="title" value="Пристань, набережная, лодочный сарай и туннель"/>
   <property name="west" value="Набережная"/>
   <property name="zones" value="quay, shed, tunnel, river, pier"/>
@@ -96,7 +96,7 @@
  </layer>
  <layer id="1" name="River" class="river" width="40" height="35">
   <properties>
-   <property name="note" value="река Адиван"/>
+   <property name="note" value="река Адивиан"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
