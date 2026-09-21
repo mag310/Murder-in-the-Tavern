@@ -17,7 +17,7 @@
     ],
     "leader": "tavern_keeper",
     "location": "tavern_keeper_office",
-    "secret": "Контрабанда скрыта; Официантка подозревает о ней, но не знает деталей. Товары — конкретные запрещённые PF2e-вещи (Devil's Bane, Pesh, Flayleaf, Grit), инструменты культа Дагона. Товары Художника (Tears of Razmir, Aether, Belladonna) — separate, его тайный ящик в мансарде (tears_razmir–073).",
+    "secret": "Контрабанда скрыта; Официантка подозревает о ней, но не знает деталей. Товары — конкретные запрещённые PF2e-вещи (Devil's Bane, Pesh, Flayleaf, Grit), инструменты культа Дагона. Контрабанда идёт САМОСТОЯТЕЛЬНО, минуя Совет Воров (council_of_thieves) — в общак не вносят; Совет может привлечь их к ответу (не в системе = вне защиты). Товары Художника (Tears of Razmir, Aether, Belladonna) — separate, его тайный ящик в мансарде (tears_razmir–073).",
     "conflicts_with": [
         "city_authority"
     ],

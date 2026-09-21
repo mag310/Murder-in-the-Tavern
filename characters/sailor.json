@@ -338,6 +338,23 @@
             ]
         }
     ],
+    "fears": [
+        {
+            "target": "ship_captain",
+            "description": "Капитан «Чёрной Сирены» (ship_captain) — его бывший командир, знает о дезертирстве и краже судовой казны",
+            "source": "big_secret"
+        },
+        {
+            "target": "council_of_thieves",
+            "description": "Совет Воров (council_of_thieves) — фактическая власть города; Моряк и Трактирщик торгуют сами, минуя Совет, и не вносят в общак. Совет может привлечь их к ответу за нелегальную контрабанду (не в системе = вне защиты)",
+            "source": "organization_council_of_thieves"
+        },
+        {
+            "target": "city_watch",
+            "description": "Городская стража (доттари) — может раскрыть контрабанду или дезертирство",
+            "source": "organization_smugglers"
+        }
+    ],
     "race": "полуэльф",
     "alignment": null,
     "nickname": "«Ржавый»",
