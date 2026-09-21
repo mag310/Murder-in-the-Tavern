@@ -1,0 +1,210 @@
+{
+  "success": true,
+  "build": {
+    "name": "Gaetano Veldi (LvL 7 Boss)",
+    "class": "Rogue",
+    "dualClass": null,
+    "level": 7,
+    "ancestry": "Human",
+    "heritage": "Skilled Heritage",
+    "background": "Smuggler",
+    "alignment": "N",
+    "gender": "Male",
+    "age": "58",
+    "deity": "None",
+    "size": 2,
+    "keyability": "str",
+    "languages": [
+      "Common",
+      "Varisian"
+    ],
+    "attributes": {
+      "ancestryBoosts": [
+        "Strength",
+        "Free"
+      ],
+      "ancestryFlaws": [],
+      "backgroundBoosts": [
+        "Strength",
+        "Charisma"
+      ],
+      "classBoosts": [
+        "Strength"
+      ],
+      "mapLevelBoosts": {
+        "1": [
+          "Strength",
+          "Dexterity",
+          "Wisdom",
+          "Charisma"
+        ],
+        "5": [
+          "Strength",
+          "Dexterity",
+          "Constitution",
+          "Wisdom"
+        ]
+      }
+    },
+    "abilities": {
+      "str": 19,
+      "dex": 16,
+      "con": 14,
+      "int": 10,
+      "wis": 16,
+      "cha": 12
+    },
+    "proficiencies": {
+      "classDC": 2,
+      "perception": 3,
+      "fortitude": 2,
+      "reflex": 3,
+      "will": 2,
+      "heavy": 0,
+      "medium": 0,
+      "light": 2,
+      "unarmored": 2,
+      "advanced": 0,
+      "martial": 2,
+      "simple": 2,
+      "unarmed": 2,
+      "castingArcane": 0,
+      "castingDivine": 0,
+      "castingOccult": 0,
+      "castingPrimal": 0
+    },
+    "feats": [
+      [
+        "Streetwise",
+        null,
+        "Background",
+        1
+      ],
+      [
+        "Natural Skill",
+        null,
+        "Ancestry Feat",
+        1
+      ],
+      [
+        "Toughness",
+        null,
+        "General Feat",
+        3
+      ],
+      [
+        "You're Next",
+        null,
+        "Class Feat",
+        1
+      ],
+      [
+        "Underhanded Assault",
+        null,
+        "Class Feat",
+        2
+      ],
+      [
+        "Dread Striker",
+        null,
+        "Class Feat",
+        4
+      ],
+      [
+        "Clever Feint",
+        null,
+        "Ancestry Feat",
+        5
+      ],
+      [
+        "Gang Up",
+        null,
+        "Class Feat",
+        6
+      ],
+      [
+        "Fleet",
+        null,
+        "General Feat",
+        7
+      ]
+    ],
+    "specials": [
+      "Rogue Racket: Ruffian",
+      "Sneak Attack 2d6",
+      "Surprise Attack",
+      "Deny Advantage",
+      "Evasion",
+      "Weapon Tricks"
+    ],
+    "skills": [
+      [
+        "Athletics",
+        3
+      ],
+      [
+        "Deception",
+        3
+      ],
+      [
+        "Intimidation",
+        2
+      ],
+      [
+        "Stealth",
+        3
+      ],
+      [
+        "Thievery",
+        2
+      ],
+      [
+        "Crafting",
+        2
+      ],
+      [
+        "Smuggling Lore",
+        3
+      ],
+      [
+        "Westcrown Lore",
+        2
+      ]
+    ],
+    "equipment": [
+      [
+        "+1 Striking Dagger",
+        1,
+        "mainhand"
+      ],
+      [
+        "+1 Striking Club",
+        1,
+        "alt"
+      ],
+      [
+        "+1 Striking Heavy Crossbow",
+        1,
+        "backpack"
+      ],
+      [
+        "+1 Leather Armor",
+        1,
+        "worn"
+      ],
+      [
+        "Moderate Healing Potion",
+        1,
+        "backpack"
+      ],
+      [
+        "Adventurer's Pack",
+        1,
+        "backpack"
+      ]
+    ],
+    "customFeats": [],
+    "formula": [],
+    "pets": []
+  }
+}
