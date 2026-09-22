@@ -472,7 +472,7 @@
                         "tavern_keeper"
                     ],
                     "probability": "medium",
-                    "scenario_note": "Трактирщик убивает Доктора, защищая дочь (Официантку) — резко против их отношений (tavern_keeper.hatred->doctor, tavern_keeper.knows_exactly: резко против любовной связи Официантки и Врача).",
+                    "scenario_note": "Трактирщик убивает Доктора, защищая дочь (Официантку) — резко против их отношений (tavern_keeper.hatred->doctor: сам ведёт незаконную контрабанду и подозревает, что Врач связан с контрабандистами; tavern_keeper.knows_exactly: резко против любовной связи Официантки и Врача).",
                     "primary_evidence": [
                         "cult_items"
                     ],
@@ -790,7 +790,7 @@
                         "tavern_keeper"
                     ],
                     "probability": "low",
-                    "scenario_note": "Трактирщик убивает Художника, если тот нападает на Официантку (дочь). Мотив: защита дочери (тavern_keeper.love->waitress: отцовская любовь; tavern_keeper.hatred->doctor: резко против отношений Официантки).",
+                    "scenario_note": "Трактирщик убивает Художника, если тот нападает на Официантку (дочь). Мотив: защита дочери (тavern_keeper.love->waitress: отцовская любовь; tavern_keeper.hatred->doctor: резко против отношений Официантки — сам ведёт незаконную контрабанду).",
                     "primary_evidence": [
                         "wife_portrait"
                     ],
