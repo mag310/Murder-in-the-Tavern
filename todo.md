@@ -32,9 +32,9 @@
   добавлена в `location_graph.mermaid`, `flood_mechanic.json` (+4..+6), `quay/tavern_yard/tavern_hall` — но .tmx-карты
   нет. На ней: восточная дверь (→ tavern_hall), тропа вокруг таверны (→ tavern_yard), лесенка (→ quay), обрыв (→ river),
   сундук с контрабандой (contraband_crate).
-- [ ] **Город, тракт, мост — не карты** (решение автора). `dukstatar_office`, `morgue`, `town_gate`, `port`,
-  `city_streets`, `road`, `bridge` остаются контекстными (не gameplay) — .tmx-карты для них НЕ нужны. `river` уже
-  `context`; `road` уже `context`. `bridge` сейчас `gameplay` (parent `road`) — перевести в `context` при
+- [ ] **Город, тракт, мост — не карты** (решение автора). `dukstatar_office`, `morgue`, `bladewing_bridge`, `port`,
+  `city_streets`, `road`, `adivian_bridge` остаются контекстными (не gameplay) — .tmx-карты для них НЕ нужны. `river` уже
+  `context`; `road` уже `context`. `adivian_bridge` сейчас `gameplay` (parent `road`) — перевести в `context` при
   следующем проходе.
 
 ## 4. Согласованность карт и текстов (из проверки `dock.tmx`)

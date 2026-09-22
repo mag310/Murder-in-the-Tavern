@@ -93,7 +93,7 @@ graph TD
     subgraph TOWN["Город"]
         DUKSTATAR["Офис Дуксотара"]
         MORGUE["Морг"]
-        TOWNGATE["Городские ворота"]
+        BLADEWING["Мост Клинкокрыла (Bladewing Bridge)"]
         PORT["Порт"]
         STREETS["Улицы города"]
         COT["Совет Воров"]
@@ -104,7 +104,7 @@ graph TD
 
     subgraph ROAD["Тракт"]
         ROAD_R["Тракт"]
-        BRIDGE["Мост через реку"]
+        ADIVIAN["Мост через реку"]
     end
 
     %% =========================================================
@@ -145,7 +145,7 @@ graph TD
     CLAIR <==>|вход к культистам| GRAVE
 
     %% --- Двор ---
-    YARD <==>|главные ворота| BRIDGE
+    YARD <==>|главные ворота| ADIVIAN
     YARD <==>|ворота конюшни| STABLE
     YARD <==>|незаметная тропа| GRAVE
     YARD --- WELL
@@ -168,8 +168,8 @@ graph TD
     TUNNEL <==>|герметичные крепкие ворота| SMUG
 
     %% --- Город ---
-    TOWNGATE <==>|городские ворота| STREETS
-    TOWNGATE <==>|городские ворота| BRIDGE
+    BLADEWING <==>|Мост Клинкокрыла| STREETS
+    BLADEWING <==>|Мост Клинкокрыла| ADIVIAN
     STREETS <==>|река| PORT
     DUKSTATAR <==>|двери офиса| STREETS
     MORGUE <==>|двери морга| STREETS
@@ -187,8 +187,8 @@ graph TD
     HALL ~~~ KST
     KST ~~~ CLAIR
     QUAY ~~~ YARD
-    YARD ~~~ BRIDGE
-    BRIDGE ~~~ STREETS
+    YARD ~~~ ADIVIAN
+    ADIVIAN ~~~ STREETS
 
     %% =========================================================
     %% КЛАССЫ
@@ -215,6 +215,6 @@ graph TD
     class CLAIR cult;
     class YARD,STABLE,GRAVE,WELL,WOOD,BARN outdoor;
     class QUAY,SHED,PIER port;
-    class DUKSTATAR,MORGUE,TOWNGATE,PORT,STREETS,COT,TRIV,DUSK,SIRENA town;
-    class BRIDGE,ROAD_R road;
+    class DUKSTATAR,MORGUE,BLADEWING,PORT,STREETS,COT,TRIV,DUSK,SIRENA town;
+    class ADIVIAN,ROAD_R road;
     class TUNNEL tunnel;
