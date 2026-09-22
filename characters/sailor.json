@@ -14,7 +14,7 @@
         },
         {
             "level": "big",
-            "description": "Дезертирал с корабля «Чёрная Сирена» (La Sirena Nera) Капитана (ship_captain), украв судовую казну.",
+            "description": "Дезертировал с корабля «Чёрная Сирена» (La Sirena Nera) Капитана (ship_captain), украв судовую казну.",
             "known_by": [
                 "ship_captain"
             ]
