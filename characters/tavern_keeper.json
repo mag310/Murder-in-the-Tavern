@@ -327,12 +327,12 @@
         },
         {
             "target": "city_watch",
-            "description": "Городская стража (доттари) — может раскрыть контрабанду",
+            "description": "Доттари (городской стражи) — могут раскрыть контрабанду",
             "source": "organization_smugglers"
         }
     ],
     "race": "человек",
-    "alignment": null,
+    "alignment": "N",
     "nickname": "«Старый Гаэтано»",
     "speech_profile": {
         "register": "суровый, ворчливый, настороженный; речь владельца таверны",
