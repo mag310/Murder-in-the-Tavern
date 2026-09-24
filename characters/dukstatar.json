@@ -122,6 +122,44 @@
         }
     ],
     "race": "человек",
-    "alignment": null,
-    "nickname": null
+    "alignment": "LN",
+    "nickname": null,
+    "pf2e": {
+        "level": 3,
+        "alignment": "LN",
+        "race": "Человек",
+        "class": "Воин (Fighter)",
+        "role": "Drunken Commander",
+        "perception": "+8",
+        "languages": [
+            "Общий"
+        ],
+        "skills": [
+            "Запугивание +8",
+            "Знание (местное) +6",
+            "Восприятие +8"
+        ],
+        "attributes": {
+            "STR": "+2",
+            "DEX": "+1",
+            "CON": "+2",
+            "INT": "+0",
+            "WIS": "+1",
+            "CHA": "+2"
+        },
+        "ac": 18,
+        "hp": 45,
+        "speed": 25,
+        "saves": {
+            "fortitude": "+9",
+            "reflex": "+6",
+            "will": "+6"
+        },
+        "melee": "Длинный меч +9 (1d8+4 рубящий)",
+        "ranged": "Тяжёлый арбалет +6 (1d10 колющий)",
+        "abilities": [
+            "Пьяный командир (Drunken Commander): -2 к Восприятию/Проницательности, +2 к Запугиванию",
+            "Связи (Connections): племянник лорд-мэра, 1/день «надавить»"
+        ]
+    }
 }

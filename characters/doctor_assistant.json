@@ -91,6 +91,52 @@
         }
     ],
     "race": "полурослик",
-    "alignment": null,
-    "nickname": null
+    "alignment": "NG",
+    "nickname": null,
+    "pf2e": {
+        "level": 2,
+        "alignment": "NG",
+        "race": "полурослик (Halfling)",
+        "class": "Алхимик (Alchemist, Chirurgeon)",
+        "role": "Assistant",
+        "perception": "+6 (trained; +2 с Keen Eyes при Seek)",
+        "languages": [
+            "Общий",
+            "Полуросличий",
+            "Варисийский",
+            "Акло",
+            "Эльфийский"
+        ],
+        "skills": [
+            "Медицина +8 (expert)",
+            "Ремесло (алхимия) +7 (trained)",
+            "Дипломатия +2 (untrained)",
+            "Восприятие +6 (trained)"
+        ],
+        "attributes": {
+            "STR": "-1",
+            "DEX": "+3",
+            "CON": "+1",
+            "INT": "+3",
+            "WIS": "+2",
+            "CHA": "+0"
+        },
+        "ac": 18,
+        "hp": 24,
+        "speed": 25,
+        "saves": {
+            "fortitude": "+5",
+            "reflex": "+7",
+            "will": "+6"
+        },
+        "melee": "Скальпель (как кинжал): +9 (1d4-1 колющий, finesse)",
+        "ranged": "Метательная склянка: +9 (1d6 кислоты, 20 футов)",
+        "abilities": [
+            "Полевая медицина (Field Medicine): 1d8 HP за 10 минут, +2 к проверке Медицины",
+            "Алхимические бомбы: 3 бомбы (кислота/огонь/холод) 1d6, атака +9",
+            "Keen Eyes (полурослик): +2 к Восприятию при Seek",
+            "Halfling Luck (1/день): переброс провального спасброска",
+            "Chirurgeon (класс): экспертиза в Медицине на 1 уровне"
+        ]
+    }
 }
