@@ -1,6 +1,6 @@
-﻿{
+{
     "id": "sailor",
-    "name": "Лучиано «Кайрэн» Марроне",
+    "name": "Корин «Кайрэн» Марроне",
     "role": "Моряк",
     "status": "main_npc",
     "can_be_murder_victim": true,

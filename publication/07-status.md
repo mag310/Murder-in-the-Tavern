@@ -1,4 +1,4 @@
-﻿# Что ещё не готово
+# Что ещё не готово
 
 > Часть модуля «Убийство в таверне». Source of truth: `characters/`, `locations/`, `organizations/`,
 > `evidence.json`, `murder_matrix.json`, `flood_mechanic.json`, `nightly_beats.json`, `events.json`,
