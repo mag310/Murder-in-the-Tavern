@@ -1,0 +1,213 @@
+digraph Chapter1_Vertical2 {
+    rankdir=TB;
+    compound=true;
+    nodesep=0.35;
+    ranksep=0.55;
+    splines=polyline;
+    fontname="DejaVu Sans";
+    labelloc="t";
+    label=<<B>Глава 1. Город Весткроун (12:00–18:30)</B><BR ALIGN="CENTER"/>
+           <FONT POINT-SIZE="9" COLOR="#555555">d6 → веер событий → Развилка → три ветки A / B / C</FONT>>;
+
+    node [fontname="DejaVu Sans", fontsize=10, shape=box,
+          style="filled,rounded", penwidth=1.1, margin="0.10,0.05"];
+    edge [fontname="DejaVu Sans", fontsize=8, color="#888888", arrowsize=0.6];
+
+    // =========================================================
+    // ТАЙМ-РЭЙЛ (левая колонка)
+    // =========================================================
+    node [shape=plaintext, style="", fillcolor="transparent",
+          fontsize=12, fontcolor="#111111"];
+    t1200 [label="12:00", group=time];
+    t1300 [label="13:00", group=time];
+    t1330 [label="13:30", group=time];
+    t1400 [label="14:00", group=time];
+    t1430 [label="14:30", group=time];
+    t1500 [label="15:00", group=time];
+    t1600 [label="16:00", group=time];
+    t1700 [label="17:00", group=time];
+    t1730 [label="17:30", group=time];
+    t1830 [label="18:30", group=time];
+
+    // =========================================================
+    // ГЛАВНАЯ НИТЬ
+    // =========================================================
+    node [shape=box, style="filled,rounded", fontsize=10];
+    arrival [group=main, fillcolor="#eceff1", color="#455a64", shape=ellipse,
+             label="12:00 · Прибытие в Весткроун"];
+    checks  [group=main, fillcolor="#e1f5fe", color="#0288d1", shape=note,
+             label="Осмотр реки (СЛ 15)\nОсмотр залива (СЛ 10)"];
+    bridge  [group=main, fillcolor="#eceff1", color="#455a64", shape=ellipse,
+             label="12:30 · Мост Клинкокрыла\n(1.3.1)"];
+    artist  [group=main, fillcolor="#e8f5e9", color="#2e7d32",
+             label="12:45 · Встреча с Художником\nзаказ / отказ"];
+    customs [group=main, fillcolor="#fff3e0", color="#c0592b",
+             label="13:00 · Таможенная проверка"];
+    streets [group=main, fillcolor="#eceff1", color="#455a64", shape=ellipse,
+             label="13:30 · Улицы Весткроуна\n(1.3.2)"];
+
+    d6 [group=main, fillcolor="#f5f5f5", color="#616161", shape=diamond,
+        label="d6\nrandom_event_1"];
+
+    // =========================================================
+    // ВЕЕР СОБЫТИЙ (все на одном ранге, под d6)
+    // =========================================================
+    node [fontsize=9];
+    ev1 [group=ev, fillcolor="#fde0f3", color="#6a1b9a",
+         label="1 · Убийство\nкультиста"];
+    ev2 [group=ev, fillcolor="#fde0f3", color="#6a1b9a",
+         label="2 · Убийство\nвора"];
+    ev3 [group=ev, fillcolor="#fde0f3", color="#6a1b9a",
+         label="3 · Место\nритуала"];
+    ev4 [group=ev, fillcolor="#fde0f3", color="#6a1b9a",
+         label="4 · Убийство\nконтрабандиста"];
+    ev5 [group=ev, fillcolor="#e8f5e9", color="#2e7d32",
+         label="5 · Встреча\nс Художником"];
+    ev6 [group=ev, fillcolor="#e8f5e9", color="#2e7d32",
+         label="6 · Встреча\nс Детективом"];
+
+    // =========================================================
+    // РАЗВИЛКА (точка схода всех событий)
+    // =========================================================
+    branch [group=branch, shape=diamond, penwidth=2.0,
+            fillcolor="#fffde7", color="#f9a825", fontsize=11,
+            label="Развилка\nA / B / C"];
+
+    // =========================================================
+    // ВЕТКА A
+    // =========================================================
+    node [shape=box, style="filled,rounded", fontsize=10];
+    a1 [group=A, fillcolor="#eceff1", color="#455a64", shape=ellipse,
+        label="A1 · 14:30 · Офис Дуксотара\nзаказ «Поиск маньяка»"];
+    a2 [group=A, fillcolor="#eceff1", color="#455a64", shape=ellipse,
+        label="A2 · 16:00 · Морг\n(с заказом / без)"];
+    a3 [group=A, fillcolor="#e8f5e9", color="#2e7d32",
+        label="A3 · 17:00 · Тобиа:\n«Доктор в таверне»"];
+    a4 [group=A, fillcolor="#e0f2f1", color="#00695c",
+        label="A4 · 17:30 · Сход"];
+
+    // =========================================================
+    // ВЕТКА B
+    // =========================================================
+    b1 [group=B, fillcolor="#fff3e0", color="#c0592b",
+        label="B1 · 14:30 · Сумеречный рынок\nналёт воров"];
+    b1w [group=B, fillcolor="#e8f5e9", color="#2e7d32", fontsize=9,
+         label="одолели:\nСовет +1, золото"];
+    b1l [group=B, fillcolor="#fdecea", color="#c62828", fontsize=9,
+         label="проиграли:\nСовет +1, вернут вещи"];
+    b2 [group=B, fillcolor="#eceff1", color="#455a64", shape=ellipse,
+        label="B2 · 16:00 · Совет Воров\nВассиндио Дровендж"];
+    b3 [group=B, fillcolor="#e8f5e9", color="#2e7d32",
+        label="B3 · 17:00 · Опрос торговцев\n(СЛ 15)"];
+    b4 [group=B, fillcolor="#e0f2f1", color="#00695c",
+        label="B4 · 17:30 · Сход"];
+
+    // =========================================================
+    // ВЕТКА C
+    // =========================================================
+    c1 [group=C, fillcolor="#fff3e0", color="#c0592b",
+        label="C1 · 14:30 · Порт\nдрака с матросами"];
+    c1w [group=C, fillcolor="#e8f5e9", color="#2e7d32", fontsize=9,
+         label="одолели:\nМоряки +1, золото"];
+    c1l [group=C, fillcolor="#fdecea", color="#c62828", fontsize=9,
+         label="проиграли:\nМоряки +1, вернут вещи"];
+    c2 [group=C, fillcolor="#eceff1", color="#455a64", shape=ellipse,
+        label="C2 · 16:00 · «Булькающая\nгаргулья» — Капитан"];
+    c3 [group=C, fillcolor="#e8f5e9", color="#2e7d32",
+        label="C3 · 17:00 · «Трикалиста»\nопрос (СЛ 15)"];
+    c4 [group=C, fillcolor="#e0f2f1", color="#00695c",
+        label="C4 · 17:30 · Сход"];
+
+    // =========================================================
+    // ФОН «ПОТОП» (правая колонка)
+    // =========================================================
+    node [shape=note, style="filled,rounded", fontsize=9];
+    f0 [group=flood, fillcolor="#e1f5fe", color="#0288d1", label="Потоп = 0"];
+    f1 [group=flood, fillcolor="#e1f5fe", color="#0288d1", label="+1 · небо\nзаволакивает"];
+    f2 [group=flood, fillcolor="#e1f5fe", color="#0288d1", label="+1 · ветер\nкрепчает"];
+    f3 [group=flood, fillcolor="#e1f5fe", color="#0288d1", label="+1 · вода\nмутнеет"];
+    f4 [group=flood, fillcolor="#e1f5fe", color="#0288d1", label="+1 · начинается\nдождь"];
+
+    // =========================================================
+    // ФИНАЛЫ
+    // =========================================================
+    node [shape=box, style="filled,rounded", fontsize=10];
+    converge [group=end, fillcolor="#e0f2f1", color="#00695c", penwidth=1.8,
+              label="17:30 · Развязка:\n«Слёзы устрицы»"];
+    end_ch [group=end, fillcolor="#e0f2f1", color="#00695c", penwidth=1.8,
+            label="Конец Главы 1"];
+    fail [group=fail, fillcolor="#fdecea", color="#c62828", penwidth=1.6,
+          label="18:30 · Теневые звери\n(если остались в городе)"];
+    fail_end [group=fail, fillcolor="#fdecea", color="#c62828",
+              label="Конец приключения"];
+
+    // =========================================================
+    // РАНГИ — строка = момент времени / этап
+    // =========================================================
+    {rank=same; t1200; arrival; f0;}
+    {rank=same; checks;}
+    {rank=same; bridge;}
+    {rank=same; artist;}
+    {rank=same; t1300; customs; f1;}
+    {rank=same; t1330; streets;}
+    {rank=same; t1400; d6;}
+    {rank=same; ev1; ev2; ev3; ev4; ev5; ev6;}
+    {rank=same; t1430; branch; f2;}
+    {rank=same; a1; b1; c1;}
+    {rank=same; b1w; b1l; c1w; c1l;}
+    {rank=same; t1600; a2; b2; c2; f3;}
+    {rank=same; t1700; a3; b3; c3; f4;}
+    {rank=same; t1730; a4; b4; c4; converge;}
+    {rank=same; end_ch;}
+    {rank=same; t1830; fail;}
+    {rank=same; fail_end;}
+
+    // =========================================================
+    // РЁБРА — главная нить
+    // =========================================================
+    arrival -> checks -> bridge -> artist -> customs -> streets -> d6;
+
+    // d6 → веер событий
+    d6 -> ev1; d6 -> ev2; d6 -> ev3;
+    d6 -> ev4; d6 -> ev5; d6 -> ev6;
+
+    // события → Развилка (все сходятся)
+    ev1 -> branch;
+    ev2 -> branch;
+    ev3 -> branch;
+    ev4 -> branch;
+    ev5 -> branch;
+    ev6 -> branch;
+
+    // Развилка → три потока
+    branch -> a1;
+    branch -> b1;
+    branch -> c1;
+
+    // Ветка A
+    a1 -> a2 -> a3 -> a4;
+
+    // Ветка B (win/lose → B2)
+    b1 -> b1w; b1 -> b1l;
+    b1w -> b2; b1l -> b2;
+    b2 -> b3 -> b4;
+
+    // Ветка C (win/lose → C2)
+    c1 -> c1w; c1 -> c1l;
+    c1w -> c2; c1l -> c2;
+    c2 -> c3 -> c4;
+
+    // Сход
+    a4 -> converge;
+    b4 -> converge;
+    c4 -> converge;
+    converge -> end_ch;
+
+    // Провал
+    converge -> fail [style=dashed, label="если тянут\nдо темноты"];
+    fail -> fail_end;
+
+    // Фон «Потоп»
+    f0 -> f1 -> f2 -> f3 -> f4
+        [style=dashed, color="#0288d1", constraint=false];
+}
