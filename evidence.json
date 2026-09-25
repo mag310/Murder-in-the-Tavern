@@ -8379,6 +8379,1174 @@
                     "note": "прямое доказательство: отчёты = картины (одно и то же) → Художник видел тела / маньяк серии"
                 }
             ]
+        },
+        {
+            "id": "wind_surge",
+            "name": "Ветровой нагон (предвестие потопа)",
+            "type": "environmental",
+            "status": "confirmed",
+            "location": "river",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает реку Мудрость (Мудрость/Выживание) или Интеллект (Природа), СЛ 15"
+                ],
+                "discovery_method": "осмотр реки / проверка"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Признаки Ветрового нагона: мутная река, застывшие флюгеры, беззвучные стаи птиц, тучи на горизонте, постоянный ветер с залива Жемчужной короны.",
+                "condition": "видим, но природа непонятна",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "В городе аномальные признаки (ветер/тучи/птицы/флюгеры)"
+                ],
+                "strongly_indicates": [
+                    "Через пару дней в городе может произойти мощное наводнение"
+                ],
+                "does_not_prove": [
+                    "Потоп — заклинание Официантки",
+                    "Потоп связан с текущим убийством"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Предвестие естественного наводнения (неправильно — потоп = заклинание, но выглядит естественно)",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Погода портится; возможен паводок реки Адивиан",
+                    "correct": true,
+                    "confidence": "средняя"
+                }
+            ],
+            "related": {
+                "characters": [],
+                "locations": [
+                    "river",
+                    "town"
+                ],
+                "events": [
+                    "event_016",
+                    "event_030"
+                ],
+                "other_evidence": [
+                    "flood_spell"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Потоп — естественное наводнение (ложная версия)"
+                ],
+                "contradicts": [
+                    "Потоп — заклинание Официантки (скрытая истина)"
+                ]
+            },
+            "false_leads": [
+                "Выглядит как естественный паводок, хотя на деле — усиленный молитвой Дагона ритуал"
+            ],
+            "notes": [
+                "Зацепка «Ветровой нагон» / «Потоп» из главы 1 (01-chronology.md 3. Таймлайн главы 1)."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "any",
+                    "killer": "any",
+                    "role": "false",
+                    "note": "потоп — изоляция, не убийство"
+                }
+            ]
+        },
+        {
+            "id": "black_siren",
+            "name": "«Чёрная Сирена» (корабль с чёрными парусами и белой сиреной)",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "port",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает залив Жемчужной короны (Внимательность, СЛ 10)",
+                    "игрок замечает корабль с чёрными парусами и белой сиреной"
+                ],
+                "discovery_method": "осмотр залива / портовых причалов"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Корабль «Чёрная Сирена» (La Sirena Nera) с чёрными парусами и белой сиреной; входит из залива Жемчужной короны в устье Адивиана, уходит к внутренним причалам; его никто не встречает.",
+                "condition": "пришвартован у внутренних причалов",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "В порту пришвартован корабль «Чёрная Сирена»"
+                ],
+                "strongly_indicates": [
+                    "Корабль связан с Моряком (sailor) и контрабандой (event_002, event_003, event_005)",
+                    "Капитан «Чёрной Сирены» (ship_captain) ищет Моряка как дезертира"
+                ],
+                "does_not_prove": [
+                    "Моряк совершил текущее убийство",
+                    "Моряк знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "«Чёрная Сирена» — просто корабль, не связано (неправильно)",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Корабль связан с контрабандой/дезертирством (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "sailor",
+                    "ship_captain"
+                ],
+                "locations": [
+                    "port",
+                    "chernaya_sirena"
+                ],
+                "events": [
+                    "event_002",
+                    "event_003",
+                    "event_005"
+                ],
+                "other_evidence": [
+                    "sailor_false_clue",
+                    "contraband"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Моряк — контрабандист/дезертир (отдельное преступление)"
+                ],
+                "contradicts": [
+                    "Моряк — случайный посетитель"
+                ]
+            },
+            "false_leads": [
+                "Корабль может выглядеть как улика текущего убийства, хотя это про контрабанду/дезертирство"
+            ],
+            "notes": [
+                "Зацепка «Чёрная Сирена» из главы 1 (01-chronology.md 3. Таймлайн главы 1); ведёт к Капитану в порту (ветка C)."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "sailor",
+                    "killer": "ship_captain",
+                    "role": "secondary",
+                    "note": "дезертирство/казна"
+                },
+                {
+                    "victim": "detective",
+                    "killer": "sailor",
+                    "role": "false",
+                    "note": "ложный след через контрабанду"
+                }
+            ]
+        },
+        {
+            "id": "artist_brush",
+            "name": "Кисти и краска Художника",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "city_streets",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает Художника на Мосте Клинкокрыла (Внимательность, СЛ 10)"
+                ],
+                "discovery_method": "осмотр Художника"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "artist"
+                ]
+            },
+            "object": {
+                "description": "Пальцы и кисти Художника испачканы в краске; из карманов жилета торчат кисти и тюбики; стойкий запах масляной краски и льняного масла.",
+                "condition": "видим",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Художник — реально работает с краской (не случайный прохожий)"
+                ],
+                "strongly_indicates": [
+                    "Художник — художник (ложная личность «вольный художник», event_021)"
+                ],
+                "does_not_prove": [
+                    "Художник совершил текущее убийство",
+                    "Художник знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Просто художник (неправильно — он маньяк серии)",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Художник — художник, но выглядит подозрительно",
+                    "correct": true,
+                    "confidence": "средняя"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "artist"
+                ],
+                "locations": [
+                    "bladewing_bridge",
+                    "city_streets",
+                    "mansard"
+                ],
+                "events": [
+                    "event_021"
+                ],
+                "other_evidence": [
+                    "artist_traces",
+                    "artist_workshop"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Художник — художник (ложная личность)"
+                ],
+                "contradicts": [
+                    "Художник — невинен"
+                ]
+            },
+            "false_leads": [
+                "Краска/кисти могут выглядеть как невинность, хотя Художник — серийный убийца серии в городе"
+            ],
+            "notes": [
+                "Зацепка «Художник» (Внимательность, СЛ 10) из главы 1; критический успех → зацепка «Признаки маньяка» (artist_traces)."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "detective",
+                    "killer": "artist",
+                    "role": "secondary",
+                    "note": "маньяк серии (не текущее убийство)"
+                }
+            ]
+        },
+        {
+            "id": "artefact_quest",
+            "name": "Заказ «Поиск артефакта храма»",
+            "type": "testimony",
+            "status": "confirmed",
+            "location": "city_streets",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок разговаривает с Художником на Мосте Клинкокрыла",
+                    "игрок принимает заказ"
+                ],
+                "discovery_method": "разговор с Художником / получение заказа"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "artist"
+                ]
+            },
+            "object": {
+                "description": "Художник предлагает игрокам помочь с поиском артефакта его храма — реликвии ордена (мумифицированный череп святого, reliquary_skull).",
+                "condition": "условие (заказ)",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Художник ищет реликвию ордена"
+                ],
+                "strongly_indicates": [
+                    "Художник — тайный агент ордена (event_018, event_020), а не вольный художник",
+                    "У Художника есть мотив уничтожить культистов (вернуть реликвию)"
+                ],
+                "does_not_prove": [
+                    "Художник совершил текущее убийство",
+                    "Художник знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Просто заказ на поиски (неправильно — это миссия ордена)",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Заказ связан с орденом/реликвией (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "artist"
+                ],
+                "locations": [
+                    "city_streets",
+                    "mansard",
+                    "cult_lair"
+                ],
+                "events": [
+                    "event_018",
+                    "event_020",
+                    "event_021"
+                ],
+                "other_evidence": [
+                    "reliquary_skull",
+                    "order_order"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Художник = тайный агент ордена (канон)"
+                ],
+                "contradicts": [
+                    "Художник — просто художник"
+                ]
+            },
+            "false_leads": [
+                "Заказ может выглядеть как невинная порученка, хотя это миссия ордена"
+            ],
+            "notes": [
+                "Заказ «Поиск артефакта храма» из главы 1; взятие → отношение Художника +1 (дружелюбный)."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "waitress",
+                    "killer": "artist",
+                    "role": "secondary",
+                    "note": "мотив: реликвия"
+                }
+            ]
+        },
+        {
+            "id": "curfew",
+            "name": "Комендантский час",
+            "type": "environmental",
+            "status": "confirmed",
+            "location": "city_streets",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок мирным путём входит в город",
+                    "доттари предупреждают игроков на входе"
+                ],
+                "discovery_method": "предупреждение доттари / наблюдение"
+            },
+            "visibility": {
+                "public": true,
+                "known_by": []
+            },
+            "object": {
+                "description": "Комендантский час: после 18:00 на улицах Весткроуна небезопасно (тени/теневые твари из Нидала).",
+                "condition": "видим (правило города)",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "В Весткроуне введён комендантский час (после 18:00)"
+                ],
+                "strongly_indicates": [
+                    "Давление на игроков: ночью на улицах опасно, это сужает выбор и толкает к таверне"
+                ],
+                "does_not_prove": [
+                    "Комендантский час связан с текущим убийством"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Обычное правило города (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "dukstatar"
+                ],
+                "locations": [
+                    "city_streets",
+                    "town"
+                ],
+                "events": [],
+                "other_evidence": [
+                    "flood_spell"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Игроки должны вернуться в таверну до темноты"
+                ],
+                "contradicts": []
+            },
+            "false_leads": [],
+            "notes": [
+                "Знание «комендантский час» из главы 1 (01-chronology.md 3. Таймлайн главы 1); 18:30 — атака теневых зверей = конец приключения."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "any",
+                    "killer": "any",
+                    "role": "false",
+                    "note": "давление, не убийство"
+                }
+            ]
+        },
+        {
+            "id": "trident_pendant",
+            "name": "Кулон в форме трезубца (символ культа Дагона)",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "city_streets",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает место убийства культиста (Внимательность, СЛ 10)",
+                    "игрок находит кулон среди мясной нарезки"
+                ],
+                "discovery_method": "осмотр места убийства (random_event_1=1)"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Маленький кулон в форме трезубца, обросший кораллами; найдётся среди мясной нарезки на месте убийства культиста.",
+                "condition": "спрятан среди нарезки",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Убитый был культистом Дагона"
+                ],
+                "strongly_indicates": [
+                    "Серия убийств в городе связана с культом Дагона",
+                    "Связь с Художником (охотник на культистов, event_010) и с Официанткой/Доктором (культ)"
+                ],
+                "does_not_prove": [
+                    "Культисты совершили текущее убийство в таверне",
+                    "Культисты знают о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Символ культа Дагона (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Связь серии с культом Дагона (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "waitress",
+                    "doctor",
+                    "artist"
+                ],
+                "locations": [
+                    "city_streets",
+                    "cult_lair"
+                ],
+                "events": [
+                    "event_006",
+                    "event_010",
+                    "event_018"
+                ],
+                "other_evidence": [
+                    "cult_items",
+                    "cult_symbol",
+                    "reliquary_skull"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Серия в городе = охота на культистов Дагона"
+                ],
+                "contradicts": [
+                    "Серия не связана с культом"
+                ]
+            },
+            "false_leads": [
+                "Кулон может выглядеть как улика текущего убийства, хотя серия — не текущее убийство"
+            ],
+            "notes": [
+                "Улика из главы 1 (random_event_1=1, Внимательность, СЛ 10); ведёт к Художнику/культу."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "waitress",
+                    "killer": "artist",
+                    "role": "secondary",
+                    "note": "культ/реликвия"
+                },
+                {
+                    "victim": "doctor",
+                    "killer": "artist",
+                    "role": "secondary",
+                    "note": "культист"
+                }
+            ]
+        },
+        {
+            "id": "rusty_note",
+            "name": "Записка от Ржавого",
+            "type": "document",
+            "status": "confirmed",
+            "location": "city_streets",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает место убийства вора (Внимательность, СЛ 10)",
+                    "игрок находит записку"
+                ],
+                "discovery_method": "осмотр места убийства (random_event_1=2)"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Записка с указанием на место встречи: «Встретимся сегодня вечером на том-же месте и порешаем, чей это район. Ржавый.»",
+                "condition": "целая",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Убитый был вора/представитель воров"
+                ],
+                "strongly_indicates": [
+                    "Связь с Моряком (прзвище «Ржавый», event_005) и с Советом Воров / контрабандой",
+                    "Мотив: спор о районе (вор против вора)"
+                ],
+                "does_not_prove": [
+                    "Моряк совершил текущее убийство в таверне",
+                    "Моряк знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Записка вора, не связана (неправильно — «Ржавый» = Моряк)",
+                    "correct": false,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "«Ржавый» — это Моряк; связь с контрабандой/Советом (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "sailor",
+                    "tavern_keeper"
+                ],
+                "locations": [
+                    "city_streets",
+                    "dusk_market",
+                    "council_of_thieves"
+                ],
+                "events": [
+                    "event_005"
+                ],
+                "other_evidence": [
+                    "contraband",
+                    "tavernkeeper_notebook"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Контрабанда/Совет Воров (отдельный конфликт)"
+                ],
+                "contradicts": [
+                    "Моряк — случайный посетитель"
+                ]
+            },
+            "false_leads": [
+                "Записка может выглядеть как мотив к убийству, хотя это про воровскую раскладку"
+            ],
+            "notes": [
+                "Улика из главы 1 (random_event_1=2, Внимательность, СЛ 10); ведёт к Совету Воров/контрабанде."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "detective",
+                    "killer": "sailor",
+                    "role": "false",
+                    "note": "контрабанда"
+                },
+                {
+                    "victim": "tavern_keeper",
+                    "killer": "sailor",
+                    "role": "secondary",
+                    "note": "деловая связь"
+                }
+            ]
+        },
+        {
+            "id": "gold_ring",
+            "name": "Золотое кольцо культистов (с гравировкой на Акло)",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "city_streets",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает место проведения ритуала (критический успех)",
+                    "игрок находит золотое кольцо культистов"
+                ],
+                "discovery_method": "осмотр места ритуала (random_event_1=3, критический успех)"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Золотое кольцо (Кольцо культистов) с гравировкой на древнем языке (Акло); найдётся при критическом успехе на месте проведения ритуала.",
+                "condition": "целое, с гравировкой",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "В городе есть культисты Дагона"
+                ],
+                "strongly_indicates": [
+                    "Связь серии с культом Дагона (Официантка/Доктор)",
+                    "Гравировка на Акло указывает на религиозную/таинственную принадлежность"
+                ],
+                "does_not_prove": [
+                    "Культисты совершили текущее убийство в таверне",
+                    "Культисты знают о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Кольцо культа Дагона (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Связь серии с культом (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "waitress",
+                    "doctor",
+                    "artist"
+                ],
+                "locations": [
+                    "city_streets",
+                    "cult_lair"
+                ],
+                "events": [
+                    "event_006",
+                    "event_007"
+                ],
+                "other_evidence": [
+                    "cult_items",
+                    "cult_symbol"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Серия в городе = культ Дагона"
+                ],
+                "contradicts": [
+                    "Серия не связана с культом"
+                ]
+            },
+            "false_leads": [
+                "Кольцо может выглядеть как улика текущего убийства, хотя это про культ (отдельное преступление)"
+            ],
+            "notes": [
+                "Улика из главы 1 (random_event_1=3, критический успех); ведёт к культу/Официантке/Доктору."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "waitress",
+                    "killer": "artist",
+                    "role": "secondary",
+                    "note": "культ/реликвия"
+                },
+                {
+                    "victim": "doctor",
+                    "killer": "artist",
+                    "role": "secondary",
+                    "note": "культист"
+                }
+            ]
+        },
+        {
+            "id": "webbed_paw_prints",
+            "name": "Следы перепончатых лап",
+            "type": "forensic",
+            "status": "confirmed",
+            "location": "city_streets",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает место проведения ритуала (Внимательность, СЛ 10)",
+                    "игрок находит следы перепончатых лап, ведущие к стоку ливневой канализации"
+                ],
+                "discovery_method": "осмотр места ритуала (random_event_1=3, СЛ 10)"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Следы перепончатых (не человеческих) лап, ведущие к стоку ливневой канализации; решётка сдвинута, из темноты тянет холодом и запахом глубины.",
+                "condition": "видим (следы)",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "На месте ритуала есть следы нечеловеческих существ"
+                ],
+                "strongly_indicates": [
+                    "Связь с культом Дагона (морская/глубинная тема)",
+                    "Подземные пути к cult_lair (cord_to_cult_lair)"
+                ],
+                "does_not_prove": [
+                    "Культисты совершили текущее убийство",
+                    "Культисты знают о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Морская/глубинная угроза (правильно — тема Дагона)",
+                    "correct": true,
+                    "confidence": "средняя"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Связь с культом Дагона (правильно)",
+                    "correct": true,
+                    "confidence": "средняя"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "waitress",
+                    "doctor"
+                ],
+                "locations": [
+                    "city_streets",
+                    "cult_lair"
+                ],
+                "events": [
+                    "event_006"
+                ],
+                "other_evidence": [
+                    "cult_items",
+                    "cord_to_cult_lair"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Культ Дагона (демон океана) — тема серии"
+                ],
+                "contradicts": [
+                    "Серия не связана с культом"
+                ]
+            },
+            "false_leads": [
+                "Следы могут быть приняты за монстра, хотя это тема культа Дагона"
+            ],
+            "notes": [
+                "Улика из главы 1 (random_event_1=3, Внимательность, СЛ 10); ведёт к cult_lair."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "waitress",
+                    "killer": "artist",
+                    "role": "secondary",
+                    "note": "культ"
+                }
+            ]
+        },
+        {
+            "id": "devil_bane_crate",
+            "name": "Ящик «Погибели Дьявола»",
+            "type": "physical",
+            "status": "confirmed",
+            "location": "city_streets",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок осматривает место убийства контрабандиста (Внимательность, СЛ 10)",
+                    "игрок находит ящик контрабандного товара"
+                ],
+                "discovery_method": "осмотр места убийства (random_event_1=4)"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Ящик с контрабандным товаром «Погибель Дьявола» (Devil's Bane — ма́зь на оружие против дьяволов, 100 gp/доза); рядом растерзанное тело.",
+                "condition": "целый, рядом тело",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "На месте убийства контрабандиста есть контрабандный товар"
+                ],
+                "strongly_indicates": [
+                    "Контрабанда «Погибели Дьявола» идёт из таверны «Слёзы устрицы» (Трактирщик/Моряк)",
+                    "Связь с культом Дагона (инструменты культа) и с Советом Воров"
+                ],
+                "does_not_prove": [
+                    "Контрабанда = текущее убийство",
+                    "Контрабандист знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Контрабанда (не убийство) (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Контрабанда — отдельный конфликт (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "sailor",
+                    "tavern_keeper"
+                ],
+                "locations": [
+                    "city_streets",
+                    "tavern_keeper_office",
+                    "dusk_market"
+                ],
+                "events": [
+                    "event_005"
+                ],
+                "other_evidence": [
+                    "contraband",
+                    "devil_bane"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Контрабанда (отдельный конфликт)"
+                ],
+                "contradicts": [
+                    "Контрабанда = текущее убийство"
+                ]
+            },
+            "false_leads": [
+                "Контрабанда может выглядеть как мотив к убийству, хотя она не связана с текущим убийством"
+            ],
+            "notes": [
+                "Улика из главы 1 (random_event_1=4, Внимательность, СЛ 10); ведёт к контрабанде/«Слёзы устрицы»."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "detective",
+                    "killer": "tavern_keeper",
+                    "role": "secondary",
+                    "note": "мотив закрыть контрабанду"
+                },
+                {
+                    "victim": "tavern_keeper",
+                    "killer": "sailor",
+                    "role": "false",
+                    "note": "контрабанда"
+                }
+            ]
+        },
+        {
+            "id": "detective_notebook",
+            "name": "Блокнот Детектива",
+            "type": "document",
+            "status": "confirmed",
+            "location": "detective_room",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок встречается с Детективом на улицах (random_event_1=6)",
+                    "игрок находит/читает блокнот детектива"
+                ],
+                "discovery_method": "разговор / обыск"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "detective"
+                ]
+            },
+            "object": {
+                "description": "Блокнот Детектива (Джакомо Раньери) с описанием места убийства в городе и записями о серии смертей.",
+                "condition": "целый",
+                "movable": true,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Детектив расследует серию смертей"
+                ],
+                "strongly_indicates": [
+                    "Серия убийств в городе (event_010)",
+                    "Связь с Художником (каноническая серия) и с культом"
+                ],
+                "does_not_prove": [
+                    "Детектив совершил текущее убийство",
+                    "Детектив знает о жертве"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Детектив расследует серию (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Это моё дело (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "detective",
+                    "dukstatar"
+                ],
+                "locations": [
+                    "city_streets",
+                    "detective_room"
+                ],
+                "events": [
+                    "event_010",
+                    "event_011"
+                ],
+                "other_evidence": [
+                    "detective_drunk",
+                    "cult_items"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Детектив — легальный расследователь серии"
+                ],
+                "contradicts": [
+                    "Детектив — убийца"
+                ]
+            },
+            "false_leads": [
+                "Блокнот может быть принят за улику против Детектива, хотя это его дело о серии"
+            ],
+            "notes": [
+                "Улика из главы 1 (random_event_1=6, встреча с Детективом); слух о серии смертей."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "any",
+                    "killer": "detective",
+                    "role": "false",
+                    "note": "ложный след (расследователь)"
+                }
+            ]
+        },
+        {
+            "id": "autopsy_morgue",
+            "name": "Автopсии-улики в Морге (тело жертвы серии)",
+            "type": "medical",
+            "status": "confirmed",
+            "location": "morgue",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок приходит в Морг при взятии заказа «Поиск маньяка» (Внимательность, СЛ 15)",
+                    "игрок осматривает тело жертвы серии"
+                ],
+                "discovery_method": "осмотр тела в Морг (random_event_1)"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": [
+                    "doctor"
+                ]
+            },
+            "object": {
+                "description": "Вскрытие-находки в Морге зависят от random_event_1: 1 — мутации на теле культиста; 2 — профессиональный разрез на горле вора; 3 — ритуальные символы на теле горожанина; 4 — остатки Лист-живодёра (Flayleaf) на губах контрабандиста.",
+                "condition": "зависит от random_event_1",
+                "movable": false,
+                "hidden": false
+            },
+            "facts": {
+                "objectively_proves": [
+                    "В Морге хранятся тела жертв серии (event_010)"
+                ],
+                "strongly_indicates": [
+                    "Тип места убийства (культист/вор/ритуал/контрабандист) по random_event_1",
+                    "Связь серии с культом Дагона (мутации/ритуальные символы) и с контрабандой (Лист-живодёр)"
+                ],
+                "does_not_prove": [
+                    "Текущее убийство в таверне",
+                    "Улика связана с текущей жертвой"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "Тела жертв серии (не текущее убийство) (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Серия в городе (правильно)",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "doctor",
+                    "doctor_assistant"
+                ],
+                "locations": [
+                    "morgue"
+                ],
+                "events": [
+                    "event_010",
+                    "event_024"
+                ],
+                "other_evidence": [
+                    "autopsy_reports",
+                    "cult_items"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Серия в городе (не текущее убийство)"
+                ],
+                "contradicts": [
+                    "Тела — текущее убийство"
+                ]
+            },
+            "false_leads": [
+                "Тела в Морг могут выглядеть как улики текущего убийства, хотя это серия маньяка в городе"
+            ],
+            "notes": [
+                "Улика из главы 1 (Морг, взят заказ «Поиск маньяка», Внимательность, СЛ 15; random_event_1)."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "any",
+                    "killer": "any",
+                    "role": "false",
+                    "note": "серия в городе, не текущее убийство"
+                }
+            ]
         }
     ]
 }
