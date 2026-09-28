@@ -1,0 +1,409 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "deity.schema.json",
+    "title": "Deity",
+    "description": "Карточка божества/бесовского лорда по канону PF2e (Core Rulebook, Lost Omens: Gods & Magic, Book of the Damned). По одному файлу на божество в каталоге characters/.",
+    "type": "object",
+    "required": [
+        "id",
+        "name",
+        "epithet",
+        "alignment",
+        "domains",
+        "source"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор (kebab-case), совпадает с именем файла. Напр. 'asmodeus'."
+        },
+        "name": {
+            "type": "string",
+            "description": "Имя божества. Напр. 'Асмодей'."
+        },
+        "epithet": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Эпитет/имя в кавычках. Напр. 'Принц Тьмы (The Prince of Darkness)'."
+        },
+        "alignment": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Мировоззрение самого божества (PF2e alignment: LG/NG/CG/LN/NE/CN/LE/CE). null — не определено (напр. 'любая' не относится к божеству)."
+        },
+        "nature": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Природа: 'bov' (божество), 'demon_lord' (демон-лорд, Chaos), 'devil_lord' (дьявол-лорд, Law), 'archfey' (фея-лорд). null — не определено."
+        },
+        "domains": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Сферы/домены божества (по его воле). Напр. 'договоры, гордыня, рабство, тирания'."
+        },
+        "origins": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Происхождение/легенды (напр. 'одна из старейших сущностей; убил брата Ихиса ради порядка'). null — не определено."
+        },
+        "description": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Общее описание: характер, цели, как проявляет себя. null — не определено."
+        },
+        "appearance": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Внешний вид божества. null — не определено (напр. актуальное 2e-описание отсутствует)."
+        },
+        "spheres_of_interest": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Сферы интересов (темы, которые божество поощряет).",
+            "items": {
+                "type": "string"
+            }
+        },
+        "edicts": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Эдикты — то, что божество требует от своих последователей.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "anathema": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Анафема — то, что божество запрещает (нарушение = грех против божества).",
+            "items": {
+                "type": "string"
+            }
+        },
+        "follower_alignments": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Допустимые мировоззрения последователей (PF2e alignment: LG/NG/CG/LN/NE/CN/LE/CE).",
+            "items": {
+                "type": "string"
+            }
+        },
+        "realm": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "Царство (дом) божества на плане.",
+            "properties": {
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Имя царства. Напр. 'Несс (Ness)'."
+                },
+                "plan": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "План/мир (напр. 'Ада (Hell)', 'Бездна (Abyss)', 'Нирвана (Nirvana)'(Pian))."
+                }
+            },
+            "additionalProperties": true
+        },
+        "relationships": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "Связи с другими божествами/существами.",
+            "properties": {
+                "allies": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Союзники (имена божеств).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "enemies": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Враги (имена божеств).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "others": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Прочие отношения (напр. 'Ихис — умерший брат', 'Дезна — возлюбленный').",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "temples": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Типы храмов/мест поклонения.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "believers": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Кто обычно почитает божество (категории людей).",
+            "items": {
+                "type": "string"
+            }
+        },
+        "sacred_animal": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Священное животное. Напр. 'змей', 'певчая птица'."
+        },
+        "sacred_colors": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Священные цвета.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "symbol": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Священный символ/эмблема. Напр. 'пятилучевая звезда (пентаграмма)'."
+        },
+        "devotee_benefits": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "Преимущества последователя (Devotee Benefits) по Lost Omens: Gods & Magic.",
+            "properties": {
+                "divine_attribute": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Божественная характеристика (напр. 'любая', 'Мудрость или Харизма', 'Сила или Телосложение')."
+                },
+                "divine_power": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Божественная сила (напр. 'раняющая (wounding)', 'исцеляющая (healing)')."
+                },
+                "divine_skill": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Божественный навык (напр. 'Обман', 'Атлетика', 'Ремесло или Выступление')."
+                },
+                "preferred_weapon": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Предпочитаемое оружие (напр. 'булава', 'трезубец')."
+                },
+                "domains": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Домены божества (Domains) — список доменов для жреца.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "alternate_domains": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Альтернативные домены (Alternate Domains).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Дополнительная оговорка (напр. 'связывает души с Принцем Тьмы на всю вечность')."
+                }
+            },
+            "additionalProperties": true
+        },
+        "cleric_spells": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "Заклинания жреца (с уровнем заклинания), доступные последователям.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "divine_intercession": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "Божественное вмешательство (Divine Intercession): как божество дарует/проклинает.",
+            "properties": {
+                "summary": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Общее описание: за что дарит/проклинает."
+                },
+                "boons": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "description": "Дары (Boons): minor / moderate / major.",
+                    "properties": {
+                        "minor": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "moderate": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "major": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "additionalProperties": true
+                },
+                "curses": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "description": "Проклятия (Curses): minor / moderate / major.",
+                    "properties": {
+                        "minor": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "moderate": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "major": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true
+        },
+        "westcrown": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "Связь божества с Весткроуном/«Советом Воров» AP.",
+            "properties": {
+                "status": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Статус культа в Челии/Весткроуне (напр. 'государственная религия', 'не поощряется/условное разрешение', 'исторический фон')."
+                },
+                "temple_in_city": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Храм/дом божества в Весткроуне (напр. 'Катада Нессудидия (Qatada Nessudidia)')."
+                },
+                "role_in_ap": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Роль в сценарии «Совет Воров» (напр. 'отодвинут на второй план', 'фоновый контраст', 'исторический фон')."
+                }
+            },
+            "additionalProperties": true
+        },
+        "source": {
+            "type": "array",
+            "description": "Источники (книга + номер страницы). Напр. ['Core Rulebook pg. 437', 'Lost Omens: Gods & Magic pg. 14'].",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "additionalProperties": true
+}
