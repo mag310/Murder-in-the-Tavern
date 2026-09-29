@@ -2,13 +2,14 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "interrogations.schema.json",
     "title": "Interrogation",
-    "description": "Допрос одного main_npc. По одному файлу на персонаж в каталоге interrogations/: interrogations/{character_id}.json. Текст вопросов и ответов — инлайн, без внешних ссылок.",
+    "description": "Допрос одного main_npc. По одному файлу на персонаж в каталоге interrogations/: interrogations/{character_id}.json. Текст вопросов и ответов — инлайн, без внешних ссылок. Уровни откровенности (candor_level) — это 5-ступенчатая шкала attitude (helpful/friendly/indifferent/unfriendly/hostile): стартовый уровень = attitude, затем меняется по ходу допроса.",
     "type": "object",
     "required": [
         "character_id",
         "name",
         "role",
         "status",
+        "attitude",
         "base_questions",
         "scenarios"
     ],
@@ -27,14 +28,25 @@
         },
         "status": {
             "type": "string",
-            "description": "Статус допрашиваемого: main_npc (активный персонаж в игре) или ghost / speak_with_dead (недавно умершего — допрос через призрак/сpeak_with_dead)."
+            "description": "Статус допрашиваемого: main_npc (активный персонаж в игре) или ghost / speak_with_dead (недавно умершего — допрос через призрак/speak_with_dead)."
         },
-        "initial_attitude": {
+        "attitude": {
+            "type": "string",
+            "enum": [
+                "helpful",
+                "friendly",
+                "indifferent",
+                "unfriendly",
+                "hostile"
+            ],
+            "description": "Стартовое отношение к игроку (PF2e attitude). Определяет базовый DC проверок общения и стартовый уровень откровенности (candor_level) перед допросом. 5 ступеней: helpful (очень простая проверка), friendly (простая), indifferent (стандарт), unfriendly (сложная), hostile (очень сложная)."
+        },
+        "base_dc": {
             "type": [
                 "string",
                 "null"
             ],
-            "description": "Начальное отношение к игроку (напр. «настороженный, агрессивный»). Определяет стартовый уровень ответа и доверие."
+            "description": "Базовый DC проверок общения (PF2e), выведенный из attitude. very_easy / easy / medium / hard / very_hard. Опционально — если не задано, берётся из attitude по умолчанию."
         },
         "default_reliability": {
             "type": [
@@ -42,6 +54,24 @@
                 "null"
             ],
             "description": "По умолчанию надёжность ответов персонажа (напр. mixed, reliable, unreliable)."
+        },
+        "candor_level": {
+            "type": "string",
+            "enum": [
+                "helpful",
+                "friendly",
+                "indifferent",
+                "unfriendly",
+                "hostile"
+            ],
+            "description": "Текущий уровень откровенности (Candor Level) во время допроса. Стартовое значение = attitude. Меняется по ходу допроса: истинные улики (true_evidence), правильные вопросы и успешные проверки — повышают (hostile→unfriendly→indifferent→friendly→helpful); ложные улики (false_evidence), неправильные вопросы и провалы проверок — понижают (helpful→friendly→indifferent→unfriendly→hostile). Определяет, какой ключ ответа читается для вопроса."
+        },
+        "connection_tiers": {
+            "type": "array",
+            "description": "Уровни связи (PF2e Connection Tiers) между допрашиваемым и другими NPC. Долговременный фон, который задаёт «пол» доверия и влияет на реакцию допроса. Напр. {target, tier, type, note}. tier — из 6 уровней: acquainted/associated/devoted (положительные), avoided/despised/vindictive (отрицательные). При tier=despised/vindictive провалы быстрее ведут к нападению; при tier=devoted NPC охотнее раскрывает.",
+            "items": {
+                "$ref": "#/$defs/connection_tier"
+            }
         },
         "base_questions": {
             "type": "object",
@@ -63,39 +93,87 @@
     },
     "additionalProperties": true,
     "$defs": {
+        "connection_tier": {
+            "type": "object",
+            "required": [
+                "target",
+                "tier"
+            ],
+            "description": "Уровень связи (Connection Tier) между допрашиваемым и конкретным NPC/организацией.",
+            "properties": {
+                "target": {
+                    "type": "string",
+                    "description": "ID персонажа/организации (напр. tavern_keeper, cult)."
+                },
+                "tier": {
+                    "type": "string",
+                    "enum": [
+                        "acquainted",
+                        "associated",
+                        "devoted",
+                        "avoided",
+                        "despised",
+                        "vindictive"
+                    ],
+                    "description": "Уровень связи (6 ступеней). Положительные (инвестированные): acquainted (базовый), associated (дружелюбен), devoted (искренне заинтересован). Отрицательные (враждебные): avoided (уклоняется), despised (активно избегает, мелкий саботаж), vindictive (цель — уничтожить/рушить планы)."
+                },
+                "type": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Природа связи/причина (напр. hatred, money, religion, justice, love). Ссылка на relations.* в characters/."
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Необязательный комментарий (мотив, подварианты)."
+                }
+            },
+            "additionalProperties": true
+        },
         "question": {
             "type": "object",
             "required": [
                 "q"
             ],
-            "description": "Один вопрос с ответами по уровням L1–L4. В base_questions — общие ответы; в scenarios[].questions — override (можно задать только тот уровень, который отличается).",
+            "description": "Один вопрос с ответами по уровням откровенности (candor_level). В base_questions — общие ответы; в scenarios[].questions — override (можно задать только тот уровень, который отличается). Ключ ответа — ступень attitude: hostile / unfriendly / indifferent / friendly / (helpful — опционально, полное доверие).",
             "properties": {
                 "q": {
                     "type": "string",
                     "description": "Текст вопроса."
                 },
-                "L1": {
+                "hostile": {
                     "type": "string",
-                    "description": "Ответ на уровне L1 (Неприязнь: откровенно лжёт или отказывается отвечать; критический провал проверки)."
+                    "description": "Ответ на уровне откровенности hostile (был L1: неприязнь — откровенно лжёт или отказывается отвечать; критический провал проверки)."
                 },
-                "L2": {
+                "unfriendly": {
                     "type": "string",
-                    "description": "Ответ на уровне L2 (Обычное: очевидное/общеизвестное; провал проверки)."
+                    "description": "Ответ на уровне откровенности unfriendly (был L2: обычное — очевидное/общеизвестное; провал проверки)."
                 },
-                "L3": {
+                "indifferent": {
                     "type": "string",
-                    "description": "Ответ на уровне L3 (Малый секрет: secret.level small/medium; успех проверки)."
+                    "description": "Ответ на уровне откровенности indifferent (был L3: малый секрет — secret.level small/medium; успех проверки)."
                 },
-                "L4": {
+                "friendly": {
                     "type": "string",
-                    "description": "Ответ на уровне L4 (Большой секрет: secret.level big; критический успех)."
+                    "description": "Ответ на уровне откровенности friendly (был L4: большой секрет — secret.level big; критический успех)."
+                },
+                "helpful": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Ответ на уровне откровенности helpful (опционально: полное доверие — NPC сам подсказывает, выкладывает всё, включая то, что не просили). Читается, если candor_level достиг helpful (за пределами стандартной шкалы L1–L4)."
                 },
                 "delivery": {
                     "type": [
                         "string",
                         "null"
                     ],
-                    "description": "Динамическая подача для этого вопроса (переопределение/уточнение speech_profile.level_styles для данного вопроса). Не заменяет ответы L1–L4, а описывает, как их произносить именно здесь. Напр. 'в L4 — шёпотом, впервые смотрит в глаза'."
+                    "description": "Динамическая подача для этого вопроса (переопределение/уточнение speech_profile.level_styles для данного вопроса). Не заменяет ответы, а описывает, как их произносить именно здесь. Напр. 'в friendly — шёпотом, впервые смотрит в глаза'."
                 },
                 "speech_tags": {
                     "type": "array",
@@ -148,14 +226,14 @@
                 },
                 "true_evidence": {
                     "type": "array",
-                    "description": "Улики, которые повышают уровень ответа при демонстрации (L1→L2→L3→L4). ID из evidence.json.",
+                    "description": "Улики, которые повышают уровень откровенности при демонстрации (hostile→unfriendly→indifferent→friendly→helpful). ID из evidence.json.",
                     "items": {
                         "type": "string"
                     }
                 },
                 "false_evidence": {
                     "type": "array",
-                    "description": "Улики, которые понижают уровень ответа при демонстрации (L4→L3→L2→L1). ID из evidence.json.",
+                    "description": "Улики, которые понижают уровень откровенности при демонстрации (helpful→friendly→indifferent→unfriendly→hostile). ID из evidence.json.",
                     "items": {
                         "type": "string"
                     }

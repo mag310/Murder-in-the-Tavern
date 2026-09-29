@@ -44,18 +44,24 @@
             ],
             "description": "Статус персонажа: main_npc (активный персонаж в игре — не строго «6 d6-жертв»; напр. Дуксотар активен в прологе, но can_be_murder_victim: false), context_npc (контекстный вне игры), ghost (мертвый персонаж — призрак, действующий в игре, но не живой и не жертва)."
         },
-    "can_be_murder_victim": {
-      "type": "boolean",
-      "description": "Может ли персонаж быть жертвой текущего убийства (true для персонажей в таверне, false для контекстных/призраков)."
-    },
-    "race": {
-      "type": ["string", "null"],
-      "description": "Расса персонажа (напр. 'человек', 'полуэльф', 'аасимар', 'полурослик'). null — не определено."
-    },
-    "alignment": {
-      "type": ["string", "null"],
-      "description": "Мировоззрение (PF2e alignment: Lawful Good/Neutral Good/Chaotic Good/Lawful Neutral/True Neutral/Lawful Evil/Neutral Evil/Chaotic Evil). null — не определено."
-    },
+        "can_be_murder_victim": {
+            "type": "boolean",
+            "description": "Может ли персонаж быть жертвой текущего убийства (true для персонажей в таверне, false для контекстных/призраков)."
+        },
+        "race": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Расса персонажа (напр. 'человек', 'полуэльф', 'аасимар', 'полурослик'). null — не определено."
+        },
+        "alignment": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Мировоззрение (PF2e alignment: Lawful Good/Neutral Good/Chaotic Good/Lawful Neutral/True Neutral/Lawful Evil/Neutral Evil/Chaotic Evil). null — не определено."
+        },
         "secrets": {
             "type": [
                 "array",
@@ -175,15 +181,15 @@
                 "null"
             ],
             "properties": {
-                 "level": {
-                     "type": "string",
-                     "enum": [
-                         "small",
-                         "medium",
-                         "big"
-                     ],
-                     "description": "Уровень тайны: small (малая), medium (средняя) или big (большая). Задается внутри объекта секрета."
-                 },
+                "level": {
+                    "type": "string",
+                    "enum": [
+                        "small",
+                        "medium",
+                        "big"
+                    ],
+                    "description": "Уровень тайны: small (малая), medium (средняя) или big (большая). Задается внутри объекта секрета."
+                },
                 "description": {
                     "type": [
                         "string",
@@ -220,6 +226,22 @@
                 },
                 "status": {
                     "type": "string"
+                },
+                "connection_tier": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "enum": [
+                        "acquainted",
+                        "associated",
+                        "devoted",
+                        "avoided",
+                        "despised",
+                        "vindictive",
+                        null
+                    ],
+                    "description": "Уровень связи (PF2e Connection Tier) между персонажем и target. Долговременный фон для допроса: задает «пол» доверия. 6 ступеней: acquainted (базовый), associated (дружелюбен), devoted (искренне заинтересован) — положительные; avoided (уклоняется), despised (активно избегает, мелкий саботаж), vindictive (цель — разрушить планы) — отрицательные. При despised/vindictive провалы допроса быстрее ведут к нападению; при devoted NPC охотнее раскрывает. null — не определено."
                 }
             },
             "additionalProperties": true
@@ -608,7 +630,7 @@
         },
         "speechProfile": {
             "type": "object",
-            "description": "Постоянный речевой профиль персонажа: КАК он произносит ответы по уровням L1–L4 (не заменяет сами ответы L1–L4, а описывает подачу). Поле в characters/{id}.json.",
+            "description": "Постоянный речевой профиль персонажа: КАК он произносит ответы по уровням откровенности (candor_level) — не заменяет сами ответы, а описывает подачу. Поле в characters/{id}.json.",
             "properties": {
                 "register": {
                     "type": [
@@ -629,7 +651,7 @@
                         "string",
                         "null"
                     ],
-                    "description": "Громкость/громкость по уровням (напр. 'громкий, но в L4 — глухой шёпот')."
+                    "description": "Громкость/громкость по уровням откровенности (напр. 'громкий, но в friendly — глухой шёпот')."
                 },
                 "lexicon": {
                     "type": "array",
@@ -664,27 +686,33 @@
                         "object",
                         "null"
                     ],
-                    "description": "Как меняются подача/голос по уровням L1–L4 (не заменяет ответы, описывает, как их произносить).",
+                    "description": "Как меняются подача/голос по уровням откровенности (candor_level) — не заменяет ответы, описывает, как их произносить. Ключи — ступени attitude (были L1–L4): hostile / unfriendly / indifferent / friendly / (helpful — опционально).",
                     "properties": {
-                        "L1": {
+                        "hostile": {
                             "type": [
                                 "string",
                                 "null"
                             ]
                         },
-                        "L2": {
+                        "unfriendly": {
                             "type": [
                                 "string",
                                 "null"
                             ]
                         },
-                        "L3": {
+                        "indifferent": {
                             "type": [
                                 "string",
                                 "null"
                             ]
                         },
-                        "L4": {
+                        "friendly": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "helpful": {
                             "type": [
                                 "string",
                                 "null"
