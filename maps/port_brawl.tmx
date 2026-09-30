@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="1">
+ <tileset firstgid="1" name="port_tileset" tilewidth="64" tileheight="64" tilecount="16" columns="4">
+  <image source="port_tileset.png" width="256" height="256"/>
+  <tile id="0"><properties><property name="type" value="dock"/></properties></tile>
+  <tile id="1"><properties><property name="type" value="wall"/><property name="collision" value="true"/></properties></tile>
+  <tile id="2"><properties><property name="type" value="crate"/><property name="collision" value="true"/></properties></tile>
+  <tile id="3"><properties><property name="type" value="barrel"/><property name="collision" value="true"/></properties></tile>
+  <tile id="4"><properties><property name="type" value="table"/><property name="collision" value="true"/></properties></tile>
+  <tile id="5"><properties><property name="type" value="water"/><property name="collision" value="false"/></properties></tile>
+  <tile id="6"><properties><property name="type" value="mud"/></properties></tile>
+  <tile id="7"><properties><property name="type" value="rope"/></properties></tile>
+  <tile id="8"><properties><property name="type" value="lantern"/></properties></tile>
+  <tile id="9"><properties><property name="type" value="shadow"/></properties></tile>
+  <tile id="10"><properties><property name="type" value="debris"/></properties></tile>
+  <tile id="11"><properties><property name="type" value="net"/></properties></tile>
+  <tile id="12"><properties><property name="type" value="table2"/></properties></tile>
+  <tile id="13"><properties><property name="type" value="chair"/></properties></tile>
+  <tile id="14"><properties><property name="type" value="crate2"/><property name="collision" value="true"/></properties></tile>
+  <tile id="15"><properties><property name="type" value="barrel2"/><property name="collision" value="true"/></properties></tile>
+ </tileset>
+ <layer id="1" name="Ground" width="20" height="12">
+  <data encoding="csv">
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2
+  </data>
+ </layer>
+ <layer id="2" name="Objects" width="20" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,3,4,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,3,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,3,4,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  </data>
+ </layer>
+ <layer id="3" name="Collision" width="20" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,3,4,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,3,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,3,4,0,0,0,0,0,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+  </data>
+ </layer>
+ <objectgroup id="4" name="Spawns">
+  <object id="1" name="PlayerStart" type="spawn" x="1152" y="640" width="64" height="64"/>
+  <object id="2" name="EnemyStart1" type="spawn" x="320" y="128" width="64" height="64"/>
+  <object id="3" name="EnemyStart2" type="spawn" x="320" y="512" width="64" height="64"/>
+  <object id="4" name="EnemyStart3" type="spawn" x="768" y="320" width="64" height="64"/>
+  <object id="5" name="EnemyStart4" type="spawn" x="1024" y="512" width="64" height="64"/>
+ </objectgroup>
+</map>
