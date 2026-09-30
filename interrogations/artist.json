@@ -363,9 +363,9 @@
             "note": "жертва 6 (Художник), убийца 1 (Трактирщик). Мотив: justice/love (защита дочери, если Художник нападает на Официантку).",
             "true_evidence": [
                 "wife_portrait",
+                "tavernkeeper_dagger",
                 "tavernkeeper_diary",
-                "threat_letter",
-                "blood_splatter"
+                "family_tree"
             ],
             "false_evidence": [
                 "artist_workshop"

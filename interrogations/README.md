@@ -52,7 +52,7 @@
     "note": "…",
     // необязательный комментарий
     "true_evidence": [
-        "threat_letter",
+        "tavernkeeper_dagger",
         "sailor_knife"
     ],
     // улики, повышающие уровень ответа при демонстрации
@@ -173,7 +173,7 @@
   (`hostile→unfriendly→indifferent→friendly→helpful`).
 - **Ложные улики (`false_evidence`)** + неправильные вопросы + **провалы проверок** → уровень **падает**
   (`helpful→friendly→indifferent→unfriendly→hostile`).
-- ID улик — из `evidence.json` (напр. `threat_letter`, `sailor_knife`, `contraband`, `cult_items`).
+- ID улик — из `evidence.json` (напр. `tavernkeeper_dagger`, `sailor_knife`, `contraband`, `cult_items`).
 
 **Ключ ответа в JSON** — это ступень attitude (`hostile`/`unfriendly`/`indifferent`/`friendly`/опционально `helpful`), а
 не `L1–L4`. Какой ключ читается — определяет текущий `candor_level`.

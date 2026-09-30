@@ -310,14 +310,14 @@
   </object>
   <object id="312" name="hell-knight-insignia" type="clue" x="1088" y="768" width="64" height="64">
    <properties>
-    <property name="evidence" value="hell_knight_insignia"/>
+    <property name="evidence" value="dagon_insignia"/>
     <property name="from" value="CLAIR"/>
     <property name="note" value="Золотой диск с глазом осьминога (символ культа Дагона)"/>
    </properties>
   </object>
   <object id="313" name="hell-knight-crest" type="ritual" x="1728" y="832" width="64" height="64">
    <properties>
-    <property name="evidence" value="hell_knight_crest"/>
+    <property name="evidence" value="dagon_trident"/>
     <property name="from" value="CLAIR"/>
     <property name="hidden" type="bool" value="true"/>
     <property name="note" value="Старинный ритуальный трезубец (оружие Дагона)"/>

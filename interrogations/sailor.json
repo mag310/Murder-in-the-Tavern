@@ -545,7 +545,7 @@
             "murder": "tavern_keeper",
             "note": "жертва 2 (Моряк), убийца 1 (Трактирщик). Мотив: hatred (месть за жену).",
             "true_evidence": [
-                "threat_letter",
+                "tavernkeeper_dagger",
                 "wife_portrait",
                 "wife_ghost",
                 "tavernkeeper_diary",

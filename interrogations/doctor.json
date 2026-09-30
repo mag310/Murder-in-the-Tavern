@@ -360,8 +360,8 @@
             "note": "жертва 4 (Врач), убийца 1 (Трактирщик). Мотив: hatred (защита дочери, конфликт с Доктором).",
             "true_evidence": [
                 "cult_items",
+                "tavernkeeper_dagger",
                 "tavernkeeper_diary",
-                "threat_letter",
                 "doctor_note",
                 "doctor_hiding"
             ],
@@ -459,7 +459,7 @@
                 "doctor_dagger",
                 "cult_items",
                 "doctor_note",
-                "tavernkeeper_alibi",
+                "ritual_marks",
                 "doctor_hiding"
             ],
             "false_evidence": [
@@ -491,7 +491,7 @@
             "true_evidence": [
                 "doctor_dagger",
                 "cult_items",
-                "tavernkeeper_alibi",
+                "ritual_marks",
                 "letter_to_tavern",
                 "doctor_hiding"
             ],

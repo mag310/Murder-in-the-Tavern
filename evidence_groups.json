@@ -230,12 +230,12 @@
             "probability": "high",
             "motivation": "hatred",
             "primary": [
-                "threat_letter"
+                "tavernkeeper_diary"
             ],
             "secondary": [
                 "wife_portrait",
                 "wife_ghost",
-                "tavernkeeper_diary",
+                "tavernkeeper_dagger",
                 "sailor_threat_letter"
             ],
             "false": [
@@ -256,7 +256,7 @@
             ],
             "secondary": [
                 "tavernkeeper_diary",
-                "threat_letter",
+                "tavernkeeper_dagger",
                 "doctor_note",
                 "doctor_hiding"
             ],
@@ -277,8 +277,8 @@
             ],
             "secondary": [
                 "tavernkeeper_diary",
-                "threat_letter",
-                "blood_splatter"
+                "tavernkeeper_dagger",
+                "family_tree"
             ],
             "false": [
                 "artist_cube"
@@ -297,7 +297,7 @@
             ],
             "secondary": [
                 "tavernkeeper_notebook",
-                "threat_letter",
+                "tavernkeeper_dagger",
                 "tavernkeeper_hiding",
                 "potion_poison"
             ],
@@ -385,7 +385,7 @@
             "secondary": [
                 "cult_items",
                 "doctor_note",
-                "tavernkeeper_alibi",
+                "ritual_marks",
                 "doctor_hiding"
             ],
             "false": [
@@ -427,7 +427,7 @@
             ],
             "secondary": [
                 "cult_items",
-                "tavernkeeper_alibi",
+                "ritual_marks",
                 "letter_to_tavern",
                 "doctor_hiding"
             ],

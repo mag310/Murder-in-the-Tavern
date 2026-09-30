@@ -136,7 +136,7 @@
 
 ### Причина B. Моряк
 
-> Игроки ищут **Моряка** (дело об убийстве вора / деле о Корине Марроне). Ключ: `sailor`, `threat_letter`,
+> Игроки ищут **Моряка** (дело об убийстве вора / деле о Корине Марроне). Ключ: `sailor`, `tavernkeeper_dagger`,
 > `sailor_knife`, `sailor_hiding`, `sailor_threat_letter`.
 
 #### Трактирщик (Гаэтано Вельди) — `unfriendly` / hard
@@ -313,7 +313,7 @@
 
 ### Причина B. Моряк
 
-- **true_evidence:** `threat_letter`, `sailor_threat_letter`, `sailor_knife`, `sailor_hiding`, `wife_portrait`,
+- **true_evidence:** `tavernkeeper_dagger`, `sailor_threat_letter`, `sailor_knife`, `sailor_hiding`, `wife_portrait`,
   `wife_ghost`
 - **false_evidence:** `contraband`, `ink_on_fingers`
 

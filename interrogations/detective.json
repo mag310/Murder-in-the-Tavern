@@ -362,7 +362,7 @@
             "true_evidence": [
                 "contraband",
                 "tavernkeeper_notebook",
-                "threat_letter",
+                "tavernkeeper_dagger",
                 "tavernkeeper_hiding",
                 "potion_poison"
             ],
@@ -394,7 +394,7 @@
             "true_evidence": [
                 "doctor_dagger",
                 "cult_items",
-                "tavernkeeper_alibi",
+                "ritual_marks",
                 "letter_to_tavern",
                 "doctor_hiding"
             ],

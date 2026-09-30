@@ -43,13 +43,13 @@
         {
             "description": "Кинжал Трактирщика",
             "evidence": [
-                "tavernkeeper_diary"
+                "tavernkeeper_dagger"
             ]
         },
         {
             "description": "Дневник Трактирщика",
             "evidence": [
-                "threat_letter"
+                "tavernkeeper_diary"
             ]
         },
         {

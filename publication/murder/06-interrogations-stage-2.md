@@ -215,7 +215,7 @@
 ### S42. Жертва: Врач — Убийца: Моряк **(КАНОН)**
 
 > Мотив: justice (Моряк убивает Врача для самозащиты). `true_evidence`: `sailor_knife`, `sailor_threat_letter`,
-> `threat_letter`. `false_evidence`: `contraband`, `cult_items`.
+> `tavernkeeper_dagger`. `false_evidence`: `contraband`, `cult_items`.
 
 #### **Моряк (Корин Марроне)** — `unfriendly` / hard (убийца)
 

@@ -60,9 +60,9 @@
             ]
         },
         {
-            "description": "Следы ритуала на теле (tavernkeeper_alibi)",
+            "description": "Следы ритуала на теле (ritual_marks)",
             "evidence": [
-                "tavernkeeper_alibi"
+                "ritual_marks"
             ]
         },
         {

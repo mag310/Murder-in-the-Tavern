@@ -378,8 +378,8 @@
             "note": "жертва 4 (Врач), убийца 1 (Трактирщик). Мотив: hatred (защита дочери, конфликт с Доктором).",
             "true_evidence": [
                 "cult_items",
+                "tavernkeeper_dagger",
                 "tavernkeeper_diary",
-                "threat_letter",
                 "doctor_note",
                 "doctor_hiding"
             ],
@@ -410,9 +410,9 @@
             "note": "жертва 6 (Художник), убийца 1 (Трактирщик). Мотив: justice/love (защита дочери, если Художник нападает на Официантку).",
             "true_evidence": [
                 "wife_portrait",
+                "tavernkeeper_dagger",
                 "tavernkeeper_diary",
-                "threat_letter",
-                "blood_splatter"
+                "family_tree"
             ],
             "false_evidence": [
                 "artist_workshop"
@@ -442,7 +442,7 @@
             "true_evidence": [
                 "contraband",
                 "tavernkeeper_notebook",
-                "threat_letter",
+                "tavernkeeper_dagger",
                 "tavernkeeper_hiding",
                 "potion_poison"
             ],
@@ -503,7 +503,7 @@
                 "doctor_dagger",
                 "cult_items",
                 "doctor_note",
-                "tavernkeeper_alibi",
+                "ritual_marks",
                 "doctor_hiding"
             ],
             "false_evidence": [

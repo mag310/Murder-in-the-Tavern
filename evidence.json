@@ -2016,7 +2016,7 @@
             ]
         },
         {
-            "id": "tavernkeeper_diary",
+            "id": "tavernkeeper_dagger",
             "name": "Кинжал Трактирщика",
             "type": "physical",
             "status": "confirmed",
@@ -2223,7 +2223,7 @@
             ]
         },
         {
-            "id": "threat_letter",
+            "id": "tavernkeeper_diary",
             "name": "Дневник Трактирщика",
             "type": "document",
             "status": "confirmed",
@@ -3201,7 +3201,7 @@
             ]
         },
         {
-            "id": "tavernkeeper_alibi",
+            "id": "ritual_marks",
             "name": "Следы ритуала на теле",
             "type": "ritual",
             "status": "confirmed",
@@ -5128,7 +5128,7 @@
             ]
         },
         {
-            "id": "blood_splatter",
+            "id": "family_tree",
             "name": "Семейное древо",
             "type": "document",
             "status": "confirmed",
@@ -5650,7 +5650,7 @@
             ]
         },
         {
-            "id": "hell_knight_insignia",
+            "id": "dagon_insignia",
             "name": "Золотой диск с глазом осьминога (символ культа Дагона)",
             "type": "ritual",
             "status": "confirmed",
@@ -5758,7 +5758,7 @@
             ]
         },
         {
-            "id": "hell_knight_crest",
+            "id": "dagon_trident",
             "name": "Старинный ритуальный трезубец (оружие Дагона)",
             "type": "physical",
             "status": "confirmed",
@@ -5830,12 +5830,12 @@
                 ],
                 "other_evidence": [
                     "doctor_dagger",
-                    "hell_knight_insignia"
+                    "dagon_insignia"
                 ]
             },
             "versions": {
                 "supports": [
-                    "Трезубец — оружие культа Дагона",
+                    "Атрибуты культа Дагона",
                     "Есть культисты Дагона"
                 ],
                 "contradicts": [
@@ -5929,8 +5929,8 @@
                     "event_016"
                 ],
                 "other_evidence": [
-                    "hell_knight_insignia",
-                    "hell_knight_crest"
+                    "dagon_insignia",
+                    "dagon_trident"
                 ]
             },
             "versions": {
@@ -6029,7 +6029,7 @@
                     "event_016"
                 ],
                 "other_evidence": [
-                    "hell_knight_insignia",
+                    "dagon_insignia",
                     "cult_covenant"
                 ]
             },
@@ -7124,7 +7124,7 @@
                 "other_evidence": [
                     "wife_portrait",
                     "wife_will",
-                    "hell_knight_insignia",
+                    "dagon_insignia",
                     "dagon_prayer"
                 ]
             },
@@ -7143,7 +7143,7 @@
             ],
             "notes": [
                 "Символ Дагона на могиле — ключ к связи dead_wife/tavern_keeper с культом (demon/Chaos, запретная ересь); усиливает ветки с Официанткой (waitress) и культистами.",
-                "Связь с wife_portrait (портрет Жены с ракушками-серьгами и кулоном-трезубцом) и hell_knight_insignia (золотой диск с глазом осьминога)."
+                "Связь с wife_portrait (портрет Жены с ракушками-серьгами и кулоном-трезубцом) и dagon_insignia (золотой диск с глазом осьминога)."
             ],
             "role": "secondary",
             "branches": [
