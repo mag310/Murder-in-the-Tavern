@@ -328,7 +328,7 @@
             "id": "S12",
             "victim": "tavern_keeper",
             "murder": "sailor",
-            "note": "жертва 1 (Трактирщик), убийца 2 (Моряк). Мотив: hatred (убил жену, угрожал дочерью). КАНОНИЧНЫЙ.",
+            "note": "жертва 1 (Трактирщик), убийца 2 (Моряк). Мотив: hatred (убил жену, угрожал дочерью).",
             "true_evidence": [
                 "sailor_threat_letter",
                 "tavernkeeper_notebook",

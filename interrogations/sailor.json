@@ -450,7 +450,7 @@
             "id": "S42",
             "victim": "doctor",
             "murder": "sailor",
-            "note": "жертва 4 (Врач), убийца 2 (Моряк). КАНОНИЧНЫЙ: Моряк убивает Врача для самозащиты (justice).",
+            "note": "жертва 4 (Врач), убийца 2 (Моряк). Моряк убивает Врача для самозащиты (justice).",
             "true_evidence": [
                 "sailor_false_clue",
                 "sailor_knife",
