@@ -6,11 +6,11 @@
 
 ## 8. Что ещё не готово (→ todo.md §26)
 
-- **§26.2 Handouts:** `evidence.content` пуст (0/79) — нужно наполнить и сделать читаемым в печати.
+- **§26.2 Handouts:** `evidence-description.json` — 91/91 улик имеют `player_text` + `handout`. 2026-09-30.
 - **§26.3 Игровые карты:** есть только логический граф `location_graph.mermaid`; нет player/GM map.
 - **§26.4 Инструменты мастера:** чек-лист улик, флоучарт, таймлайн-таблица, random tables, quick ref.
 - **§11 Opening / §14 Timeline / §15 behavior / §18–§19 win-lose/end states** — P0, не завершены.
 - **§6 PF2e-слой:** stat blocks, DC, skill challenges — не добавлены (текущий модуль — нарратив).
 
-> Следующий шаг: §26.2 (наполнить `evidence.content` + handouts) и §14 (формализовать timeline), затем §15 (behavior
-> layer). Данные готовы — не хватает человекочитаемой надстройки и игрового цикла.
+> Следующий шаг: §14 (формализовать timeline), затем §15 (behavior layer). §26.2 (handouts) — готово (
+> `evidence-description.json`, 2026-09-30). Не хватает человекочитаемой надстройки и игрового цикла.

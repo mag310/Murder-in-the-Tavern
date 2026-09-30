@@ -22,16 +22,16 @@
 
 ## Что есть в данных (source of truth)
 
-- `events.json` — 30 событий, 7 глав (timeline).
+- `events.json` — 33 события, 8 глав (timeline).
 - `flood_mechanic.json` — таймер 24 ч, `water_rise` (затопление снизу вверх), 4 endings, 6 resolution_paths.
 - `murder_matrix.json` — 6 матриц (жертва × possible_killers/required_evidence/false_leads/special_consequences).
 - `characters/` — 13 файлов (6 main_npc + контекстные + призраки) с `speech_profile`.
 - `interrogations/` — 6 файлов (допросы, L1–L4, delivery).
-- `evidence.json` — 79 улик (роль: primary/secondary/false/accident; `content` сейчас пуст — §26.2).
+- `evidence.json` — 91 улик (роль: primary/secondary/false/accident). Описания + раздатки: `evidence-description.json` (91/91).
 
 ## Что ещё не готово
 
-- **§26.2 Handouts:** `evidence.content` пуст (0/79) — нужно наполнить и сделать читаемым в печати.
+- **§26.2 Handouts:** `evidence-description.json` — 91/91 улик имеют `player_text` + `handout`. 2026-09-30.
 - **§26.3 Игровые карты:** есть только логический граф `location_graph.mermaid`; нет player/GM map.
 - **§26.4 Инструменты мастера:** чек-лист улик, флоучарт, таймлайн-таблица, random tables, quick ref.
 - **§11 Opening / §14 Timeline / §15 behavior / §18–§19 win-lose/end states** — P0, не завершены.
