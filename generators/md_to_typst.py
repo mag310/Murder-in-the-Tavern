@@ -49,11 +49,11 @@ SAVE_ROW = {"Спасброски": ("Saves", "saves")}
 
 
 def escape(s: str) -> str:
-    """Escape ``{`` / ``}`` / ``[`` / ``]`` so they cannot break a Typst
-    ``[...]`` content block.  This is the *only* transform that touches
-    brackets, so it is safe to run on image paths too."""
-    return s.replace("{", "{ {").replace("}", "} }").replace("[", "{").replace("]", "}")
-
+    # Typst markup-mode escapes for the characters that can break a
+    # [...] content block or start a span/code/raw/math.
+    for ch in "\\[]{}*_#$@`":
+        s = s.replace(ch, "\\" + ch)
+    return s
 
 def neutralize(s: str) -> str:
     """Make plain text inert so it cannot break a Typst content block.
@@ -94,9 +94,13 @@ def typst_inline(line: str) -> str:
     s = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", _stash, line)
     s = neutralize(s)
     s = escape(s)
+    # Image paths must NOT be neutralised/escaped: neutralize() would turn
+    # "flood_mechanic.json" dots into ":" (member access) and escape() would
+    # backslash-escape every "." into a Typst path separator.  The raw path
+    # is safe inside the #image("...") string argument.
     s = re.sub(
         r"\x00IMG(\d+)\x00",
-        lambda m: f'#image("{escape(images[int(m.group(1))])}", width: 80%)',
+        lambda m: f'#image("{images[int(m.group(1))].strip()}", width: 80%)',
         s,
     )
     return s
@@ -272,10 +276,12 @@ def parse_stat_block(block: list[str]) -> str:
 
     out = []
     out.append(f"= {escape(name)}" + (f" (NPC {escape(str(level))})" if level and level not in ("", "0") else ""))
-    out.append("#table(columns: (2 * 1fr)) [")
+    out.append("#table(")
+    out.append("  columns: (1fr, 2fr),")
+
     for label, val in table_rows:
-        out.append(f"  [{flatten(label)}]  [{flatten(val)}]")
-    out.append("]")
+        out.append(f"  [{flatten(label)}], [{flatten(val)}],")
+    out.append(")")
     if abilities:
         # Abilities are emitted as a plain list (not a #box): a #box with a
         # multi-line content block can fail to close in some contexts, and
@@ -312,21 +318,25 @@ def _md_table_to_typst(table_lines: list[str]) -> str:
     rows = []
     for ln in table_lines:
         cells = [c.strip() for c in ln.strip().strip("|").split("|")]
-        if set("".join(cells)) <= set("-: "):
+        if cells and set("".join(cells)) <= set("-: "):
             continue
         rows.append(cells)
     if not rows:
         return ""
     ncol = len(rows[0])
-    out = [f"#table(columns: ({ncol} * 1fr)) ["]
+
+    cols = ", ".join(["1fr"] * ncol)          # -> "1fr, 1fr, 1fr"
+    out: list[str] = ["#table(", f"  columns: ({cols}),"]
     for r in rows:
         while len(r) < ncol:
             r.append("")
-        cells = [f"[{escape(neutralize(c).replace('(', ' - ').replace(')', ''))}]" for c in r[:ncol]]
-        out.append("  " + "  ".join(cells))
-    out.append("]")
+        cells = [
+            f"[{escape(neutralize(c).replace('(', ' - ').replace(')', ''))}]"
+            for c in r[:ncol]
+        ]
+        out.append("  " + ", ".join(cells) + ",")
+    out.append(")")
     return "\n".join(out)
-
 
 def convert(md_text: str) -> str:
     lines = md_text.split("\n")
