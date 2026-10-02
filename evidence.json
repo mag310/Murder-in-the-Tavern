@@ -336,14 +336,14 @@
                 {
                     "victim": "tavern_keeper",
                     "killer": "doctor",
-                    "role": "secondary",
-                    "note": "культист"
+                    "role": "possible_scenario",
+                    "note": "possible_scenario (не канон): Врач убивает Трактирщика из love (защищая Официантку); см. murder_matrix.json (motivation=love, probability=low). Культисты — не убийцы; эта пара — не канон."
                 },
                 {
                     "victim": "doctor",
                     "killer": "tavern_keeper",
                     "role": "secondary",
-                    "note": "культист"
+                    "note": "канон: Трактирщик убивает Доктора, защищая дочь (murder_matrix.json victim=doctor, motivation=hatred, probability=medium)"
                 },
                 {
                     "victim": "detective",
@@ -1150,8 +1150,10 @@
                 "public": false,
                 "known_by": [
                     "waitress",
+                    "doctor",
                     "artist"
-                ]
+                ],
+                "known_by_note": "waitress/doctor (культисты) знают о реликвии и знают, что она спрятана в cult_lair под алтарём; artist знает о реликвии (что её украли/выкупили, event_018), но НЕ знает, что она именно в этой таверне (event_020)."
             },
             "object": {
                 "description": "Богато украшенный ковчег, внутри которого лежит мумифицированный череп святого. Ковчег спрятан в логове культа (cult_lair) под алтарём. Это реликвия Ордена Вечной Розы: 8 месяцев назад её украли из храма в Мендеве воры (по наводке Совета Воров), а культисты Дагона выкупили её у воров и спрятали здесь (event_018).",
@@ -1161,7 +1163,7 @@
             },
             "facts": {
                 "objectively_proves": [
-                    "Культ хранит реликвию ордена (мумифицированный череп святого) в логове культа",
+                    "Культ (waitress/doctor) хранит реликвию ордена (мумифицированный череп святого) в логове культа (cult_lair под алтарём)",
                     "Реликвию украли из храма в Мендеве воры, а культисты Дагона выкупили её и спрятали здесь (event_018)"
                 ],
                 "strongly_indicates": [
@@ -8578,7 +8580,7 @@
             "name": "Кисти и краска Художника",
             "type": "physical",
             "status": "confirmed",
-            "location": "city_streets",
+            "location": "bladewing_bridge",
             "discovery": {
                 "available_from_start": false,
                 "discovered_by": [
