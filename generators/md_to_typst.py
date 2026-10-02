@@ -213,14 +213,21 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
             details.append(f"*{k}* {v}")
 
     # Abilities (bulleted list after "**Способности:" / "**Заклинания").
+    # A table row whose first cell is the "Способности" / "Заклинания" label is
+    # NOT an ability header (e.g. "| **Способности** | Spell DC 25; ... |"); skip
+    # it so the parameter line is not rendered as a spell.
     abilities_raw = []
     in_abilities = False
     for ln in block:
-        if re.match(r"^\*\*Способности[:：]?\*\*", ln.strip()) or re.match(r"^\*\*Заклинания", ln.strip()):
+        if re.match(r"^\|", ln):
+            if in_abilities:
+                break
+            continue
+        stripped = ln.strip()
+        if re.match(r"^\*\*Способности[:：]?\*\*$", stripped) or re.match(r"^\*\*Заклинания", stripped):
             in_abilities = True
             continue
         if in_abilities:
-            stripped = ln.strip()
             if stripped.startswith("- "):
                 abilities_raw.append(ln.rstrip())
             elif stripped == "":
@@ -229,7 +236,12 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
                 if abilities_raw:
                     abilities_raw[-1] = abilities_raw[-1] + " " + stripped.lstrip("- ").strip()
             else:
-                if not re.match(r"^\s*\*", ln.strip()):
+                # a wrapped continuation line (indented, no leading "-"): merge
+                # into the previous ability instead of dropping it.
+                if re.match(r"\s+\S", ln):
+                    if abilities_raw:
+                        abilities_raw[-1] = abilities_raw[-1] + " " + stripped
+                elif not re.match(r"^\s*\*", stripped):
                     break
     details = list(details)
     for a in ability_lines_to_details(split_abilities(abilities_raw)):
@@ -239,29 +251,44 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
         icon = _icon_for(a)
         details.append(f"{icon} *{a}" if icon else a)
 
-    # Build the #encounter tuple.  Each detail is a single [ … ] content item
-    # on its own line, followed by a comma (this Typst version does not accept
-    # a comma-separated content list inside one [ … ]), and an entry equal to
-    # "---" renders as a divider line.
-    detail_items = []
-    for line in details:
-        text = _clean(line)
-        if text == "---":
-            detail_items.append("[---]")
-        else:
-            detail_items.append(f"[{text}]")
-    details_code = "\n".join(f"    {it}," for it in detail_items)
-
+    # Render the stat-block as a real #pftab 2-column table (label | value)
+    # instead of #encounter, which renders the details as plain paragraphs.
+    # Each detail line is "Label value"; we split it into a label cell and a
+    # value cell.  A "---" entry becomes a full-width divider row.
     out = []
-    out.append("#encounter((")
-    out.append(f"  name: [{escape(name)}],")
+    out.append(f"#pftab[{escape(name)}]")
+    out.append("#table(")
+    out.append("  columns: (1fr, 4fr),")
+    out.append("  align: (col, row) => if col == 0 { center } else { center },")
+    out.append("  fill: (col, row) =>")
+    out.append("    if row == 0 { rgb(\"002a16\") }")
+    out.append("    else if calc.odd(row + 1) { colors.pfwhite }")
+    out.append("    else { colors.otherRow },")
+    out.append("  inset: 5pt,")
+    out.append("  stroke: none,")
+
+    # Header row: name + level.
     lvl = escape(str(level)).strip()
-    out.append(f"  type: [{lvl}],")
-    out.append("  traits: ([NPC]),")
-    out.append("  details: (")
-    out.append(details_code)
-    out.append("  ),")
-    out.append("))")
+    out.append(f"  [{escape(name)}], [{lvl}],")
+
+    # Detail rows.  Each detail is "*Label* value"; split the RAW line on the
+    # first space after the label (before _clean escapes its '*'), so the label
+    # cell and value cell align in the table.
+    for line in details:
+        if line.strip() == "---":
+            # A divider spans both columns.
+            out.append("  [---], [---],")
+            continue
+        m = re.match(r"^\*([^*]+)\*\s+(.*)$", line)
+        if m:
+            label = _clean(m.group(1))
+            value = _clean(m.group(2))
+            out.append(f"  [{label}], [{value}],")
+        else:
+            # No label/value split (e.g. an ability line): put it in the value
+            # column with an empty label cell.
+            out.append(f"  [], [{_clean(line)}],")
+    out.append(")")
     return "\n".join(out)
 
 
