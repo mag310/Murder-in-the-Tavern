@@ -2,7 +2,6 @@
     "title": "Ежечасные «живые» события (NPC живут своей жизнью)",
     "note": "Каждый игровой час в таверне происходят бытовые/тайные действия NPC: общаются, едят, убивают, считают деньги, грузят товары, молятся. Это создаёт «живой» мир и даёт игрокам шанс случайно застать NPC не в той локации (по расписанию). Привязка к фазам из events.json (project.timeline) и к daily_schedule каждого персонажа.",
     "principle": "NPC живут своей жизнью независимо от игроков. Ежечасные события = их действия + тайные сцены. Тайное время (ночь) — кульминация: культисты в cult_lair, контрабанда в basement/smuggler_storage, наблюдение на мансарде (mansard).",
-    "merge_note": "Главы 2 (Таверна) и 3 (Ночь) слиты в одну главу (chapter_2_tavern, 17:30–02:00). Фаза chapter_3_night в этом файле сохранила id для совместимости, но теперь входит в chapter_2_tavern.",
     "beats": [
         {
             "phase": "chapter_2_tavern",
@@ -16,7 +15,7 @@
                 },
                 {
                     "npc": "players",
-                    "action": "18:00 — проезжают Адиванский мост (adivian_bridge, сцена; Адские рыцари; ялик на причале)",
+                    "action": "18:00 — проезжают Адивианский мост (adivian_bridge, сцена; Адские рыцари; ялик на причале)",
                     "event": "event_025",
                     "location": "adivian_bridge"
                 },
@@ -64,7 +63,7 @@
             ]
         },
         {
-            "phase": "chapter_3_night",
+            "phase": "chapter_2_tavern",
             "hour": "20:00–22:00",
             "beats": [
                 {
@@ -106,7 +105,7 @@
             ]
         },
         {
-            "phase": "chapter_3_night",
+            "phase": "chapter_2_tavern",
             "hour": "22:00–00:00",
             "beats": [
                 {
@@ -148,7 +147,7 @@
             ]
         },
         {
-            "phase": "chapter_3_night",
+            "phase": "chapter_2_tavern",
             "hour": "00:00–02:00",
             "beats": [
                 {
@@ -190,7 +189,7 @@
             ]
         },
         {
-            "phase": "chapter_4_murder",
+            "phase": "chapter_3_murder",
             "hour": "~02:00",
             "beats": [
                 {
@@ -202,7 +201,7 @@
             ]
         },
         {
-            "phase": "chapter_5_dawn",
+            "phase": "chapter_4_dawn",
             "hour": "05:45–07:15",
             "beats": [
                 {
@@ -232,7 +231,7 @@
             ]
         },
         {
-            "phase": "chapter_6_flood",
+            "phase": "chapter_5_flood",
             "hour": "07:15 и далее (каждый час)",
             "beats": [
                 {

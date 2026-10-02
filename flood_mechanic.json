@@ -16,37 +16,37 @@
             {
                 "game_hour": 0,
                 "scene": "07:15 — река вышла из берегов (event_030); таймер запущен",
-                "phase": "chapter_5_dawn"
+                "phase": "chapter_4_dawn"
             },
             {
                 "game_hour": "+1",
                 "scene": "NPC идут по morning-расписанию (daily_schedule.morning); кто-то замечает воду/труп",
-                "phase": "chapter_5_dawn"
+                "phase": "chapter_4_dawn"
             },
             {
                 "game_hour": "+2",
                 "scene": "допросы/расследование (detective daily_schedule.morning/day)",
-                "phase": "chapter_6_flood"
+                "phase": "chapter_5_flood"
             },
             {
                 "game_hour": "+3..+6",
                 "scene": "игроки расследуют; вода прибывает и блокирует подвал/логово культа (water_rise +1..+6)",
-                "phase": "chapter_6_flood"
+                "phase": "chapter_5_flood"
             },
             {
                 "game_hour": "+7..+12",
                 "scene": "дальше расследование; вода блокирует уровень земли (могила/двор)",
-                "phase": "chapter_6_flood"
+                "phase": "chapter_5_flood"
             },
             {
                 "game_hour": "+13..+18",
                 "scene": "вода блокирует 1 этаж (зал/кухня/кабинет) — сцена сгущается",
-                "phase": "chapter_6_flood"
+                "phase": "chapter_5_flood"
             },
             {
                 "game_hour": "+19..+22",
                 "scene": "вода блокирует 2 этаж (гостевые комнаты) — NPC вынужденно собираются",
-                "phase": "chapter_6_flood"
+                "phase": "chapter_5_flood"
             },
             {
                 "game_hour": "+23..+24",
