@@ -26,6 +26,7 @@ The converted content maps to the package's elements:
 
     #### [PF2e stat-block]   ->  #encounter(...)   (PF2e creature stat-block)
     #### Что зачитать / >     ->  #aloud[ ... ]              read-aloud
+    #### Важно / Внимание     ->  #attention[ ... ]          attention
     #### GM knows / ...       ->  #note[ ... ]               note
     markdown table           ->  #table(columns: ...) [ ... ] (real grid)
 
@@ -69,14 +70,19 @@ def neutralize(s: str) -> str:
       starts a raw string, and a raw string containing ``]`` or a line break
       yields "unclosed raw text" (this was the cause of the ``.json``
       failures);
-    * a ``.`` after an identifier (e.g. ``flood_mechanic.json``) is parsed as
-      a member access / call -> "unclosed delimiter"; replace it with ``:``
-      so the text is inert.
+    * a ``.`` *between* two word chars (e.g. ``flood_mechanic.json``,
+      ``kill_grid._meta``) is parsed as member access / a call ->
+      "unclosed delimiter"; replace *that* dot with ``:`` so the text is
+      inert.  A sentence-final ``.`` (followed by a space, newline, ``:`` or
+      end of text) is NOT a member access, so it is left untouched -- this is
+      what made "город." render as "город:" before.
     """
     s = s.replace("**", "")
     s = s.replace("`", "")
     s = s.replace("_", "")
-    s = re.sub(r"(\w)\.", r"\1:", s)
+    # Only a dot sandwiched between two word chars is member access.  A dot
+    # followed by a space / newline / end is a sentence end and stays a dot.
+    s = re.sub(r"(\w)\.(\w)", r"\1:\2", s)
     return s
 
 
@@ -224,7 +230,9 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
                 break
             continue
         stripped = ln.strip()
-        if re.match(r"^\*\*Способности[:：]?\*\*$", stripped) or re.match(r"^\*\*Заклинания", stripped):
+        # Header may carry trailing text (e.g. "**Способности:** _СЛ заклинаний 25; ..._"),
+        # so match only the prefix, not the whole line.
+        if re.match(r"^\*\*Способности[:：]?", stripped) or re.match(r"^\*\*Заклинания", stripped):
             in_abilities = True
             continue
         if in_abilities:
@@ -381,11 +389,24 @@ def split_abilities(abilities: list[str]) -> list[str]:
 
 
 def render_blockquote(text: str) -> str:
-    """A read-aloud blockquote becomes a PF2e ``#aloud`` (from the package)."""
+    """A read-aloud blockquote becomes a PF2e ``#aloud`` (from the package).
+
+    Paragraph breaks in the source markdown (a blank line between two
+    paragraphs) become a Typst paragraph break (``\\n\\n``); a single newline
+    (a hard-wrapped line in the middle of a paragraph) is collapsed to a
+    space so it does not force a line break.  This keeps the read-aloud text
+    flowing like the source rather than breaking at every source newline.
+    """
     text = re.sub(r"^\s*\n", "", text)
     text = neutralize(text)
+    # A blank line (one or more) is a paragraph break -> "\n\n".
+    text = re.sub(r"\n\s*\n+", "\n\n", text)
+    # Any remaining single newline is a hard wrap -> collapse to a space.
+    text = text.replace("\n", " ")
+    # Collapse runs of spaces (but keep the "\n\n" paragraph breaks).
+    text = re.sub(r"[ \t]+", " ", text)
+    text = text.strip()
     text = escape(text)
-    text = text.replace("\n", "\n\n")
     return f"#aloud[\n{text}\n]"
 
 
@@ -396,6 +417,15 @@ def render_note(title: str, body: str) -> str:
     title = neutralize(title)
     body = neutralize(body)
     return f"#note[\n{escape(title)}\n\n{escape(body)}\n]"
+
+
+def render_attention(title: str, body: str) -> str:
+    body = body.strip()
+    if not body:
+        return ""
+    title = neutralize(title)
+    body = neutralize(body)
+    return f"#attention[\n{escape(title)}\n\n{escape(body)}\n]"
 
 
 def _md_table_to_typst(table_lines: list[str]) -> str:
@@ -463,12 +493,23 @@ def convert(md_text: str) -> str:
             i = j
             continue
 
-        # ---- blockquote read-aloud / note (#### ... heading) ----
-        if stripped.startswith("####") and re.search(
-            r"Зачитать|Что зачитать|GM knows|Куда ведёт|Зацепки|Улики|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
+        # ---- read-aloud / attention / note heading (any level: ##, ###, ####, ...) ----
+        # A heading whose title is a cue becomes an #aloud, #attention or #note.
+        # Works for ANY heading level (the body may be a blockquote ">", plain
+        # prose, or a mixed block).  Routing by title (a blockquote ">" body is
+        # treated as read-aloud only when the title is NOT an attention cue):
+        #   - "Зачитать"/"Что зачитать"              -> #aloud
+        #   - "Важно"/"Внимание"                     -> #attention
+        #   - a ">"-blockquote body (no other cue)   -> #aloud
+        #   - other cues (GM knows, Наблюдения, …)   -> #note
+        # Priority: "Зачитать" title > "Важно"/"Внимание" title > ">"-body > #note.
+        # So a "Важно: …" block that is also a ">"-quote becomes #attention (a
+        # technical caution), not #aloud, and a "Зачитать" title is always #aloud.
+        if re.match(r"^#{1,6}\s", stripped) and re.search(
+            r"Зачитать|Что зачитать|Важно|Внимание|GM knows|Куда ведёт|Зацепки|Улики|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
             stripped,
         ):
-            title = stripped.lstrip("#").strip()
+            title = re.sub(r"^#+\s+", "", stripped).strip()
             j = i + 1
             body_lines = []
             while j < n:
@@ -479,8 +520,15 @@ def convert(md_text: str) -> str:
                 body_lines.append(lines[j])
                 j += 1
             body = "\n".join(body_lines).strip()
-            is_read = re.search(r"Зачитать|Что зачитать", title) or body.startswith(">")
+            is_read = re.search(r"Зачитать|Что зачитать", title)
+            is_attention = re.search(r"Важно|Внимание", title)
             if is_read and body:
+                clean = re.sub(r"^>\s?", "", body, flags=re.MULTILINE)
+                out.append(render_blockquote(clean))
+            elif is_attention and body:
+                clean = re.sub(r"^>\s?", "", body, flags=re.MULTILINE)
+                out.append(render_attention(title, clean))
+            elif body.startswith(">") and body:
                 clean = re.sub(r"^>\s?", "", body, flags=re.MULTILINE)
                 out.append(render_blockquote(clean))
             else:
@@ -494,6 +542,44 @@ def convert(md_text: str) -> str:
             level = len(m.group(1))
             text = neutralize(m.group(2).strip())
             text = escape(text)
+            # ---- chapter header (level-1 "Глава N. Title") ----
+            # A level-1 "Глава N. Title" heading becomes a decorative
+            # #chap-header.  The description is the next non-empty, non-heading,
+            # non-image line (usually the "Таймлайн главы N: …" line); it is
+            # consumed so it is not re-emitted as a normal paragraph.
+            cm = re.match(r"^Глава\s+(\d+)\s*[.:]\s*(.*)$", text)
+            if level == 1 and cm:
+                num = cm.group(1)
+                title = cm.group(2).strip() or text
+                # Look ahead for the description (next non-empty meaningful line).
+                desc = ""
+                k = i + 1
+                while k < n:
+                    nxt = lines[k].strip()
+                    if nxt == "":
+                        k += 1
+                        continue
+                    if re.match(r"^#{1,6}\s", nxt):
+                        break
+                    if re.match(r"^!\[", nxt) or nxt == "---":
+                        k += 1
+                        continue
+                    # The first real line after the title is the description.
+                    desc = re.sub(r"\**", "", nxt).strip()
+                    k += 1
+                    break
+                title_txt = neutralize(title)
+                title_txt = escape(title_txt)
+                desc_txt = neutralize(desc)
+                desc_txt = escape(desc_txt)
+                # Quote all three args so colons / parens / punctuation in the
+                # title or description cannot break the call's argument list.
+                out.append(
+                    f"#chap-header(\"{escape(num)}\", "
+                    f"\"{title_txt}\", \"{desc_txt}\")"
+                )
+                i = k
+                continue
             prefix = "=" * min(level, 6)
             out.append(f"{prefix} {text}")
             i += 1
@@ -507,7 +593,17 @@ def convert(md_text: str) -> str:
                 bq.append(lines[j].strip()[1:].lstrip())
                 j += 1
             clean = "\n".join(bq).strip()
-            out.append(render_blockquote(clean))
+            # A "Важно"/"Внимание" caution is a technical attention block, not a
+            # read-aloud.  Detect it in the first line (bare or **bold**).
+            first = re.sub(r"\**", "", bq[0]).strip() if bq else ""
+            if re.search(r"Важно|Внимание", first):
+                # The title already says "Важно", so drop a leading "Важно:" /
+                # "Внимание:" marker (bold or bare) from the body to avoid
+                # duplicating it.
+                body = re.sub(r"^\s*\**\s*(?:Важно|Внимание)\s*\**\s*:?\s*", "", clean, count=1)
+                out.append(render_attention("Важно", body))
+            else:
+                out.append(render_blockquote(clean))
             i = j
             continue
 
