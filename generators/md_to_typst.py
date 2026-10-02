@@ -106,10 +106,17 @@ def typst_inline(line: str) -> str:
     the rest of the line is neutralised and its brackets escaped, then the
     stashed image paths are re-inserted as ``#image(...)``.
     """
-    images: list[str] = []
+    images: list[tuple[str, str]] = []  # (path, width-spec)
 
     def _stash(m: "re.Match[str]") -> str:
-        images.append(m.group(2))
+        inner = m.group(2).strip()
+        # An optional trailing "NN%" sets the #image width; default 100%.
+        wm = re.match(r"^(.*?)\s+(\d+%\s*)$", inner)
+        if wm:
+            path, width = wm.group(1).strip(), wm.group(2).strip()
+        else:
+            path, width = inner, "100%"
+        images.append((path, width))
         return f"\x00IMG{len(images) - 1}\x00"
 
     s = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", _stash, line)
@@ -119,9 +126,13 @@ def typst_inline(line: str) -> str:
     # "flood_mechanic.json" dots into ":" (member access) and escape() would
     # backslash-escape every "." into a Typst path separator.  The raw path
     # is safe inside the #image("...") string argument.
+    def _reinsert(m: "re.Match[str]") -> str:
+        path, width = images[int(m.group(1))]
+        return f'#image("{path}", width: {width})'
+
     s = re.sub(
         r"\x00IMG(\d+)\x00",
-        lambda m: f'#image("{images[int(m.group(1))].strip()}", width: 80%)',
+        _reinsert,
         s,
     )
     return s
@@ -356,36 +367,30 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
     """
     rows = parse_table(block)
 
-    # Name + level: from the heading just above the stat-block.  Two shapes:
-    #   "## Стат-блок: Name — Role (d6=N)"  and  "#### NPC: Name"
-    # NOTE: the "(d6=N)" is the d6 ID, NOT the character's level.  The real
-    # level comes from the table's "Уровень" row, so we only take the NAME
-    # from the heading here and read the level from the table below.
-    name = "NPC"
+    # Name + level: from the heading just above the stat-block.  Shapes:
+    #   "## Стат-блок: Name — Role (d6=N)"  /  "#### NPC: Name"
+    #   "#### Статблок: Name — Creature N"  /  "#### Стражники доттари (…)"
+    # NOTE: the "(d6=N)" / "(NPC=N)" / "(Creature N)" is an ID, NOT the
+    # character's level.  The real level comes from the table's "Уровень"
+    # row, so we only take the NAME from the heading here.
+    name = ""
     if heading:
-        hm = re.search(r"Стат-блок:\s*(.+?)\s*\(d6\s*=\s*\d+\)", heading)
+        # A "Стат-блок:" / "Статблок:" prefix (hyphen optional) + name.
+        hm = re.search(r"Стат(?:-|)блок\s*:\s*(.+)", heading)
         if hm:
             name = hm.group(1).strip()
         else:
-            hm = re.search(r"Стат-блок:\s*(.+?)\s*\(NPC\s*=\s*\d+\)", heading)
-            if hm:
-                name = hm.group(1).strip()
-            else:
-                hm = re.search(r"Стат-блок:\s*(.+)$", heading)
-                if hm:
-                    name = hm.group(1).strip()
-        if name == "NPC":
-            nm = re.search(r"NPC:\s*(.+?)\s*\(d6\s*=\s*\d+\)", heading)
+            # An "NPC: Name" heading.
+            nm = re.search(r"NPC\s*:\s*(.+)", heading)
             if nm:
                 name = nm.group(1).strip()
-            else:
-                nm = re.search(r"NPC:\s*(.+)$", heading)
-                if nm:
-                    name = nm.group(1).strip()
+        # Any other heading IS the name (e.g. "Стражники доттари (4 бойца …)").
+        if not name:
+            name = heading.strip()
     # Level: always the real character level from the table "Уровень" row.
     level = rows.get("Уровень", "")
     # Fallback: name from an in-block "**Name (d6=N)**" (never the d6 itself).
-    if not name or name == "NPC":
+    if not name:
         m = re.search(r"\*\*(.+?)\s*\(d6\s*=\s*\d+\)", "\n".join(block))
         if m:
             name = m.group(1).strip()
@@ -773,12 +778,7 @@ def _md_table_to_typst(table_lines: list[str]) -> str:
     """Convert a markdown grid table to a Typst ``#table`` that renders as a
     real table.  Every cell is escaped and its parentheses flattened so nothing
     can close the ``[...]`` cell list early."""
-    rows = []
-    for ln in table_lines:
-        cells = [c.strip() for c in ln.strip().strip("|").split("|")]
-        if cells and set("".join(cells)) <= set("-: "):
-            continue
-        rows.append(cells)
+    rows = _md_table_rows(table_lines)
     if not rows:
         return ""
     ncol = len(rows[0])
@@ -796,12 +796,148 @@ def _md_table_to_typst(table_lines: list[str]) -> str:
     out.append(")")
     return "\n".join(out)
 
-def convert(md_text: str) -> str:
+
+def _md_table_rows(table_lines: list[str]) -> list[list[str]]:
+    """Split raw markdown grid rows into cell lists, dropping separator rows."""
+    rows = []
+    for ln in table_lines:
+        cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+        if cells and set("".join(cells)) <= set("-: "):
+            continue
+        rows.append(cells)
+    return rows
+
+
+def _md_table_to_pftab(table_lines: list[str], name: str = "") -> str:
+    """Convert a markdown grid table to a Typst ``#pftab`` (the PF2e-Remastered
+    styled table: an uppercase title plus alternating row fills and a dark
+    header row).  ``name`` becomes the table's title; if empty it is omitted."""
+    rows = _md_table_rows(table_lines)
+    if not rows:
+        return ""
+    ncol = len(rows[0])
+
+    cols = ", ".join(["1fr"] * ncol)          # -> "1fr, 1fr, 1fr"
+    out: list[str]
+    if name:
+        out = [f"#pftab([{escape(name)}], columns: ({cols}),"]
+    else:
+        out = [f"#pftab(columns: ({cols}),"]
+    for r in rows:
+        while len(r) < ncol:
+            r.append("")
+        cells = [
+            f"[{escape(neutralize(c).replace('(', ' - ').replace(')', ''))}]"
+            for c in r[:ncol]
+        ]
+        out.append("  " + ", ".join(cells) + ",")
+    out.append(")")
+    return "\n".join(out)
+
+# Module-global flag: has at least one level-1/2/3 heading already been
+# emitted?  The first one of the whole document does NOT get a page break
+# (it would leave page 1 empty); from the second heading onward a
+# #page.break() is emitted before the heading.
+_PAGE_BROKEN = False
+
+# Module-global fence state.  `_FENCE` tracks the currently open `:::` fence
+# ("one-col" / "pftab" / None); `_PFTAB_NAME` holds the title for a pftab fence.
+_FENCE = None
+_PFTAB_NAME = ""
+
+# The most recent heading text, used to title auto-wrapped `#pftab` tables.
+_last_heading = ""
+
+
+def _extract_pftab_name(stripped: str) -> str:
+    """Pull the table title out of a `::: pftab[Title]` fence line, e.g.
+    `::: pftab[Весткроун]` -> "Весткроун".  Empty when no title is given."""
+    m = re.search(r"\[([^\]]*)\]", stripped)
+    return neutralize(m.group(1).strip()) if m else ""
+
+
+# Table-classification helpers used to auto-wrap every markdown table in a
+# `::: pftab` (styled table) and/or `::: one-col` (full-width single column)
+# fence, so the author does not have to annotate each table by hand.
+_PFTAB_HEADER_COLS = {"УРОВЕНЬ", "ЗАКЛ. УРОВНЯ", "УРОВЕНЬ/ЗАКЛ. УРОВНЯ"}
+
+# Headings whose table is a *stat block* (character/creature/NPC stat sheet).
+# These render as a `#statblock`, so they must NOT be turned into a `#pftab`.
+_STATBLOCK_HEADINGS = (
+    "Стат-блок", "Статблок", "Статблок:", "NPC:", "NPC ", "NPC.",
+)
+
+_DIALOGUE_HDR = "Вопрос"
+_DIALOGUE_COL = "Ответ"
+# Columns that name an attitude/level bucket, i.e. a table whose body cells are
+# spoken dialogue lines keyed by candor/attitude (the "dialogue tables").
+_ATTITUDE_COLS = {
+    "Hostile", "Unfriendly", "Indifferent", "Friendly", "Helpful",
+    "Осторожный", "Доверяет", "Не доверяет",
+}
+
+
+def _pftab_name(table_lines: list[str], context: dict) -> str:
+    """Derive the `#pftab` title for a table.  Prefers the nearest preceding
+    heading; falls back to a label from the header row (e.g. "Весткроун")."""
+    h = context.get("heading")
+    if h:
+        return neutralize(h)
+    # 2-col tables whose first header cell is a plain proper noun (e.g. the
+    # "Весткроун | Город" facts table) -> use that cell as the title.
+    if len(context.get("header_cells", [])) == 2:
+        c0 = neutralize(context["header_cells"][0])
+        if c0 and c0.isupper() is False and not c0.startswith("**"):
+            return c0
+    return context.get("heading") or "Таблица"
+
+
+def _header_cells(table_lines: list[str]) -> list[str]:
+    """The table's header row cells (the first non-separator row)."""
+    for ln in table_lines:
+        s = ln.strip()
+        if re.match(r"^\|[\s\-:|]+\|", s):
+            continue  # separator row
+        return [c.strip() for c in s.strip("|").split("|")]
+    return []
+
+
+def is_dialogue(table_lines: list[str], context: dict) -> bool:
+    """True when a table is a *dialogue* table (question/answer or
+    question-by-attitude), which must be rendered in a single full-width
+    column so the spoken lines are not split across the 2-column page."""
+    hdr = context.get("header_cells", [])
+    cols = [c.strip() for c in hdr]
+    if _DIALOGUE_HDR in cols:
+        return True
+    if _DIALOGUE_COL in cols:
+        return True
+    if _ATTITUDE_COLS.intersection(c.strip() for c in cols):
+        return True
+    return False
+
+
+def _is_statblock(context: dict) -> bool:
+    """True when the table sits under a stat-block heading (stat sheet)."""
+    h = context.get("heading", "")
+    return any(h.startswith(s) for s in _STATBLOCK_HEADINGS)
+
+
+def convert(md_text: str, page_broken: bool = False) -> str:
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _last_heading
+    _FENCE = None
+    _PFTAB_NAME = ""
+    # `_last_heading` is reset per `convert()` call so that the first table of
+    # each chapter file does not inherit the last heading of the previous file
+    # (the assembled book calls `convert()` once per chapter).
+    _last_heading = ""
     lines = md_text.split("\n")
     out: list[str] = []
 
     i = 0
     n = len(lines)
+    if page_broken:
+        _PAGE_BROKEN = True
     while i < n:
         ln = lines[i]
         stripped = ln.strip()
@@ -809,18 +945,34 @@ def convert(md_text: str) -> str:
         # ---- [PF2e stat-block] section (### or #### heading) ----
         if re.sub(r"^#+\s+", "", stripped) == "[PF2e stat-block]":
             # The block itself is only the table + abilities.  The character
-            # name/level live in a heading just above: either a
-            # "## Стат-блок: Name — Role (d6=N)" heading or a "#### NPC: Name"
-            # heading.  Scan upward to the nearest one and pass it in.
+            # name/level live in a heading above the [PF2e stat-block] marker.
+            # Strategy: scan upward and take the FIRST heading that is either an
+            # explicit "Стат-блок"/"Статблок"/"NPC:" stat-block heading, or (if
+            # none exists) the nearest heading that is NOT a per-character
+            # sub-section (Идентификация / Скрывает / Хочет / Что зачитать /
+            # Описание / …).  This keeps the right name for both the d6
+            # characters (whose stat-block marker sits deep in the section, so
+            # the nearest heading is a sub-section like "Хочет") and the unnamed
+            # creatures (whose own heading is "Статблок: …" or "Стражники …").
+            _SUBSECTIONS = (
+                "Идентификация", "Скрывает", "Хочет", "Что зачитать",
+                "Описание", "GM knows", "Наблюдения", "Атмосфера",
+            )
             heading = ""
             for k in range(i - 1, -1, -1):
-                hm = re.match(r"^#{1,6}\s+(.*)$", lines[k].strip())
+                nxt = lines[k].strip()
+                hm = re.match(r"^#{1,6}\s+(.*)$", nxt)
                 if not hm:
                     continue
                 h = hm.group(1).strip()
-                if "Стат-блок" in h or re.match(r"^NPC:\s+", h):
+                if re.search(r"Стат(?:-)?блок\s*:", h) or re.match(r"NPC\s*:", h):
                     heading = h
                     break
+                if any(h.startswith(s) for s in _SUBSECTIONS):
+                    continue
+                # First non-sub-section heading above is the character's heading.
+                heading = h
+                break
             j = i + 1
             block = []
             # 1) collect the stat table (until the first heading or "---").
@@ -902,16 +1054,31 @@ def convert(md_text: str) -> str:
             level = len(m.group(1))
             text = neutralize(m.group(2).strip())
             text = escape(text)
-            # ---- chapter header (level-1 "Глава N. Title") ----
-            # A level-1 "Глава N. Title" heading becomes a decorative
-            # #chap-header.  The description is the next non-empty, non-heading,
-            # non-image line (usually the "Таймлайн главы N: …" line); it is
-            # consumed so it is not re-emitted as a normal paragraph.
+            # Page breaks before level-1/2/3 headings are handled by the
+            # #show heading rule in pf2e-style/style/formatting.typ (which
+            # prepends #page to every level 1/2/3 heading).  No break is
+            # emitted here.
+            pass
+            # ---- chapter header (ANY level-1 heading) ----
+            # A level-1 heading becomes a decorative #chap-header.  A "Глава N.
+            # Title" heading splits into num + title; any other level-1 heading
+            # uses the whole title as the title (num = "").  The description is
+            # the next non-empty, non-heading, non-image line (usually the
+            # "Таймлайн главы N: …" line); it is consumed so it is not
+            # re-emitted as a normal paragraph.
             cm = re.match(r"^Глава\s+(\d+)\s*[.:]\s*(.*)$", text)
-            if level == 1 and cm:
-                num = cm.group(1)
-                title = cm.group(2).strip() or text
+            if level == 1:
+                if cm:
+                    num = cm.group(1)
+                    title = cm.group(2).strip() or text
+                else:
+                    num = ""
+                    title = text
                 # Look ahead for the description (next non-empty meaningful line).
+                # Only a heading / image / "---" / ":::" fence STOPS the scan
+                # (they are not the description and must NOT be consumed — an
+                # image or a fence especially must stay in the flow to be
+                # rendered); blank lines are skipped.
                 desc = ""
                 k = i + 1
                 while k < n:
@@ -921,10 +1088,25 @@ def convert(md_text: str) -> str:
                         continue
                     if re.match(r"^#{1,6}\s", nxt):
                         break
+                    # An image, a "---", or a `:::` fence: do NOT consume it —
+                    # break so it is re-processed below (otherwise the image /
+                    # fence would be lost, e.g. a `::: one-col` after the title).
+                    # A *closing* `:::` (one-col) also ends the level-1 heading
+                    # here: the heading stays inside the one-col block and renders
+                    # as a normal `==` heading rather than a `#chap-header`.
                     if re.match(r"^!\[", nxt) or nxt == "---":
+                        break
+                    if re.match(r"^:::\s*$", nxt):
+                        break
+                    # An *opening* `:::` fence (one-col / pftab) must NOT be
+                    # consumed as the description, but it is a full-width block
+                    # start that belongs before this heading — skip it so the
+                    # scan can reach the real description.
+                    if re.match(r"^:::", nxt):
                         k += 1
                         continue
-                    # The first real line after the title is the description.
+                    # The first real (non-image, non-heading, non-fence) line is
+                    # the desc.
                     desc = re.sub(r"\**", "", nxt).strip()
                     k += 1
                     break
@@ -934,6 +1116,25 @@ def convert(md_text: str) -> str:
                 desc_txt = escape(desc_txt)
                 # Quote all three args so colons / parens / punctuation in the
                 # title or description cannot break the call's argument list.
+                # The first level-1 heading of the whole document does NOT get a
+                # page break before it -- it would leave page 1 empty.
+                # If the chapter opens with a `::: one-col` fence (the description
+                # scan stops at a `:::` fence), the `#set page(columns: 1)` that
+                # the fence emits provides the full-width start on its own, so no
+                # separate `#pagebreak()` is emitted before the chapter header.
+                follow = ""
+                for kk in range(k, n):
+                    s = lines[kk].strip()
+                    if s == "":
+                        continue
+                    follow = s
+                    break
+                if re.match(r"^:::\s*one-col\s*$", follow):
+                    pass
+                elif _PAGE_BROKEN:
+                    out.append("#pagebreak()")
+                else:
+                    _PAGE_BROKEN = True
                 out.append(
                     f"#chap-header(\"{escape(num)}\", "
                     f"\"{title_txt}\", \"{desc_txt}\")"
@@ -941,7 +1142,19 @@ def convert(md_text: str) -> str:
                 i = k
                 continue
             prefix = "=" * min(level, 6)
+            if level <= 3:
+                # A page break before the heading (so the heading starts a new
+                # page).  The very first heading of the whole document does NOT
+                # get one -- it would leave page 1 empty.
+                if _PAGE_BROKEN:
+                    out.append("#pagebreak()")
+                else:
+                    _PAGE_BROKEN = True
             out.append(f"{prefix} {text}")
+            # Remember the (raw, un-escaped) heading text so the next auto-wrapped
+            # `#pftab` table can use it as the table title.  `neutralize`/`escape`
+            # are applied later in `_md_table_to_pftab`, so store it un-escaped.
+            _last_heading = re.sub(r"\**", "", m.group(2).strip())
             i += 1
             continue
 
@@ -973,6 +1186,29 @@ def convert(md_text: str) -> str:
             i += 1
             continue
 
+        # ---- fences: ::: one-col / ::: pftab[Title] … ::: ----
+        # A single fence state machine.  `::: one-col` opens a full-width page
+        # block (emits `#set page(columns: 1)`); `::: pftab[Title]` opens a
+        # styled-table block that routes the next markdown table to `#pftab`.
+        # A bare `:::` closes the most recent open fence.
+        if re.match(r"^:::\s*one-col\s*$", stripped):
+            _FENCE = "one-col"
+            out.append("#set page(columns: 1)")
+            i += 1
+            continue
+        if re.match(r"^:::\s*pftab\s*(\[[^\]]*\])?\s*$", stripped):
+            _FENCE = "pftab"
+            _PFTAB_NAME = _extract_pftab_name(stripped)
+            i += 1
+            continue
+        if re.match(r"^:::\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = None
+            _PFTAB_NAME = ""
+            i += 1
+            continue
+
         # ---- markdown table (non stat-block) ----
         if re.match(r"^\|", ln) and i + 1 < n and re.match(r"^\|[\s\-:|]+\|", lines[i + 1]):
             table_lines = [ln]
@@ -980,7 +1216,28 @@ def convert(md_text: str) -> str:
             while k < n and re.match(r"^\|", lines[k]):
                 table_lines.append(lines[k])
                 k += 1
-            out.append(_md_table_to_typst(table_lines))
+
+            if _FENCE == "pftab":
+                # A manual `::: pftab[Title]` fence already wraps this table.
+                out.append(_md_table_to_pftab(table_lines, name=_PFTAB_NAME))
+                _FENCE = None
+                _PFTAB_NAME = ""
+            else:
+                # Auto-wrap the table: every markdown table becomes a `#pftab`
+                # (styled table); a *dialogue* table is additionally wrapped in
+                # `::: one-col` so its spoken lines stay full-width.  Stat-block
+                # sheets (under a "Стат-блок"/"NPC:" heading) are left as-is so
+                # they still render as a `#statblock`.
+                ctx = {"heading": _last_heading, "header_cells": _header_cells(table_lines)}
+                if _is_statblock(ctx):
+                    out.append(_md_table_to_typst(table_lines))
+                else:
+                    is_onecol = is_dialogue(table_lines, ctx)
+                    if is_onecol:
+                        out.append("#set page(columns: 1)")
+                    out.append(_md_table_to_pftab(table_lines, name=_pftab_name(table_lines, ctx)))
+                    if is_onecol:
+                        out.append("#set page(columns: 2)")
             i = k
             continue
 
@@ -1006,6 +1263,10 @@ def convert(md_text: str) -> str:
             if nxt.strip().startswith(">"):
                 break
             if nxt.strip() == "---":
+                break
+            # A `:::` fence line must stop the paragraph so the fence branch can
+            # process it (otherwise it would be absorbed into the paragraph).
+            if re.match(r"^:::", nxt.strip()):
                 break
             para.append(nxt)
             j += 1
@@ -1037,7 +1298,7 @@ import shutil
 
 
 def _vendor_pf2e_style(out_dir: Path) -> None:
-    """Copy the vendored pf2e-style package next to the .typ output so the
+    """Copy the pf2e-style package next to the .typ output so the
     package's own `#import "style/..."` and its action-icon SVG paths resolve
     relative to the .typ file (typst resolves image paths relative to the
     *input* file, not the imported module).  Done so the build is fully
@@ -1045,6 +1306,17 @@ def _vendor_pf2e_style(out_dir: Path) -> None:
     root = Path(__file__).resolve().parent.parent
     src = root / "vendor" / "pf2e-style"
     dst = out_dir / "pf2e-style"
+    if not src.exists():
+        # vendor/ is absent; the package already lives next to the .typ
+        # output (publication/murder/pf2e-style), so there is nothing to copy.
+        if dst.exists():
+            return
+        print(
+            f"warning: {src} not found and {dst} does not exist; "
+            f"skipping vendor copy (the .typ import may not resolve).",
+            file=sys.stderr,
+        )
+        return
     if dst.exists():
         shutil.rmtree(dst)
     shutil.copytree(src, dst)
@@ -1054,6 +1326,10 @@ def assemble_book(paths: list[Path]) -> str:
     """Concatenate several chapter .md files into one Typst document, each
     starting on a new page.  Image paths stay relative to the first file's
     directory, so the output must be written alongside it (see main)."""
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME
+    _PAGE_BROKEN = False  # reset so the first heading of the book has no break
+    _FENCE = None
+    _PFTAB_NAME = ""
     parts = []
     for p in paths:
         md = p.read_text(encoding="utf-8")

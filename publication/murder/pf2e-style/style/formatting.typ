@@ -30,34 +30,37 @@
   show <s>: set par(first-line-indent: 0em)
 
   /// Headers
-  show heading.where(level: 1): it => {
-    set par(first-line-indent: 0em)
-    text(
+  show heading.where(level: 1): it => [
+    #page
+    #set par(first-line-indent: 0em)
+    #text(
       font: ("Taroca", "Liberation Sans"), // Staple Pathfinder font
       size: 1.6em,
       fill: colors.pfgreen,
       weight: "extrabold",
       it.body
     )
-  }
-  show heading.where(level: 2): it => {
-    set par(first-line-indent: 0em)
-    text(
+  ]
+  show heading.where(level: 2): it => [
+    #page
+    #set par(first-line-indent: 0em)
+    #text(
       size: 1.4em,
       fill: colors.pfred,
       weight: "bold",
       it.body
     )
-  }
-  show heading.where(level: 3): it => {
-    set par(first-line-indent: 0em)
-    text(
+  ]
+  show heading.where(level: 3): it => [
+    #page
+    #set par(first-line-indent: 0em)
+    #text(
       size: 1.3em,
       fill: colors.lightgreen,
       weight: "bold",
       it.body
     )
-  }
+  ]
   show heading.where(level: 4): it => block(
     width: 100%, 
     rect(
