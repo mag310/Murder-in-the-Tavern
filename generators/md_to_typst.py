@@ -1,48 +1,104 @@
 #!/usr/bin/env python3
-"""Convert masters-book.md (PF2e source) to a Typst document using the
-pf2e-style package (https://gitlab.com/Jed_Hed/pf2e-typst).
+"""Convert the *Murder in the Tavern* chapters to a Typst document (native, no
+external package).
 
-Strategy: a section-aware markdown->typst translator. Most content passes
-through as Typst-native markup (Typst reads a large subset of Markdown
-directly), but a handful of structural blocks are mapped to the package's
-helpers:
+Source: the publication chapters live in ``publication/murder/*.md``.  Image
+references inside those files use paths relative to that directory, e.g.
+``../../locations/...`` and ``../../maps/...`` which resolve against the
+repository root.  The output ``.typ`` is therefore written **next to the source
+``.md``** (in ``publication/murder/``), and ``typst`` must be invoked with
+``--root <repo>`` (done in ``main`` via ``typst`` CLI; see the README note at
+the bottom of this file) so those relative paths resolve inside the sandbox.
 
-    #### [PF2e stat-block]  ->  #encounter(...)   (stat-block table + abilities)
-    #### Что зачитать / blockquote -> #aloud[...]  (read-aloud)
-    #### GM knows / #### Куда / #### Зацепки  -> #note[...]
+Two modes:
+    1. single file   -- md_to_typst.py <in.md> [<out.typ>]
+    2. whole book    -- md_to_typst.py --book [<out.typ>]
+                       concatenates 00-synopsis + 01-lore + 02-chapter-1 +
+                       03-chapter-2 into one book.
 
-Output is written next to the source .md as <name>.typ.
+Why native Typst (and not the pf2e-style package): the package
+``@preview/pf2e-style`` cannot be fetched offline, so ``#import`` fails and
+``#aloud`` / ``#note`` / ``#encounter`` are "unknown variable".  We therefore
+emit **native Typst** only:
+
+    #### [PF2e stat-block]   ->  a #table(...) block (title + rows + abilities)
+    #### Что зачитать / >     ->  #box(fill: gray.lighten(85%), [ ... ])   read-aloud
+    #### GM knows / ...       ->  #box(stroke: 1pt, [ ... ])               note
+    markdown table           ->  #table(columns: ...) [ ... ]            (real grid)
+
+Robustness (the whole point of the rewrite): Typst's content delimiter is
+``[`` / ``]`` and its emphasis delimiter is ``*``.  Two failure modes existed
+before and are both fixed by the single ``escape`` rule below:
+
+    * any stray ``[`` / ``]`` inside a bracketed block closes it early
+      ("unclosed delimiter");
+    * ``**bold**`` converted to ``*bold*`` can split across a line break,
+      leaving an unbalanced ``*`` that closes an emphasis span.
+
+So ``escape`` *removes* ``**`` outright (emphasis is dropped, never balanced)
+and turns ``[`` / ``]`` into the safe ``{`` / ``}`` escapes.  It is applied to
+every content fragment, so no ``*`` or ``[`` can ever break a block.
 """
 
-import os
 import re
 import sys
 from pathlib import Path
 
 # ---- PF2e stat-block field maps (Russian label -> typst detail line) ----
-
-# Map the "Навыки" / ability rows to a single compact detail line.
-SAVE_ROW = {
-    "Спасброски": ("*Saves*", "saves"),
-}
-
-# Russian ability label -> short English-ish trait token used by the package.
-# The package colours traits by token, so we keep PF2e-style tokens.
-TRAIT_TOKENS = {
-    "human": "Человек",
-    "half-elf": "Полуэльф",
-    "ghost": "Призрак",
-    "cleric": "Жрец",
-    "rogue": "Вор",
-    "fighter": "Воин",
-    "investigator": "Следователь",
-    "champion": "Чемпион",
-    "alchemist": "Алхимик",
-}
+SAVE_ROW = {"Спасброски": ("Saves", "saves")}
 
 
-def md_bold(s: str) -> str:
-    """**text** -> *text* (Typst emphasis)."""
+def escape(s: str) -> str:
+    """Escape ``{`` / ``}`` / ``[`` / ``]`` so they cannot break a Typst
+    ``[...]`` content block.  This is the *only* transform that touches
+    brackets, so it is safe to run on image paths too."""
+    return s.replace("{", "{ {").replace("}", "} }").replace("[", "{").replace("]", "}")
+
+
+def neutralize(s: str) -> str:
+    """Make plain text inert so it cannot break a Typst content block.
+
+    * ``**`` is removed -- a lone/unbalanced ``*`` closes an emphasis span;
+    * ``_`` is removed -- ``_`` starts an emphasis span too (e.g. an
+      identifier ``kill_grid`` is read as ``kill`` + ``_grid...`` emphasis),
+      and an unbalanced ``_`` -> "unclosed delimiter";
+    * `` `` `` (backticks) are removed -- in a ``[...]`` block a backtick
+      starts a raw string, and a raw string containing ``]`` or a line break
+      yields "unclosed raw text" (this was the cause of the ``.json``
+      failures);
+    * a ``.`` after an identifier (e.g. ``flood_mechanic.json``) is parsed as
+      a member access / call -> "unclosed delimiter"; replace it with ``:``
+      so the text is inert.
+    """
+    s = s.replace("**", "")
+    s = s.replace("`", "")
+    s = s.replace("_", "")
+    s = re.sub(r"(\w)\.", r"\1:", s)
+    return s
+
+
+def typst_inline(line: str) -> str:
+    """Convert a single markdown line to Typst-friendly inline markup.
+
+    Image spans are stashed *before* neutralisation so their paths (which
+    contain ``.`` that :func:`neutralize` would turn into ``:``) survive;
+    the rest of the line is neutralised and its brackets escaped, then the
+    stashed image paths are re-inserted as ``#image(...)``.
+    """
+    images: list[str] = []
+
+    def _stash(m: "re.Match[str]") -> str:
+        images.append(m.group(2))
+        return f"\x00IMG{len(images) - 1}\x00"
+
+    s = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", _stash, line)
+    s = neutralize(s)
+    s = escape(s)
+    s = re.sub(
+        r"\x00IMG(\d+)\x00",
+        lambda m: f'#image("{escape(images[int(m.group(1))])}", width: 80%)',
+        s,
+    )
     return s
 
 
@@ -53,11 +109,9 @@ def read_block(lines: list[str], i: int) -> tuple[int, list[str]]:
     block = []
     while j < len(lines):
         ln = lines[j]
-        # Stop at the next heading or a hard stop.
         if re.match(r"^#{1,6}\s", ln.strip()):
             break
         if ln.strip() == "---":
-            # Horizontal rule — stop the block (it separates sections).
             break
         block.append(ln)
         j += 1
@@ -73,10 +127,8 @@ def parse_table(block: list[str]) -> dict[str, str]:
             continue
         key, val = m.group(1).strip(), m.group(2).strip()
         key = key.strip("*").strip()
-        # Skip the separator row.
         if set(val) <= set("-: "):
             continue
-        # Skip the header row.
         if key in ("Параметр", "Parameter"):
             continue
         rows[key] = val
@@ -84,10 +136,7 @@ def parse_table(block: list[str]) -> dict[str, str]:
 
 
 def ability_lines_to_details(abilities: list[str]) -> list[str]:
-    """Convert a list of markdown bullet abilities into typst detail lines.
-    Each bullet: - **Name (N actions):** text  ->  *Name* #A ... text
-    The package shows action icons via #A / #AA / #AAA / #R / #F.
-    """
+    """Convert a list of markdown bullet abilities into typst detail lines."""
     out = []
     for b in abilities:
         b = b.strip()
@@ -98,21 +147,18 @@ def ability_lines_to_details(abilities: list[str]) -> list[str]:
             out.append(b)
             continue
         name, rest = m.group(1).strip(), m.group(2).strip()
-        # Detect action economy markers in the name/first clause.
         icon = ""
         low = (name + rest).lower()
-        # We do not auto-inject icons to avoid mislabelling; leave them out
-        # unless a clear "реакция"/"1 действие" marker is present.
         if re.search(r"\bреакция\b", low):
-            icon = " #R"
+            icon = " (реакция)"
         elif re.search(r"\b2 действия?\b|\bдва действия?\b", low):
-            icon = " #AA"
+            icon = " (2 действия)"
         elif re.search(r"\b1 действие\b|\bодно действие\b", low):
-            icon = " #A"
+            icon = " (1 действие)"
         elif re.search(r"\b3 действия?\b|\bтри действия?\b", low):
-            icon = " #AAA"
+            icon = " (3 действия)"
         text = (rest or "").lstrip(":").strip()
-        line = f"*{name}{icon}*"
+        line = f"{name}{icon}"
         if text:
             line += f" {text}"
         out.append(line)
@@ -145,90 +191,58 @@ def split_abilities(abilities: list[str]) -> list[str]:
 
 
 def parse_stat_block(block: list[str]) -> str:
-    """Build a #encounter(...) call from a [PF2e stat-block] section."""
+    """Render a [PF2e stat-block] as a native Typst ``#table`` (title + rows +
+    abilities).  No external package is used, so this always compiles offline.
+
+    Every value is escaped and its parentheses are flattened (``(a)`` -> ``- a``)
+    so nested ``(...)`` cannot break a Typst tuple/argument.
+    """
     rows = parse_table(block)
 
-    # Name: line like **Гаэтано Вельди — Трактирщик (NPC 5)**
-    name = rows.get("Персонаж", "")
-    # Try to pull a name from the **bold** line above the table.
     m = re.search(r"\*\*(.+?)\s*\(NPC\s*(\d+)\)", "\n".join(block))
     if m:
-        full_name = m.group(1).strip()
-        npc_level = m.group(2)
+        name = m.group(1).strip()
+        level = m.group(2)
     else:
-        full_name = rows.get("Персонаж", rows.get("Name", "NPC"))
-        npc_level = rows.get("Уровень", "")
+        name = rows.get("Персонаж", rows.get("Name", "NPC"))
+        level = rows.get("Уровень", "")
 
-    # Build name "Имя — Роль".
-    role = rows.get("Роль", "")
-    if role:
-        name = f"{full_name}"
-    else:
-        name = full_name
+    # Ordered 2-column display rows (label, value).
+    ordered = [
+        ("Уровень", "Уровень"),
+        ("Мировоззрение", "Мировоззрение"),
+        ("Раса", "Раса"),
+        ("Класс", "Класс"),
+        ("Восприятие", "Восприятие"),
+        ("Языки", "Языки"),
+        ("Навыки", "Навыки"),
+        ("Сила", "Сила"),
+        ("Ловкость", "Ловкость"),
+        ("Телосложение", "Телосложение"),
+        ("Интеллект", "Интеллект"),
+        ("Мудрость", "Мудрость"),
+        ("Харизма", "Харизма"),
+        ("Скорость", "Скорость"),
+        ("AC", "AC"),
+        ("HP", "HP"),
+        ("Спасброски", "Спасброски"),
+        ("Ближний бой", "Ближний бой"),
+        ("Дальний бой", "Дальний бой"),
+        ("СЛ заклинаний", "СЛ заклинаний"),
+        ("Атака заклинанием", "Атака заклинанием"),
+    ]
+    table_rows = []
+    for label, key in ordered:
+        val = rows.get(key, "")
+        if val:
+            table_rows.append((label, val))
+    # Any extra rows not in the ordered list (e.g. "Снаряжение", "Способности"
+    # rendered as a cell) are appended as-is so nothing is lost.
+    for k, v in rows.items():
+        if k not in dict(ordered) and v:
+            table_rows.append((k, v))
 
-    # Trait tokens: race + alignment + a few role hints.
-    race = rows.get("Раса", "")
-    alignment = rows.get("Мировоззрение", "")
-    traits = []
-    if race:
-        traits.append(race)
-    # Role -> trait
-    role_short = role
-    if "Caster" in role or "Жрец" in role:
-        traits.append("Жрец")
-    if "rogue" in role.lower() or "Вор" in role:
-        traits.append("Вор")
-    if "boss" in role.lower() or "boss" in role:
-        traits.append("Босс")
-    traits = list(dict.fromkeys(traits))  # dedupe, keep order
-    traits_str = ", ".join(traits)
-
-    # Compose detail lines in PF2e stat-block order.
-    details = []
-
-    def row(k):
-        return rows.get(k, "")
-
-    if row("Восприятие"):
-        details.append(f"*Perception* {row('Восприятие')}")
-    if row("Языки"):
-        details.append(f"*Languages* {row('Языки')}")
-    if row("Навыки"):
-        details.append(f"*Skills* {row('Навыки')}")
-
-    # Ability scores line.
-    stats = []
-    for k, abbr in [("Сила", "Str"), ("Ловкость", "Dex"), ("Телосложение", "Con"),
-                     ("Интеллект", "Int"), ("Мудрость", "Wis"), ("Харизма", "Cha")]:
-        v = row(k)
-        if v:
-            stats.append(f"*{abbr}* {v}")
-    if stats:
-        details.append(", ".join(stats))
-
-    if row("Скорость"):
-        details.append(f"*Speed* {row('Скорость')}")
-    if row("AC"):
-        details.append(f"*AC* {row('AC')}")
-    if row("HP"):
-        details.append(f"*HP* {row('HP')}")
-
-    if row("Спасброски"):
-        details.append(f"*Saves* {row('Спасброски')}")
-
-    # Divider
-    details.append("[---]")
-
-    if row("Ближний бой"):
-        details.append(f"*Melee* {row('Ближний бой')}")
-    if row("Дальний бой"):
-        details.append(f"*Ranged* {row('Дальний бой')}")
-    if row("СЛ заклинаний"):
-        details.append(f"*DC* {row('СЛ заклинаний')}")
-    if row("Атака заклинанием"):
-        details.append(f"*Spell Attack* {row('Атака заклинанием')}")
-
-    # Abilities section (bulleted list after "Способности:").
+    # Abilities (bulleted list after "**Способности:" / "**Заклинания").
     abilities_raw = []
     in_abilities = False
     for ln in block:
@@ -242,82 +256,81 @@ def parse_stat_block(block: list[str]) -> str:
             elif stripped == "":
                 continue
             elif re.match(r"^\s+-\s", ln):
-                # nested bullet (continuation of an ability)
                 if abilities_raw:
                     abilities_raw[-1] = abilities_raw[-1] + " " + stripped.lstrip("- ").strip()
             else:
-                # non-bullet line ends the abilities block
                 if not re.match(r"^\s*\*", ln.strip()):
                     break
-    abilities = split_abilities(abilities_raw)
-    for a in ability_lines_to_details(abilities):
-        # Inside a bracketed detail cell, `**x**` must become *x* (Typst
-        # emphasis). Any leftover `**` would break the content delimiters.
-        a = a.replace("**", "*")
-        details.append(a)
+    abilities = [escape(neutralize(a)) for a in ability_lines_to_details(split_abilities(abilities_raw))]
 
-    # Spell list (if present).
-    if row("СЛ заклинаний") or any("Заклинания" in b for b in block):
-        pass  # handled by abilities bullets already
+    # Flatten nested parens so a value like "ЛН (Halfling)" can't break a tuple.
+    def flatten(s: str) -> str:
+        s = neutralize(s)
+        s = s.replace("(", " - ").replace(")", "")
+        s = escape(s)
+        return s
 
-    # Join details as a tuple of bracketed content items.
-    details_str = ", ".join(
-        f"[{d}]" if not d.startswith("[") else d for d in details
-    )
-
-    # The name line in the table can include " — Роль (NPC N)"; use the bold name.
-    name_clean = full_name
-
-    return (
-        f"#encounter((\n"
-        f"  name: [{name_clean}],\n"
-        f"  type: [NPC {npc_level}],\n"
-        f"  traits: ([{traits_str}]),\n"
-        f"  details: ({details_str}),\n"
-        f"))"
-    )
+    out = []
+    out.append(f"= {escape(name)}" + (f" (NPC {escape(str(level))})" if level and level not in ("", "0") else ""))
+    out.append("#table(columns: (2 * 1fr)) [")
+    for label, val in table_rows:
+        out.append(f"  [{flatten(label)}]  [{flatten(val)}]")
+    out.append("]")
+    if abilities:
+        # Abilities are emitted as a plain list (not a #box): a #box with a
+        # multi-line content block can fail to close in some contexts, and
+        # plain content is always safe.
+        out.append("")
+        out.append("Способности:")
+        for a in abilities:
+            out.append(f"- {a}")
+    return "\n".join(out)
 
 
 def render_blockquote(text: str) -> str:
-    """A read-aloud blockquote becomes #aloud[ ... ]."""
+    """A read-aloud blockquote becomes a native #box (no external package)."""
     text = re.sub(r"^\s*\n", "", text)
-    # Markdown **bold** -> Typst *emphasis* (global, handles line breaks).
-    text = text.replace("**", "*")
+    text = neutralize(text)
+    text = escape(text)
     text = text.replace("\n", "\n\n")
-    return f"#aloud[\n{text}\n]"
+    return f"#box(fill: gray.lighten(85%), inset: 1em, [\n{text}\n])"
 
 
 def render_note(title: str, body: str) -> str:
     body = body.strip()
     if not body:
         return ""
-    # Inside a #note[...] block, any [ ... ] would close the content early.
-    # Replace [big]/[small]/[confidence: ...] style markers with braces.
-    body = re.sub(r"\[([A-Za-z]+(?:\s*:[^\]]*)?)\]", r"{\1}", body)
-    # Markdown **bold** inside the note body must become Typst *emphasis*.
-    # Use a global ** -> * replacement (handles bold that spans line breaks).
-    body = body.replace("**", "*")
-    return f"#note[\n{body}\n]"
+    title = neutralize(title)
+    body = neutralize(body)
+    return f"#box(stroke: 1pt, inset: 0.5em, [\n{escape(title)}  {escape(body)}\n])"
 
 
-def typst_inline(line: str) -> str:
-    """Convert a single markdown line to Typst-friendly inline markup."""
-    s = line
-    # images: ![alt](path) -> image(path, ...)
-    s = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", r'#image("\2", width: 80%)', s)
-    # headings are handled separately; inline **bold** -> *bold*
-    # Use a global ** -> * replacement so bold that spans line breaks is
-    # also fixed (a single ** left in the stream confuses the parser).
-    s = s.replace("**", "*")
-    return s
+def _md_table_to_typst(table_lines: list[str]) -> str:
+    """Convert a markdown grid table to a Typst ``#table`` that renders as a
+    real table.  Every cell is escaped and its parentheses flattened so nothing
+    can close the ``[...]`` cell list early."""
+    rows = []
+    for ln in table_lines:
+        cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+        if set("".join(cells)) <= set("-: "):
+            continue
+        rows.append(cells)
+    if not rows:
+        return ""
+    ncol = len(rows[0])
+    out = [f"#table(columns: ({ncol} * 1fr)) ["]
+    for r in rows:
+        while len(r) < ncol:
+            r.append("")
+        cells = [f"[{escape(neutralize(c).replace('(', ' - ').replace(')', ''))}]" for c in r[:ncol]]
+        out.append("  " + "  ".join(cells))
+    out.append("]")
+    return "\n".join(out)
 
 
 def convert(md_text: str) -> str:
     lines = md_text.split("\n")
     out: list[str] = []
-    out.append('#import "@preview/pf2e-style:0.2.0": *')
-    out.append("#show: pf-stylization")
-    out.append("")
 
     i = 0
     n = len(lines)
@@ -327,7 +340,6 @@ def convert(md_text: str) -> str:
 
         # ---- [PF2e stat-block] section ----
         if stripped == "#### [PF2e stat-block]":
-            # Collect until next "#### " heading.
             j = i + 1
             block = []
             while j < n:
@@ -341,13 +353,12 @@ def convert(md_text: str) -> str:
             i = j
             continue
 
-        # ---- blockquote read-aloud (#### Что зачитать / #### Зачитать / >) ----
+        # ---- blockquote read-aloud / note (#### ... heading) ----
         if stripped.startswith("####") and re.search(
             r"Зачитать|Что зачитать|GM knows|Куда ведёт|Зацепки|Улики|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
             stripped,
         ):
             title = stripped.lstrip("#").strip()
-            # collect the block body until next heading
             j = i + 1
             body_lines = []
             while j < n:
@@ -358,17 +369,11 @@ def convert(md_text: str) -> str:
                 body_lines.append(lines[j])
                 j += 1
             body = "\n".join(body_lines).strip()
-            # If the body is itself a blockquote (lines starting with '>'),
-            # or the title says "зачитать", render as #aloud.
-            is_read = re.search(r"Зачитать|Что зачитать", title) or (
-                body.startswith(">")
-            )
+            is_read = re.search(r"Зачитать|Что зачитать", title) or body.startswith(">")
             if is_read and body:
-                # strip leading '>' markers
                 clean = re.sub(r"^>\s?", "", body, flags=re.MULTILINE)
                 out.append(render_blockquote(clean))
             else:
-                # render as a note box
                 out.append(render_note(title, body))
             i = j
             continue
@@ -377,20 +382,10 @@ def convert(md_text: str) -> str:
         m = re.match(r"^(#{1,6})\s+(.*)$", ln)
         if m:
             level = len(m.group(1))
-            text = m.group(2).strip()
-            # level 1 (#) -> chap-header? we just use a big heading
-            if level == 1:
-                out.append(f"= {text}")
-            elif level == 2:
-                out.append(f"= {text}")
-            elif level == 3:
-                out.append(f"== {text}")
-            elif level == 4:
-                out.append(f"=== {text}")
-            elif level == 5:
-                out.append(f"==== {text}")
-            else:
-                out.append(f"===== {text}")
+            text = neutralize(m.group(2).strip())
+            text = escape(text)
+            prefix = "=" * min(level, 6)
+            out.append(f"{prefix} {text}")
             i += 1
             continue
 
@@ -414,15 +409,11 @@ def convert(md_text: str) -> str:
 
         # ---- markdown table (non stat-block) ----
         if re.match(r"^\|", ln) and i + 1 < n and re.match(r"^\|[\s\-:|]+\|", lines[i + 1]):
-            # pass through as a typst table is complex; just emit the raw
-            # grid as a typst table using #table. Simpler: emit as a
-            # code-ish block so it stays readable.
             table_lines = [ln]
             k = i + 1
             while k < n and re.match(r"^\|", lines[k]):
                 table_lines.append(lines[k])
                 k += 1
-            # Convert to #table by parsing.
             out.append(_md_table_to_typst(table_lines))
             i = k
             continue
@@ -434,7 +425,6 @@ def convert(md_text: str) -> str:
             continue
 
         # ---- normal paragraph / list ----
-        # Join continuation lines of a paragraph.
         para = [ln]
         j = i + 1
         while j < n:
@@ -461,61 +451,69 @@ def convert(md_text: str) -> str:
     return "\n".join(out)
 
 
-def _md_table_to_typst(table_lines: list[str]) -> str:
-    """Convert a markdown grid table to a Typst #table[...] using grid."""
-    rows = []
-    for ln in table_lines:
-        cells = [c.strip() for c in ln.strip().strip("|").split("|")]
-        if set("".join(cells)) <= set("-: "):
-            continue
-        rows.append(cells)
-    if not rows:
-        return ""
-    # Determine column count from header.
-    ncol = len(rows[0])
-    lines = []
-    for r in rows:
-        # pad/truncate to ncol
-        while len(r) < ncol:
-            r.append("")
-        cells = [c.replace("**", "") for c in r[:ncol]]
-        lines.append("  " + ", ".join(cells))
-    # Use a simple grid; headers are the first row.
-    header = rows[0]
-    body = rows[1:]
-    # Emit a simple Typst #table: header row in bold, body rows plain.
-    # IMPORTANT: bold emphasis must be *inside* the content brackets, i.e.
-    # [*Персонаж*], not [*Персонаж*] -> [*Персонаж*] (the latter makes Typst
-    # read the trailing ] as an unclosed delimiter).
-    out = [f"#table(columns: ({ncol} * 1fr)) ["]
-    for idx, r in enumerate(rows):
-        while len(r) < ncol:
-            r.append("")
-        cells = []
-        for c in r[:ncol]:
-            cell = c.replace("**", "")
-            if idx == 0:
-                cells.append(f"[*{cell}*]")
-            else:
-                cells.append(f"[{cell}]")
-        out.append("  " + "  ".join(cells))
-    out.append("]")
-    return "\n".join(out)
+def assemble_book(paths: list[Path]) -> str:
+    """Concatenate several chapter .md files into one Typst document, each
+    starting on a new page.  Image paths stay relative to the first file's
+    directory, so the output must be written alongside it (see main)."""
+    parts = []
+    for p in paths:
+        md = p.read_text(encoding="utf-8")
+        parts.append(convert(md))
+    return "\n\n".join(parts)
 
 
 def main() -> int:
-    if len(sys.argv) < 2:
-        print("usage: md_to_typst.py <input.md> [output.typ]", file=sys.stderr)
+    args = sys.argv[1:]
+    if not args:
+        print(
+            "usage: md_to_typst.py [--book] <input.md> [output.typ]\n"
+            "       --book: assemble publication/murder/{00-synopsis,01-lore,"
+            "02-chapter-1,03-chapter-2}.md into one book.\n"
+            "       output (if omitted): <input>.typ (or murder_book.typ for "
+            "--book), written next to the input so relative image paths "
+            "resolve.\n"
+            "       Compile with:  typst compile --root <repo> <out.typ> <out.pdf>\n"
+            "       (--root is required so '../../.. image paths resolve "
+            "inside the sandbox.)",
+            file=sys.stderr,
+        )
         return 2
-    in_path = Path(sys.argv[1])
-    if not in_path.exists():
-        print(f"input not found: {in_path}", file=sys.stderr)
-        return 2
-    out_path = Path(sys.argv[2]) if len(sys.argv) > 2 else in_path.with_suffix(".typ")
-    md = in_path.read_text(encoding="utf-8")
-    out = convert(md)
-    out_path.write_text(out, encoding="utf-8")
-    print(f"wrote {out_path} ({len(out)} chars)")
+
+    book = False
+    positional = []
+    for a in args:
+        if a == "--book":
+            book = True
+        else:
+            positional.append(a)
+
+    if book:
+        root = Path(__file__).resolve().parent.parent
+        inputs = [
+            root / "publication" / "murder" / f
+            for f in ("00-synopsis.md", "01-lore.md", "02-chapter-1.md", "03-chapter-2.md")
+        ]
+        missing = [p.name for p in inputs if not p.exists()]
+        if missing:
+            print(f"missing inputs: {missing}", file=sys.stderr)
+            return 2
+        in_path = inputs[0]
+        out_path = Path(positional[0]) if positional else in_path.with_name("murder_book.typ")
+        doc = assemble_book(inputs)
+    else:
+        if len(positional) < 1:
+            print("usage: md_to_typst.py <input.md> [output.typ]", file=sys.stderr)
+            return 2
+        in_path = Path(positional[0])
+        if not in_path.exists():
+            print(f"input not found: {in_path}", file=sys.stderr)
+            return 2
+        out_path = Path(positional[1]) if len(positional) > 1 else in_path.with_suffix(".typ")
+        md = in_path.read_text(encoding="utf-8")
+        doc = convert(md)
+
+    out_path.write_text(doc, encoding="utf-8")
+    print(f"wrote {out_path} ({len(doc)} chars)")
     return 0
 
 
