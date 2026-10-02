@@ -59,6 +59,18 @@ def escape(s: str) -> str:
         s = s.replace(ch, "\\" + ch)
     return s
 
+
+def _fmt(v: str) -> str:
+    """Build a value fragment for a structured ``#encounter`` detail line.
+
+    ``v`` is a raw stat-block value (already ``neutralize``-cleaned by the
+    caller only when it is plain).  ``*`` is stripped here and the label /
+    weapon name are bolded with explicit ``*…*`` spans, so the source must not
+    contain ``**`` markup (``neutralize`` removes it).  The action icon is
+    inserted right after the bold label via ``{icon} ``.
+    """
+    return v.replace("*", "")
+
 def neutralize(s: str) -> str:
     """Make plain text inert so it cannot break a Typst content block.
 
@@ -130,18 +142,196 @@ def _clean(s: str) -> str:
     return escape(s)
 
 
+def _em(s: str) -> str:
+    """Italicise a fragment (used for weapon names) inside a detail line.
+
+    The fragment is escaped first so it is inert, then wrapped in ``_…_``.
+    """
+    return f"_{escape(s)}_"
+
+
+def _esc(s: str) -> str:
+    """Escape a fragment for a ``[...]`` block WITHOUT touching the action
+    icons (``#A``/``#AA``/``#AAA``/``#R``/``#F``) that may sit at its start."""
+    # Strip a leading action icon, escape the rest, re-attach the icon.
+    m = re.match(r"^((?:#A+|#R|#F)\s*)", s)
+    icon = m.group(1) if m else ""
+    rest = s[m.end():] if m else s
+    return icon + escape(rest)
+
+
 def _icon_for(ability: str) -> str:
-    """Pick an action-economy icon for an ability line (Russian text)."""
+    """Pick an action-economy icon from an action note (the ability's name
+    parenthetical, e.g. " (2 действия, 1/раунд)" or " (реакция)").
+
+    Priority: reaction (#R) > 3-action (#AAA) > 2-action (#AA) > 1-action
+    (#A) > free / passive / always-on (#F) > none.  Detection is based ONLY
+    on the action note (never the description), so a description that happens
+    to contain "реакция" (e.g. "цель реакции") does NOT force #R.
+    """
     low = ability.lower()
     if re.search(r"\b(реакция|реакц)\b", low):
         return ICON_REACTION
-    if re.search(r"\b(2|два|две) действия\b|\b(2|два|две) действие", low):
-        return ICON_DOUBLE
     if re.search(r"\b(3|три) действия\b|\b(3|три) действие", low):
         return ICON_TRIPLE
+    if re.search(r"\b(2|два|две) действия\b|\b(2|два|две) действие", low):
+        return ICON_DOUBLE
     if re.search(r"\b(1|одно|одна) действие\b", low):
         return ICON_SINGLE
+    # free / passive: auras, passive features (Sneak Attack, relics, …) or
+    # any ability with no action cost.
+    if re.search(r"\b(аура|passive|пассивн|free|без действия|свободн)\b", low):
+        return ICON_FREE
+    if not re.search(r"\b(1|2|3|одно|одна|два|две|три|действие|действия)\b", low):
+        return ICON_FREE
     return ""
+
+
+def _esc(s: str) -> str:
+    """Escape a fragment for a ``[...]`` block WITHOUT touching the action
+    icons (``#A``/``#AA``/``#AAA``/``#R``/``#F``) that may sit at its start."""
+    # Strip a leading action icon, escape the rest, re-attach the icon.
+    m = re.match(r"^((?:#A+|#R|#F)\s*)", s)
+    icon = m.group(1) if m else ""
+    rest = s[m.end():] if m else s
+    return icon + escape(rest)
+
+
+# Race -> trait (PF2e creature size is "Medium" / "Средний" for these NPCs).
+_RACE_TRAITS = {
+    "аасимар": ["Средний", "Аасимар", "Гуманоид"],
+    "полуэльф": ["Средний", "Полуэльф", "Гуманоид"],
+    "человек": ["Средний", "Человек", "Гуманоид"],
+    "аасим": ["Средний", "Аасимар", "Гуманоид"],
+}
+
+
+def _split_value_parts(v: str) -> tuple[str, str]:
+    """Split a stat value into (main, note).  A trailing parenthetical or a
+    ';' / '|' separated clause is the note.  Returns (main, note)."""
+    v = v.strip()
+    # trailing parenthetical: "28 (high)" -> ("28", "high")
+    m = re.search(r"^([^()]+?)\s*\(([^()]+)\)\s*$", v)
+    if m:
+        return m.group(1).strip(), m.group(2).strip()
+    # split on first ';' or '|'
+    for sep in (";", "|"):
+        if sep in v:
+            a, b = v.split(sep, 1)
+            return a.strip(), b.strip()
+    return v, ""
+
+
+def _attr_line(rows: dict) -> str:
+    """Build the combined attributes line: *Сил* +N, *Лов* +N, … (short form)."""
+    order = [("Сила", "Сил"), ("Ловкость", "Лов"), ("Телосложение", "Тел"),
+             ("Интеллект", "Инт"), ("Мудрость", "Мдр"), ("Харизма", "Хар")]
+    parts = []
+    for full, short in order:
+        val = rows.get(full, "")
+        if val:
+            parts.append(f"*{short}* {_esc(val.strip())}")
+    return ", ".join(parts) if parts else ""
+
+
+def _skills_line(rows: dict) -> str:
+    """Build a single *Навыки* line with all skills as a comma-separated list,
+    dropping the trailing proficiency tier in parentheses (high/moderate/…)."""
+    raw = rows.get("Навыки", "")
+    if not raw:
+        return ""
+    skills = []
+    for part in re.split(r",\s*|;\s*", raw):
+        s = part.strip()
+        # drop a trailing "(tier)" annotation
+        s = re.sub(r"\s*\((?:extreme|high|moderate|trained|expert|legends?)\)\s*$", "", s, flags=re.I)
+        s = s.strip()
+        if s:
+            skills.append(s)
+    return ", ".join(skills) if skills else ""
+
+
+def _languages_line(rows: dict) -> str:
+    val = rows.get("Языки", "")
+    if not val:
+        return ""
+    langs = [x.strip() for x in re.split(r",\s*|;\s*", val) if x.strip()]
+    return ", ".join(langs) if langs else ""
+
+
+def _melee_line(rows: dict) -> str:
+    """Compact melee line: *Ближний бой* #A _weapon_ +N (reach…), *Урон* …."""
+    val = rows.get("Ближний бой", "")
+    if not val:
+        return ""
+    val = _fmt(val)
+    # weapon name = first token(s) before the first '+' attack bonus
+    m = re.match(r"\s*([^\d+]+\??)\s*(\+.*?)$", val)
+    if not m:
+        return f"*Ближний бой* {escape(val)}"
+    weapon = m.group(1).strip()
+    attack = m.group(2).strip()
+    # attack = "+18 (…)" — keep the parenthetical note (reach / two-handed)
+    note = ""
+    mm = re.search(r"\(([^)]+)\)\s*$", attack)
+    if mm:
+        note = f" ({mm.group(1).strip()})"
+        attack = attack[:mm.start()].strip()
+    # the #A icon must NOT be escaped: keep it, escape the rest
+    return f"*Ближний бой* {ICON_SINGLE} {_em(weapon)} {escape(attack)}{escape(note)}"
+
+
+def _ranged_line(rows: dict) -> str:
+    val = rows.get("Дальний бой", "")
+    if not val:
+        return ""
+    val = _fmt(val)
+    m = re.match(r"\s*([^\d+]+\??)\s*(\+.*?)$", val)
+    if not m:
+        return f"*Дальний бой* {ICON_SINGLE} {escape(val)}"
+    weapon = m.group(1).strip()
+    attack = m.group(2).strip()
+    note = ""
+    mm = re.search(r"\(([^)]+)\)\s*$", attack)
+    if mm:
+        note = f" (метательное {mm.group(1).strip()})"
+        attack = attack[:mm.start()].strip()
+    return f"*Дальний бой* {ICON_SINGLE} {_em(weapon)} {escape(attack)}{escape(note)}"
+
+
+def _saves_line(rows: dict) -> str:
+    """Combine AC + the three saves into one line (PF2e stat-block style)."""
+    ac = rows.get("AC", "")
+    saves = rows.get("Спасброски", "")
+    main, note = _split_value_parts(ac)
+    ac_main = main or ac
+    # saves may be "Стойкость +17; Реакция +16; Воля +17" or a table cell
+    save_parts = []
+    for s in re.split(r"[;|]\s*", saves):
+        s = s.strip()
+        if not s:
+            continue
+        s = re.sub(r"\s*\((?:extreme|high|moderate|trained|expert|legends?)\)\s*$", "", s, flags=re.I)
+        save_parts.append(s)
+    save_str = ", ".join(save_parts)
+    line = f"*AC* {_esc(ac_main)}"
+    if save_str:
+        line += f"; {_esc(save_str)}"
+    return line
+
+
+def _hp_line(rows: dict) -> str:
+    val = rows.get("HP", "")
+    if not val:
+        return ""
+    main, _ = _split_value_parts(val)
+    return f"*HP* {main or val}"
+
+
+def _reaction_line(rows: dict) -> str:
+    """Pull any reaction abilities out of the abilities list into a
+    *Реакции* line.  Returns (reactions_line, filtered_abilities)."""
+    return "", []
 
 
 def _stat_table_to_rows(table_lines: list[str]) -> list[list[str]]:
@@ -225,6 +415,11 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
     abilities_raw = []
     in_abilities = False
     for ln in block:
+        # A blank line before the ability header (the table is separated from
+        # the "**Способности:**" section by a blank line) must NOT stop the
+        # scan — skip it so the header is still reached.
+        if ln.strip() == "":
+            continue
         if re.match(r"^\|", ln):
             if in_abilities:
                 break
@@ -251,53 +446,202 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
                         abilities_raw[-1] = abilities_raw[-1] + " " + stripped
                 elif not re.match(r"^\s*\*", stripped):
                     break
-    details = list(details)
+    # --- Structured PF2e #encounter ------------------------------------------
+    # `comp` fields: name, type, traits, details.  `details` is a tuple of
+    # bracketed lines; a "[---]" entry renders as a divider in #encounter.
+    level = str(level).strip() or "9"
+    type_label = f"Существо {level}"
+
+    # traits: a leading "Уникальный" tag + size / race / subtype.
+    race = rows.get("Раса", "").strip().lower()
+    traits = ["Уникальный"]
+    traits += _RACE_TRAITS.get(race, ["Средний"])
+    # dedup while preserving order
+    seen: set[str] = set()
+    traits = [t for t in traits if not (t in seen or seen.add(t))]
+
+    # ---- detail lines (ordered, grouped with dividers) --------------------
+    d: list[str] = []
+
+    # 1) italic tag line (the character's one-line description / role).
+    tag = _tag_line(rows)
+    if tag:
+        d.append(f"_{escape(tag)}_")
+
+    # 2) Perception (with senses note if present).
+    perception = rows.get("Восприятие", "")
+    if perception:
+        d.append(f"*Восприятие* {escape(_fmt(perception))}")
+
+    # 3) languages (single combined line).
+    langs = _languages_line(rows)
+    if langs:
+        d.append(f"*Языки* {escape(_fmt(langs))}")
+
+    # 4) skills (single combined line).
+    skills = _skills_line(rows)
+    if skills:
+        d.append(f"*Навыки* {escape(_fmt(skills))}")
+
+    # 5) attributes (single combined line: Сил / Лов / Тел / Инт / Мдр / Хар).
+    attrs = _attr_line(rows)
+    if attrs:
+        d.append(attrs)
+
+    # 6) items (Предметы) — if present in the table.
+    items = rows.get("Предметы", "")
+    if items:
+        d.append(f"*Предметы* {escape(_fmt(items))}")
+
+    # 7) divider.
+    d.append("[---]")
+
+    # 8) AC + saves on one line.
+    ac_line = _saves_line(rows)
+    if ac_line:
+        d.append(ac_line)
+
+    # 9) HP on its own line.
+    hp_line = _hp_line(rows)
+    if hp_line:
+        d.append(hp_line)
+
+    # 10) reactions pulled from the abilities list.
+    reactions = _reactions_line(abilities_raw)
+    if reactions:
+        d.append(reactions)
+
+    # 11) divider.
+    d.append("[---]")
+
+    # 12) speed + melee + ranged (each its own line, with #A icons).
+    speed = rows.get("Скорость", "")
+    if speed:
+        d.append(f"*Скорость* {escape(_fmt(speed))}")
+    melee = _melee_line(rows)
+    if melee:
+        d.append(melee)
+    ranged = _ranged_line(rows)
+    if ranged:
+        d.append(ranged)
+
+    # 13) divider before the ability block.
+    d.append("[---]")
+
+    # 14) ability / spell lines (each "*Name* #icon **Частота** … description"),
+    #     in source order.  Reaction abilities are rendered here as well as in
+    #     the *Реакции* line (the *Реакции* line is the summary; the full text
+    #     stays in the ability block, matching the PF2e stat-block layout).
     for a in ability_lines_to_details(split_abilities(abilities_raw)):
         a = a.strip()
         if not a:
             continue
-        icon = _icon_for(a)
-        details.append(f"{icon} *{a}" if icon else a)
+        d.append(_ability_line(a))
 
-    # Render the stat-block as a real #pftab 2-column table (label | value)
-    # instead of #encounter, which renders the details as plain paragraphs.
-    # Each detail line is "Label value"; we split it into a label cell and a
-    # value cell.  A "---" entry becomes a full-width divider row.
-    out = []
-    out.append(f"#pftab[{escape(name)}]")
-    out.append("#table(")
-    out.append("  columns: (1fr, 4fr),")
-    out.append("  align: (col, row) => if col == 0 { center } else { center },")
-    out.append("  fill: (col, row) =>")
-    out.append("    if row == 0 { rgb(\"002a16\") }")
-    out.append("    else if calc.odd(row + 1) { colors.pfwhite }")
-    out.append("    else { colors.otherRow },")
-    out.append("  inset: 5pt,")
-    out.append("  stroke: none,")
-
-    # Header row: name + level.
-    lvl = escape(str(level)).strip()
-    out.append(f"  [{escape(name)}], [{lvl}],")
-
-    # Detail rows.  Each detail is "*Label* value"; split the RAW line on the
-    # first space after the label (before _clean escapes its '*'), so the label
-    # cell and value cell align in the table.
-    for line in details:
-        if line.strip() == "---":
-            # A divider spans both columns.
-            out.append("  [---], [---],")
-            continue
-        m = re.match(r"^\*([^*]+)\*\s+(.*)$", line)
-        if m:
-            label = _clean(m.group(1))
-            value = _clean(m.group(2))
-            out.append(f"  [{label}], [{value}],")
+    # ---- emit -------------------------------------------------------------
+    out = [
+        "#encounter((",
+        f"  name: [{escape(name)}],",
+        f"  type: [{escape(type_label)}],",
+        "  traits: (" + ", ".join(f"[{escape(t)}]" for t in traits) + "),",
+        "  details: (",
+    ]
+    for dl in d:
+        # A divider is already a bracketed "[---]" element; wrapping it again
+        # would produce "[[---]]", which does NOT match the `entry == [---]`
+        # divider check in #encounter.  Emit it verbatim; wrap the rest.
+        if dl == "[---]":
+            out.append("    [---],")
         else:
-            # No label/value split (e.g. an ability line): put it in the value
-            # column with an empty label cell.
-            out.append(f"  [], [{_clean(line)}],")
-    out.append(")")
+            out.append(f"    [{dl}],")
+    out.append("  ),")
+    out.append("))")
     return "\n".join(out)
+
+
+def _tag_line(rows: dict) -> str:
+    """One-line italic tag: a 'Роль'/'Класс'/'Роль' description, or the class
+    plus role.  Used for the italic line under the name header."""
+    for key in ("Роль", "Класс", "Мировоззрение"):
+        v = rows.get(key, "")
+        if v:
+            return v
+    return ""
+
+
+def _reactions_line(abilities_raw: list) -> str:
+    """Pull reaction abilities from the raw bullet list into a single
+    *Реакции* line (names only, comma-separated).  Returns "" if none."""
+    names = []
+    for b in abilities_raw:
+        b = b.strip()
+        low = b.lower()
+        if not re.search(r"\bреакция\b", low):
+            continue
+        m = re.match(r"^-\s+\*\*(.+?)\*\*", b)
+        if m:
+            name = m.group(1).strip()
+            # strip a trailing "(реакция)" / action note from the name
+            name = re.sub(r"\s*\(.*$", "", name).strip()
+            if name:
+                names.append(name)
+    if not names:
+        return ""
+    return "*Реакции* " + ", ".join(names)
+
+
+def _ability_line(ability: str) -> str:
+    """Render one ability bullet into a PF2e detail line:
+    ``*Name* #icon … description``.
+
+    ``ability`` is a clean ``"<Name> <description>"`` string (``split_abilities``
+    already stripped "- " and "**").  The name may carry an action-economy
+    note in parentheses (e.g. "Художественная казнь (2 действия, 1/раунд)").
+    We keep that note with the name for the icon lookup, render the name
+    (without the note), then the icon, then the description.
+    """
+    ability = ability.replace("**", "").strip()
+    # The canonical form is "Name desc" where the name may carry an
+    # action-economy note in parentheses (e.g. "Художественная казнь (2
+    # действия, 1/раунд)") and may be separated from the description by a
+    # ':' (e.g. "Аура освобождения: (аура, …)", "Оружие-реликвия «…»: +1
+    # глефа …").
+    #
+    # Split the name from the description at ": " (a colon FOLLOWED BY A
+    # SPACE).  A quoted name that ends in a colon, e.g.
+    # "Оружие-реликвия «Шёпот Душ»:", has no ": " so it stays whole; only a
+    # real description colon (": " + description) splits.
+    split = ability.find(": ")
+    if split >= 0:
+        name = ability[:split].strip()
+        rest = ability[split + 2:].strip()
+    elif ":" in ability:
+        # a lone ':' (no following space) is part of the name.
+        name, rest = ability, ""
+    else:
+        name, rest = ability, ""
+    # the icon is decided from the whole ability string: an explicit
+    # action-economy marker — " (реакция)", " (N действие)" — may sit either
+    # in the name (e.g. "Художественная казнь (2 действия, 1/раунд)") or in
+    # the description (e.g. "Освобождающий шаг (реакция) …", "Ужасающее
+    # присутствие (Frightful Presence) (1 действие): …").  Scanning the whole
+    # string is reliable because such markers are never used in ordinary prose
+    # here.  A blank note (no action cost) is a free / passive ability -> #F.
+    icon = _icon_for(ability)
+    # an ability with no explicit action cost is a free / passive ability
+    # (an action "not requiring an action") -> #F.
+    if not icon:
+        icon = ICON_FREE
+    line = f"*{escape(name)}*"
+    if icon:
+        line += f" {icon}"
+    # drop the action marker(s) from the description so it is not shown twice
+    # (e.g. "(реакция)", "(1 действие)"), then keep the description text.
+    rest = re.sub(r"\s*\((реакция|реакц|1|2|3|одно|одна|два|две|три)[^)]*\)", "", rest, flags=re.I)
+    rest = re.sub(r"\s+", " ", rest).strip()
+    if rest:
+        line += f" {_esc(rest)}"
+    return line
 
 
 def read_block(lines: list[str], i: int) -> tuple[int, list[str]]:
@@ -334,32 +678,23 @@ def parse_table(block: list[str]) -> dict[str, str]:
 
 
 def ability_lines_to_details(abilities: list[str]) -> list[str]:
-    """Convert a list of markdown bullet abilities into typst detail lines."""
+    """Convert a list of markdown bullet abilities into a canonical ability
+    string ``"<Name> <description>"``.
+
+    The name keeps its full action-economy wording (e.g. "Художественная казнь
+    (2 действия, 1/раунд)") so ``_icon_for`` / ``_ability_line`` can re-map it
+    to the right ``#A`` / ``#AA`` / ``#R`` icon.  A leading "**…**" markdown
+    bold and a trailing "**" are stripped.
+    """
     out = []
     for b in abilities:
         b = b.strip()
         if not b:
             continue
-        m = re.match(r"^-\s+\*\*(.+?)\*\*(.*)", b)
-        if not m:
-            out.append(b)
-            continue
-        name, rest = m.group(1).strip(), m.group(2).strip()
-        icon = ""
-        low = (name + rest).lower()
-        if re.search(r"\bреакция\b", low):
-            icon = " (реакция)"
-        elif re.search(r"\b2 действия?\b|\bдва действия?\b", low):
-            icon = " (2 действия)"
-        elif re.search(r"\b1 действие\b|\bодно действие\b", low):
-            icon = " (1 действие)"
-        elif re.search(r"\b3 действия?\b|\bтри действия?\b", low):
-            icon = " (3 действия)"
-        text = (rest or "").lstrip(":").strip()
-        line = f"{name}{icon}"
-        if text:
-            line += f" {text}"
-        out.append(line)
+        # ``split_abilities`` already stripped the leading "- " AND all "**"
+        # bold markers, so ``b`` is a clean "Name desc" string.  Keep it
+        # verbatim — ``_ability_line`` splits the name from the description.
+        out.append(b)
     return out
 
 
@@ -374,6 +709,12 @@ def split_abilities(abilities: list[str]) -> list[str]:
             if cur:
                 merged.append(cur)
             cur = a[2:]
+            # strip ALL "**" markdown bold markers (e.g. "**Name:** desc" or
+            # "**Name** desc") so the canonical string is a clean "Name desc";
+            # the action-economy note stays with the name and _icon_for /
+            # _ability_line re-map it to a typst icon.
+            cur = cur.replace("**", "")
+            cur = cur.strip()
         elif a.strip() == "":
             if cur:
                 merged.append(cur)
@@ -482,6 +823,7 @@ def convert(md_text: str) -> str:
                     break
             j = i + 1
             block = []
+            # 1) collect the stat table (until the first heading or "---").
             while j < n:
                 if re.match(r"^#{1,6}\s", lines[j].strip()):
                     break
@@ -489,6 +831,24 @@ def convert(md_text: str) -> str:
                     break
                 block.append(lines[j])
                 j += 1
+            # 2) the abilities / spells live in a FOLLOWING sibling section
+            #    ("**Способности:**" / "**Заклинания:**") — not inside the table
+            #    block.  Absorb that section so parse_stat_block sees the
+            #    abilities.  Skip any blank lines between the table and the
+            #    abilities section.
+            k = j
+            while k < n and lines[k].strip() == "":
+                k += 1
+            if k < n and re.match(r"^\*\*(Способности|Заклинания)", lines[k].strip()):
+                m = k + 1
+                while m < n:
+                    if re.match(r"^#{1,6}\s", lines[m].strip()):
+                        break
+                    if lines[m].strip() == "---":
+                        break
+                    block.append(lines[m])
+                    m += 1
+                j = m
             out.append(parse_stat_block(block, heading=heading))
             i = j
             continue
