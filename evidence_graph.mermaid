@@ -1,0 +1,485 @@
+%%{
+    init: {
+        'theme': 'base',
+        'flowchart': {
+            'curve': 'basis',
+            'nodeSpacing': 35,
+            'rankSpacing': 55,
+            'padding': 10
+        }
+    }
+}%%
+graph TD
+
+    %% =========================================================
+    %% ГРАФ УЛИК И ЗАЦЕПОК
+    %% Ход чтения: ЛОКАЦИЯ (LO) -> ЗАЦЕПКА/УЛИКА (E) -> УСЛОВИЕ ПОЛУЧЕНИЯ
+    %% (C) -> К ЧЕМУ ВЕДЁТ (B) -> ПУТЬ ОСТАНОВКИ ПОВОДА -> КОНЦОВКА (EN)
+    %% Источник: evidence.json, locations/*.json, kill_grid.json,
+    %%          murder_matrix.json, flood_mechanic.json, 05-endings.md
+    %% =========================================================
+
+    %% =========================================================
+    %% 0. КЛАССЫ
+    %% =========================================================
+    classDef floor fill:#e8f5e9, stroke:#2e7d32;
+    classDef basement fill:#d7f3ec, stroke:#00796b;
+    classDef mansard fill:#f5e1d0, stroke:#c0592b;
+    classDef outdoor fill:#e0f2f1, stroke:#00695c;
+    classDef room2f fill:#f3e5f5, stroke:#6a1b9a;
+    classDef town fill:#eceff1, stroke:#455a64;
+    classDef primary fill:#d4edda, stroke:#2e7d32, stroke-width:2px;
+    classDef secondary fill:#fff3cd, stroke:#b8960b;
+    classDef falselead fill:#f8d7da, stroke:#c62828, stroke-dasharray:4 3;
+    classDef accident fill:#e2e3e5, stroke:#495057, stroke-dasharray:2 2;
+    classDef condition fill:#e1f5fe, stroke:#0288d1, stroke-dasharray:3 2;
+    classDef scenario fill:#e1bee7, stroke:#6a1b9a, stroke-width:2px;
+    classDef alibi fill:#d1ecf1, stroke:#0288d1, stroke-dasharray:2 2;
+    classDef endingGood fill:#c8e6c9, stroke:#1b5e20, stroke-width:2px;
+    classDef endingBad fill:#ffcdd2, stroke:#b71c1c, stroke-width:2px;
+
+    %% =========================================================
+    %% 1. ЛОКАЦИИ (узлы-источники улик)
+    %% =========================================================
+
+    subgraph LO1["1 этаж"]
+        TKOFF["Кабинет трактирщика"]
+        THALL["Общий зал"]
+        KITCH["Кухня"]
+    end
+
+    subgraph LOB["Подвал (тонет 1-й, +1..+2 ч)"]
+        CLAIR["Логово культа"]
+        SMUG["Тайный склад контрабандистов"]
+        BASE["Подвал/кладовая/ледник"]
+    end
+
+    subgraph LO2["2 этаж (тонет +19..+22 ч)"]
+        WROOM["Комната Официантки"]
+        SROOM["Комната Моряка"]
+        DROOM["Комната Детектива"]
+        DOCTOR["Комната Врача"]
+    end
+
+    subgraph LOM["Мансарда (тонет в последнюю, +23..+24 ч)"]
+        MANS["Мастерская Художника"]
+        ARTROOM["Жилая комната Художника"]
+        A1["Чердак №1"]
+    end
+
+    subgraph LOO["Двор/набережная (тонут +2..+6 ч)"]
+        YARD["Двор таверны"]
+        GRAVE["Могила Жены"]
+        QUAY["Набережная/причал"]
+    end
+
+    %% =========================================================
+    %% 2. УЛИКИ И ЗАЦЕПКИ (role: primary / secondary / false / accident)
+    %% =========================================================
+
+    %% --- 1 этаж ---
+    E_TB["Записная книжка трактирщика"]
+    E_CON["Контрабанда: Погибель Дьявола / пеш / лист-живодёр / грязь"]
+    E_TKN["Кинжал трактирщика"]
+    E_THL["Дневник трактирщика (мотив мести)"]
+    E_STL["Письмо Моряка с угрозой"]
+    E_POT["Флакон яда"]
+    E_CRT["Счёт за контрабанду"]
+    E_DN["Долговая расписка"]
+    E_TKH["Тайник трактирщика"]
+
+    %% --- подвал ---
+    E_CI["Ритуальные предметы культа"]
+    E_DAG["Ритуальный кинжал Врача"]
+    E_SK["Реликвия ордена (ковчег с мумифицированным черепом)"]
+    E_LET["Свеча из культа (с кровью)"]
+    E_SYM["Печать культа (Дакон)"]
+    E_POIS["Запах благовоний"]
+    E_INSG["Золотой диск с глазом осьминога"]
+    E_TRID["Ритуальный трезубец"]
+    E_CVEN["Морские атрибуты (водоросли/ракушки)"]
+    E_STAT["Статуэтки/амулеты (осьминог/кальмар)"]
+    E_DAGPR["Молитва Дагона (шёпот «Иа! Иа!»)"]
+
+    %% --- мансарда ---
+    E_ATR["Ложные следы Художника"]
+    E_CUB["«Куб I» — торс на модули"]
+    E_MAS["«Кладка» — конечности рядами"]
+    E_BAC["«Бекон» — полосы плоти в рулонах"]
+    E_SKM["«Набросок» — тело на модули (чертёж)"]
+    E_FTO["Инструменты с плотью (скальпели/крюки)"]
+    E_SKS["Наброски Художника (план cult_lair)"]
+    E_CORD["Следы на чердачной лестнице"]
+    E_MASK["Маска культа"]
+    E_ORD["Приказ ордена"]
+    E_ORL["Письмо из ордена"]
+    E_RBW["Радужная птица (символ Шелин)"]
+    E_SWP["Глефа «Шёпот Душ»"]
+    E_CRY["Кристаллы/стёкла (атрибуты Шелин)"]
+    E_SPR["Молитва/речь Шелин (рифмы)"]
+    E_BAN["Знамя/брошь Мендева"]
+    E_YOM["Символ Иомедай (меч+солнце)"]
+    E_WWM["Карта Мировой Язвы / гравировка"]
+    E_MSP["Военный жаргон Мендева"]
+    E_DIARY["Дневник Художника (символ ордена на обложке)"]
+
+    %% --- чердак №1 ---
+    E_ARH["Тайник Художника (ящик)"]
+    E_TEAR["Слёзы Размира (топливо безумия)"]
+    E_AET["Эфир Aether (усиление божественных сил)"]
+    E_BEL["Белладонна (религиозное самоистязание)"]
+
+    %% --- 2 этаж ---
+    E_WD["Дневник Официантки (потоп = заклинание)"]
+    E_WDS["Дневник Официантки (часть 2)"]
+    E_WF["Заклинательный фокус Официантки"]
+    E_WH["Тайник Официантки (шкатулка)"]
+    E_SF["Ложная улика на Моряка"]
+    E_SH["Тайник Моряка (казна/карта)"]
+    E_FLK["Поддельное письмо (признание)"]
+    E_INK["Чужая кровь на одежде"]
+    E_NAU["Морская карта"]
+    E_SKN["Нож Моряка (старая кровь)"]
+    E_DRK["Следы пьянства Детектива"]
+    E_BB["Разбитая бутылка"]
+    E_DN2["Записка Врача (любовь)"]
+    E_DJ["Медицинский журнал Врача"]
+    E_DH["Тайник Врача (сумка)"]
+    E_ALIB["Следы ритуала на теле (алиби)"]
+
+    %% --- двор/набережная ---
+    E_FS["Потоп как заклинание"]
+    E_BLO["Мокрые следы во дворе"]
+    E_AUR["Аура заклинания (тёмная магия)"]
+    E_TOR["Сломанный нож (не подходит по ране)"]
+
+    %% --- зал/могила ---
+    E_WP["Портрет Жены"]
+    E_BG["Семейное древо"]
+    E_CSP["Речевые особенности культистов (водная одержимость)"]
+    E_MSP2["Речевые особенности Художника (военный жаргон)"]
+    E_GH["Призрак Жены"]
+    E_GT["Показания призрака"]
+    E_WILL["Завещание Жены (культ -> дочери)"]
+    E_HKI["Глаз осьминога на обороте камня"]
+
+    %% =========================================================
+    %% 3. ЛОКАЦИЯ -> УЛИКА (с узлом-условием получения)
+    %% =========================================================
+
+    %% --- Кабинет трактирщика ---
+    TKOFF --> E_TB
+    TKOFF --> E_CON
+    TKOFF --> E_TKN
+    TKOFF --> E_THL
+    TKOFF --> E_STL
+    TKOFF --> E_POT
+    TKOFF --> E_TKH
+    %% --- общий зал ---
+    THALL --> E_WP
+    THALL --> E_BG
+    THALL --> E_CSP
+    THALL --> E_MSP2
+    %% --- подвал ---
+    CLAIR --> E_CI
+    CLAIR --> E_DAG
+    CLAIR --> E_SK
+    CLAIR --> E_LET
+    CLAIR --> E_SYM
+    CLAIR --> E_POIS
+    CLAIR --> E_INSG
+    CLAIR --> E_TRID
+    CLAIR --> E_CVEN
+    CLAIR --> E_STAT
+    CLAIR --> E_DAGPR
+    SMUG --> E_CRT
+    SMUG --> E_SKN
+    %% --- 2 этаж ---
+    WROOM --> E_WD
+    WROOM --> E_WDS
+    WROOM --> E_WF
+    WROOM --> E_WH
+    SROOM --> E_SF
+    SROOM --> E_SH
+    SROOM --> E_FLK
+    SROOM --> E_INK
+    SROOM --> E_NAU
+    DROOM --> E_DRK
+    DROOM --> E_BB
+    DOCTOR --> E_DN2
+    DOCTOR --> E_DJ
+    DOCTOR --> E_DH
+    %% --- мансарда ---
+    MANS --> E_ATR
+    MANS --> E_CUB
+    MANS --> E_MAS
+    MANS --> E_BAC
+    MANS --> E_SKM
+    MANS --> E_FTO
+    MANS --> E_SKS
+    MANS --> E_CORD
+    MANS --> E_MASK
+    MANS --> E_RBW
+    MANS --> E_BAN
+    MANS --> E_YOM
+    MANS --> E_WWM
+    A1 --> E_ARH
+    A1 --> E_TEAR
+    A1 --> E_AET
+    A1 --> E_BEL
+    %% --- 2-я линия (некоторые улики в artist_room) ---
+    ARTROOM --> E_ORD
+    ARTROOM --> E_ORL
+    ARTROOM --> E_SWP
+    ARTROOM --> E_CRY
+    ARTROOM --> E_SPR
+    ARTROOM --> E_DIARY
+    %% --- двор/набережная ---
+    YARD --> E_FS
+    YARD --> E_BLO
+    YARD --> E_AUR
+    QUAY --> E_FS
+    %% --- могила ---
+    GRAVE --> E_GH
+    GRAVE --> E_GT
+    GRAVE --> E_WILL
+    GRAVE --> E_HKI
+
+    %% =========================================================
+    %% 4. УСЛОВИЯ ПОЛУЧЕНИЯ (discovery)
+    %% =========================================================
+
+    C_TKHID["обыск кабинета / обнаружение тайника"]
+    C_OFF["обыск кабинета"]
+    C_HALL["осмотр зала / наблюдение"]
+    C_CULT["найти тайный вход + войти в логово культа"]
+    C_ALT["проникнуть в cult_lair + осмотреть алтарь"]
+    C_SKULL["обыск под алтарём"]
+    C_DAGPR["подслушать молитву / ночное собрание"]
+    C_SKG["найти следы на чердачной лестнице"]
+    C_ATTIC["обыск чердачной комнаты №1"]
+    C_ART["обыск / осмотр artist_room"]
+    C_MANS["обыск мастерской (mansard)"]
+    C_WROOM["обыск комнаты Официантки"]
+    C_SROOM["обыск комнаты Моряка"]
+    C_DRK["обыск / наблюдение (комната Детектива)"]
+    C_DOCTOR["обыск / осмотр записей Врача"]
+    C_YARD["исследовать двор / наблюдать"]
+    C_GRAVE["встретить призрака / осмотреть могилу"]
+    C_TOR["обыск тайного склада"]
+
+    E_TB --> C_OFF
+    E_CON --> C_TKHID
+    E_TKN --> C_TKHID
+    E_THL --> C_OFF
+    E_STL --> C_TKHID
+    E_POT --> C_OFF
+    E_TKH --> C_TKHID
+    E_WP --> C_HALL
+    E_BG --> C_HALL
+    E_CSP --> C_HALL
+    E_MSP2 --> C_HALL
+    E_CI --> C_CULT
+    E_DAG --> C_ALT
+    E_SK --> C_SKULL
+    E_LET --> C_CULT
+    E_SYM --> C_CULT
+    E_POIS --> C_CULT
+    E_INSG --> C_CULT
+    E_TRID --> C_ALT
+    E_CVEN --> C_CULT
+    E_STAT --> C_CULT
+    E_DAGPR --> C_DAGPR
+    E_CRT --> C_TOR
+    E_SKN --> C_TOR
+    E_WD --> C_WROOM
+    E_WDS --> C_WROOM
+    E_WF --> C_WROOM
+    E_WH --> C_WROOM
+    E_SF --> C_SROOM
+    E_SH --> C_SROOM
+    E_FLK --> C_SROOM
+    E_INK --> C_SROOM
+    E_NAU --> C_SROOM
+    E_DRK --> C_DRK
+    E_BB --> C_DRK
+    E_DN2 --> C_DOCTOR
+    E_DJ --> C_DOCTOR
+    E_DH --> C_DOCTOR
+    E_ATR --> C_MANS
+    E_CUB --> C_MANS
+    E_MAS --> C_MANS
+    E_BAC --> C_MANS
+    E_SKM --> C_MANS
+    E_FTO --> C_MANS
+    E_SKS --> C_MANS
+    E_CORD --> C_SKG
+    E_MASK --> C_MANS
+    E_RBW --> C_ART
+    E_BAN --> C_MANS
+    E_YOM --> C_MANS
+    E_WWM --> C_MANS
+    E_ARH --> C_ATTIC
+    E_TEAR --> C_ATTIC
+    E_AET --> C_ATTIC
+    E_BEL --> C_ATTIC
+    E_ORD --> C_ART
+    E_ORL --> C_ART
+    E_SWP --> C_ART
+    E_CRY --> C_ART
+    E_SPR --> C_ART
+    E_DIARY --> C_ART
+    E_FS --> C_YARD
+    E_BLO --> C_YARD
+    E_AUR --> C_YARD
+    E_GH --> C_GRAVE
+    E_GT --> C_GRAVE
+    E_WILL --> C_GRAVE
+    E_HKI --> C_GRAVE
+
+    %% =========================================================
+    %% 5. К ЧЕМУ ВЕДЁТ (branches: primary / secondary / false / accident)
+    %%    proof = подводит к убийце; false = ложный след; alibi = очерчивает
+    %% =========================================================
+
+    B_S21["Моряк убил трактирщика · месть"]
+    B_T12["Трактирщик убил Моряка · месть"]
+    B_S23["Официантка убила Моряка · месть за мать / потоп-жертва"]
+    B_S44["Врач убил Моряка · защита Официантки"]
+    B_S24["Моряк убил Врача · самозащита (КАНОН)"]
+    B_T41["Трактирщик убил Врача · защита дочери"]
+    B_A36["Художник убил Официантку · реликвия (КАНОН)"]
+    B_A46["Художник убил Врача · культист"]
+    B_A56["Художник убил Детектива · скрыть охоту (КАНОН)"]
+    B_D54["Врач убил Детектива · защита от пьяного"]
+    B_D65["Детектив убил Художника · личное vs правосудие"]
+    B_T61["Трактирщик убил Художника · защита дочери"]
+    B_T51["Трактирщик убил Детектива · закрыть контрабанду"]
+    B_A16["Художник убил трактирщика · possible_scenario"]
+    B_S63["Официантка убила Художника · possible_scenario"]
+    B_D21["Детектив убил трактирщика · possible_scenario (контрабанда)"]
+    B_ALIB["Алиби: нет мотива (дочь / отец / любовник)"]
+    B_ACC["Несчастный случай / самоубийство / болезнь"]
+
+    %% --- primary ---
+    E_STL --> B_S21
+    E_WD --> B_S23
+    E_WDS --> B_S23
+    E_FS --> B_S23
+    E_SK --> B_A36
+    E_ORD --> B_A56
+    E_FS --> B_D65
+    E_DAG --> B_D54
+    E_DAG --> B_D21
+    E_SK --> B_D21
+    E_CUB --> B_A56
+    E_DIARY --> B_A36
+    E_DIARY --> B_A46
+    %% --- secondary ---
+    E_CI --> B_T41
+    E_WP --> B_T61
+    E_THL --> B_T12
+    E_TKN --> B_T12
+    E_WF --> B_S23
+    E_WH --> B_S23
+    E_POIS --> B_S23
+    E_GT --> B_S23
+    E_AUR --> B_S23
+    E_DH --> B_D21
+    E_DN2 --> B_D54
+    E_TKN --> B_T51
+    %% --- false leads (ложные следы) ---
+    E_CON --> B_D21
+    E_CRT --> B_D21
+    E_SF --> B_S24
+    E_SF --> B_ALIB
+    E_SKN --> B_ALIB
+    E_FLK --> B_ALIB
+    E_INK --> B_ALIB
+    E_NAU --> B_ALIB
+    E_DRK --> B_ALIB
+    E_ATR --> B_ALIB
+    E_MASK --> B_ALIB
+    E_CORD --> B_ALIB
+    E_POT --> B_ALIB
+    %% --- accident ---
+    E_BLO --> B_ACC
+    E_BB --> B_ACC
+    E_DRK --> B_ACC
+    E_POT --> B_ACC
+
+    %% =========================================================
+    %% 6. ПУТЬ ОСТАНОВКИ ПОВОДА (потоп = заклинание Официантки)
+    %% =========================================================
+    P1["Смерть Моряка (цель заклинания)"]
+    P2["Смерть Официантки (проводник)"]
+    P3["Обратный ритуал Врача"]
+    P4["Возврат реликвии Художнику"]
+    P5["Отвязать ялик и переждать потоп"]
+
+B_S21 --> P1
+B_S24 --> P1
+B_A36 --> P2
+B_D54 --> P3
+B_D65 --> P4
+E_SK --> P4
+E_AUR --> P5
+
+    %% =========================================================
+    %% 7. КОНЦОВКИ (flood_mechanic.endings)
+    %%    solve/solve_only = убийца найден; flood_stop_only = потоп
+    %%    остановлен; drown = провал. solve_only + drown = ВСЕ погибают.
+    %% =========================================================
+    EN_SOLVE["Solve — убийца найден + потоп остановлен"]
+    EN_SOLO["Solve only — убийца найден, потоп НЕ остановлен (таверна тонет)"]
+    EN_FLOOD["Flood only — потоп остановлен, убийца НЕ найден (таверна спасена)"]
+    EN_DROWN["Drown — всё провалено (таверна утонет)"]
+
+    %% пути остановки потопа (1-5) => спасение при найденном убийце
+    P1 --> EN_SOLVE
+    P2 --> EN_SOLVE
+    P3 --> EN_SOLVE
+    P4 --> EN_SOLVE
+    P5 --> EN_SOLVE
+    %% убийца найден, но потоп НЕ остановлен => таверна тонет
+    B_S23 --> EN_SOLO
+    B_A56 --> EN_SOLO
+    %% потоп остановлен, но убийца не найден => таверна спасена
+    B_ALIB --> EN_FLOOD
+    %% ни убийца, ни потоп => провал
+    B_ACC --> EN_DROWN
+    %% при провале по времени путь_6 (продление) => утонуть
+    EN_DROWN --> EN_DROWN:::endingBad
+
+    %% =========================================================
+    %% 8. ПРИМЕР ПУТИ (одна связка end-to-end, чтобы показать ход)
+    %%    cult_lair -> reliquary_skull -> обыск под алтарём -> Художник
+    %%    -> path_4 -> Solve; параллельно ложные следы -> ali/accident
+    %% =========================================================
+    CLAIR -.->|"пример пути"| E_SK
+    E_SK -.->|"primary"| B_A36
+    B_A36 -.->|"path_2"| P2
+    P2 -.-> EN_SOLVE
+
+    %% =========================================================
+    %% 9. КЛАССЫ
+    %% =========================================================
+    class TKOFF,KITCH floor;
+    class THALL floor;
+    class BASE,CLAIR,SMUG basement;
+    class MANS,ARTROOM,A1 mansard;
+    class YARD,GRAVE,QUAY outdoor;
+    class WROOM,SROOM,DROOM,DOCTOR room2f;
+
+    class E_STL,E_WD,E_SK,E_ORD,E_DAG,E_CUB,E_DIARY,E_SKN primary;
+    class E_CON,E_TB,E_CI,E_WP,E_THL,E_TKN,E_WF,E_WH,E_DH,E_DN2,E_POIS,E_GT,E_AUR,E_FS,E_TKH,E_CRT secondary;
+    class E_SF,E_SKN,E_FLK,E_INK,E_NAU,E_DRK,E_ATR,E_MASK,E_CORD,E_POT,E_CUB falselead;
+    class E_BLO,E_BB accident;
+    class C_TKHID,C_OFF,C_HALL,C_CULT,C_ALT,C_SKULL,C_DAGPR,C_SKG,C_ATTIC,C_ART,C_MANS,C_WROOM,C_SROOM,C_DRK,C_DOCTOR,C_YARD,C_GRAVE,C_TOR condition;
+    class B_S21,B_T12,B_S23,B_S44,B_S24,B_T41,B_A36,B_A46,B_A56,B_D54,B_D65,B_T61,B_T51,B_A16,B_S63,B_D21 scenario;
+    class B_ALIB alibi;
+    class B_ACC accident;
+    %% EN_SOLVE = спасение; EN_FLOOD = таверна спасена (убийца не найден);
+    %% EN_SOLO + EN_DROWN = все погибают (flood_mechanic.endings).
+    class EN_SOLVE,EN_FLOOD endingGood;
+    class EN_SOLO,EN_DROWN endingBad;
