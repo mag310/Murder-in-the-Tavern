@@ -32,7 +32,7 @@
   // iterable, so we normalise the traits to a tuple (which is iterable) and
   // loop with `for`.  This replaces the original `.map(...)` that failed on
   // single-element content in this Typst version.
-  let base = if type(traits) == list { traits } else { (traits,) }
+  let base = if type(traits) in (array, list) { traits } else { (traits,) }
   for trait in base [
 #let style = if trait == "tiny" or trait == "small" or trait == "medium" or trait == "large" {
       rgb("#3a7a58") // Size Green

@@ -104,11 +104,19 @@ def typst_inline(line: str) -> str:
     Image spans are stashed *before* neutralisation so their paths (which
     contain ``.`` that :func:`neutralize` would turn into ``:``) survive;
     the rest of the line is neutralised and its brackets escaped, then the
-    stashed image paths are re-inserted as ``#image(...)``.
+    stashed image paths are re-inserted.
+
+    A map / location image (any path that is NOT a ``characters/`` portrait)
+    that is the *sole* content of its line is re-inserted as a full-width,
+    page-spanning ``#place(...)[ #figure(...) ]`` (its alt text becomes the
+    caption) so maps and location art fill the whole page.  A ``characters/``
+    portrait, or an image mixed with inline text, stays a plain
+    ``#image(...)`` so it does not break the inline flow.
     """
-    images: list[tuple[str, str]] = []  # (path, width-spec)
+    images: list[tuple[str, str, str]] = []  # (path, width-spec, alt)
 
     def _stash(m: "re.Match[str]") -> str:
+        alt = m.group(1).strip()
         inner = m.group(2).strip()
         # An optional trailing "NN%" sets the #image width; default 100%.
         wm = re.match(r"^(.*?)\s+(\d+%\s*)$", inner)
@@ -116,7 +124,7 @@ def typst_inline(line: str) -> str:
             path, width = wm.group(1).strip(), wm.group(2).strip()
         else:
             path, width = inner, "100%"
-        images.append((path, width))
+        images.append((path, width, alt))
         return f"\x00IMG{len(images) - 1}\x00"
 
     s = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", _stash, line)
@@ -127,7 +135,15 @@ def typst_inline(line: str) -> str:
     # backslash-escape every "." into a Typst path separator.  The raw path
     # is safe inside the #image("...") string argument.
     def _reinsert(m: "re.Match[str]") -> str:
-        path, width = images[int(m.group(1))]
+        path, width, alt = images[int(m.group(1))]
+        # Character portraits are never full-width: keep them inline.
+        if "characters/" in path:
+            return f'#image("{path}", width: {width})'
+        # A map / location image that is the ONLY content of its line becomes a
+        # full-width #figure; an image mixed with inline text stays a plain
+        # #image (a block-level #place/#figure cannot sit inside inline flow).
+        if re.fullmatch(r"!\[[^\]]*\]\([^)]+\)\s*", line.strip()):
+            return _figure_block(path, alt)
         return f'#image("{path}", width: {width})'
 
     s = re.sub(
@@ -881,6 +897,48 @@ def _render_answers_group(buf: list[str]) -> str:
     return "#answers-group(\n" + "\n".join(parts) + "\n)"
 
 
+def _figure_block(path: str, caption: str) -> str:
+    """Build a full-width, page-spanning ``#place(...)[ #figure(...) ]`` for an
+    image.  ``width: 100%`` + the ``#place`` float make the figure span the
+    whole page width even inside a 2-column layout.  ``caption`` is the figure's
+    caption (its alt text, or an explicit title); when empty the ``#figure``
+    has no caption line."""
+    cap = escape(neutralize(caption)) if caption else ""
+    cap_line = f"    caption: [{cap}],\n" if cap else ""
+    return (
+        "#place(\n"
+        "  top + center,\n"
+        "  scope: \"parent\",\n"
+        "  float: true,\n"
+        "  clearance: 1em,\n"
+        ")[\n"
+        "  #figure(\n"
+        f'    image("{path}", width: 100%),\n'
+        f"{cap_line}"
+        "  )\n"
+        "]"
+    )
+
+
+def _render_figure(buf: list[str], caption: str) -> str:
+    """Render a `::: figure[Caption]` fence's buffered content as a full-width
+    page-spanning ``#place(...)[ #figure(image(...), caption: [...]) ]``.
+
+    The buffered content is the markdown inside the fence; the first markdown
+    image ``![alt](path)`` found becomes the ``#figure``'s image.  The caption
+    is the explicit ``::: figure[Caption]`` title, or (when none is given) the
+    image's alt text.
+    """
+    text = "\n".join(buf)
+    m = re.search(r"!\[([^\]]*)\]\(([^)]+)\)", text)
+    if not m:
+        return ""
+    alt, path = m.group(1).strip(), m.group(2).strip()
+    # An optional trailing "NN%" sets the width; the figure convention is 100%.
+    path = re.sub(r"\s+\d+%\s*$", "", path).strip()
+    return _figure_block(path, caption if caption else alt)
+
+
 def _md_table_to_typst(table_lines: list[str]) -> str:
     """Convert a markdown grid table to a Typst ``#table`` that renders as a
     real table.  Every cell is escaped and its parentheses flattened so nothing
@@ -953,6 +1011,12 @@ _PAGE_BROKEN = False
 _FENCE = None
 _PFTAB_NAME = ""
 _ANSWERS_BUF: list[str] = []
+# A `::: figure[Caption]` fence accumulates its (buffered) content lines and the
+# title caption until the bare `:::` close, when it is rendered as a full-width
+# `#place(...)[ #figure(...) ]`.  `_FIG_CAPTION` is the explicit caption from
+# `::: figure[Caption]` (empty when none, so the image's alt text is used).
+_FIG_CAPTION = ""
+_FIG_BUF: list[str] = []
 
 # The most recent heading text, used to title auto-wrapped `#pftab` tables.
 _last_heading = ""
@@ -1033,10 +1097,12 @@ def _is_statblock(context: dict) -> bool:
 
 
 def convert(md_text: str, page_broken: bool = False) -> str:
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _last_heading
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _last_heading, _FIG_CAPTION, _FIG_BUF
     _FENCE = None
     _PFTAB_NAME = ""
     _ANSWERS_BUF = []
+    _FIG_CAPTION = ""
+    _FIG_BUF = []
     # `_last_heading` is reset per `convert()` call so that the first table of
     # each chapter file does not inherit the last heading of the previous file
     # (the assembled book calls `convert()` once per chapter).
@@ -1052,15 +1118,20 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         ln = lines[i]
         stripped = ln.strip()
 
-        # ---- inside a ::: answers fence: buffer verbatim until the close ----
+        # ---- inside a ::: answers / ::: figure fence: buffer verbatim until the close ----
         # The `::: answers` block is collected line-by-line (the NPC name, the
         # **Q:** question lines and the `<level>: <answer>` lines) and turned
-        # into an #answers-group when the bare `:::` close is reached.  None of
-        # the buffer lines may be re-processed by the handlers below.  The
+        # into an #answers-group when the bare `:::` close is reached.  The
+        # `::: figure` block is collected the same way (its image + any text)
+        # and rendered as a full-width #figure when the close is reached.  None
+        # of the buffer lines may be re-processed by the handlers below.  The
         # closing `:::` is NOT consumed here — it must fall through to the
-        # fence-close branch below so the group is actually emitted.
-        if _FENCE == "answers" and not re.match(r"^:::\s*$", stripped):
-            _ANSWERS_BUF.append(ln)
+        # fence-close branch below so the group / figure is actually emitted.
+        if _FENCE in ("answers", "figure") and not re.match(r"^:::\s*$", stripped):
+            if _FENCE == "answers":
+                _ANSWERS_BUF.append(ln)
+            else:
+                _FIG_BUF.append(ln)
             i += 1
             continue
 
@@ -1330,9 +1401,39 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             _ANSWERS_BUF = []
             i += 1
             continue
+        # `::: figure[Caption]` opens a full-width page-spanning #figure (a
+        # #place wrapper).  The content (a markdown image, buffered until the
+        # close) is rendered by _render_figure; the caption is the explicit
+        # `[Caption]` title, or the image's alt text when none is given.
+        if re.match(r"^:::\s*figure\s*(\[[^\]]*\])?\s*$", stripped):
+            _FENCE = "figure"
+            _FIG_CAPTION = _extract_pftab_name(stripped)
+            _FIG_BUF = []
+            i += 1
+            continue
+        # `::: block` opens a full-width page-spanning #block (a #place
+        # wrapper).  The content (processed by the normal handlers below) sits
+        # between the emitted #place/#block prefix and the close's `] ]`
+        # suffix, so it can contain headings, tables, prose, … as usual.
+        if re.match(r"^:::\s*block\s*$", stripped):
+            _FENCE = "block"
+            out.append(
+                "#place(\n"
+                "  top + center,\n"
+                "  scope: \"parent\",\n"
+                "  float: true,\n"
+                "  clearance: 1em,\n"
+                ")[\n"
+                "  #block(width: 100%)[\n"
+            )
+            i += 1
+            continue
         if re.match(r"^:::\s*$", stripped):
             if _FENCE == "one-col":
                 out.append("#set page(columns: 2)")
+            elif _FENCE == "block":
+                # Close the #block and the #place wrapper opened by `::: block`.
+                out.append("  ]\n]")
             elif _FENCE == "answers":
                 # Emit the answers-group in the normal flow.  `answers`/
                 # `answers-group` render as a breakable block whose own
@@ -1340,8 +1441,12 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 # flow, so no `#set page(columns: ...)` wrapper is needed.
                 out.append(_render_answers_group(_ANSWERS_BUF))
                 _ANSWERS_BUF = []
+            elif _FENCE == "figure":
+                out.append(_render_figure(_FIG_BUF, _FIG_CAPTION))
+                _FIG_BUF = []
             _FENCE = None
             _PFTAB_NAME = ""
+            _FIG_CAPTION = ""
             i += 1
             continue
 
@@ -1462,11 +1567,13 @@ def assemble_book(paths: list[Path]) -> str:
     """Concatenate several chapter .md files into one Typst document, each
     starting on a new page.  Image paths stay relative to the first file's
     directory, so the output must be written alongside it (see main)."""
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _FIG_CAPTION, _FIG_BUF
     _PAGE_BROKEN = False  # reset so the first heading of the book has no break
     _FENCE = None
     _PFTAB_NAME = ""
     _ANSWERS_BUF = []
+    _FIG_CAPTION = ""
+    _FIG_BUF = []
     parts = []
     for p in paths:
         md = p.read_text(encoding="utf-8")
