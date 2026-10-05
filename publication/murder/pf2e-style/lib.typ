@@ -248,3 +248,122 @@
     // #line(stroke: 1pt, length: 100%)
     // #comp.effect
 ]
+
+// ============================================================
+// Цвета уровней (левая колонка)
+// ============================================================
+#let att-colors = (
+  hostile:     rgb("5a1a1a"),
+  unfriendly:  rgb("7a3a1a"),
+  indifferent: rgb("5a5a2a"),
+  friendly:    rgb("2a5a2a"),
+  helpful:     rgb("1a4a3a"),
+  very_hard:   rgb("5a1a1a"),
+  easy:        rgb("7a3a1a"),
+  medium:      rgb("5a5a2a"),
+  very_easy:   rgb("1a4a3a"),
+)
+
+// ============================================================
+// Метки уровней
+// ============================================================
+#let att-labels = (
+  hostile:     "Враждебный (-2)",
+  unfriendly:  "Недружелюбный (-1)",
+  indifferent: "Безразличный (0)",
+  friendly:    "Дружелюбный (+1)",
+  helpful:     "Полезный (+2)",
+  very_hard:   "Не доверяет (-2)",
+  easy:        "Осторожный (-1)",
+  medium:      "Доверяет (+1)",
+  very_easy:   "Полностью доверяет (+2)",
+)
+
+// ============================================================
+// answers-group
+// ============================================================
+#let answers-group(npc, ..blocks) = {
+  heading(level: 4)[#npc]
+  for b in blocks.pos() {
+    b
+  }
+}
+
+// ============================================================
+// answers
+// ------------------------------------------------------------
+// Строка 0 — заголовок (colspan=2): npc (курсив) + q (жирный),
+//            фон pfgreen, текст pfwhite.
+// Строки 1..N — уровни:
+//   левая ячейка: метка, фон = att-colors.at(key), текст белый;
+//   правая ячейка: ответ, без заливки.
+// ============================================================
+#let answers(
+  npc: none,
+  q: none,
+  hostile: none,
+  unfriendly: none,
+  indifferent: none,
+  friendly: none,
+  helpful: none,
+  very_hard: none,
+  easy: none,
+  medium: none,
+  very_easy: none,
+) = {
+  let pairs = (
+    (key: "hostile",     body: hostile),
+    (key: "unfriendly",  body: unfriendly),
+    (key: "indifferent", body: indifferent),
+    (key: "friendly",    body: friendly),
+    (key: "helpful",     body: helpful),
+    (key: "very_hard",   body: very_hard),
+    (key: "easy",        body: easy),
+    (key: "medium",      body: medium),
+    (key: "very_easy",   body: very_easy),
+  ).filter(p => p.body != none)
+
+  // --- Заголовок: одна ячейка на две колонки ---
+  let header = table.cell(
+    colspan: 2,
+    fill: colors.pfgreen,
+    inset: (x: 6pt, y: 5pt),
+    align: left + horizon,
+  )[
+    #if npc != none {
+      text(fill: colors.pfwhite, size: 0.9em, style: "italic")[#npc]
+      if q != none { h(0.5em) }
+    }
+    #if q != none {
+      text(fill: colors.pfwhite, weight: "bold")[#q]
+    }
+  ]
+
+  // --- Строки уровней ---
+  let rows = pairs.map(p => (
+    table.cell(
+      fill: att-colors.at(p.key),
+      inset: (x: 6pt, y: 4pt),
+      align: left,
+    )[
+      #text(fill: colors.pfwhite, weight: "bold")[#att-labels.at(p.key)]
+    ],
+    table.cell(
+      inset: (x: 6pt, y: 4pt),
+      align: left,
+    )[#p.body],
+  )).flatten()
+
+  block(breakable: true)[
+    #v(0.6em)
+    #table(
+      columns: (auto, 1fr),
+      stroke: none,
+      inset: 0pt,
+      fill: none,
+      header,
+      ..rows,
+    )
+    #v(0.6em)
+  ]
+}

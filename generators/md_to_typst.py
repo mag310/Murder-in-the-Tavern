@@ -774,6 +774,113 @@ def render_attention(title: str, body: str) -> str:
     return f"#attention[\n{escape(title)}\n\n{escape(body)}\n]"
 
 
+# The candor/attitude level keys the `answers()` function in pf2e-style/lib.typ
+# accepts, in the order the `answers()` signature lists them.  A `::: answers`
+# block line `<key>: <text>` is rendered as a named argument of that key; any
+# key not in this set is ignored (it would otherwise break the call).
+_ANSWERS_KEYS = {
+    "hostile", "unfriendly", "indifferent", "friendly", "helpful",
+    "very_hard", "easy", "medium", "very_easy",
+}
+
+
+def _render_answers_group(buf: list[str]) -> str:
+    """Render a collected `::: answers` block into a Typst ``#answers-group``.
+
+    The block (between the opening `::: answers` and the bare `:::` close) has
+    the shape::
+
+        <NPC name>            # first non-empty line (optional)
+
+        **Q:** <question>     # starts one `answers(...)`
+        <level>: <answer>
+        <level>: <answer>
+        ...
+
+        **Q:** <question>
+        <level>: <answer>
+        ...
+
+    The first non-empty, non-`**Q:**` line is the NPC name (the
+    `answers-group`'s only positional arg).  Each `**Q:**` starts a new
+    `answers(...)` call; subsequent `<level>: <answer>` lines are its named
+    arguments.  Every fragment is neutralised + escaped so no `[` / `]` / `*`
+    can close a content block early (the answers() function takes bracketed
+    content for `q` and each level).
+    """
+    # 1) strip the leading NPC-name line + blank lines: the first non-empty,
+    #    non-`**Q:**` line is the NPC name; everything before the first **Q:**
+    #    (other than the name) is ignored.
+    body = [ln for ln in buf]
+    # drop leading blank lines
+    while body and body[0].strip() == "":
+        body = body[1:]
+
+    npc = ""
+    if body and not body[0].lstrip().startswith("**Q:**"):
+        npc = body[0].strip()
+        npc = npc.replace("**", "").strip()
+        body = body[1:]
+
+    # 2) split the remaining lines into question groups.
+    #    A `**Q:** <q>` line starts a new group; a `<key>: <answer>` line is
+    #    appended to the current group.
+    groups: list[dict] = []  # each: {"q": str, "levels": [(key, text), ...]}
+    cur: dict | None = None
+    for ln in body:
+        s = ln.strip()
+        if s == "":
+            continue
+        if s.startswith("**Q:") or s.startswith("**Q**"):
+            # a **Q:** / **Q** question line.  The literal is "**Q:** text"
+            # (i.e. "**" + "Q:" + "**"), so strip a leading "**Q**", "**Q:**",
+            # or "**Q" then any trailing "**", colon and whitespace.
+            q = re.sub(r"^\*\*\s*Q\s*:? ?\*?\*?\s*:?\s*", "", s, flags=re.IGNORECASE)
+            q = q.replace("**", "").strip()
+            cur = {"q": q, "levels": []}
+            groups.append(cur)
+            continue
+        # a level line: `<key>: <answer>`
+        m = re.match(r"^([a-z_]+)\s*:\s*(.*)$", s)
+        if m and cur is not None:
+            key, text = m.group(1), m.group(2).strip()
+            if key in _ANSWERS_KEYS and text:
+                cur["levels"].append((key, text))
+            continue
+        # a stray line (e.g. a wrapped answer continuation): append to the
+        # current group's last level so it is not lost.
+        if cur and cur["levels"]:
+            cur["levels"][-1] = (
+                cur["levels"][-1][0],
+                (cur["levels"][-1][1] + " " + s).strip(),
+            )
+
+    # 3) emit the #answers-group call.  Every argument (the npc positional
+    # arg and each `answers(...)` call) is followed by a comma so the
+    # vararg list is well-formed; a trailing comma is allowed in Typst.
+    parts: list[str] = []
+    if npc:
+        parts.append(f"  [{escape(neutralize(npc))}],")
+    for g in groups:
+        if not g["q"] and not g["levels"]:
+            continue
+        args = []
+        if g["q"]:
+            args.append(f"q: [{escape(neutralize(g['q']))}]")
+        for key, text in g["levels"]:
+            args.append(f"{key}: [{escape(neutralize(text))}]")
+        # if there is a question but no levels (or vice-versa), still emit.
+        if args:
+            # trailing comma after the closing `)` so this is a valid vararg
+            # element of the `..blocks` list (a trailing comma after the last
+            # element is also allowed, so the final `answers(...)` is fine).
+            parts.append("  answers(" + ", ".join(args) + "),")
+
+    if not parts:
+        return ""
+    return "#answers-group(\n" + "\n".join(parts) + "\n)"
+
+
 def _md_table_to_typst(table_lines: list[str]) -> str:
     """Convert a markdown grid table to a Typst ``#table`` that renders as a
     real table.  Every cell is escaped and its parentheses flattened so nothing
@@ -841,9 +948,11 @@ def _md_table_to_pftab(table_lines: list[str], name: str = "") -> str:
 _PAGE_BROKEN = False
 
 # Module-global fence state.  `_FENCE` tracks the currently open `:::` fence
-# ("one-col" / "pftab" / None); `_PFTAB_NAME` holds the title for a pftab fence.
+# ("one-col" / "pftab" / "answers" / None); `_PFTAB_NAME` holds the title for a
+# pftab fence; `_ANSWERS_BUF` accumulates the lines of an `::: answers` block.
 _FENCE = None
 _PFTAB_NAME = ""
+_ANSWERS_BUF: list[str] = []
 
 # The most recent heading text, used to title auto-wrapped `#pftab` tables.
 _last_heading = ""
@@ -924,9 +1033,10 @@ def _is_statblock(context: dict) -> bool:
 
 
 def convert(md_text: str, page_broken: bool = False) -> str:
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _last_heading
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _last_heading
     _FENCE = None
     _PFTAB_NAME = ""
+    _ANSWERS_BUF = []
     # `_last_heading` is reset per `convert()` call so that the first table of
     # each chapter file does not inherit the last heading of the previous file
     # (the assembled book calls `convert()` once per chapter).
@@ -941,6 +1051,18 @@ def convert(md_text: str, page_broken: bool = False) -> str:
     while i < n:
         ln = lines[i]
         stripped = ln.strip()
+
+        # ---- inside a ::: answers fence: buffer verbatim until the close ----
+        # The `::: answers` block is collected line-by-line (the NPC name, the
+        # **Q:** question lines and the `<level>: <answer>` lines) and turned
+        # into an #answers-group when the bare `:::` close is reached.  None of
+        # the buffer lines may be re-processed by the handlers below.  The
+        # closing `:::` is NOT consumed here — it must fall through to the
+        # fence-close branch below so the group is actually emitted.
+        if _FENCE == "answers" and not re.match(r"^:::\s*$", stripped):
+            _ANSWERS_BUF.append(ln)
+            i += 1
+            continue
 
         # ---- [PF2e stat-block] section (### or #### heading) ----
         if re.sub(r"^#+\s+", "", stripped) == "[PF2e stat-block]":
@@ -1186,10 +1308,12 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             i += 1
             continue
 
-        # ---- fences: ::: one-col / ::: pftab[Title] … ::: ----
+        # ---- fences: ::: one-col / ::: pftab[Title] / ::: answers … ::: ----
         # A single fence state machine.  `::: one-col` opens a full-width page
         # block (emits `#set page(columns: 1)`); `::: pftab[Title]` opens a
-        # styled-table block that routes the next markdown table to `#pftab`.
+        # styled-table block that routes the next markdown table to `#pftab`;
+        # `::: answers` opens an interrogation-answers block that emits an
+        # `#answers-group(...)` (the PF2e-Remastered interrogation element).
         # A bare `:::` closes the most recent open fence.
         if re.match(r"^:::\s*one-col\s*$", stripped):
             _FENCE = "one-col"
@@ -1201,9 +1325,21 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             _PFTAB_NAME = _extract_pftab_name(stripped)
             i += 1
             continue
+        if re.match(r"^:::\s*answers\s*$", stripped):
+            _FENCE = "answers"
+            _ANSWERS_BUF = []
+            i += 1
+            continue
         if re.match(r"^:::\s*$", stripped):
             if _FENCE == "one-col":
                 out.append("#set page(columns: 2)")
+            elif _FENCE == "answers":
+                # Emit the answers-group in the normal flow.  `answers`/
+                # `answers-group` render as a breakable block whose own
+                # `table` lays out independently of the page's 2-column
+                # flow, so no `#set page(columns: ...)` wrapper is needed.
+                out.append(_render_answers_group(_ANSWERS_BUF))
+                _ANSWERS_BUF = []
             _FENCE = None
             _PFTAB_NAME = ""
             i += 1
@@ -1326,10 +1462,11 @@ def assemble_book(paths: list[Path]) -> str:
     """Concatenate several chapter .md files into one Typst document, each
     starting on a new page.  Image paths stay relative to the first file's
     directory, so the output must be written alongside it (see main)."""
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF
     _PAGE_BROKEN = False  # reset so the first heading of the book has no break
     _FENCE = None
     _PFTAB_NAME = ""
+    _ANSWERS_BUF = []
     parts = []
     for p in paths:
         md = p.read_text(encoding="utf-8")
