@@ -131,6 +131,41 @@
             },
             "additionalProperties": true
         },
+        "observation": {
+            "type": "object",
+            "description": "Проверка/наблюдение, при которой в локации заметят что-то (см. также check у hidden[].check).",
+            "properties": {
+                "skill": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Навык для проверки (напр. «Внимательность», «Оккультизм»)."
+                },
+                "dc": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "description": "Сложность (DC/СЛ) проверки."
+                },
+                "success": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Что заметят/узнают при успехе."
+                },
+                "failure": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Что происходит при провале."
+                }
+            },
+            "additionalProperties": true
+        },
         "hiddenDetail": {
             "type": "object",
             "description": "Скрытая деталь локации (обнаруживается при обыске/наблюдении).",
@@ -151,6 +186,51 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "check": {
+                    "$ref": "#/$defs/check"
+                }
+            },
+            "additionalProperties": true
+        },
+        "check": {
+            "type": "object",
+            "description": "Проверка (skill + DC/СЛ + success/failure) для раскрытия детали/улики. Единый формат по evidence.json.check.",
+            "properties": {
+                "skill": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Навык для проверки (напр. «Внимательность», «Оккультизм», «Медицина», «Религия»)."
+                },
+                "dc": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "description": "Сложность (DC/СЛ) проверки."
+                },
+                "success": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Что заметят/узнают при успехе."
+                },
+                "failure": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Что происходит при провале."
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Дополнительное пояснение (напр. критический успех)."
                 }
             },
             "additionalProperties": true
