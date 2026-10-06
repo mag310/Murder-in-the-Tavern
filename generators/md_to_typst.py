@@ -13,8 +13,8 @@ the bottom of this file) so those relative paths resolve inside the sandbox.
 Two modes:
     1. single file   -- md_to_typst.py <in.md> [<out.typ>]
     2. whole book    -- md_to_typst.py --book [<out.typ>]
-                       concatenates 00-synopsis + 01-lore + 02-chapter-1 +
-                       03-chapter-2 into one book.
+                        concatenates 00-synopsis + 01-lore + 02-chapter-1 +
+                        03-chapter-2 + 04-chapter-3 + 05-chapter-4 into one book.
 
 The output begins with a preamble that imports a **vendored** copy of the PF2e
 style package (``../vendor/pf2e-style/lib.typ`` — a local copy of
@@ -414,6 +414,12 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
         # Any other heading IS the name (e.g. "Стражники доттари (4 бойца …)").
         if not name:
             name = heading.strip()
+        # Drop a trailing "(d6=…)" ID from the name when it is unset ("—" /
+        # "–" / "-" / empty), so an encounter without a d6 mapping does not
+        # print a bare "d6=—".  A real d6 (e.g. "(d6=2)") is kept.
+        name = re.sub(r"\s*\(\s*d6\s*=\s*([—–-]|\d)\s*\)\s*$",
+                      lambda m: "" if not m.group(1).isdigit() else m.group(0),
+                      name).strip()
     # Level: always the real character level from the table "Уровень" row.
     level = rows.get("Уровень", "")
     # Fallback: name from an in-block "**Name (d6=N)**" (never the d6 itself).
@@ -481,8 +487,8 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
     # --- Structured PF2e #encounter ------------------------------------------
     # `comp` fields: name, type, traits, details.  `details` is a tuple of
     # bracketed lines; a "[---]" entry renders as a divider in #encounter.
-    level = str(level).strip() or "9"
-    type_label = f"Существо {level}"
+    level = str(level).strip()
+    type_label = f"Существо {level}" if level else "Существо"
 
     # traits: a leading "Уникальный" tag + size / race / subtype.
     race = rows.get("Раса", "").strip().lower()
@@ -783,6 +789,73 @@ def render_blockquote(text: str) -> str:
     return f"#aloud[\n{text}\n]"
 
 
+def _normalize_fenced_body(buf: list[str]) -> str:
+    """Normalise a collected ``:::`` fence body (read-aloud / note text).
+
+    Blank-line paragraph breaks are kept (``\n\n``); a hard-wrapped single
+    newline is collapsed to a space so the text flows like the source.  But a
+    newline that precedes a list item (``-`` / ``*`` / ``+`` / a numbered
+    ``1.`` item) is KEPT, so bulleted / numbered lists in a note body stay one
+    item per line instead of being flattened into a single paragraph.  The
+    result is escaped (parens/brackets/asterisks flattened) so nothing can
+    close a content block early.  Empty when the body is empty.
+    """
+    raw = "\n".join(buf).strip()
+    if not raw:
+        return ""
+    raw = re.sub(r"^\s*\n", "", raw)
+    raw = neutralize(raw)
+    # A blank line (one or more) is a paragraph break -> "\n\n".
+    raw = re.sub(r"\n\s*\n+", "\n\n", raw)
+    # Collapse a hard-wrapped single newline to a space, BUT keep the newline
+    # before a list item (``-`` / ``*`` / ``+`` / a numbered ``1.`` item) so
+    # list items stay on their own line instead of being flattened into a
+    # single paragraph.  The negative look-ahead preserves newlines that
+    # precede a list item; every other newline becomes a space.
+    raw = re.sub(
+        r"\n(?!(?:\s*[-*+]\s|\s*\d+[.)]\s))",
+        " ",
+        raw,
+    )
+    # Collapse runs of spaces (but keep the "\n\n" paragraph breaks and the
+    # kept list-item newlines).
+    raw = re.sub(r"[ \t]+", " ", raw)
+    raw = raw.strip()
+    return escape(raw)
+
+
+def _render_aloud(buf: list[str], title: str = "") -> str:
+    """Render a collected ``::: aloud[Title]`` block into a PF2e ``#aloud``.
+
+    The body is the read-aloud text; with a title it is emitted as
+    ``#aloud-titled([Title], [content])``, otherwise as a plain
+    ``#aloud[\n...\n]``.
+    """
+    content = _normalize_fenced_body(buf)
+    if not content:
+        return ""
+    if title:
+        t = escape(neutralize(title))
+        return f"#aloud-titled([{t}], [{content}])"
+    return f"#aloud[\n{content}\n]"
+
+
+def _render_note_titled(buf: list[str], title: str = "") -> str:
+    """Render a collected ``::: note[Title]`` block into a PF2e ``#note``.
+
+    The body is the note text; with a title it is emitted as
+    ``#note-titled([Title], [content])`` (a bold title lead line above the
+    body), otherwise as a plain ``#note[\n...\n]``.
+    """
+    content = _normalize_fenced_body(buf)
+    if not content:
+        return ""
+    if title:
+        t = escape(neutralize(title))
+        return f"#note-titled([{t}], [{content}])"
+    return f"#note[\n{content}\n]"
+
+
 def render_note(title: str, body: str) -> str:
     body = body.strip()
     if not body:
@@ -867,10 +940,16 @@ def _render_answers_group(buf: list[str]) -> str:
             cur = {"q": q, "levels": []}
             groups.append(cur)
             continue
-        # a level line: `<key>: <answer>`
-        m = re.match(r"^([a-z_]+)\s*:\s*(.*)$", s)
+        # a level line: `<key>: <answer>` — may be a plain "hostile: …" line
+        # (chapter 2) OR a bulleted + bold "- **hostile:** …" line (chapter 3
+        # B3 / B3-зеркало).  Normalise the leading bullet and bold markers so
+        # both shapes match the level regex below.
+        norm = re.sub(r"^[-*+]\s*", "", s)          # drop a leading bullet
+        norm = re.sub(r"\*\*", "", norm)            # drop bold markers
+        m = re.match(r"^([a-z_]+)\s*:\s*(.*)$", norm.strip())
         if m and cur is not None:
             key, text = m.group(1), m.group(2).strip()
+            text = text.replace("**", "").strip()
             if key in _ANSWERS_KEYS and text:
                 cur["levels"].append((key, text))
             continue
@@ -1122,7 +1201,13 @@ def _md_table_to_pftab(table_lines: list[str], name: str = "") -> str:
         return ""
     ncol = len(rows[0])
 
-    cols = ", ".join(["1fr"] * ncol)          # -> "1fr, 1fr, 1fr"
+    # "Действия логова" tables are a 2-col "d6 | Эффект" grid where the d6
+    # column is short and the effect column is long, so give them a 1:4
+    # width ratio (narrow first column, wide second) instead of equal 1fr/1fr.
+    if ncol == 2 and name.lower().startswith("действия логова"):
+        cols = "1fr, 4fr"
+    else:
+        cols = ", ".join(["1fr"] * ncol)      # -> "1fr, 1fr, 1fr"
     out: list[str]
     if name:
         out = [f"#pftab([{escape(name)}], columns: ({cols}),"]
@@ -1168,6 +1253,18 @@ _BLOCK_BUF: list[str] = []
 # Depth of nested `:::` fences inside an open `::: block`: the block only closes
 # at its *own* `:::` (when the depth returns to 0).
 _BLOCK_DEPTH = 0
+# A `::: aloud[Title]` fence accumulates its (buffered) content lines and the
+# title until the bare `:::` close, when it is rendered as
+# `#aloud(title: [Title], [content])` (a titled read-aloud).  `_ALoud_BUF`
+# holds the body lines; `_ALoud_TITLE` the explicit `[Title]`.
+_ALoud_BUF: list[str] = []
+_ALoud_TITLE = ""
+# A `::: note[Title]` fence accumulates its (buffered) content lines and the
+# title until the bare `:::` close, when it is rendered as
+# `#note-titled([Title], [content])` (a titled note).  `_NOTE_BUF` holds the
+# body lines; `_NOTE_TITLE` the explicit `[Title]`.
+_NOTE_BUF: list[str] = []
+_NOTE_TITLE = ""
 
 # The most recent heading text, used to title auto-wrapped `#pftab` tables.
 _last_heading = ""
@@ -1249,7 +1346,8 @@ def _is_statblock(context: dict) -> bool:
 
 def convert(md_text: str, page_broken: bool = False) -> str:
     global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _last_heading, _FIG_CAPTION, _FIG_BUF
-    global _BLOCK_BUF, _BLOCK_FIG_CAP, _FENCE_IN_BLOCK
+    global _BLOCK_BUF, _BLOCK_FIG_CAP, _FENCE_IN_BLOCK, _ALoud_BUF, _ALoud_TITLE
+    global _NOTE_BUF, _NOTE_TITLE
     _FENCE = None
     _PFTAB_NAME = ""
     _ANSWERS_BUF = []
@@ -1258,6 +1356,10 @@ def convert(md_text: str, page_broken: bool = False) -> str:
     _BLOCK_BUF = []
     _BLOCK_FIG_CAP = False
     _FENCE_IN_BLOCK = False
+    _ALoud_BUF = []
+    _ALoud_TITLE = ""
+    _NOTE_BUF = []
+    _NOTE_TITLE = ""
     # `_last_heading` is reset per `convert()` call so that the first table of
     # each chapter file does not inherit the last heading of the previous file
     # (the assembled book calls `convert()` once per chapter).
@@ -1323,9 +1425,13 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             i += 1
             continue
 
-        if _FENCE in ("answers", "figure") and not re.match(r"^:::\s*$", stripped):
+        if _FENCE in ("answers", "figure", "aloud", "note") and not re.match(r"^:::\s*$", stripped):
             if _FENCE == "answers":
                 _ANSWERS_BUF.append(ln)
+            elif _FENCE == "aloud":
+                _ALoud_BUF.append(ln)
+            elif _FENCE == "note":
+                _NOTE_BUF.append(ln)
             else:
                 _FIG_BUF.append(ln)
             i += 1
@@ -1407,7 +1513,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         # So a "Важно: …" block that is also a ">"-quote becomes #attention (a
         # technical caution), not #aloud, and a "Зачитать" title is always #aloud.
         if re.match(r"^#{1,6}\s", stripped) and re.search(
-            r"Зачитать|Что зачитать|Важно|Внимание|GM knows|Куда ведёт|Зацепки|Улики|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
+            r"Зачитать|Что зачитать|Важно|Внимание|GM knows|Куда ведёт|Зацепки|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
             stripped,
         ):
             title = re.sub(r"^#+\s+", "", stripped).strip()
@@ -1441,7 +1547,17 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         m = re.match(r"^(#{1,6})\s+(.*)$", ln)
         if m:
             level = len(m.group(1))
-            text = neutralize(m.group(2).strip())
+            htext = m.group(2).strip()
+            # Drop a trailing "(d6=…)" from a stat-block heading when it is
+            # unset ("—" / "–" / "-" / empty), so the heading does not print a
+            # bare "d6=—".  A real d6 (e.g. "(d6=2)") is kept.
+            if re.search(r"Стат(?:-|)блок\s*:", htext):
+                htext = re.sub(
+                    r"\s*\(\s*d6\s*=\s*([—–-]|\d)\s*\)\s*$",
+                    lambda mm: "" if not mm.group(1).isdigit() else mm.group(0),
+                    htext,
+                ).strip()
+            text = neutralize(htext)
             text = escape(text)
             # Page breaks before level-1/2/3 headings are handled by the
             # #show heading rule in pf2e-style/style/formatting.typ (which
@@ -1569,13 +1685,44 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             i += 1
             continue
         if re.match(r"^:::\s*pftab\s*(\[[^\]]*\])?\s*$", stripped):
+            if _FENCE == "one-col":
+                # A `one-col` block (full-width page) cannot coexist with a
+                # table; closing it here so its `#set page(columns: 2)` is
+                # emitted before the table reopens the normal 2-column flow.
+                out.append("#set page(columns: 2)")
             _FENCE = "pftab"
             _PFTAB_NAME = _extract_pftab_name(stripped)
             i += 1
             continue
         if re.match(r"^:::\s*answers\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
             _FENCE = "answers"
             _ANSWERS_BUF = []
+            i += 1
+            continue
+        # `::: aloud[Title]` opens a titled read-aloud block.  Its body (the
+        # read-aloud text, buffered verbatim until the bare `:::` close) is
+        # rendered as `#aloud(title: [Title], [content])`.  The title is the
+        # explicit `[Title]` (empty when none, so a plain read-aloud is emitted).
+        if re.match(r"^:::\s*aloud\s*(\[[^\]]*\])?\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = "aloud"
+            _ALoud_TITLE = _extract_pftab_name(stripped)
+            _ALoud_BUF = []
+            i += 1
+            continue
+        # `::: note[Title]` opens a titled note block, the same way as
+        # `::: aloud[Title]`: its body is buffered verbatim until the bare
+        # `:::` close, then rendered as `#note-titled([Title], [content])`
+        # (or a plain `#note[...]` when no title is given).
+        if re.match(r"^:::\s*note\s*(\[[^\]]*\])?\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = "note"
+            _NOTE_TITLE = _extract_pftab_name(stripped)
+            _NOTE_BUF = []
             i += 1
             continue
         # `::: figure[Caption]` opens a full-width page-spanning #figure (a
@@ -1585,6 +1732,8 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         if re.match(r"^:::\s*figure\s*(\[[^\]]*\])?\s*$", stripped):
             # A `::: figure` opened while a `::: block` is open belongs to that
             # block (emitted inside it), not as its own #place.
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
             _FENCE_IN_BLOCK = _FENCE == "block"
             _FENCE = "figure"
             _FIG_CAPTION = _extract_pftab_name(stripped)
@@ -1598,6 +1747,8 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         # block-close handler, so it can contain headings, a nested `::: figure`,
         # tables, prose, … as usual.
         if re.match(r"^:::\s*block\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
             _FENCE = "block"
             _BLOCK_BUF = []
             _BLOCK_FIG_CAP = False
@@ -1623,6 +1774,14 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 else:
                     out.append(_render_figure(_FIG_BUF, _FIG_CAPTION))
                 _FIG_BUF = []
+            elif _FENCE == "aloud":
+                out.append(_render_aloud(_ALoud_BUF, _ALoud_TITLE))
+                _ALoud_BUF = []
+                _ALoud_TITLE = ""
+            elif _FENCE == "note":
+                out.append(_render_note_titled(_NOTE_BUF, _NOTE_TITLE))
+                _NOTE_BUF = []
+                _NOTE_TITLE = ""
             _FENCE = None
             _PFTAB_NAME = ""
             _FIG_CAPTION = ""
@@ -1768,7 +1927,7 @@ def main() -> int:
         print(
             "usage: md_to_typst.py [--book] <input.md> [output.typ]\n"
             "       --book: assemble publication/murder/{00-synopsis,01-lore,"
-            "02-chapter-1,03-chapter-2}.md into one book.\n"
+            "02-chapter-1,03-chapter-2,04-chapter-3,05-chapter-4}.md into one book.\n"
             "       output (if omitted): <input>.typ (or murder_book.typ for "
             "--book), written next to the input so relative image paths "
             "resolve.\n"
@@ -1791,7 +1950,7 @@ def main() -> int:
         root = Path(__file__).resolve().parent.parent
         inputs = [
             root / "publication" / "murder" / f
-            for f in ("00-synopsis.md", "01-lore.md", "02-chapter-1.md", "03-chapter-2.md")
+            for f in ("00-synopsis.md", "01-lore.md", "02-chapter-1.md", "03-chapter-2.md", "04-chapter-3.md", "05-chapter-4.md")
         ]
         missing = [p.name for p in inputs if not p.exists()]
         if missing:

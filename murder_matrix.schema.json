@@ -109,14 +109,6 @@
                         "type": "string"
                     }
                 },
-                "probability": {
-                    "type": "string",
-                    "enum": [
-                        "high",
-                        "medium",
-                        "low"
-                    ]
-                },
                 "primary_evidence": {
                     "type": "array",
                     "description": "ID основной улики (напрямую указывает на убийцу в этой ветке). Может быть пустым для accident/disease.",

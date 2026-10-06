@@ -336,14 +336,14 @@
                 {
                     "victim": "tavern_keeper",
                     "killer": "doctor",
-                    "role": "possible_scenario",
-                    "note": "possible_scenario (не канон): Врач убивает Трактирщика из love (защищая Официантку); см. murder_matrix.json (motivation=love, probability=low). Культисты — не убийцы; эта пара — не канон."
+                    "role": "primary",
+                    "note": "Врач убивает Трактирщика из love (защищая Официантку); см. murder_matrix.json (motivation=love)."
                 },
                 {
                     "victim": "doctor",
                     "killer": "tavern_keeper",
                     "role": "secondary",
-                    "note": "канон: Трактирщик убивает Доктора, защищая дочь (murder_matrix.json victim=doctor, motivation=hatred, probability=medium)"
+                    "note": "канон: Трактирщик убивает Доктора, защищая дочь (murder_matrix.json victim=doctor, motivation=hatred)"
                 },
                 {
                     "victim": "detective",
@@ -709,6 +709,13 @@
                 ],
                 "discovery_method": "осмотр зала"
             },
+            "check": {
+                "skill": "Оккультизм",
+                "dc": 12,
+                "success": "игрок видит, что за портретом/на нём — след Призрака (эктоплазма), портрет — точка присутствия dead_wife",
+                "failure": "просто портрет; никаких следов призрака",
+                "note": "проверка «призрак обитает у портрета»; успех → эктоплазма (ghost residue) в tavern_hall"
+            },
             "visibility": {
                 "public": true,
                 "known_by": [
@@ -817,10 +824,17 @@
                     "players"
                 ],
                 "discovery_conditions": [
-                    "игрок наблюдает за Официанткой",
-                    "игрок узнаёт о разговоре Официантки с призраком"
+                    "игрок осматривает могилу жены",
+                    "игрок ищет след призрака (Оккультизм)"
                 ],
-                "discovery_method": "наблюдение / расспрос"
+                "discovery_method": "Оккультизм / наблюдение"
+            },
+            "check": {
+                "skill": "Оккультизм",
+                "dc": 12,
+                "success": "призрак dead_wife обитает у могилы; на месте — эктоплазма (след призрака), холод, шёпот",
+                "failure": "просто могила; ничего нет",
+                "note": "проверка «призрак обитает у могилы»; успех → эктоплазма + ghost_testimony; призрак НЕ общается — только берёт контроль"
             },
             "visibility": {
                 "public": false,
@@ -890,7 +904,9 @@
                 "Призрак может выглядеть как доказательство сверхъестественного убийства, хотя это просто разговор"
             ],
             "notes": [
-                "Призрак доказывает, что Официантка узнала о смерти матери, но не текущее убийство"
+                "Призрак (dead_wife) НЕ общается с персонажами — он берёт над ними контроль (одержимость). Разговор — это то, что Официантка видела заранее (event_015), а не диалог во время ночи.",
+                "Призрак может одержать 4/6 (tavern_keeper, sailor, waitress, doctor); НЕ detective, НЕ artist (вне круга).",
+                "Признак одержимости — эктоплазма (след призрака), см. evidence ectoplasm. Проверка: Оккультизм СЛ 12 у портрета Жены и Могилы Жены."
             ],
             "role": "secondary",
             "branches": [
@@ -911,6 +927,127 @@
                     "killer": "tavern_keeper",
                     "role": "secondary",
                     "note": "мотив мести"
+                }
+            ]
+        },
+        {
+            "id": "ectoplasm",
+            "name": "Эктоплазма",
+            "type": "trace",
+            "status": "confirmed",
+            "location": "wife_grave",
+            "discovery": {
+                "available_from_start": false,
+                "discovered_by": [
+                    "players"
+                ],
+                "discovery_conditions": [
+                    "игрок ищет след призрака (Оккультизм)",
+                    "игрок находит бледный липкий осадок на месте одержимого"
+                ],
+                "discovery_method": "Оккультизм / Внимательность"
+            },
+            "visibility": {
+                "public": false,
+                "known_by": []
+            },
+            "object": {
+                "description": "Бледный липкий осадок (эктоплазма) — физический след призрака dead_wife в местах, где он брал над персонажем контроль. Остаётся на месте одержимого: в комнате/локации одержимого, у портрета жены и у могилы.",
+                "condition": "бледный липкий осадок, тает под рукой; холод",
+                "movable": false,
+                "hidden": true
+            },
+            "facts": {
+                "objectively_proves": [
+                    "Призрак dead_wife присутствовал на месте",
+                    "Персонаж был одержим (Призрак брал над ним контроль)"
+                ],
+                "strongly_indicates": [
+                    "Смерть могла быть по одержимости (S0X), а не убийством"
+                ],
+                "does_not_prove": [
+                    "Призрак говорил с персонажем (он не общается — только берёт контроль)",
+                    "Призрак — убийца (он не приказывает, персонаж выбирает)"
+                ]
+            },
+            "interpretations": [
+                {
+                    "character": "players",
+                    "interpretation": "На месте была одержимость Призраком",
+                    "correct": true,
+                    "confidence": "высокая"
+                },
+                {
+                    "character": "detective",
+                    "interpretation": "Смерть по одержимости, не убийство",
+                    "correct": true,
+                    "confidence": "высокая"
+                }
+            ],
+            "related": {
+                "characters": [
+                    "tavern_keeper",
+                    "sailor",
+                    "waitress",
+                    "doctor"
+                ],
+                "locations": [
+                    "wife_grave",
+                    "tavern_hall",
+                    "waitress_room",
+                    "doctor_room",
+                    "sailor_room"
+                ],
+                "events": [
+                    "event_015"
+                ],
+                "other_evidence": [
+                    "wife_ghost",
+                    "ghost_testimony",
+                    "wife_portrait"
+                ]
+            },
+            "versions": {
+                "supports": [
+                    "Призрак брал контроль (одержимость)",
+                    "S0X по одержимости"
+                ],
+                "contradicts": [
+                    "Тело — убийство (SXY)"
+                ]
+            },
+            "false_leads": [
+                "Эктоплазма может выглядеть как яд/отравление (флакон), хотя это след призрака"
+            ],
+            "notes": [
+                "Эктоплазма остаётся в местах, где персонаж мог быть одержим (тavern_keeper / sailor / waitress / doctor). Детектив и Художник — вне круга Призрака: эктоплазмы у них нет.",
+                "Призрак НЕ общается с персонажами — только берёт контроль; это отличает одержимость от разговора (wife_ghost/ghost_testimony)."
+            ],
+            "role": "secondary",
+            "branches": [
+                {
+                    "victim": "tavern_keeper",
+                    "killer": "none",
+                    "role": "secondary",
+                    "note": "одержимость (S01), эктоплазма в tavern_hall / wife_grave"
+                },
+                {
+                    "victim": "sailor",
+                    "killer": "none",
+                    "role": "secondary",
+                    "note": "одержимость (S02), эктоплазма в sailor_room / wife_grave"
+                },
+                {
+                    "victim": "waitress",
+                    "killer": "none",
+                    "role": "secondary",
+                    "note": "одержимость (S03), эктоплазма в waitress_room / wife_grave"
+                },
+                {
+                    "victim": "doctor",
+                    "killer": "none",
+                    "role": "secondary",
+                    "note": "одержимость (S04), эктоплазма в doctor_room / wife_grave"
                 }
             ]
         },
@@ -1239,7 +1376,7 @@
                     "victim": "tavern_keeper",
                     "killer": "artist",
                     "role": "secondary",
-                    "note": "possible_scenario"
+                    "note": ""
                 },
                 {
                     "victim": "doctor",
@@ -2546,7 +2683,7 @@
                     "victim": "tavern_keeper",
                     "killer": "detective",
                     "role": "false",
-                    "note": "possible_scenario"
+                    "note": ""
                 }
             ]
         },
@@ -2971,7 +3108,7 @@
                     "victim": "tavern_keeper",
                     "killer": "artist",
                     "role": "secondary",
-                    "note": "possible_scenario"
+                    "note": ""
                 },
                 {
                     "victim": "waitress",
@@ -3010,19 +3147,19 @@
                 ]
             },
             "object": {
-                "description": "Рисунки с точным расположением cult_lair, алтаря, ковчега. possible_scenario: доказывают, что Художник проник в логово (возможно только если игроки раскрывают ему культ — иначе он не знает, что реликвия в таверне).",
+                "description": "Рисунки с точным расположением cult_lair, алтаря, ковчега.).",
                 "condition": "в мастерской Художника",
                 "movable": true,
                 "hidden": false
             },
             "facts": {
                 "objectively_proves": [
-                    "Художник проник в cult_lair (possible_scenario, если игроки раскрывают ему культ)",
-                    "Художник знает расположение реликвии (possible_scenario)"
+                    "Художник проник в cult_lair",
+                    "Художник знает расположение реликвии"
                 ],
                 "strongly_indicates": [
                     "Художник расправляется с участниками Праздника Пива (считает их негодяями)",
-                    "Художник мог убить в cult_lair (possible_scenario)"
+                    "Художник мог убить в cult_lair"
                 ],
                 "does_not_prove": [
                     "Художник совершил текущее убийство"
@@ -3072,7 +3209,7 @@
                 "Наброски могут выглядеть как мотив, не доказывающий текущее убийство"
             ],
             "notes": [
-                "Вспомогательная улика в possible_scenario «Трактирщик убит Художником»."
+                "Вспомогательная улика в."
             ],
             "role": "secondary",
             "branches": [
@@ -3080,7 +3217,7 @@
                     "victim": "tavern_keeper",
                     "killer": "artist",
                     "role": "secondary",
-                    "note": "possible_scenario: Художник знает cult_lair"
+                    "note": ""
                 },
                 {
                     "victim": "detective",

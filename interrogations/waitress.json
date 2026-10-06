@@ -463,7 +463,7 @@
             "id": "S63",
             "victim": "artist",
             "murder": "waitress",
-            "note": "жертва 6 (Художник), убийца 3 (Официантка). Мотив: religion (possible_scenario: раскрывает его как охотника). НЕ канон.",
+            "note": "жертва 6 (Художник), убийца 3 (Официантка). Мотив: religion (раскрывает его как охотника).",
             "true_evidence": [
                 "reliquary_skull",
                 "cult_items",

@@ -140,6 +140,21 @@
   ]
 ]
 
+// A titled note: a bold title lead line above the note body, inside the same
+// tan box as #note.  The generator emits this for `::: note[Title]`.
+#let note-titled(title, info) = [
+  #v(1em)
+  #box(
+    fill: rgb("#e2d7d3"),
+    inset: 7pt,
+  )[
+    #show heading: it => align(center)[#it]
+    #text(weight: "bold")[#title]
+    #linebreak()
+    #info
+  ]
+]
+
 #let attention(content) = [
   #v(1em)
   #box(
@@ -155,6 +170,18 @@
 #let aloud(content) = [
   #v(.5em)
   #line(stroke: 1pt + colors.pfbrown, length: 100%)
+  #text(fill: colors.pfbrown)[#content]
+  #line(stroke: 1pt + colors.pfbrown, length: 100%)
+  #v(.5em)
+]
+
+// A titled read-aloud: a bold title lead line above the read-aloud body, then
+// the same brown box as #aloud.  The generator emits this for `::: aloud[Title]`.
+#let aloud-titled(title, content) = [
+  #v(.5em)
+  #line(stroke: 1pt + colors.pfbrown, length: 100%)
+  #text(fill: colors.pfbrown, weight: "bold")[#title]
+  #linebreak()
   #text(fill: colors.pfbrown)[#content]
   #line(stroke: 1pt + colors.pfbrown, length: 100%)
   #v(.5em)

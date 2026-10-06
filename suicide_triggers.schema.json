@@ -1,0 +1,80 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "suicide_triggers.schema.json",
+    "title": "Suicide / Sacrifice Triggers (Chapter 2 scenes)",
+    "type": "object",
+    "required": [
+        "general_rules",
+        "stages",
+        "triggers",
+        "time_summary",
+        "key_rule"
+    ],
+    "properties": {
+        "title": { "type": "string" },
+        "note": { "type": "string" },
+        "general_rules": { "type": "array", "items": { "type": "string" } },
+        "stages": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["name", "description"],
+                "properties": {
+                    "name": { "type": "string" },
+                    "description": { "type": "string" }
+                }
+            }
+        },
+        "possession_note": { "type": "string" },
+        "triggers": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "required": ["key_chain", "items"],
+                "properties": {
+                    "key_chain": { "type": "string" },
+                    "possessable": { "type": "boolean" },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["id", "trigger", "scene", "motivation", "stage"],
+                            "properties": {
+                                "id": { "type": "string" },
+                                "trigger": { "type": "string" },
+                                "scene": { "type": "string" },
+                                "what": { "type": "string" },
+                                "motivation": { "type": "string" },
+                                "stage": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Шёпот",
+                                        "Навязчивость",
+                                        "План",
+                                        "Акт",
+                                        "Акт (риск)"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "time_summary": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["time", "scene", "triggers", "who"],
+                "properties": {
+                    "time": { "type": "string" },
+                    "scene": { "type": "string" },
+                    "triggers": { "type": "string" },
+                    "who": { "type": "string" }
+                }
+            }
+        },
+        "how_to_use": { "type": "array", "items": { "type": "string" } },
+        "key_rule": { "type": "string" }
+    }
+}

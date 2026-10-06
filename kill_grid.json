@@ -1,4 +1,4 @@
-﻿{
+{
     "_meta": {
         "description": "Матрица 6x6: кто убил кого + уликa. Строки = УБИЙЦА, столбцы = ЖЕРТВА.",
         "characters": [
@@ -53,6 +53,7 @@
             "artist_hiding": "Тайник Художника",
             "waitress_hiding": "Тайник Официантки",
             "ghost_testimony": "Показания призрака",
+            "ectoplasm": "Эктоплазма: бледный липкий осадок — след призрака dead_wife в месте одержимого (Трактирщик/Моряк/Официантка/Доктор; нет у Детектива/Художника). Проверка: Оккультизм СЛ 12 у портрета/могилы Жены.",
             "cord_to_cult_lair": "Следы на чердачной лестнице",
             "blood_traces": "Мокрые следы",
             "poison_evidence": "Запах благовоний",
@@ -82,8 +83,7 @@
         "legend": {
             "proof": "Улика доказывает/поддерживает, что убийца мог убить жертву (мотив/средство/связь)",
             "alibi": "Улика очерчивает/очерчивает убийцу (комбинация неприемлема или нет мотива)",
-            "accident_self": "Диагональ: сам себя (несчастный случай/самоубийство/болезнь, нет внешнего убийцы)",
-            "possible_scenario": "Не-канон (possible_scenario): мотив гипотетический, требуется выбор автора"
+            "accident_self": "Диагональ: сам себя (несчастный случай/самоубийство/болезнь, нет внешнего убийцы)"
         },
         "note": "Модель улик: каждая ячейка (убийца × жертва) содержит primary (основная улика, напрямую указывает на убийцу), secondary (вспомогательные, подводят к основной) и false (ложные следы). Игрок/ИИ использует эти роли, чтобы решить, является ли комбинация убийства (proof) или алиби (alibi)."
     },
@@ -95,11 +95,8 @@
                 "sailor": {
                     "type": "accident_self",
                     "motivation": "accident",
-                    "probability": "medium",
-                    "evidence": [
-                    ],
-                    "primary_evidence": [
-                    ],
+                    "evidence": [],
+                    "primary_evidence": [],
                     "secondary_evidence": [
                         "detective_drunk",
                         "blood_traces"
@@ -113,7 +110,6 @@
                 "tavern_keeper": {
                     "type": "proof",
                     "motivation": "hatred",
-                    "probability": "high",
                     "evidence": [
                         "tavernkeeper_notebook",
                         "wife_portrait",
@@ -137,7 +133,6 @@
                 "waitress": {
                     "type": "proof",
                     "motivation": "accident/hatred/religion",
-                    "probability": "medium/low",
                     "evidence": [
                         "sailor_false_clue",
                         "wife_ghost"
@@ -159,7 +154,6 @@
                 "doctor": {
                     "type": "proof",
                     "motivation": "justice",
-                    "probability": "high",
                     "evidence": [
                         "sailor_false_clue"
                     ],
@@ -180,13 +174,11 @@
                 "artist": {
                     "type": "accident",
                     "motivation": "accident",
-                    "probability": "low",
                     "evidence": [
                         "sailor_false_clue",
                         "artist_traces"
                     ],
-                    "primary_evidence": [
-                    ],
+                    "primary_evidence": [],
                     "secondary_evidence": [
                         "detective_drunk",
                         "artist_workshop"
@@ -200,7 +192,6 @@
                 "detective": {
                     "type": "proof",
                     "motivation": "accident/money",
-                    "probability": "medium/low",
                     "evidence": [
                         "detective_drunk",
                         "contraband"
@@ -228,7 +219,6 @@
                 "sailor": {
                     "type": "proof",
                     "motivation": "hatred",
-                    "probability": "high",
                     "evidence": [
                         "wife_portrait",
                         "wife_ghost",
@@ -252,11 +242,8 @@
                 "tavern_keeper": {
                     "type": "accident_self",
                     "motivation": "accident",
-                    "probability": "medium",
-                    "evidence": [
-                    ],
-                    "primary_evidence": [
-                    ],
+                    "evidence": [],
+                    "primary_evidence": [],
                     "secondary_evidence": [
                         "detective_drunk",
                         "blood_traces",
@@ -271,14 +258,11 @@
                 "waitress": {
                     "type": "alibi",
                     "motivation": "n/a",
-                    "probability": "impossible",
                     "evidence": [
                         "wife_portrait"
                     ],
-                    "primary_evidence": [
-                    ],
-                    "secondary_evidence": [
-                    ],
+                    "primary_evidence": [],
+                    "secondary_evidence": [],
                     "false_evidence": [
                         "wife_portrait"
                     ],
@@ -287,7 +271,6 @@
                 "doctor": {
                     "type": "proof",
                     "motivation": "hatred",
-                    "probability": "medium",
                     "evidence": [
                         "cult_items"
                     ],
@@ -308,7 +291,6 @@
                 "artist": {
                     "type": "proof",
                     "motivation": "justice",
-                    "probability": "low",
                     "evidence": [
                         "wife_portrait"
                     ],
@@ -328,7 +310,6 @@
                 "detective": {
                     "type": "proof",
                     "motivation": "money",
-                    "probability": "medium",
                     "evidence": [
                         "contraband"
                     ],
@@ -355,7 +336,6 @@
                 "sailor": {
                     "type": "proof",
                     "motivation": "religion/justice",
-                    "probability": "high/medium",
                     "evidence": [
                         "wife_ghost",
                         "waitress_diary",
@@ -380,14 +360,11 @@
                 "tavern_keeper": {
                     "type": "alibi",
                     "motivation": "n/a",
-                    "probability": "impossible",
                     "evidence": [
                         "wife_portrait"
                     ],
-                    "primary_evidence": [
-                    ],
-                    "secondary_evidence": [
-                    ],
+                    "primary_evidence": [],
+                    "secondary_evidence": [],
                     "false_evidence": [
                         "wife_portrait"
                     ],
@@ -396,12 +373,10 @@
                 "waitress": {
                     "type": "accident_self",
                     "motivation": "accident/disease",
-                    "probability": "medium/low",
                     "evidence": [
                         "cult_items"
                     ],
-                    "primary_evidence": [
-                    ],
+                    "primary_evidence": [],
                     "secondary_evidence": [
                         "cult_items"
                     ],
@@ -414,23 +389,19 @@
                 "doctor": {
                     "type": "alibi",
                     "motivation": "n/a",
-                    "probability": "impossible",
                     "evidence": [
                         "cult_items"
                     ],
-                    "primary_evidence": [
-                    ],
-                    "secondary_evidence": [
-                    ],
+                    "primary_evidence": [],
+                    "secondary_evidence": [],
                     "false_evidence": [
                         "cult_items"
                     ],
                     "note": "Официантка НЕ убивает Доктора (это её любовник). cult_items = алиби: любовь, нет мотива. НЕ в possible_killers матрицы doctor."
                 },
                 "artist": {
-                    "type": "possible_scenario",
+                    "type": "proof",
                     "motivation": "religion",
-                    "probability": "medium",
                     "evidence": [
                         "reliquary_skull",
                         "cult_items"
@@ -448,19 +419,16 @@
                         "artist_workshop",
                         "artist_sketches"
                     ],
-                    "note": "Возможный сценарий (не канон): Официантка убивает Художника, если раскрывает его как расправителя над участниками Праздника Пива (не \u0027охотника на культистов\u0027). На начало игры Официантка НЕ знает, что Художник — убийца серии, и \u0027запала\u0027 на него (love, event_021) — вражды нет. Вражда (religion, event_018/020) возникает только в possible_scenario. reliquary_skull (реликвия) — основная; cult_items/009/028/036 — вспомогательные."
+                    "note": "Официантка убивает Художника, если раскрывает его как расправителя над участниками Праздника Пива (не 'охотника на культистов'). На начало игры Официантка НЕ знает, что Художник — убийца серии, и 'запала' на него (love, event_021) — вражды нет. Вражда (religion, event_018/020) возникает при раскрытии его истинной природы. reliquary_skull (реликвия) — основная; cult_items/009/028/036 — вспомогательные."
                 },
                 "detective": {
                     "type": "alibi",
                     "motivation": "n/a",
-                    "probability": "impossible",
                     "evidence": [
                         "cult_items"
                     ],
-                    "primary_evidence": [
-                    ],
-                    "secondary_evidence": [
-                    ],
+                    "primary_evidence": [],
+                    "secondary_evidence": [],
                     "false_evidence": [
                         "cult_items"
                     ],
@@ -475,7 +443,6 @@
                 "sailor": {
                     "type": "proof",
                     "motivation": "love/possessed",
-                    "probability": "medium/low",
                     "evidence": [
                         "cult_items"
                     ],
@@ -496,7 +463,6 @@
                 "tavern_keeper": {
                     "type": "proof",
                     "motivation": "love",
-                    "probability": "medium",
                     "evidence": [
                         "cult_items"
                     ],
@@ -518,14 +484,11 @@
                 "waitress": {
                     "type": "alibi",
                     "motivation": "n/a",
-                    "probability": "impossible",
                     "evidence": [
                         "cult_items"
                     ],
-                    "primary_evidence": [
-                    ],
-                    "secondary_evidence": [
-                    ],
+                    "primary_evidence": [],
+                    "secondary_evidence": [],
                     "false_evidence": [
                         "cult_items"
                     ],
@@ -534,12 +497,10 @@
                 "doctor": {
                     "type": "accident_self",
                     "motivation": "accident/disease",
-                    "probability": "medium/low",
                     "evidence": [
                         "cult_items"
                     ],
-                    "primary_evidence": [
-                    ],
+                    "primary_evidence": [],
                     "secondary_evidence": [
                         "doctor_journal"
                     ],
@@ -551,7 +512,6 @@
                 "artist": {
                     "type": "proof",
                     "motivation": "love",
-                    "probability": "medium",
                     "evidence": [
                         "cult_items",
                         "reliquary_skull"
@@ -573,7 +533,6 @@
                 "detective": {
                     "type": "proof",
                     "motivation": "love",
-                    "probability": "medium",
                     "evidence": [
                         "detective_drunk"
                     ],
@@ -601,23 +560,19 @@
                 "sailor": {
                     "type": "alibi",
                     "motivation": "n/a",
-                    "probability": "impossible",
                     "evidence": [
                         "artist_traces"
                     ],
-                    "primary_evidence": [
-                    ],
-                    "secondary_evidence": [
-                    ],
+                    "primary_evidence": [],
+                    "secondary_evidence": [],
                     "false_evidence": [
                         "artist_traces"
                     ],
                     "note": "Художник НЕ убивает Моряка (Моряк не участник Праздника Пива и не культист). artist_traces = алиби: Художник расправляется с участниками Праздника Пива, а не с Моряком. НЕ в possible_killers матрицы sailor."
                 },
                 "tavern_keeper": {
-                    "type": "possible_scenario",
+                    "type": "proof",
                     "motivation": "religion",
-                    "probability": "low",
                     "evidence": [
                         "reliquary_skull"
                     ],
@@ -633,12 +588,11 @@
                     "false_evidence": [
                         "artist_workshop"
                     ],
-                    "note": "Возможный сценарий (не канон): Художник убивает Трактирщика как культиста. artist_sketches (наброски) — основной; artist_traces/011/024/034 — вспомогательные."
+                    "note": "Художник убивает Трактирщика как культиста. artist_sketches (наброски) — основной; artist_traces/011/024/034 — вспомогательные."
                 },
                 "waitress": {
                     "type": "proof",
                     "motivation": "religion",
-                    "probability": "high",
                     "evidence": [
                         "reliquary_skull",
                         "cult_items"
@@ -661,7 +615,6 @@
                 "doctor": {
                     "type": "proof",
                     "motivation": "religion",
-                    "probability": "low",
                     "evidence": [
                         "cult_items"
                     ],
@@ -683,13 +636,11 @@
                 "artist": {
                     "type": "accident_self",
                     "motivation": "accident/disease",
-                    "probability": "low",
                     "evidence": [
                         "artist_traces",
                         "artist_workshop"
                     ],
-                    "primary_evidence": [
-                    ],
+                    "primary_evidence": [],
                     "secondary_evidence": [
                         "doctor_journal"
                     ],
@@ -702,7 +653,6 @@
                 "detective": {
                     "type": "proof",
                     "motivation": "justice",
-                    "probability": "high",
                     "evidence": [
                         "flood_spell",
                         "artist_traces"
@@ -731,7 +681,6 @@
                 "sailor": {
                     "type": "proof",
                     "motivation": "accident",
-                    "probability": "low",
                     "evidence": [
                         "detective_drunk"
                     ],
@@ -748,9 +697,8 @@
                     "note": "Детектив убивает Моряка по неосторожности, сильно напившись. detective_drunk (следы пьянства) — основной."
                 },
                 "tavern_keeper": {
-                    "type": "possible_scenario",
+                    "type": "proof",
                     "motivation": "money",
-                    "probability": "low",
                     "evidence": [
                         "contraband"
                     ],
@@ -766,19 +714,16 @@
                     "false_evidence": [
                         "sailor_false_clue"
                     ],
-                    "note": "Возможный сценарий (не канон): Детектив убивает Трактирщика, если накроет контрабанду. contraband (контрабанда) — основной мотив."
+                    "note": "Детектив убивает Трактирщика, если накроет контрабанду. contraband (контрабанда) — основной мотив."
                 },
                 "waitress": {
                     "type": "alibi",
                     "motivation": "n/a",
-                    "probability": "impossible",
                     "evidence": [
                         "detective_drunk"
                     ],
-                    "primary_evidence": [
-                    ],
-                    "secondary_evidence": [
-                    ],
+                    "primary_evidence": [],
+                    "secondary_evidence": [],
                     "false_evidence": [
                         "detective_drunk"
                     ],
@@ -787,14 +732,11 @@
                 "doctor": {
                     "type": "alibi",
                     "motivation": "n/a",
-                    "probability": "impossible",
                     "evidence": [
                         "detective_drunk"
                     ],
-                    "primary_evidence": [
-                    ],
-                    "secondary_evidence": [
-                    ],
+                    "primary_evidence": [],
+                    "secondary_evidence": [],
                     "false_evidence": [
                         "detective_drunk"
                     ],
@@ -803,7 +745,6 @@
                 "artist": {
                     "type": "proof",
                     "motivation": "justice",
-                    "probability": "medium",
                     "evidence": [
                         "flood_spell",
                         "artist_traces"
@@ -826,12 +767,10 @@
                 "detective": {
                     "type": "accident_self",
                     "motivation": "accident/disease",
-                    "probability": "low",
                     "evidence": [
                         "detective_drunk"
                     ],
-                    "primary_evidence": [
-                    ],
+                    "primary_evidence": [],
                     "secondary_evidence": [
                         "detective_drunk"
                     ],

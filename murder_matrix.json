@@ -15,8 +15,6 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "high",
-                    "scenario_note": "Моряк убил жену Трактирщика (event_004) и угрожал его дочерью; у Моряка есть мотив убить Трактирщика, чтобы тот замолчал.",
                     "primary_evidence": [
                         "sailor_threat_letter"
                     ],
@@ -37,9 +35,6 @@
                     "related_characters": [
                         "doctor"
                     ],
-                    "probability": "low",
-                    "scenario": "possible_scenario",
-                    "scenario_note": "Возможный сценарий (не канон): Врач убивает Трактирщика, защищая Официантку (его любовницу) от отцовской вражды/конфликта. В каноне Трактирщик лично не выносит Врача и подозревает его в связях с контрабандистами (ложное подозрение), но не убивает. Если автор выберет этот сценарий, мотив love становится обоснованным; иначе эту причину следует удалить.",
                     "primary_evidence": [
                         "doctor_dagger"
                     ],
@@ -60,9 +55,6 @@
                     "related_characters": [
                         "artist"
                     ],
-                    "probability": "low",
-                    "scenario": "possible_scenario",
-                    "scenario_note": "Возможный сценарий (не канон): Художник убивает Трактирщика как культиста, если догадается, что таверна связана с культом (artist.suspects->tavern_keeper, artist.religion->tavern_keeper). В каноне Художник НЕ знает, что эта таверна — логово культа (он знает о контрабанде/Лист-живодёре, но не о культе), поэтому вероятность низкая; связка появляется только если автор выберет сценарий, где Художник догадывается о связи таверны и культа. Если автор не выбирает этот сценарий, причину следует удалить.",
                     "primary_evidence": [
                         "artist_sketches"
                     ],
@@ -80,7 +72,6 @@
                     "type": "accident",
                     "motivation": "accident",
                     "related_characters": [],
-                    "probability": "medium",
                     "primary_evidence": [],
                     "secondary_evidence": [
                         "detective_drunk",
@@ -131,8 +122,6 @@
                     "related_characters": [
                         "tavern_keeper"
                     ],
-                    "probability": "high",
-                    "scenario_note": "Трактирщик отомстил Моряку за убийство и изнасилование его жены (event_004). Воспользовался удачным моментом: потоп (заклинание Официантки, event_016) задержал Моряка в таверне.",
                     "primary_evidence": [
                         "tavernkeeper_diary"
                     ],
@@ -153,8 +142,6 @@
                     "related_characters": [
                         "waitress"
                     ],
-                    "probability": "high",
-                    "scenario_note": "Официантка отомстила за мать: подстрекаемая призраком Жены (event_015) и затаив зло за угрозу Моряка, она при помощи Дагона (потоп, event_016 — ритуал Дагона, усиленный паводком реки Адивиан) задержала Моряка и принесла его в жертву культа Дагона (cult_lair, event_006/007).",
                     "primary_evidence": [
                         "waitress_diary"
                     ],
@@ -176,8 +163,6 @@
                     "related_characters": [
                         "waitress"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Подвариант: Моряк начал распускать руки и угрожал Официантке; она убила его в самообороне (мотивировано event_015: угроза Моряка дочери).",
                     "primary_evidence": [
                         "waitress_diary"
                     ],
@@ -196,8 +181,6 @@
                     "related_characters": [
                         "doctor"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Подвариант A: Врач защищал Официантку от приставаний Моряка.",
                     "primary_evidence": [
                         "doctor_dagger"
                     ],
@@ -217,19 +200,19 @@
                     "related_characters": [
                         "doctor"
                     ],
-                    "probability": "low",
-                    "scenario_note": "Подвариант B: Врач был одурманен Официанткой или одержим призраком Мёртвой жены и совершил месть за мать Официантки (supernatural; см. dead_wife, event_015).",
                     "primary_evidence": [
                         "doctor_dagger"
                     ],
                     "secondary_evidence": [
                         "cult_items",
+                        "ectoplasm",
                         "wife_ghost",
                         "ghost_testimony"
                     ],
                     "false_evidence": [
                         "sailor_false_clue"
-                    ]
+                    ],
+                    "note": "одержимость: Призрак Жены (dead_wife) НЕ общается — берёт контроль (одержимость). Призрак может одержать 4/6 (tavern_keeper, sailor, waitress, doctor); НЕ detective, НЕ artist. Признак — эктоплазма (след призрака). Проверка: Оккультизм СЛ 12 у портрета Жены и Могилы Жены."
                 },
                 {
                     "type": "accident",
@@ -237,8 +220,6 @@
                     "related_characters": [
                         "detective"
                     ],
-                    "probability": "low",
-                    "scenario_note": "Детектив убил Моряка по неосторожности, сильно напившись (см. detective.daily_schedule: следы пьянства, detective_drunk).",
                     "primary_evidence": [
                         "detective_drunk"
                     ],
@@ -254,7 +235,6 @@
                     "type": "accident",
                     "motivation": "accident",
                     "related_characters": [],
-                    "probability": "medium",
                     "primary_evidence": [],
                     "secondary_evidence": [
                         "detective_drunk",
@@ -302,8 +282,6 @@
                     "related_characters": [
                         "artist"
                     ],
-                    "probability": "high",
-                    "scenario_note": "Художник убивает Официантку, если игроки раскрывают ему культ (реликвия в cult_lair под алтарём). Она — верховная жрица и знает, где реликвия (reliquary_skull). Мотив: вернуть реликвию, которую культисты выкупили у воров и спрятали (event_018). ТРИГГЕР: игроки раскрывают культ Художнику; без триггера Художник НЕ знает, что реликвия в таверне, и убийство не происходит (см. event_020, event_031).",
                     "primary_evidence": [
                         "reliquary_skull"
                     ],
@@ -324,8 +302,6 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Подвариант A: Моряк убивает Официантку случайно, приставая к ней (sailor.daily_schedule: приставания; waitress.daily_schedule day/evening: обслуживает в зале).",
                     "primary_evidence": [
                         "sailor_false_clue"
                     ],
@@ -345,8 +321,6 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "low",
-                    "scenario_note": "Подвариант B: Моряк убивает Официантку, чтобы запугать Трактирщика — выполняет старую угрозу (event_004: угроза убить дочь, если Трактирщик не согласится; event_015: Моряк угрожал Официантке).",
                     "primary_evidence": [
                         "sailor_threat_letter"
                     ],
@@ -366,8 +340,6 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "low",
-                    "scenario_note": "Подвариант C: Моряк узнаёт, что Официантка — культист, и убивает её, боясь её магии и проклятия (НОВАЯ ЧЕРТА Моряка: он боится магии; см. event_016: Официантка — верховная жрица, заклинание потоп).",
                     "primary_evidence": [
                         "sailor_false_clue"
                     ],
@@ -384,7 +356,6 @@
                     "type": "accident",
                     "motivation": "accident",
                     "related_characters": [],
-                    "probability": "medium",
                     "primary_evidence": [],
                     "secondary_evidence": [
                         "blood_traces"
@@ -398,7 +369,6 @@
                     "type": "disease",
                     "motivation": "disease",
                     "related_characters": [],
-                    "probability": "low",
                     "primary_evidence": [],
                     "secondary_evidence": [
                         "doctor_journal"
@@ -450,8 +420,6 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "high",
-                    "scenario_note": "Моряк убивает Доктора для защиты себя от преследования (sailor.suspects: Врач мог прийти в таверну по его душу за дезертирство и кражу казны; sailor false_belief: Врач может знать о его прошлого). Моряк считает, что Доктор его выдаст, и убивает его, чтобы тот замолчал.",
                     "primary_evidence": [
                         "sailor_false_clue"
                     ],
@@ -471,8 +439,6 @@
                     "related_characters": [
                         "tavern_keeper"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Трактирщик убивает Доктора, защищая дочь (Официантку) — резко против их отношений (tavern_keeper.hatred->doctor: сам ведёт незаконную контрабанду и подозревает, что Врач связан с контрабандистами; tavern_keeper.knows_exactly: резко против любовной связи Официантки и Врача).",
                     "primary_evidence": [
                         "cult_items"
                     ],
@@ -492,8 +458,6 @@
                     "related_characters": [
                         "artist"
                     ],
-                    "probability": "low",
-                    "scenario_note": "Художник убивает Доктора как участника Праздника Пива (члена культа Дагона, последователя) (artist.religion->doctor, artist.justice->doctor; event_020: «пытки» участников Праздника Пива, значительная часть — культисты Дагона; event_018: реликвию выкупили культисты).",
                     "primary_evidence": [
                         "cult_items"
                     ],
@@ -512,7 +476,6 @@
                     "type": "accident",
                     "motivation": "accident",
                     "related_characters": [],
-                    "probability": "medium",
                     "primary_evidence": [],
                     "secondary_evidence": [
                         "blood_traces"
@@ -525,7 +488,6 @@
                     "type": "disease",
                     "motivation": "disease",
                     "related_characters": [],
-                    "probability": "low",
                     "primary_evidence": [],
                     "secondary_evidence": [
                         "doctor_journal"
@@ -574,8 +536,6 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Подвариант A: Моряк убивает Детектива случайно, по пьянке (см. detective.daily_schedule: следы пьянства, detective_drunk).",
                     "primary_evidence": [
                         "detective_drunk"
                     ],
@@ -595,8 +555,6 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "low",
-                    "scenario_note": "Подвариант B: Моряк убивает Детектива, если тот найдёт доказательства контрабанды (sailor.knowledge: контрабанда Трактирщика и Моряка; event_005).",
                     "primary_evidence": [
                         "detective_drunk"
                     ],
@@ -615,8 +573,6 @@
                     "related_characters": [
                         "tavern_keeper"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Трактирщик убивает Детектива, если тот найдёт доказательства контрабанды (tavern_keeper.small_secret: контрабанда; event_005). Мотив: закрыть дело о контрабанде.",
                     "primary_evidence": [
                         "contraband"
                     ],
@@ -636,8 +592,6 @@
                     "related_characters": [
                         "doctor"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Доктор убивает Детектива, защищая Официантку от пьяного Детектива (doctor.love->waitress; detective.daily_schedule: следы пьянства, detective_drunk).",
                     "primary_evidence": [
                         "doctor_dagger"
                     ],
@@ -658,8 +612,6 @@
                     "related_characters": [
                         "artist"
                     ],
-                    "probability": "high",
-                    "scenario_note": "Художник убивает Детектива, если его раскроют как убийцу культистов в городе (event_010: серия убийств; artist.justice->detective: противопоставление тайного и официального правосудия). Мотив: замолвить дело, чтобы скрыть свои убийства.",
                     "primary_evidence": [
                         "order_order"
                     ],
@@ -678,7 +630,6 @@
                     "type": "disease",
                     "motivation": "disease",
                     "related_characters": [],
-                    "probability": "low",
                     "primary_evidence": [],
                     "secondary_evidence": [
                         "detective_drunk"
@@ -725,9 +676,6 @@
                     "related_characters": [
                         "waitress"
                     ],
-                    "probability": "medium",
-                    "scenario": "possible_scenario",
-                    "scenario_note": "Возможный сценарий (не канон): Официантка убивает Художника, если тот находит убежище культа (cult_lair) и раскрывает её принадлежность. На начало игры Официантка НЕ знает, что Художник — убийца серии (расправитель над участниками Праздника Пива) (и не знает, что эта таверна — логово культа), поэтому она 'запала' на него (love, event_021) и вражды нет. Вражда (religion, event_018) возникает только в сценарии, где она узнаёт его истинную природу. Если автор не выбирает этот сценарий, причину следует удалить.",
                     "primary_evidence": [
                         "reliquary_skull"
                     ],
@@ -748,8 +696,6 @@
                     "related_characters": [
                         "doctor"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Подвариант A: Доктор убивает Художника, если тот покусится на Официантку как на верховную жрицу (artist.religion->doctor: потенциальный враг как член культа; artist.justice->doctor: самосуд: охота на культиста).",
                     "primary_evidence": [
                         "cult_items"
                     ],
@@ -769,8 +715,6 @@
                     "related_characters": [
                         "doctor"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Подвариант B: Доктор отравляет Художника из ревности (Официантка уделяет ему много внимания и флиртует с Художником, event_021; waitress.daily_schedule day: флорт с Художником).",
                     "primary_evidence": [
                         "potion_poison"
                     ],
@@ -789,8 +733,6 @@
                     "related_characters": [
                         "tavern_keeper"
                     ],
-                    "probability": "low",
-                    "scenario_note": "Трактирщик убивает Художника, если тот нападает на Официантку (дочь). Мотив: защита дочери (тavern_keeper.love->waitress: отцовская любовь; tavern_keeper.hatred->doctor: резко против отношений Официантки — сам ведёт незаконную контрабанду).",
                     "primary_evidence": [
                         "wife_portrait"
                     ],
@@ -809,8 +751,6 @@
                     "related_characters": [
                         "sailor"
                     ],
-                    "probability": "low",
-                    "scenario_note": "Моряк убивает Художника случайно, по пьянке. Причина конфликта: Моряк не понимает творчества Художника (artist.secrets: 'вольный художник', картины-расчленёнка, event_021). См. detective.daily_schedule: следы пьянства, detective_drunk.",
                     "primary_evidence": [
                         "detective_drunk"
                     ],
@@ -829,8 +769,6 @@
                     "related_characters": [
                         "detective"
                     ],
-                    "probability": "medium",
-                    "scenario_note": "Детектив убивает Художника: противопоставление личного (тайного) и официального правосудия (artist.justice->detective). Детектив расследует серию убийств (event_010/011/012).",
                     "primary_evidence": [
                         "flood_spell"
                     ],
@@ -849,7 +787,6 @@
                     "type": "disease",
                     "motivation": "disease",
                     "related_characters": [],
-                    "probability": "low",
                     "primary_evidence": [],
                     "secondary_evidence": [
                         "doctor_journal"
@@ -872,7 +809,7 @@
             "false_leads": [
                 "Художник — серийный убийца, может выглядеть как убийца",
                 "Художник — паладин, может выглядеть как защитник",
-                "Официантка 'запала' на Художника (love, event_021) — на начало игры она НЕ знает, что он убийца серии (расправитель над участниками Праздника Пива), поэтому вражды нет (religion/justice вражда — только в possible_scenario)"
+                "Официантка 'запала' на Художника (love, event_021) — на начало игры она НЕ знает, что он убийца серии (расправитель над участниками Праздника Пива), поэтому вражды нет (religion/justice вражда — только в)"
             ],
             "special_consequences": [
                 "Культисты теряют угрозу",

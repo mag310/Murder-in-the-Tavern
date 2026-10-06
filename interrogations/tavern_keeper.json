@@ -498,7 +498,7 @@
             "id": "S14",
             "victim": "tavern_keeper",
             "murder": "doctor",
-            "note": "жертва 1 (Трактирщик), убийца 4 (Врач). Мотив: love (защита/ревность за Официантку). Подвариант possible_scenario.",
+            "note": "жертва 1 (Трактирщик), убийца 4 (Врач). Мотив: love (защита/ревность за Официантку).",
             "true_evidence": [
                 "doctor_dagger",
                 "cult_items",
@@ -525,7 +525,7 @@
             "id": "S15",
             "victim": "tavern_keeper",
             "murder": "detective",
-            "note": "жертва 1 (Трактирщик), убийца 5 (Детектив). Мотив: money (если Детектив найдёт контрабанду). Подвариант possible_scenario.",
+            "note": "жертва 1 (Трактирщик), убийца 5 (Детектив). Мотив: money (если Детектив найдёт контрабанду).",
             "true_evidence": [
                 "contraband",
                 "tavernkeeper_notebook",

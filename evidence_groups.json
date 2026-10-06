@@ -23,7 +23,7 @@
         },
         "layers": {
             "compromats": "6 групп — личный компромат на персонажа (не равен текущему убийству)",
-            "scenarios": "22 группы — сценарии убийства (proof + possible_scenario + 1 accident)",
+            "scenarios": "22 группы — сценарии убийства (proof + 1 accident)",
             "alibis": "8 групп — невозможные комбинации (нет мотива / родня / любовники)",
             "accidents": "6 групп — диагональ (сам с собой: несчастный случай / самоубийство / болезнь)",
             "false_leads": "8 групп — ложные следы, сгруппированные по персонажу-обманке"
@@ -55,7 +55,7 @@
                 "contraband_crate",
                 "tavernkeeper_hiding"
             ],
-            "proves": "Контрабанда запрещённых товаров (Devil\u0027s Bane, Pesh, Flayleaf, Grit) — ересь в Челии.",
+            "proves": "Контрабанда запрещённых товаров (Devil's Bane, Pesh, Flayleaf, Grit) — ересь в Челии.",
             "does_not_prove": "Текущее убийство в таверне."
         },
         {
@@ -121,7 +121,6 @@
             "killer": "sailor",
             "victim": "tavern_keeper",
             "type": "proof",
-            "probability": "high",
             "motivation": "hatred",
             "primary": [
                 "sailor_threat_letter"
@@ -143,7 +142,6 @@
             "killer": "sailor",
             "victim": "waitress",
             "type": "proof",
-            "probability": "medium/low",
             "motivation": "accident/hatred/religion",
             "primary": [
                 "sailor_false_clue"
@@ -164,7 +162,6 @@
             "killer": "sailor",
             "victim": "doctor",
             "type": "proof",
-            "probability": "high",
             "motivation": "justice",
             "primary": [
                 "sailor_false_clue"
@@ -185,7 +182,6 @@
             "killer": "sailor",
             "victim": "artist",
             "type": "accident",
-            "probability": "low",
             "motivation": "accident",
             "primary": [
                 "detective_drunk"
@@ -206,7 +202,6 @@
             "killer": "sailor",
             "victim": "detective",
             "type": "proof",
-            "probability": "medium/low",
             "motivation": "accident/money",
             "primary": [
                 "detective_drunk"
@@ -227,7 +222,6 @@
             "killer": "tavern_keeper",
             "victim": "sailor",
             "type": "proof",
-            "probability": "high",
             "motivation": "hatred",
             "primary": [
                 "tavernkeeper_diary"
@@ -249,7 +243,6 @@
             "killer": "tavern_keeper",
             "victim": "doctor",
             "type": "proof",
-            "probability": "medium",
             "motivation": "hatred",
             "primary": [
                 "cult_items"
@@ -270,7 +263,6 @@
             "killer": "tavern_keeper",
             "victim": "artist",
             "type": "proof",
-            "probability": "low",
             "motivation": "justice",
             "primary": [
                 "wife_portrait"
@@ -290,7 +282,6 @@
             "killer": "tavern_keeper",
             "victim": "detective",
             "type": "proof",
-            "probability": "medium",
             "motivation": "money",
             "primary": [
                 "contraband"
@@ -311,7 +302,6 @@
             "killer": "waitress",
             "victim": "sailor",
             "type": "proof",
-            "probability": "high/medium",
             "motivation": "religion/justice",
             "primary": [
                 "waitress_diary"
@@ -333,8 +323,7 @@
             "id": "S63",
             "killer": "waitress",
             "victim": "artist",
-            "type": "possible_scenario",
-            "probability": "medium",
+            "type": "proof",
             "motivation": "religion",
             "primary": [
                 "reliquary_skull"
@@ -349,14 +338,13 @@
                 "artist_cube",
                 "artist_sketches"
             ],
-            "note": "Не-канон: если Официантка раскрывает Художника как охотника на культистов."
+            "note": ": если Официантка раскрывает Художника как охотника на культистов."
         },
         {
             "id": "S24",
             "killer": "doctor",
             "victim": "sailor",
             "type": "proof",
-            "probability": "medium/low",
             "motivation": "love/possessed",
             "primary": [
                 "doctor_dagger"
@@ -377,7 +365,6 @@
             "killer": "doctor",
             "victim": "tavern_keeper",
             "type": "proof",
-            "probability": "medium",
             "motivation": "love",
             "primary": [
                 "doctor_dagger"
@@ -399,7 +386,6 @@
             "killer": "doctor",
             "victim": "artist",
             "type": "proof",
-            "probability": "medium",
             "motivation": "love",
             "primary": [
                 "cult_items"
@@ -420,7 +406,6 @@
             "killer": "doctor",
             "victim": "detective",
             "type": "proof",
-            "probability": "medium",
             "motivation": "love",
             "primary": [
                 "doctor_dagger"
@@ -441,8 +426,7 @@
             "id": "S16",
             "killer": "artist",
             "victim": "tavern_keeper",
-            "type": "possible_scenario",
-            "probability": "low",
+            "type": "proof",
             "motivation": "religion",
             "primary": [
                 "artist_sketches"
@@ -456,14 +440,13 @@
             "false": [
                 "artist_cube"
             ],
-            "note": "Не-канон: Художник убивает Трактирщика как участника Праздника Пива (не «культиста» — по новой логике Трактирщик НЕ знает о культе; см. event_018)."
+            "note": ": Художник убивает Трактирщика как участника Праздника Пива (не «культиста» — по новой логике Трактирщик НЕ знает о культе; см. event_018)."
         },
         {
             "id": "S36",
             "killer": "artist",
             "victim": "waitress",
             "type": "proof",
-            "probability": "high",
             "motivation": "religion",
             "primary": [
                 "reliquary_skull"
@@ -485,7 +468,6 @@
             "killer": "artist",
             "victim": "doctor",
             "type": "proof",
-            "probability": "low",
             "motivation": "religion",
             "primary": [
                 "cult_items"
@@ -507,7 +489,6 @@
             "killer": "artist",
             "victim": "detective",
             "type": "proof",
-            "probability": "high",
             "motivation": "justice",
             "primary": [
                 "order_order"
@@ -529,7 +510,6 @@
             "killer": "detective",
             "victim": "sailor",
             "type": "proof",
-            "probability": "low",
             "motivation": "accident",
             "primary": [
                 "detective_drunk"
@@ -547,8 +527,7 @@
             "id": "S15",
             "killer": "detective",
             "victim": "tavern_keeper",
-            "type": "possible_scenario",
-            "probability": "low",
+            "type": "proof",
             "motivation": "money",
             "primary": [
                 "contraband"
@@ -562,14 +541,13 @@
             "false": [
                 "sailor_false_clue"
             ],
-            "note": "Не-канон: если Детектив накроет контрабанду."
+            "note": ": если Детектив накроет контрабанду."
         },
         {
             "id": "S65",
             "killer": "detective",
             "victim": "artist",
             "type": "proof",
-            "probability": "medium",
             "motivation": "justice",
             "primary": [
                 "flood_spell"

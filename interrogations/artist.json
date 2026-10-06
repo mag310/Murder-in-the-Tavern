@@ -507,7 +507,7 @@
             "id": "S63",
             "victim": "artist",
             "murder": "waitress",
-            "note": "жертва 6 (Художник), убийца 3 (Официантка). Мотив: religion (possible_scenario: раскрывает его как охотника). НЕ канон.",
+            "note": "жертва 6 (Художник), убийца 3 (Официантка). Мотив: religion (раскрывает его как охотника).",
             "true_evidence": [
                 "reliquary_skull",
                 "cult_items",
@@ -638,7 +638,7 @@
             "id": "S16",
             "victim": "tavern_keeper",
             "murder": "artist",
-            "note": "жертва 1 (Трактирщик), убийца 6 (Художник). Мотив: religion (possible_scenario: Художник убивает культиста). НЕ канон.",
+            "note": "жертва 1 (Трактирщик), убийца 6 (Художник). Мотив: religion (Художник убивает культиста).",
             "true_evidence": [
                 "artist_sketches",
                 "artist_traces",
@@ -670,7 +670,7 @@
             "id": "S46",
             "victim": "doctor",
             "murder": "artist",
-            "note": "жертва 4 (Врач), убийца 6 (Художник). Мотив: religion (охота на культиста). possible_scenario.",
+            "note": "жертва 4 (Врач), убийца 6 (Художник). Мотив: religion (охота на культиста).",
             "true_evidence": [
                 "cult_items",
                 "reliquary_skull",

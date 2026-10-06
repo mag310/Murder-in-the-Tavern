@@ -389,7 +389,7 @@
             "id": "S46",
             "victim": "doctor",
             "murder": "artist",
-            "note": "жертва 4 (Врач), убийца 6 (Художник). Мотив: religion (охота на культиста). possible_scenario.",
+            "note": "жертва 4 (Врач), убийца 6 (Художник). Мотив: religion (охота на культиста).",
             "true_evidence": [
                 "cult_items",
                 "reliquary_skull",
@@ -454,7 +454,7 @@
             "id": "S14",
             "victim": "tavern_keeper",
             "murder": "doctor",
-            "note": "жертва 1 (Трактирщик), убийца 4 (Врач). Мотив: love (защита/ревность за Официантку). possible_scenario.",
+            "note": "жертва 1 (Трактирщик), убийца 4 (Врач). Мотив: love (защита/ревность за Официантку).",
             "true_evidence": [
                 "doctor_dagger",
                 "cult_items",
