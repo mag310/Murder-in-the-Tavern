@@ -113,18 +113,29 @@ def typst_inline(line: str) -> str:
     portrait, or an image mixed with inline text, stays a plain
     ``#image(...)`` so it does not break the inline flow.
     """
-    images: list[tuple[str, str, str]] = []  # (path, width-spec, alt)
+    images: list[tuple[str, str, str, str]] = []  # (path, width-spec, height-spec, alt)
 
     def _stash(m: "re.Match[str]") -> str:
         alt = m.group(1).strip()
         inner = m.group(2).strip()
-        # An optional trailing "NN%" sets the #image width; default 100%.
-        wm = re.match(r"^(.*?)\s+(\d+%\s*)$", inner)
+        # An optional trailing "NN% [hNN%]" sets the #figure image size (default
+        # width 100%, no height).  "path.png 90%" -> height 90% (width:auto).
+        height = ""
+        wm = re.match(r"^(.*?)\s+(w?(\d+%)|\s*h(\d+%\s*)?)$", inner)
         if wm:
-            path, width = wm.group(1).strip(), wm.group(2).strip()
+            path = wm.group(1).strip()
+            w, h = wm.group(3), wm.group(4)
+            if w is not None and h is not None:
+                width, height = w.strip(), h.strip()
+            elif h is not None:
+                width, height = "auto", h.strip()
+            elif w is not None:
+                width, height = w.strip(), ""
+            else:
+                width, height = "100%", ""
         else:
-            path, width = inner, "100%"
-        images.append((path, width, alt))
+            path, width, height = inner, "100%", ""
+        images.append((path, width, height, alt))
         return f"\x00IMG{len(images) - 1}\x00"
 
     s = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", _stash, line)
@@ -135,7 +146,7 @@ def typst_inline(line: str) -> str:
     # backslash-escape every "." into a Typst path separator.  The raw path
     # is safe inside the #image("...") string argument.
     def _reinsert(m: "re.Match[str]") -> str:
-        path, width, alt = images[int(m.group(1))]
+        path, width, height, alt = images[int(m.group(1))]
         # Character portraits are never full-width: keep them inline.
         if "characters/" in path:
             return f'#image("{path}", width: {width})'
@@ -143,7 +154,7 @@ def typst_inline(line: str) -> str:
         # full-width #figure; an image mixed with inline text stays a plain
         # #image (a block-level #place/#figure cannot sit inside inline flow).
         if re.fullmatch(r"!\[[^\]]*\]\([^)]+\)\s*", line.strip()):
-            return _figure_block(path, alt)
+            return _figure_block(path, alt, width, height)
         return f'#image("{path}", width: {width})'
 
     s = re.sub(
@@ -897,14 +908,24 @@ def _render_answers_group(buf: list[str]) -> str:
     return "#answers-group(\n" + "\n".join(parts) + "\n)"
 
 
-def _figure_block(path: str, caption: str) -> str:
+def _figure_block(path: str, caption: str, width: str = "100%",
+                  height: str = "") -> str:
     """Build a full-width, page-spanning ``#place(...)[ #figure(...) ]`` for an
-    image.  ``width: 100%`` + the ``#place`` float make the figure span the
-    whole page width even inside a 2-column layout.  ``caption`` is the figure's
-    caption (its alt text, or an explicit title); when empty the ``#figure``
-    has no caption line."""
+    image.  The ``#place`` float makes the figure span the whole page width
+    even inside a 2-column layout.  ``caption`` is the figure's caption (its alt
+    text, or an explicit title); when empty the ``#figure`` has no caption line.
+
+    ``width``/``height`` come from a trailing ``NN%`` in the markdown image's
+    path (e.g. ``../../foo.png 90%``); when ``height`` is set the width is
+    dropped so the image is sized by height (the committed build sizes the
+    Westcrown map ``width: auto, height: 90%``).
+    """
     cap = escape(neutralize(caption)) if caption else ""
     cap_line = f"    caption: [{cap}],\n" if cap else ""
+    if height:
+        img = f'    image("{path}", height: {height}),\n'
+    else:
+        img = f'    image("{path}", width: {width}),\n'
     return (
         "#place(\n"
         "  top + center,\n"
@@ -913,11 +934,115 @@ def _figure_block(path: str, caption: str) -> str:
         "  clearance: 1em,\n"
         ")[\n"
         "  #figure(\n"
-        f'    image("{path}", width: 100%),\n'
+        f"{img}"
         f"{cap_line}"
         "  )\n"
         "]"
     )
+
+
+def _inline_figure(buf: list[str], caption: str) -> str:
+    """Render a ``::: figure`` as an inline ``#figure`` (4-space indented) for
+    use *inside* a ``::: block``, instead of a full-width ``#place`` wrapper."""
+    text = "\n".join(buf)
+    m = re.search(r"!\[([^\]]*)\]\(([^)]+)\)", text)
+    if not m:
+        return ""
+    alt, inner = m.group(1).strip(), m.group(2).strip()
+    height = ""
+    wm = re.match(r"^(.*?)\s+(w?(\d+%)|\s*h(\d+%\s*)?)$", inner)
+    if wm:
+        path = wm.group(1).strip()
+        w, h = wm.group(3), wm.group(4)
+        if w is not None and h is not None:
+            width, height = w.strip(), h.strip()
+        elif h is not None:
+            width, height = "auto", h.strip()
+        elif w is not None:
+            width, height = w.strip(), ""
+        else:
+            width, height = "100%", ""
+    else:
+        path, width, height = inner, "100%", ""
+    cap = caption if caption else alt
+    cap = escape(neutralize(cap))
+    if height:
+        img = f'      image("{path}", height: {height}),\n'
+    else:
+        img = f'      image("{path}", width: {width}),\n'
+    cap_line = f"      caption: [{cap}],\n" if cap else ""
+    return (
+        "    #figure(\n"
+        f"{img}"
+        f"{cap_line}"
+        "    )"
+    )
+
+
+def _render_block_inner(buf: list[str]) -> str:
+    """Convert the buffered inner content of a `::: block` to Typst, indented 4
+    spaces so it sits inside the `#block(width: 100%)[ ... ]` wrapper.
+
+    Handles markdown headings (``===``/``==``), a nested ``::: figure`` (rendered
+    inline as a ``#figure``), paragraphs and list items.  Blank lines are kept
+    as a single blank line; the block's closing ``:::`` is already consumed by
+    the caller.
+    """
+    out: list[str] = []
+    # Split the buffered content into a leading "figure" segment (the nested
+    # `::: figure[Cap] … :::`) and the surrounding text.
+    text = "\n".join(buf).strip("\n")
+    lines = text.split("\n")
+    i = 0
+    # Find the nested figure fence (if any) and render it inline; everything
+    # around it is rendered as normal (indented) Typst lines.
+    while i < len(lines):
+        ln = lines[i]
+        s = ln.strip()
+        # Nested `::: figure[Caption]` ... `:::`: collect until the close.
+        if re.match(r"^:::\s*figure\s*(\[[^\]]*\])?\s*$", s):
+            cap = _extract_pftab_name(s)
+            j = i + 1
+            fig_buf: list[str] = []
+            while j < len(lines):
+                if re.match(r"^:::\s*$", lines[j].strip()):
+                    break
+                fig_buf.append(lines[j])
+                j += 1
+            # _inline_figure already emits 4-space-indented lines (the figure
+            # sits inside the `#block(...)[ ... ]`); emit it as-is.
+            out.append(_inline_figure(fig_buf, cap))
+            i = j + 1
+            continue
+        # Skip any stray `:::` (block close is handled by the caller).
+        if re.match(r"^:::\s*$", s):
+            i += 1
+            continue
+        # A markdown heading inside the block -> indented Typst heading.
+        hm = re.match(r"^(#{1,6})\s+(.*)$", s)
+        if hm:
+            prefix = "=" * min(len(hm.group(1)), 6)
+            out.append(
+                "    " + prefix + " " + escape(neutralize(hm.group(2).strip()))
+            )
+            i += 1
+            continue
+        # A raw markdown image line (not in a figure) -> inline #figure.
+        if re.match(r"^!\[", s):
+            out.append("    " + _inline_figure([ln], ""))
+            i += 1
+            continue
+        # Blank line -> keep one blank line.
+        if s == "":
+            out.append("")
+            i += 1
+            continue
+        # A list item / paragraph line -> indented as-is (inline formatting is
+        # applied by typst_inline for **bold** etc.).
+        out.append("    " + typst_inline(ln))
+        i += 1
+    # Collapse the trailing blank produced by the indented content.
+    return "\n".join(out).rstrip("\n")
 
 
 def _render_figure(buf: list[str], caption: str) -> str:
@@ -933,10 +1058,25 @@ def _render_figure(buf: list[str], caption: str) -> str:
     m = re.search(r"!\[([^\]]*)\]\(([^)]+)\)", text)
     if not m:
         return ""
-    alt, path = m.group(1).strip(), m.group(2).strip()
-    # An optional trailing "NN%" sets the width; the figure convention is 100%.
-    path = re.sub(r"\s+\d+%\s*$", "", path).strip()
-    return _figure_block(path, caption if caption else alt)
+    alt, inner = m.group(1).strip(), m.group(2).strip()
+    # An optional trailing "NN% [hNN%]" sets the #figure image size (default
+    # width 100%, no height); see typst_inline._stash for the same parsing.
+    height = ""
+    wm = re.match(r"^(.*?)\s+(w?(\d+%)|\s*h(\d+%\s*)?)$", inner)
+    if wm:
+        path = wm.group(1).strip()
+        w, h = wm.group(3), wm.group(4)
+        if w is not None and h is not None:
+            width, height = w.strip(), h.strip()
+        elif h is not None:
+            width, height = "auto", h.strip()
+        elif w is not None:
+            width, height = w.strip(), ""
+        else:
+            width, height = "100%", ""
+    else:
+        path, width, height = inner, "100%", ""
+    return _figure_block(path, caption if caption else alt, width, height)
 
 
 def _md_table_to_typst(table_lines: list[str]) -> str:
@@ -1017,6 +1157,17 @@ _ANSWERS_BUF: list[str] = []
 # `::: figure[Caption]` (empty when none, so the image's alt text is used).
 _FIG_CAPTION = ""
 _FIG_BUF: list[str] = []
+# When a `::: figure` is opened *inside* a `::: block`, the figure must be
+# emitted *inside* the block (the `:::`-buffer branch buffers it and the
+# block-close handler renders it) and the bare `:::` close must NOT also emit a
+# standalone #place.  `_BLOCK_FIG_CAP` records that; `_FENCE_IN_BLOCK` records
+# that the currently-open figure fence belongs to an enclosing block.
+_BLOCK_FIG_CAP = False
+_FENCE_IN_BLOCK = False
+_BLOCK_BUF: list[str] = []
+# Depth of nested `:::` fences inside an open `::: block`: the block only closes
+# at its *own* `:::` (when the depth returns to 0).
+_BLOCK_DEPTH = 0
 
 # The most recent heading text, used to title auto-wrapped `#pftab` tables.
 _last_heading = ""
@@ -1098,11 +1249,15 @@ def _is_statblock(context: dict) -> bool:
 
 def convert(md_text: str, page_broken: bool = False) -> str:
     global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _last_heading, _FIG_CAPTION, _FIG_BUF
+    global _BLOCK_BUF, _BLOCK_FIG_CAP, _FENCE_IN_BLOCK
     _FENCE = None
     _PFTAB_NAME = ""
     _ANSWERS_BUF = []
     _FIG_CAPTION = ""
     _FIG_BUF = []
+    _BLOCK_BUF = []
+    _BLOCK_FIG_CAP = False
+    _FENCE_IN_BLOCK = False
     # `_last_heading` is reset per `convert()` call so that the first table of
     # each chapter file does not inherit the last heading of the previous file
     # (the assembled book calls `convert()` once per chapter).
@@ -1127,6 +1282,47 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         # of the buffer lines may be re-processed by the handlers below.  The
         # closing `:::` is NOT consumed here — it must fall through to the
         # fence-close branch below so the group / figure is actually emitted.
+        # While a `::: block` is open, ALL lines (including a nested `:::
+        # figure` and its content, and headings) are buffered verbatim until the
+        # block's closing `:::` so none is re-processed by the handlers below
+        # (which would break out on a heading).  The buffered lines are emitted
+        # indented inside the `#block(...)[ ... ]` by the block-close handler.
+        # A `::: block` is a full-width #place/#block wrapper: ALL its inner
+        # lines (including a nested `::: figure` and its content, headings,
+        # prose) are buffered verbatim until the block's *own* closing `:::`.
+        # Nested `:::` fences inside the block are handled by _render_block_inner,
+        # not by the handlers below (which would break out on a heading).
+        if _FENCE == "block":
+            _BLOCK_BUF.append(ln)
+            # Track nested `:::` fences so the block closes only at its own `:::`.
+            if re.match(r"^:::\s*$", stripped):
+                _BLOCK_DEPTH -= 1
+            elif re.match(r"^:::", stripped):
+                _BLOCK_DEPTH += 1
+            if _BLOCK_DEPTH == 0:
+                # The block's own closing `:::` was just buffered: render the
+                # buffered inner content and close the wrapper.
+                inner_typst = _render_block_inner(_BLOCK_BUF)
+                out.append(
+                    "#place(\n"
+                    "  top + left,\n"
+                    "  scope: \"parent\",\n"
+                    "  float: true,\n"
+                    "  clearance: 1em,\n"
+                    ")[\n"
+                    "  #block(width: 100%)[\n"
+                    f"{inner_typst}\n"
+                    "  ]\n"
+                    "]"
+                )
+                _FENCE = None
+                _BLOCK_BUF = []
+                _BLOCK_FIG_CAP = False
+                _FENCE_IN_BLOCK = False
+                _BLOCK_DEPTH = 0
+            i += 1
+            continue
+
         if _FENCE in ("answers", "figure") and not re.match(r"^:::\s*$", stripped):
             if _FENCE == "answers":
                 _ANSWERS_BUF.append(ln)
@@ -1289,15 +1485,14 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                     # as a normal `==` heading rather than a `#chap-header`.
                     if re.match(r"^!\[", nxt) or nxt == "---":
                         break
-                    if re.match(r"^:::\s*$", nxt):
-                        break
-                    # An *opening* `:::` fence (one-col / pftab) must NOT be
-                    # consumed as the description, but it is a full-width block
-                    # start that belongs before this heading — skip it so the
-                    # scan can reach the real description.
+                    # A `:::` fence (opening OR closing) is a block element, NOT
+                    # the description: break so the heading stays a #chap-header
+                    # and the fence (e.g. `::: pftab[Весткроун]`) stays in the
+                    # flow to be re-processed below.  A closing `:::` also ends
+                    # the level-1 heading so it renders as a normal `==` heading
+                    # rather than a #chap-header.
                     if re.match(r"^:::", nxt):
-                        k += 1
-                        continue
+                        break
                     # The first real (non-image, non-heading, non-fence) line is
                     # the desc.
                     desc = re.sub(r"\**", "", nxt).strip()
@@ -1310,21 +1505,11 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 # Quote all three args so colons / parens / punctuation in the
                 # title or description cannot break the call's argument list.
                 # The first level-1 heading of the whole document does NOT get a
-                # page break before it -- it would leave page 1 empty.
-                # If the chapter opens with a `::: one-col` fence (the description
-                # scan stops at a `:::` fence), the `#set page(columns: 1)` that
-                # the fence emits provides the full-width start on its own, so no
-                # separate `#pagebreak()` is emitted before the chapter header.
-                follow = ""
-                for kk in range(k, n):
-                    s = lines[kk].strip()
-                    if s == "":
-                        continue
-                    follow = s
-                    break
-                if re.match(r"^:::\s*one-col\s*$", follow):
-                    pass
-                elif _PAGE_BROKEN:
+                # page break before it -- it would leave page 1 empty.  A `:::`
+                # fence after the heading (e.g. `::: pftab`) is NOT consumed by
+                # the description scan, so it stays in the flow and is
+                # re-processed below.
+                if _PAGE_BROKEN:
                     out.append("#pagebreak()")
                 else:
                     _PAGE_BROKEN = True
@@ -1335,14 +1520,6 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 i = k
                 continue
             prefix = "=" * min(level, 6)
-            if level <= 3:
-                # A page break before the heading (so the heading starts a new
-                # page).  The very first heading of the whole document does NOT
-                # get one -- it would leave page 1 empty.
-                if _PAGE_BROKEN:
-                    out.append("#pagebreak()")
-                else:
-                    _PAGE_BROKEN = True
             out.append(f"{prefix} {text}")
             # Remember the (raw, un-escaped) heading text so the next auto-wrapped
             # `#pftab` table can use it as the table title.  `neutralize`/`escape`
@@ -1406,34 +1583,30 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         # close) is rendered by _render_figure; the caption is the explicit
         # `[Caption]` title, or the image's alt text when none is given.
         if re.match(r"^:::\s*figure\s*(\[[^\]]*\])?\s*$", stripped):
+            # A `::: figure` opened while a `::: block` is open belongs to that
+            # block (emitted inside it), not as its own #place.
+            _FENCE_IN_BLOCK = _FENCE == "block"
             _FENCE = "figure"
             _FIG_CAPTION = _extract_pftab_name(stripped)
             _FIG_BUF = []
+            _BLOCK_FIG_CAP = False
             i += 1
             continue
         # `::: block` opens a full-width page-spanning #block (a #place
-        # wrapper).  The content (processed by the normal handlers below) sits
-        # between the emitted #place/#block prefix and the close's `] ]`
-        # suffix, so it can contain headings, tables, prose, … as usual.
+        # wrapper).  Its content is buffered verbatim (the `:::`-buffer branch
+        # above) and emitted indented inside the `#block(...)[ ... ]` by the
+        # block-close handler, so it can contain headings, a nested `::: figure`,
+        # tables, prose, … as usual.
         if re.match(r"^:::\s*block\s*$", stripped):
             _FENCE = "block"
-            out.append(
-                "#place(\n"
-                "  top + center,\n"
-                "  scope: \"parent\",\n"
-                "  float: true,\n"
-                "  clearance: 1em,\n"
-                ")[\n"
-                "  #block(width: 100%)[\n"
-            )
+            _BLOCK_BUF = []
+            _BLOCK_FIG_CAP = False
+            _BLOCK_DEPTH = 1
             i += 1
             continue
         if re.match(r"^:::\s*$", stripped):
             if _FENCE == "one-col":
                 out.append("#set page(columns: 2)")
-            elif _FENCE == "block":
-                # Close the #block and the #place wrapper opened by `::: block`.
-                out.append("  ]\n]")
             elif _FENCE == "answers":
                 # Emit the answers-group in the normal flow.  `answers`/
                 # `answers-group` render as a breakable block whose own
@@ -1442,11 +1615,19 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 out.append(_render_answers_group(_ANSWERS_BUF))
                 _ANSWERS_BUF = []
             elif _FENCE == "figure":
-                out.append(_render_figure(_FIG_BUF, _FIG_CAPTION))
+                if _BLOCK_FIG_CAP:
+                    # A `::: figure` opened *inside* a `::: block`: the buffered
+                    # image is emitted *inside* the block by the block-close
+                    # handler (rendered inline, not as a standalone #place).
+                    pass
+                else:
+                    out.append(_render_figure(_FIG_BUF, _FIG_CAPTION))
                 _FIG_BUF = []
             _FENCE = None
             _PFTAB_NAME = ""
             _FIG_CAPTION = ""
+            _BLOCK_FIG_CAP = False
+            _FENCE_IN_BLOCK = False
             i += 1
             continue
 
