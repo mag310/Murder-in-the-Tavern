@@ -439,39 +439,44 @@
     (key: "critical_failure",   body: critical_failure),
   ).filter(p => p.body != none)
 
-  // --- Заголовок: две ячейки — навык слева, сложность (DC) справа ---
+  // --- Заголовок: одна двойная ячейка (colspan=2) с двумя блоками внутри ---
   // `skill` and `dc` arrive as positional `content` (e.g. `[Природа]`,
-  // `[15]`), so they are inserted directly.  Wrapping them again in
-  // `text(...)[#skill]` would render the raw content structure (the bug that
-  // showed the literal `text(fill: …)[Природа]` text), so the whole header is
-  // one `text(...)` run instead.  The skill sits in the left (label) column
-  // and the DC is right-aligned in the outcome column.
-  let header-skill = table.cell(
+  // `[15]`), so they are inserted directly.  The header is a single cell that
+  // spans both columns (colspan: 2); inside it two blocks sit side by side:
+  // the skill on the left and "DC #dc" on the right.  When no DC was given the
+  // generator passes an empty `[]`, so only the skill block is shown.
+  // The DC block: a numeric DC is prefixed with "DC" (e.g. "DC 15"); a
+  // non-numeric value (e.g. "50 зм") is shown verbatim with no "DC" prefix.
+  let dc-str = to-string(dc)
+  // A value is numeric when, after keeping only digit/dot characters, the
+  // result equals the trimmed value (so "15" / "15.5" are numeric, while
+  // "50 зм" / "крит. успех" are not).
+  let is-numeric = dc-str != "" and dc-str.trim().split("").filter(
+    c => c in "0123456789.",
+  ).join() == dc-str.trim()
+  let dc-block = if dc-str != "" {
+    if is-numeric {
+      text(fill: colors.pfwhite, weight: "bold")[DC #dc]
+    } else {
+      text(fill: colors.pfwhite, weight: "bold")[#dc]
+    }
+  } else {
+    []
+  }
+  // A single double cell (colspan: 2) holding two blocks on one line: the
+  // skill on the left and the DC value pushed to the right by h(1fr).  The
+  // header is one line tall (a table cell does not grow to two rows), so the
+  // two blocks stay on the same line.
+  let header = table.cell(
+    colspan: 2,
     fill: colors.pfgreen,
     inset: (x: 6pt, y: 5pt),
     align: left + horizon,
   )[
     #text(fill: colors.pfwhite, weight: "bold")[#skill]
+    #if dc-str != "" { h(1fr) }
+    #dc-block
   ]
-  // The DC header is shown only when a DC was given (the generator passes an
-  // empty `[]` when the markdown had no DC); otherwise an empty cell keeps the
-  // green header band spanning the full width (so the skill label sits on its
-  // own without a dangling "DC " with no number).
-  let header-dc = if to-string(dc) != "" {
-    table.cell(
-      fill: colors.pfgreen,
-      inset: (x: 6pt, y: 5pt),
-      align: right + horizon,
-    )[
-      #text(fill: colors.pfwhite, weight: "bold")[DC #dc]
-    ]
-  } else {
-    table.cell(
-      fill: colors.pfgreen,
-      inset: (x: 6pt, y: 5pt),
-      align: right + horizon,
-    )[]
-  }
 
   // --- Строки исходов ---
   let rows = pairs.map(p => (
@@ -491,12 +496,11 @@
   block(breakable: true)[
     #v(0.6em)
     #table(
-      columns: (auto, 1fr),
+      columns: (1fr, 3fr),
       stroke: none,
       inset: 0pt,
       fill: none,
-      header-skill,
-      header-dc,
+      header,
       ..rows,
     )
     #v(0.6em)

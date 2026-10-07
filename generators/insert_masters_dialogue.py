@@ -10,7 +10,7 @@ MB = ROOT / "publication" / "masters-book.md"
 # character -> the heading line that STARTS the NEXT section (insert before it)
 # Each is unique.
 NEXT_SECTION = {
-    "dukstatar": "### Алессандро Маретти — Капитан «Чёрной Сирены»",
+    "duxotar": "### Алессандро Маретти — Капитан «Чёрной Сирены»",
     "capitan": "### Тобиа Бандини — Ассистент Доктора",
     "doctor_assistant": "### Вассиндио Дровендж — Патриарх Совета Воров",
     "vassindio": "### Изабелла Вельди — Призрак",

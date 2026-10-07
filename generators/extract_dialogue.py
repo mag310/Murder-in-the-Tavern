@@ -78,7 +78,7 @@ def extract(md_path: str):
 
 if __name__ == "__main__":
     import json
-    target = sys.argv[1] if len(sys.argv) > 1 else "interrogations/dukstatar-ansvers.md"
+    target = sys.argv[1] if len(sys.argv) > 1 else "interrogations/duxotar-ansvers.md"
     recs = extract(target)
     print("extracted %d questions from %s" % (len(recs), target))
     # dump

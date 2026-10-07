@@ -28,15 +28,15 @@ ROOT = Path(r"C:\Users\User\Murder-in-the-Tavern")
 # character_id -> (md file, name, role, attitude, base_dc, candor, reliability,
 #                  npc_label_for_answers, status)
 CHARS = {
-    "dukstatar": {
-        "md": "interrogations/dukstatar-ansvers.md",
+    "duxotar": {
+        "md": "interrogations/duxotar-ansvers.md",
         "name": "Ильтус Мартис",
-        "role": "Дукстатар",
+        "role": "Дуксотар",
         "attitude": "unfriendly",
         "base_dc": "hard",
         "candor": "unfriendly",
         "reliability": "mixed",
-        "npc_label": "Дукстатар Ильтус Мартис",
+        "npc_label": "Дуксотар Ильтус Мартис",
         "status": "main_npc",
     },
     "capitan": {

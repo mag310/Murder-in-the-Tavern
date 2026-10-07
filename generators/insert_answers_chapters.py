@@ -13,9 +13,9 @@ CH1 = ROOT / "publication" / "murder" / "02-chapter-1.md"
 # character -> (anchor line to insert BEFORE, and an optional 'after' marker
 # that must appear earlier in the file so we pick the right occurrence).
 ANCHORS = {
-    # dukstatar: insert before the '##### GM knows' that FOLLOWS the existing
+    # duxotar: insert before the '##### GM knows' that FOLLOWS the existing
     # '##### Вопросы и ответы (L1–L5)' heading (there are several 'GM knows').
-    "dukstatar": ("##### GM knows", "##### Вопросы и ответы (L1–L5)"),
+    "duxotar": ("##### GM knows", "##### Вопросы и ответы (L1–L5)"),
     "capitan": ("##### Зацепка: «Поиск дезертира»", None),
     "doctor_assistant": ("##### Зацепка: «Доктор в таверне»", None),
     "vassindio": ("##### Зацепка: «Поиск нелегальной контрабанды»", None),

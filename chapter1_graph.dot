@@ -78,7 +78,7 @@ digraph Chapter1_Vertical2 {
     // =========================================================
     node [shape=box, style="filled,rounded", fontsize=10];
     a1 [group=A, fillcolor="#eceff1", color="#455a64", shape=ellipse,
-        label="A1 · 14:30 · Офис Дукстатара\nзаказ «Поиск маньяка»"];
+        label="A1 · 14:30 · Офис Дуксотара\nзаказ «Поиск маньяка»"];
     a2 [group=A, fillcolor="#eceff1", color="#455a64", shape=ellipse,
         label="A2 · 16:00 · Морг\n(с заказом / без)"];
     a3 [group=A, fillcolor="#e8f5e9", color="#2e7d32",

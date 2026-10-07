@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rumors.schema.json",
+  "title": "Rumors",
+  "type": "object",
+  "required": [
+    "rumors"
+  ],
+  "properties": {
+    "rumors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rumor"
+      }
+    }
+  },
+  "$defs": {
+    "rumor": {
+      "type": "object",
+      "properties": {
+        "roll": {
+          "type": [
+            "integer",
+            "string",
+            "null"
+          ],
+          "description": "Значение на кубе, при котором выпадает слух (порядок в таблице). Необязателен."
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Место, где слух можно услышать (локация/заголовок таблицы). Необязателен."
+        },
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Текст слуха. Необязателен."
+        },
+        "speaker": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Кто говорит слух (источник). Необязателен."
+        },
+        "evidence": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Улика/событие, к которому ведёт слух (объединённое поле). Необязателен."
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

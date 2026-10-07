@@ -1200,7 +1200,13 @@ def _figure_block(path: str, caption: str, width: str = "100%",
     """
     cap = escape(neutralize(caption)) if caption else ""
     cap_line = f"    caption: [{cap}],\n" if cap else ""
-    if height:
+    # Pass BOTH width and height through to #image when both are given (e.g.
+    # `width:90%;height:auto`), so the spec's sizing is preserved verbatim.
+    # When only one is set, emit just that one (the other is the "auto"/empty
+    # default and is left to Typst).
+    if height and width:
+        img = f'    image("{path}", width: {width}, height: {height}),\n'
+    elif height:
         img = f'    image("{path}", height: {height}),\n'
     else:
         img = f'    image("{path}", width: {width}),\n'
@@ -1446,6 +1452,118 @@ def _md_table_to_pftab(table_lines: list[str], name: str = "") -> str:
     out.append(")")
     return "\n".join(out)
 
+
+def _render_rumors(name: str = "", buf: list[str] | None = None) -> str:
+    """Render a `::: rumors` fence into a ``#pftab`` table.
+
+    The rumors are written *inline in the markdown* (the fence body), in the
+    shape::
+
+        rumor: <n> | <text> | <speaker> | <evidence-or-event>
+
+    A rumor need not fit on one source line: any following non-blank line that
+    does *not* start with ``rumor:`` is treated as a continuation and folded
+    onto the current rumor's last field (newlines become spaces), so the text
+    may span several lines -- the editor is free to soft-wrap without breaking
+    the build.
+
+    The fence title may carry a dice spec as its first comma-separated part,
+    e.g. ``::: rumors [d10, Слухи на мосту Клинкокрыла]``; that ``d10``
+    becomes the first (roll) column header and the rest becomes the table
+    title.  Each row's leading ``<n>`` is the die value rolled to surface
+    that rumor (its position in the table), so it is rendered verbatim.
+
+    ``rumors.json`` in the repo root is the *source of truth* for editing and
+    validation (a knowledge base); this fence only renders what the author
+    wrote in the markdown.  ``buf`` is the raw body lines; when it is empty
+    the build falls back to reading ``rumors.json``.
+
+    The table columns are: <roll> | Слух | Источник | Улика/событие.  ``name``
+    becomes the table title (default "Слухи").
+    """
+    def _cell(v: object) -> str:
+        s = "" if v is None else str(v)
+        return escape(neutralize(s))
+
+    records: list[dict] = []
+    # 1) Prefer the inline markdown body.  Each rumor starts on a line that
+    #    begins with "rumor:"; a non-blank line that does NOT start with
+    #    "rumor:" is a *continuation* folded into the current rumor's last
+    #    field (so the author can wrap long text across several source lines
+    #    without the build breaking -- the editor is free to soft-wrap).
+    if buf is not None:
+        # Accumulate the raw body of each rumor (its "rumor:" line plus any
+        # following continuation lines), then parse once at the end.  A
+        # non-blank line that does not start with "rumor:" is folded onto the
+        # current rumor, so the author may wrap a long text across source
+        # lines -- the editor is free to soft-wrap without breaking the build.
+        raws: list[str] = []
+        for ln in buf:
+            s = ln.strip()
+            if not s:
+                continue
+            if s.startswith("rumor"):
+                body = s[len("rumor"):]
+                body = re.sub(r"^:\s*", "", body)
+                raws.append(body)
+            elif raws:
+                # Continuation: append to the current rumor's raw body.
+                raws[-1] = raws[-1] + " " + s
+        for raw in raws:
+            fields = [c.strip() for c in raw.split("|")]
+            while len(fields) < 4:
+                fields.append("")
+            roll, text, speaker, evid = fields[:4]
+            records.append({
+                "roll": _cell(roll),
+                "text": _cell(text),
+                "speaker": _cell(speaker),
+                "evid": _cell(evid),
+            })
+    # 2) Fallback: read rumors.json (the knowledge base) when the body is
+    #    empty, so an empty `::: rumors` fence still renders the table.
+    if not records:
+        import json
+        root = Path(__file__).resolve().parent.parent
+        path = root / "rumors.json"
+        if path.exists():
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                data = {}
+            for i, r in enumerate((data.get("rumors", []) if isinstance(data, dict) else []), 1):
+                records.append({
+                    "roll": _cell(r.get("roll") or i),
+                    "text": _cell(r.get("text")),
+                    "speaker": _cell(r.get("speaker")),
+                    "evid": _cell(r.get("evidence") or r.get("evidence_id")),
+                })
+
+    if not records:
+        return ""
+
+    # The title may carry a dice spec as its first comma-separated part
+    # (e.g. "d10, Слухи на мосту Клинкокрыла"): the dice becomes the first
+    # (roll) column header and the rest becomes the table title.
+    if name:
+        name = escape(neutralize(name))
+        if "," in name:
+            dice, rest = name.split(",", 1)
+            roll_hdr, title = dice.strip(), rest.strip()
+        else:
+            roll_hdr, title = "d10", name
+    else:
+        roll_hdr, title = "d10", "Слухи"
+
+    cols = "1fr, 6fr, 2fr, 2fr"
+    out = [f"#pftab([{title}], columns: ({cols}),",
+           f"[{roll_hdr}], [Слух], [Источник], [Улика/событие],"]
+    for r in records:
+        cells = [f"[{c}]" for c in (r["roll"], r["text"], r["speaker"], r["evid"])]
+        out.append("  " + ", ".join(cells) + ",")
+    out.append(")")
+    return "\n".join(out)
+
 # Module-global flag: has at least one level-1/2/3 heading already been
 # emitted?  The first one of the whole document does NOT get a page break
 # (it would leave page 1 empty); from the second heading onward a
@@ -1457,6 +1575,21 @@ _PAGE_BROKEN = False
 # pftab fence; `_ANSWERS_BUF` accumulates the lines of an `::: answers` block.
 _FENCE = None
 _PFTAB_NAME = ""
+# A `::: rumors` fence renders a `#pftab` table from its inline body (one
+# rumor per line: `rumor: <n> | text | speaker | evidence-or-event`).  The
+# fence title may carry a dice spec as its first comma-separated part
+# (e.g. `[d10, Слухи на мосту Клинкокрыла]`).  `rumors.json` in the repo root
+# is the knowledge base for editing/validation; `_RUMORS_BUF` accumulates the
+# body lines until the bare `:::` close; `_RUMORS_NAME` holds the `[Title]`
+# spec (default "Слухи").
+_RUMORS_NAME = ""
+_RUMORS_BUF: list[str] = []
+# Set when a `::: pftab` fence opens *inside* a `::: one-col` fence.  The
+# one-col scope must then stay open across the table so the whole table
+# renders full-width, and the table branch re-emits `#set page(columns: 2)`
+# once the table is out (instead of the bare `:::` close, which no longer
+# sees a `one-col` _FENCE because pftab replaced it).
+_PFTAB_IN_ONE_COL = False
 _ANSWERS_BUF: list[str] = []
 _ANSWERS_TITLE = ""
 # A `::: figure[Caption]` fence accumulates its (buffered) content lines and the
@@ -1625,14 +1758,19 @@ def _is_statblock(context: dict) -> bool:
 
 
 def convert(md_text: str, page_broken: bool = False) -> str:
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _ANSWERS_TITLE, _last_heading, _FIG_CAPTION, _FIG_BUF
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _ANSWERS_TITLE, _last_heading, _FIG_CAPTION, _FIG_BUF
     global _BLOCK_BUF, _BLOCK_FIG_CAP, _FENCE_IN_BLOCK, _ALoud_BUF, _ALoud_TITLE
     global _NOTE_BUF, _NOTE_TITLE, _IMAGE_BUF, _IMAGE_SPEC
     global _ATTENTION_BUF, _ATTENTION_TITLE
+    global _RUMORS_NAME
+    global _RUMORS_BUF
     _FENCE = None
     _PFTAB_NAME = ""
+    _PFTAB_IN_ONE_COL = False
     _ANSWERS_BUF = []
     _ANSWERS_TITLE = ""
+    _RUMORS_NAME = ""
+    _RUMORS_BUF = []
     _FIG_CAPTION = ""
     _FIG_BUF = []
     _BLOCK_BUF = []
@@ -1712,7 +1850,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             i += 1
             continue
 
-        if _FENCE in ("answers", "figure", "aloud", "note", "image", "attention", "check") and not re.match(r"^:::\s*$", stripped):
+        if _FENCE in ("answers", "figure", "aloud", "note", "image", "attention", "check", "rumors") and not re.match(r"^:::\s*$", stripped):
             if _FENCE == "answers":
                 _ANSWERS_BUF.append(ln)
             elif _FENCE == "aloud":
@@ -1721,6 +1859,8 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 _NOTE_BUF.append(ln)
             elif _FENCE == "attention":
                 _ATTENTION_BUF.append(ln)
+            elif _FENCE == "rumors":
+                _RUMORS_BUF.append(ln)
             elif _FENCE == "check":
                 _CHECK_BUF.append(ln)
             elif _FENCE == "image":
@@ -2022,12 +2162,24 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             continue
         if re.match(r"^:::\s*pftab\s*(\[[^\]]*\])?\s*$", stripped):
             if _FENCE == "one-col":
-                # A `one-col` block (full-width page) cannot coexist with a
-                # table; closing it here so its `#set page(columns: 2)` is
-                # emitted before the table reopens the normal 2-column flow.
-                out.append("#set page(columns: 2)")
+                # A `::: pftab` opened *inside* a `::: one-col` must stay in the
+                # full-width scope so the whole table renders single-column; do
+                # NOT emit `#set page(columns: 2)` here.  The one-col scope is
+                # restored by the table branch (which re-emits `columns: 2`
+                # after the table) via `_PFTAB_IN_ONE_COL`, since the pftab
+                # fence replaces the one-col _FENCE and the bare `:::` close no
+                # longer sees a `one-col` to close.
+                _PFTAB_IN_ONE_COL = True
             _FENCE = "pftab"
             _PFTAB_NAME = _extract_pftab_name(stripped)
+            i += 1
+            continue
+        if re.match(r"^:::\s*rumors\s*(\[[^\]]*\])?\s*$", stripped):
+            if _FENCE == "one-col":
+                _PFTAB_IN_ONE_COL = True
+            _FENCE = "rumors"
+            _RUMORS_NAME = _extract_pftab_name(stripped) or "Слухи"
+            _RUMORS_BUF = []
             i += 1
             continue
         if re.match(r"^:::\s*answers\s*(\[[^\]]*\])?\s*$", stripped):
@@ -2144,11 +2296,21 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             elif _FENCE == "check":
                 out.append(_render_check_group(_CHECK_BUF))
                 _CHECK_BUF = []
+            elif _FENCE == "rumors":
+                out.append(_render_rumors(_RUMORS_NAME, _RUMORS_BUF))
+                _RUMORS_NAME = ""
+                _RUMORS_BUF = []
             _FENCE = None
             _PFTAB_NAME = ""
             _FIG_CAPTION = ""
             _BLOCK_FIG_CAP = False
             _FENCE_IN_BLOCK = False
+            if _PFTAB_IN_ONE_COL:
+                # The closed fence (pftab / rumors) had been opened inside a
+                # `::: one-col`: restore the normal 2-column flow now that the
+                # table is out.
+                out.append("#set page(columns: 2)")
+                _PFTAB_IN_ONE_COL = False
             i += 1
             continue
 
@@ -2163,6 +2325,14 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             if _FENCE == "pftab":
                 # A manual `::: pftab[Title]` fence already wraps this table.
                 out.append(_md_table_to_pftab(table_lines, name=_PFTAB_NAME))
+                if _PFTAB_IN_ONE_COL:
+                    # The pftab opened inside a `::: one-col`: the table must
+                    # stay full-width, so restore the normal 2-column flow
+                    # after the table (the bare `:::` close no longer emits
+                    # `#set page(columns: 2)` because the pftab fence replaced
+                    # the one-col _FENCE).
+                    out.append("#set page(columns: 2)")
+                    _PFTAB_IN_ONE_COL = False
                 _FENCE = None
                 _PFTAB_NAME = ""
             else:
@@ -2269,12 +2439,17 @@ def assemble_book(paths: list[Path]) -> str:
     """Concatenate several chapter .md files into one Typst document, each
     starting on a new page.  Image paths stay relative to the first file's
     directory, so the output must be written alongside it (see main)."""
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _FIG_CAPTION, _FIG_BUF
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _FIG_CAPTION, _FIG_BUF
+    global _RUMORS_NAME
+    global _RUMORS_BUF
     _PAGE_BROKEN = False  # reset so the first heading of the book has no break
     _FENCE = None
     _PFTAB_NAME = ""
+    _PFTAB_IN_ONE_COL = False
     _ANSWERS_BUF = []
     _ANSWERS_TITLE = ""
+    _RUMORS_NAME = ""
+    _RUMORS_BUF = []
     _FIG_CAPTION = ""
     _FIG_BUF = []
     parts = []

@@ -70,7 +70,7 @@ def _bare(col: str) -> str:
 
 def is_dialogue_table(header_cells: list[str]) -> bool:
     """True when any header cell is 'Вопрос' (the question column).  The
-    question column may be the first cell or (e.g. the Dukstatar table) be
+    question column may be the first cell or (e.g. the duxotar table) be
     preceded by a '№' / number column."""
     return any(is_question_header(c) for c in header_cells)
 
@@ -141,7 +141,7 @@ def render_answers_group(npc: str, rows: list[list[str]], header: list[str]) -> 
     """
     # Find the question column (any cell that is a question header) and the
     # level columns (every other cell that maps to a level key).  A leading
-    # '№' / number column (e.g. the Dukstatar table) is simply skipped.
+    # '№' / number column (e.g. the duxotar table) is simply skipped.
     q_col = 0
     for i, col in enumerate(header):
         if is_question_header(col):
