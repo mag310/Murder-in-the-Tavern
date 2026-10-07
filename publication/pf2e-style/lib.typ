@@ -289,6 +289,11 @@
   easy:        rgb("7a3a1a"),
   medium:      rgb("5a5a2a"),
   very_easy:   rgb("1a4a3a"),
+  // check-уровни исхода (тот же набор цветов по значимости):
+  critical_success:   rgb("1a4a3a"),
+  success:            rgb("2a5a2a"),
+  failure:            rgb("7a3a1a"),
+  critical_failure:   rgb("5a1a1a"),
 )
 
 // ============================================================
@@ -304,6 +309,11 @@
   easy:        "Осторожный (-1)",
   medium:      "Доверяет (+1)",
   very_easy:   "Полностью доверяет (+2)",
+  // check-уровни исхода:
+  critical_success:   "Крит. успех",
+  success:            "Успех",
+  failure:            "Провал",
+  critical_failure:   "Крит. провал",
 )
 
 // ============================================================
@@ -389,6 +399,104 @@
       inset: 0pt,
       fill: none,
       header,
+      ..rows,
+    )
+    #v(0.6em)
+  ]
+}
+
+// ============================================================
+// check / check-group
+// ------------------------------------------------------------
+// #check-group(intro, ..blocks) — групповая обёртка, по аналогии с
+// #answers-group: заголовок (intro, level 4) + список #check.
+//
+// #check(skill, dc, critical_success, success, failure, critical_failure)
+// — одна проверка с 4 уровнями исхода (крит. успех / успех / провал /
+// крит. провал), отрисованная как #answers (таблица с цветными метками
+// исхода слева и текстом справа; незаданные уровни пропускаются).
+// ============================================================
+#let check-group(intro, ..blocks) = {
+  heading(level: 4)[#intro]
+  for b in blocks.pos() {
+    b
+  }
+}
+
+#let check(
+  skill,
+  dc,
+  critical_success: none,
+  success: none,
+  failure: none,
+  critical_failure: none,
+) = {
+  // Порядок строк: от самого лучшего исхода к худшему.
+  let pairs = (
+    (key: "critical_success",   body: critical_success),
+    (key: "success",            body: success),
+    (key: "failure",            body: failure),
+    (key: "critical_failure",   body: critical_failure),
+  ).filter(p => p.body != none)
+
+  // --- Заголовок: две ячейки — навык слева, сложность (DC) справа ---
+  // `skill` and `dc` arrive as positional `content` (e.g. `[Природа]`,
+  // `[15]`), so they are inserted directly.  Wrapping them again in
+  // `text(...)[#skill]` would render the raw content structure (the bug that
+  // showed the literal `text(fill: …)[Природа]` text), so the whole header is
+  // one `text(...)` run instead.  The skill sits in the left (label) column
+  // and the DC is right-aligned in the outcome column.
+  let header-skill = table.cell(
+    fill: colors.pfgreen,
+    inset: (x: 6pt, y: 5pt),
+    align: left + horizon,
+  )[
+    #text(fill: colors.pfwhite, weight: "bold")[#skill]
+  ]
+  // The DC header is shown only when a DC was given (the generator passes an
+  // empty `[]` when the markdown had no DC); otherwise an empty cell keeps the
+  // green header band spanning the full width (so the skill label sits on its
+  // own without a dangling "DC " with no number).
+  let header-dc = if to-string(dc) != "" {
+    table.cell(
+      fill: colors.pfgreen,
+      inset: (x: 6pt, y: 5pt),
+      align: right + horizon,
+    )[
+      #text(fill: colors.pfwhite, weight: "bold")[DC #dc]
+    ]
+  } else {
+    table.cell(
+      fill: colors.pfgreen,
+      inset: (x: 6pt, y: 5pt),
+      align: right + horizon,
+    )[]
+  }
+
+  // --- Строки исходов ---
+  let rows = pairs.map(p => (
+    table.cell(
+      fill: att-colors.at(p.key),
+      inset: (x: 6pt, y: 4pt),
+      align: left,
+    )[
+      #text(fill: colors.pfwhite, weight: "bold")[#att-labels.at(p.key)]
+    ],
+    table.cell(
+      inset: (x: 6pt, y: 4pt),
+      align: left,
+    )[#p.body],
+  )).flatten()
+
+  block(breakable: true)[
+    #v(0.6em)
+    #table(
+      columns: (auto, 1fr),
+      stroke: none,
+      inset: 0pt,
+      fill: none,
+      header-skill,
+      header-dc,
       ..rows,
     )
     #v(0.6em)

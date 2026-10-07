@@ -94,8 +94,28 @@ def neutralize(s: str) -> str:
     s = s.replace("_", "")
     # Only a dot sandwiched between two word chars is member access.  A dot
     # followed by a space / newline / end is a sentence end and stays a dot.
-    s = re.sub(r"(\w)\.(\w)", r"\1:\2", s)
+    s = _neutralize(s)
     return s
+
+
+def _neutralize(s: str) -> str:
+    """Apply the member-access dot fix (``\\w\\.\\w`` -> ``\\w:\\w``), but leave
+    the dots inside any ``.png`` file path untouched: a path like
+    ``Westcrown_map_eng.png`` would otherwise be mangled into
+    ``Westcrown:mapeng:png``.  Both quoted (``"…png"``) and bare code-block
+    paths are protected."""
+    # Split the text into image-path segments (left verbatim, so their dots
+    # survive) and the rest (where the member-access fix applies).  A path
+    # segment is any run of path chars ending in ".png" (covers
+    # "../../locations/Westcrown_map_eng.png" and a bare "locations/...png").
+    parts = re.split(r"([^\s()]+\.png)", s)
+    out: list[str] = []
+    for k, part in enumerate(parts):
+        if k % 2 == 1:  # an image-path segment: leave its dots untouched
+            out.append(part)
+        else:
+            out.append(re.sub(r"(\w)\.(\w)", r"\1:\2", part))
+    return "".join(out)
 
 
 def typst_inline(line: str) -> str:
@@ -147,6 +167,16 @@ def typst_inline(line: str) -> str:
     # is safe inside the #image("...") string argument.
     def _reinsert(m: "re.Match[str]") -> str:
         path, width, height, alt = images[int(m.group(1))]
+        # A placeholder path (e.g. the "locations/...png" in a backtick code
+        # snippet explaining the image convention) is not a real file: drop it
+        # so it does not become an unresolvable #image that fails the build.
+        if "..." in path:
+            return ""
+        # The image path lives inside a #image("...") string literal, where "."
+        # is an ordinary character (a path separator is "/", not ".").  escape()
+        # would turn "Westcrown_map_eng.png" into a broken "…mapeng:png", so the
+        # path is re-inserted RAW.  Only the alt/caption is escaped (it is plain
+        # text, handled by _figure_block / typst_inline).
         # Character portraits are never full-width: keep them inline.
         if "characters/" in path:
             return f'#image("{path}", width: {width})'
@@ -778,15 +808,51 @@ def render_blockquote(text: str) -> str:
     """
     text = re.sub(r"^\s*\n", "", text)
     text = neutralize(text)
-    # A blank line (one or more) is a paragraph break -> "\n\n".
-    text = re.sub(r"\n\s*\n+", "\n\n", text)
+    # A blank line (one or more) is a paragraph break.  Protect it with an
+    # unlikely placeholder token that does NOT contain a newline, so the
+    # hard-wrap collapse (`replace("\n", " ")`) cannot touch it; otherwise the
+    # "\n\n" paragraph break would be turned into two spaces and the
+    # paragraphs would merge into one.
+    _PARA = "@@PARA@@@"
+    text = re.sub(r"\n\s*\n+", _PARA, text)
     # Any remaining single newline is a hard wrap -> collapse to a space.
     text = text.replace("\n", " ")
-    # Collapse runs of spaces (but keep the "\n\n" paragraph breaks).
+    # Collapse runs of spaces (but keep the protected paragraph breaks).
     text = re.sub(r"[ \t]+", " ", text)
+    # Restore the protected paragraph breaks as "\n\n".
+    text = text.replace(_PARA, "\n\n")
     text = text.strip()
     text = escape(text)
     return f"#aloud[\n{text}\n]"
+
+
+def _strip_blockquote_markers(body: str) -> str:
+    """Strip the leading ``>`` blockquote marker from each line of a blockquote
+    body, preserving paragraph breaks.
+
+    A blank blockquote line (a line that is only ``>``) must stay an empty line
+    so the surrounding newlines form a ``\\n\\n`` paragraph break.  A naive
+    ``re.sub(r"^>\\s?", "", body, flags=re.MULTILINE)`` collapses the double
+    newline around a lone ``>`` into a single newline (the ``>`` is removed but
+    the two adjacent newlines are left, and the ``\\n\\n`` is lost once the
+    hard-wrap collapse runs), so the read-aloud paragraphs merge.  We strip the
+    ``>`` only from lines that have content after it and turn a lone ``>`` line
+    into a truly empty line, which keeps the ``\\n\\n`` intact.
+    """
+    out_lines: list[str] = []
+    for ln in body.split("\n"):
+        s = ln.strip()
+        if s == "":
+            # A truly blank line: keep as empty (preserves a paragraph break).
+            out_lines.append("")
+        elif s == ">":
+            # A lone ``>`` line is a blank blockquote line -> empty, so the
+            # surrounding newlines stay a paragraph break.
+            out_lines.append("")
+        else:
+            # Strip the leading ``>`` and one optional space.
+            out_lines.append(re.sub(r"^>\s?", "", ln))
+    return "\n".join(out_lines)
 
 
 def _normalize_fenced_body(buf: list[str]) -> str:
@@ -883,8 +949,25 @@ _ANSWERS_KEYS = {
     "very_hard", "easy", "medium", "very_easy",
 }
 
+# Candor-level labels the markdown may use instead of the English key (e.g.
+# `Осторожный:` / `Доверяет:`).  Map them to the `#answers` key the
+# pf2e-style function accepts.  `#answers` has the same candor axes as the
+# "Уровни доверия" pftab (very_hard/easy/medium/very_easy).
+_CANDOR_LABELS = {
+    "не доверяет": "very_hard",
+    "осторожный": "easy",
+    "доверяет": "medium",
+    "полностью доверяет": "very_easy",
+    # attitude labels (for social-check answers):
+    "враждебный": "hostile",
+    "недружелюбный": "unfriendly",
+    "безразличный": "indifferent",
+    "дружелюбный": "friendly",
+    "полезный": "helpful",
+}
 
-def _render_answers_group(buf: list[str]) -> str:
+
+def _render_answers_group(buf: list[str], title: str = "") -> str:
     """Render a collected `::: answers` block into a Typst ``#answers-group``.
 
     The block (between the opening `::: answers` and the bare `:::` close) has
@@ -917,7 +1000,11 @@ def _render_answers_group(buf: list[str]) -> str:
         body = body[1:]
 
     npc = ""
-    if body and not body[0].lstrip().startswith("**Q:**"):
+    if title:
+        # The npc name comes from the `::: answers[Title]` spec when given.
+        npc = title
+    elif body and not body[0].lstrip().startswith("**Q:**"):
+        # Otherwise the first non-empty, non-`**Q:**` line is the NPC name.
         npc = body[0].strip()
         npc = npc.replace("**", "").strip()
         body = body[1:]
@@ -946,11 +1033,20 @@ def _render_answers_group(buf: list[str]) -> str:
         # both shapes match the level regex below.
         norm = re.sub(r"^[-*+]\s*", "", s)          # drop a leading bullet
         norm = re.sub(r"\*\*", "", norm)            # drop bold markers
-        m = re.match(r"^([a-z_]+)\s*:\s*(.*)$", norm.strip())
+        # The level label may be a latin key (hostile / easy / …) OR a
+        # Cyrillic candor/attitude label (Осторожный / Доверяет / …).
+        m = re.match(r"^(\S+?)\s*:\s*(.*)$", norm.strip())
         if m and cur is not None:
-            key, text = m.group(1), m.group(2).strip()
+            label, text = m.group(1).strip(), m.group(2).strip()
             text = text.replace("**", "").strip()
-            if key in _ANSWERS_KEYS and text:
+            key = label.lower()
+            if key in _ANSWERS_KEYS:
+                pass
+            elif key in _CANDOR_LABELS:
+                key = _CANDOR_LABELS[key]
+            else:
+                key = ""
+            if key and text:
                 cur["levels"].append((key, text))
             continue
         # a stray line (e.g. a wrapped answer continuation): append to the
@@ -985,6 +1081,109 @@ def _render_answers_group(buf: list[str]) -> str:
     if not parts:
         return ""
     return "#answers-group(\n" + "\n".join(parts) + "\n)"
+
+
+def _render_check_group(buf: list[str]) -> str:
+    """Render a `::: check` block into a Typst ``#check-group``.
+
+    The block shape::
+
+        <intro line>            # optional prose intro (the group heading)
+
+        [Skill; DC]             # starts one #check (skill + DC)
+        critical_success: ...   # outcome level (may wrap across lines)
+        success: ...
+        failure: ...
+        critical_failure: ...
+
+        [Skill2; DC]
+        ...
+
+    The first non-empty, non-``[...]`` line is the group intro (the
+    ``check-group``'s only positional arg).  Each ``[Skill; DC]`` line starts a
+    new ``check(...)``; subsequent ``<level>: <text>`` lines are its named
+    arguments (``critical_success`` / ``success`` / ``failure`` /
+    ``critical_failure``).  Every fragment is neutralised + escaped so no
+    ``[`` / ``]`` / ``*`` can close a content block early.
+    """
+    _CHECK_KEYS = {"critical_success", "success", "failure", "critical_failure"}
+    body = list(buf)
+    # drop leading blank lines
+    while body and body[0].strip() == "":
+        body = body[1:]
+
+    intro = ""
+    if body and not body[0].lstrip().startswith("["):
+        intro = body[0].strip().replace("**", "").strip()
+        body = body[1:]
+
+    # Split the remaining lines into check groups: a `[Skill; DC]` line starts a
+    # new group; a `<level>: <text>` line is appended to the current group.
+    groups: list[dict] = []  # each: {"skill", "dc", "levels": [(key, text), ...]}
+    cur: dict | None = None
+    for ln in body:
+        s = ln.strip()
+        if s == "":
+            continue
+        # A `[Skill; DC]` header line starts a new check.  The skill and DC may
+        # be separated by a semicolon or a comma (`[Природа; 15]`,
+        # `[Внимательность, 10]`, or just `[Природа]` with no DC).
+        m = re.match(r"^\[(.*?)\]\s*$", s)
+        if m:
+            inner = m.group(1).strip()
+            skill, dc = "", ""
+            for part in re.split(r"[;,]", inner):
+                part = part.strip()
+                if not part:
+                    continue
+                mm = re.match(r"(?:dc|cl|с[лл]|skill)\s*[:=]\s*(.+)", part, re.I)
+                if mm:
+                    dc = mm.group(1).strip()
+                    continue
+                if part:
+                    if not skill:
+                        skill = part
+                    else:
+                        dc = part
+            cur = {"skill": skill, "dc": dc, "levels": []}
+            groups.append(cur)
+            continue
+        # A `<level>: <text>` line (critical_success/success/failure/
+        # critical_failure).  A wrapped continuation (no `:`) is appended to the
+        # current group's last level so it is not lost.
+        m = re.match(r"^([a-z_]+)\s*:\s*(.*)$", s)
+        if m and cur is not None:
+            key, text = m.group(1), m.group(2).strip()
+            if key in _CHECK_KEYS and text:
+                cur["levels"].append((key, text))
+            continue
+        if cur and cur["levels"]:
+            cur["levels"][-1] = (
+                cur["levels"][-1][0],
+                (cur["levels"][-1][1] + " " + s).strip(),
+            )
+
+    parts: list[str] = []
+    if intro:
+        parts.append(f"  [{escape(neutralize(intro))}],")
+    for g in groups:
+        if not g["skill"] and not g["levels"]:
+            continue
+        # `skill` and `dc` are positional in #check (like #answers' npc/q);
+        # the outcome levels are named.  `dc` is a required positional arg, so
+        # it is always emitted — an empty `[]` when the markdown gave no DC
+        # (the #check then renders the skill without a "DC" label).
+        args = []
+        args.append(f"[{escape(neutralize(g['skill']))}]")
+        args.append(f"[{escape(neutralize(g['dc']))}]")
+        for key, text in g["levels"]:
+            args.append(f"{key}: [{escape(neutralize(text))}]")
+        if args:
+            parts.append("  check(" + ", ".join(args) + "),")
+
+    if not parts:
+        return ""
+    return "#check-group(\n" + "\n".join(parts) + "\n)"
 
 
 def _figure_block(path: str, caption: str, width: str = "100%",
@@ -1158,6 +1357,29 @@ def _render_figure(buf: list[str], caption: str) -> str:
     return _figure_block(path, caption if caption else alt, width, height)
 
 
+def _render_image(buf: list[str], spec: dict) -> str:
+    """Render a `::: image [caption;width;height]` fence's buffered content as a
+    full-width, page-spanning ``#place(...)[ #figure(image(...), ...) ]``.
+
+    The buffered content is the markdown inside the fence; the first markdown
+    image ``![alt](path)`` found supplies the image *path* (any size tokens
+    inside the markdown are ignored — size comes from the ``[...]`` spec).  The
+    caption/width/height come from the parsed ``::: image [...]`` spec; when the
+    spec omits the caption the image's alt text is used.
+    """
+    text = "\n".join(buf)
+    m = re.search(r"!\[([^\]]*)\]\(([^)]+)\)", text)
+    if not m:
+        return ""
+    alt, inner = m.group(1).strip(), m.group(2).strip()
+    # The path is the markdown inner up to any trailing size token (kept out of
+    # the path); size itself comes from the spec, not the markdown.
+    wm = re.match(r"^(.*?)\s+(?:w?(\d+%)|\s*h(\d+%\s*)?)$", inner)
+    path = (wm.group(1).strip() if wm else inner).strip()
+    caption = spec.get("caption", "") or alt
+    return _figure_block(path, caption, spec.get("width", "100%"), spec.get("height", ""))
+
+
 def _md_table_to_typst(table_lines: list[str]) -> str:
     """Convert a markdown grid table to a Typst ``#table`` that renders as a
     real table.  Every cell is escaped and its parentheses flattened so nothing
@@ -1236,6 +1458,7 @@ _PAGE_BROKEN = False
 _FENCE = None
 _PFTAB_NAME = ""
 _ANSWERS_BUF: list[str] = []
+_ANSWERS_TITLE = ""
 # A `::: figure[Caption]` fence accumulates its (buffered) content lines and the
 # title caption until the bare `:::` close, when it is rendered as a full-width
 # `#place(...)[ #figure(...) ]`.  `_FIG_CAPTION` is the explicit caption from
@@ -1265,6 +1488,31 @@ _ALoud_TITLE = ""
 # body lines; `_NOTE_TITLE` the explicit `[Title]`.
 _NOTE_BUF: list[str] = []
 _NOTE_TITLE = ""
+# A `::: image [caption;width;height]` fence accumulates its (buffered) content
+# lines until the bare `:::` close, when it is rendered as a full-width
+# `#place(...)[ #figure(...) ]`.  `_IMAGE_BUF` holds the body lines (which must
+# contain the `![alt](path)` markdown image); `_IMAGE_SPEC` holds the parsed
+# ``{caption, width, height}`` from the opening `::: image [...]` line.
+_IMAGE_BUF: list[str] = []
+_IMAGE_SPEC: dict = {}
+# A `::: attention` fence accumulates its (buffered) body lines until the bare
+# `:::` close, when it is rendered as `#attention[<title>\n\n<body>]`.  The
+# title comes from the `::: attention [Title]` spec (or the default "Важно" when
+# absent); the body is the text inside the fence.  `_ATTENTION_BUF` holds the
+# body lines; `_ATTENTION_TITLE` the title.
+_ATTENTION_BUF: list[str] = []
+_ATTENTION_TITLE = ""
+# A `::: check` fence accumulates its (buffered) body lines until the bare `:::`
+# close, when it is rendered as `#check-group(intro, check(...), ...)`.  The
+# body shape is:
+#   <intro line>            # optional prose intro (the group's heading)
+#   [Skill; DC]            # starts one #check (skill + DC)
+#   critical_success: ... # outcome level (critical_success/success/failure/
+#   success: ...          #   critical_failure); may wrap across lines
+#   failure: ...
+#   critical_failure: ...
+# `_CHECK_BUF` holds the body lines.
+_CHECK_BUF: list[str] = []
 
 # The most recent heading text, used to title auto-wrapped `#pftab` tables.
 _last_heading = ""
@@ -1275,6 +1523,38 @@ def _extract_pftab_name(stripped: str) -> str:
     `::: pftab[Весткроун]` -> "Весткроун".  Empty when no title is given."""
     m = re.search(r"\[([^\]]*)\]", stripped)
     return neutralize(m.group(1).strip()) if m else ""
+
+
+def _parse_image_spec(spec: str) -> dict:
+    """Parse a `::: image [caption;width;height]` spec.
+
+    ``spec`` is the bracketed text after ``::: image`` (the bracket delimiters
+    already stripped), e.g. ``"Карта Весткроуна;90%"`` or ``"cap;width:100%
+    height:90%"``.  Returns ``{"caption", "width", "height"}`` with
+    ``width``/``height`` defaulting to ``"100%"`` / ``""`` when absent."""
+    s = spec.strip()
+    parts = [p.strip() for p in s.split(";")]
+    caption = parts[0] if parts else ""
+    width, height = "100%", ""
+    for p in parts[1:]:
+        if not p:
+            continue
+        m = re.match(r"width\s*[:=]\s*(.+)", p, re.I)
+        if m:
+            width = m.group(1).strip()
+            continue
+        m = re.match(r"height\s*[:=]\s*(.+)", p, re.I)
+        if m:
+            height = m.group(1).strip()
+            continue
+        # A bare "NN%" is the height (width stays "auto"); "NN% NN%" pairs
+        # (width then height).  Mirror the legacy inline-image parsing.
+        if re.fullmatch(r"\d+%?", p):
+            if height == "":
+                height = p
+            else:
+                width = p
+    return {"caption": caption, "width": width, "height": height}
 
 
 # Table-classification helpers used to auto-wrap every markdown table in a
@@ -1345,12 +1625,14 @@ def _is_statblock(context: dict) -> bool:
 
 
 def convert(md_text: str, page_broken: bool = False) -> str:
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _last_heading, _FIG_CAPTION, _FIG_BUF
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _ANSWERS_BUF, _ANSWERS_TITLE, _last_heading, _FIG_CAPTION, _FIG_BUF
     global _BLOCK_BUF, _BLOCK_FIG_CAP, _FENCE_IN_BLOCK, _ALoud_BUF, _ALoud_TITLE
-    global _NOTE_BUF, _NOTE_TITLE
+    global _NOTE_BUF, _NOTE_TITLE, _IMAGE_BUF, _IMAGE_SPEC
+    global _ATTENTION_BUF, _ATTENTION_TITLE
     _FENCE = None
     _PFTAB_NAME = ""
     _ANSWERS_BUF = []
+    _ANSWERS_TITLE = ""
     _FIG_CAPTION = ""
     _FIG_BUF = []
     _BLOCK_BUF = []
@@ -1360,6 +1642,11 @@ def convert(md_text: str, page_broken: bool = False) -> str:
     _ALoud_TITLE = ""
     _NOTE_BUF = []
     _NOTE_TITLE = ""
+    _IMAGE_BUF = []
+    _IMAGE_SPEC = {}
+    _ATTENTION_BUF = []
+    _ATTENTION_TITLE = ""
+    _CHECK_BUF = []
     # `_last_heading` is reset per `convert()` call so that the first table of
     # each chapter file does not inherit the last heading of the previous file
     # (the assembled book calls `convert()` once per chapter).
@@ -1425,13 +1712,19 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             i += 1
             continue
 
-        if _FENCE in ("answers", "figure", "aloud", "note") and not re.match(r"^:::\s*$", stripped):
+        if _FENCE in ("answers", "figure", "aloud", "note", "image", "attention", "check") and not re.match(r"^:::\s*$", stripped):
             if _FENCE == "answers":
                 _ANSWERS_BUF.append(ln)
             elif _FENCE == "aloud":
                 _ALoud_BUF.append(ln)
             elif _FENCE == "note":
                 _NOTE_BUF.append(ln)
+            elif _FENCE == "attention":
+                _ATTENTION_BUF.append(ln)
+            elif _FENCE == "check":
+                _CHECK_BUF.append(ln)
+            elif _FENCE == "image":
+                _IMAGE_BUF.append(ln)
             else:
                 _FIG_BUF.append(ln)
             i += 1
@@ -1500,20 +1793,19 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             i = j
             continue
 
-        # ---- read-aloud / attention / note heading (any level: ##, ###, ####, ...) ----
-        # A heading whose title is a cue becomes an #aloud, #attention or #note.
+        # ---- attention / note heading (any level: ##, ###, ####, ...) ----
+        # A heading whose title is a cue becomes an #attention or #note.
         # Works for ANY heading level (the body may be a blockquote ">", plain
-        # prose, or a mixed block).  Routing by title (a blockquote ">" body is
-        # treated as read-aloud only when the title is NOT an attention cue):
-        #   - "Зачитать"/"Что зачитать"              -> #aloud
+        # prose, or a mixed block).  Routing by title:
         #   - "Важно"/"Внимание"                     -> #attention
-        #   - a ">"-blockquote body (no other cue)   -> #aloud
         #   - other cues (GM knows, Наблюдения, …)   -> #note
-        # Priority: "Зачитать" title > "Важно"/"Внимание" title > ">"-body > #note.
-        # So a "Важно: …" block that is also a ">"-quote becomes #attention (a
-        # technical caution), not #aloud, and a "Зачитать" title is always #aloud.
+        # A read-aloud is NOT a cue here: an #aloud is produced by the ">"-
+        # blockquote branch below (a consecutive block of lines starting with
+        # ">").  A "Зачитать" / "Что зачитать" heading is therefore just a
+        # decorative subheading and is skipped, so the ">" block that follows it
+        # is emitted by the blockquote branch as an #aloud.
         if re.match(r"^#{1,6}\s", stripped) and re.search(
-            r"Зачитать|Что зачитать|Важно|Внимание|GM knows|Куда ведёт|Зацепки|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
+            r"Важно|Внимание|GM knows|Куда ведёт|Зацепки|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
             stripped,
         ):
             title = re.sub(r"^#+\s+", "", stripped).strip()
@@ -1524,20 +1816,19 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                     break
                 if lines[j].strip() == "---":
                     break
+                # Stop the body at the first `:::` fence line so a `::: check` /
+                # `::: attention` / `::: answers` / `::: pftab` block that follows
+                # a cue heading (e.g. `#### GM knows`) is not swallowed into the
+                # note/attention body and then lost.
+                if re.match(r"^:::\s", lines[j].strip()):
+                    break
                 body_lines.append(lines[j])
                 j += 1
             body = "\n".join(body_lines).strip()
-            is_read = re.search(r"Зачитать|Что зачитать", title)
             is_attention = re.search(r"Важно|Внимание", title)
-            if is_read and body:
-                clean = re.sub(r"^>\s?", "", body, flags=re.MULTILINE)
-                out.append(render_blockquote(clean))
-            elif is_attention and body:
-                clean = re.sub(r"^>\s?", "", body, flags=re.MULTILINE)
+            if is_attention and body:
+                clean = _strip_blockquote_markers(body)
                 out.append(render_attention(title, clean))
-            elif body.startswith(">") and body:
-                clean = re.sub(r"^>\s?", "", body, flags=re.MULTILINE)
-                out.append(render_blockquote(clean))
             else:
                 out.append(render_note(title, body))
             i = j
@@ -1572,48 +1863,58 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             # "Таймлайн главы N: …" line); it is consumed so it is not
             # re-emitted as a normal paragraph.
             cm = re.match(r"^Глава\s+(\d+)\s*[.:]\s*(.*)$", text)
-            if level == 1:
-                if cm:
+            # Both level-1 and level-2 headings become a decorative #chap-header
+            # (preceded by #pagebreak, except the very first one).  A level-1
+            # "Глава N. Title" splits into num + title; any other heading (level-1
+            # without the "Глава" prefix, or a level-2 "section" heading) uses the
+            # whole text as the title with num = "".  The description is the next
+            # non-empty, non-heading, non-image line (level-1 usually has one;
+            # level-2 sections normally do not, so desc is "" for them).
+            if level in (1, 2):
+                if level == 1 and cm:
                     num = cm.group(1)
                     title = cm.group(2).strip() or text
                 else:
                     num = ""
                     title = text
-                # Look ahead for the description (next non-empty meaningful line).
-                # Only a heading / image / "---" / ":::" fence STOPS the scan
-                # (they are not the description and must NOT be consumed — an
-                # image or a fence especially must stay in the flow to be
-                # rendered); blank lines are skipped.
+                # Look ahead for the description.  Only a level-1 heading has a
+                # description (e.g. the "Таймлайн главы N: …" line); a level-2
+                # section heading does NOT — its following line is normally a
+                # `####` sub-heading, a `:::` fence, or a body paragraph that must
+                # stay in the flow.  So for level-2 the description is "" and
+                # nothing is consumed (k = i + 1).
                 desc = ""
                 k = i + 1
-                while k < n:
-                    nxt = lines[k].strip()
-                    if nxt == "":
+                if level == 1:
+                    while k < n:
+                        nxt = lines[k].strip()
+                        if nxt == "":
+                            k += 1
+                            continue
+                        if re.match(r"^#{1,6}\s", nxt):
+                            break
+                        # An image, a "---", or a `:::` fence: do NOT consume it —
+                        # break so it is re-processed below (otherwise the image /
+                        # fence would be lost, e.g. a `::: one-col` after the
+                        # title).  A *closing* `:::` (one-col) also ends the
+                        # level-1 heading here: the heading stays inside the
+                        # one-col block and renders as a normal `==` heading
+                        # rather than a `#chap-header`.
+                        if re.match(r"^!\[", nxt) or nxt == "---":
+                            break
+                        # A `:::` fence (opening OR closing) is a block element,
+                        # NOT the description: break so the heading stays a
+                        # #chap-header and the fence (e.g. `::: pftab[Весткроун]`)
+                        # stays in the flow to be re-processed below.  A closing
+                        # `:::` also ends the level-1 heading so it renders as a
+                        # normal `==` heading rather than a #chap-header.
+                        if re.match(r"^:::", nxt):
+                            break
+                        # The first real (non-image, non-heading, non-fence) line
+                        # is the desc.
+                        desc = re.sub(r"\**", "", nxt).strip()
                         k += 1
-                        continue
-                    if re.match(r"^#{1,6}\s", nxt):
                         break
-                    # An image, a "---", or a `:::` fence: do NOT consume it —
-                    # break so it is re-processed below (otherwise the image /
-                    # fence would be lost, e.g. a `::: one-col` after the title).
-                    # A *closing* `:::` (one-col) also ends the level-1 heading
-                    # here: the heading stays inside the one-col block and renders
-                    # as a normal `==` heading rather than a `#chap-header`.
-                    if re.match(r"^!\[", nxt) or nxt == "---":
-                        break
-                    # A `:::` fence (opening OR closing) is a block element, NOT
-                    # the description: break so the heading stays a #chap-header
-                    # and the fence (e.g. `::: pftab[Весткроун]`) stays in the
-                    # flow to be re-processed below.  A closing `:::` also ends
-                    # the level-1 heading so it renders as a normal `==` heading
-                    # rather than a #chap-header.
-                    if re.match(r"^:::", nxt):
-                        break
-                    # The first real (non-image, non-heading, non-fence) line is
-                    # the desc.
-                    desc = re.sub(r"\**", "", nxt).strip()
-                    k += 1
-                    break
                 title_txt = neutralize(title)
                 title_txt = escape(title_txt)
                 desc_txt = neutralize(desc)
@@ -1645,16 +1946,22 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             continue
 
         # ---- blockquote lines (not under a heading) ----
+        # A consecutive block of `>` lines is a read-aloud / attention / note
+        # block.  A blank `>` line (a line that is only `>`) is a paragraph
+        # break and must be preserved (kept as an empty line) so the
+        # read-aloud text does not merge its paragraphs into one.
         if stripped.startswith(">"):
             j = i
-            bq = []
+            bq_lines = []
             while j < n and lines[j].strip().startswith(">"):
-                bq.append(lines[j].strip()[1:].lstrip())
+                bq_lines.append(lines[j].strip())
                 j += 1
-            clean = "\n".join(bq).strip()
+            # Strip the leading `>` marker from each line, keeping a blank `>`
+            # line as an empty line (so a "\n\n" paragraph break survives).
+            clean = _strip_blockquote_markers("\n".join(bq_lines))
             # A "Важно"/"Внимание" caution is a technical attention block, not a
             # read-aloud.  Detect it in the first line (bare or **bold**).
-            first = re.sub(r"\**", "", bq[0]).strip() if bq else ""
+            first = re.sub(r"\**", "", clean.split("\n")[0]).strip() if clean else ""
             if re.search(r"Важно|Внимание", first):
                 # The title already says "Важно", so drop a leading "Важно:" /
                 # "Внимание:" marker (bold or bare) from the body to avoid
@@ -1664,6 +1971,35 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             else:
                 out.append(render_blockquote(clean))
             i = j
+            continue
+
+        # `::: attention [Title]` opens an #attention block.  Its body is
+        # buffered verbatim until the bare `:::` close, then rendered by
+        # render_attention(title, body).  The title is the `[Title]` spec
+        # (defaulting to "Важно" when absent).  This open handler must sit
+        # BEFORE the paragraph branch below (otherwise the first body line is
+        # absorbed into a paragraph and the fence is never detected).
+        if re.match(r"^:::\s*attention\s*(\[[^\]]*\])?\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = "attention"
+            _ATTENTION_TITLE = _extract_pftab_name(stripped) or "Важно"
+            _ATTENTION_BUF = []
+            i += 1
+            continue
+        # `::: check` opens a check group.  Its body (buffered verbatim until
+        # the bare `:::` close) is rendered by _render_check_group as
+        # #check-group(intro, check(...), ...).  The body is: an optional prose
+        # intro (the group heading), then one or more checks, each headed by a
+        # `[Skill; DC]` line followed by `<level>: <text>` outcome lines
+        # (critical_success / success / failure / critical_failure).  Like
+        # `::: attention` this open handler must sit BEFORE the paragraph branch.
+        if re.match(r"^:::\s*check\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = "check"
+            _CHECK_BUF = []
+            i += 1
             continue
 
         # ---- horizontal rule ----
@@ -1694,11 +2030,12 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             _PFTAB_NAME = _extract_pftab_name(stripped)
             i += 1
             continue
-        if re.match(r"^:::\s*answers\s*$", stripped):
+        if re.match(r"^:::\s*answers\s*(\[[^\]]*\])?\s*$", stripped):
             if _FENCE == "one-col":
                 out.append("#set page(columns: 2)")
             _FENCE = "answers"
             _ANSWERS_BUF = []
+            _ANSWERS_TITLE = _extract_pftab_name(stripped)
             i += 1
             continue
         # `::: aloud[Title]` opens a titled read-aloud block.  Its body (the
@@ -1723,6 +2060,19 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             _FENCE = "note"
             _NOTE_TITLE = _extract_pftab_name(stripped)
             _NOTE_BUF = []
+            i += 1
+            continue
+        # `::: image [caption;width;height]` opens a full-width page-spanning
+        # #figure (a #place wrapper).  Its body (a markdown image, buffered
+        # verbatim until the bare `:::` close) is rendered by _render_image;
+        # the caption/width/height come from the `[...]` spec on the open line
+        # (falling back to the image's alt text / default size when absent).
+        if re.match(r"^:::\s*image\s*(\[[^\]]*\])?\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = "image"
+            _IMAGE_SPEC = _parse_image_spec(_extract_pftab_name(stripped))
+            _IMAGE_BUF = []
             i += 1
             continue
         # `::: figure[Caption]` opens a full-width page-spanning #figure (a
@@ -1763,8 +2113,9 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 # `answers-group` render as a breakable block whose own
                 # `table` lays out independently of the page's 2-column
                 # flow, so no `#set page(columns: ...)` wrapper is needed.
-                out.append(_render_answers_group(_ANSWERS_BUF))
+                out.append(_render_answers_group(_ANSWERS_BUF, _ANSWERS_TITLE))
                 _ANSWERS_BUF = []
+                _ANSWERS_TITLE = ""
             elif _FENCE == "figure":
                 if _BLOCK_FIG_CAP:
                     # A `::: figure` opened *inside* a `::: block`: the buffered
@@ -1782,6 +2133,17 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 out.append(_render_note_titled(_NOTE_BUF, _NOTE_TITLE))
                 _NOTE_BUF = []
                 _NOTE_TITLE = ""
+            elif _FENCE == "image":
+                out.append(_render_image(_IMAGE_BUF, _IMAGE_SPEC))
+                _IMAGE_BUF = []
+                _IMAGE_SPEC = {}
+            elif _FENCE == "attention":
+                out.append(render_attention(_ATTENTION_TITLE, "\n".join(_ATTENTION_BUF)))
+                _ATTENTION_BUF = []
+                _ATTENTION_TITLE = ""
+            elif _FENCE == "check":
+                out.append(_render_check_group(_CHECK_BUF))
+                _CHECK_BUF = []
             _FENCE = None
             _PFTAB_NAME = ""
             _FIG_CAPTION = ""
@@ -1912,6 +2274,7 @@ def assemble_book(paths: list[Path]) -> str:
     _FENCE = None
     _PFTAB_NAME = ""
     _ANSWERS_BUF = []
+    _ANSWERS_TITLE = ""
     _FIG_CAPTION = ""
     _FIG_BUF = []
     parts = []
