@@ -1186,6 +1186,143 @@ def _render_check_group(buf: list[str]) -> str:
     return "#check-group(\n" + "\n".join(parts) + "\n)"
 
 
+def _render_encounter(buf: list[str], title: str = "") -> str:
+    """Render a collected `::: encounter[Name]` fence into a slim Typst
+    ``#encounter((...))`` with only name + type + traits + ability details
+    (no stat table).
+
+    The body is the abilities bullet list (optionally preceded by a
+    "**Способности:**" header line and/or a stat-table that is ignored).  Each
+    bullet is rendered as one ``#encounter`` detail line: the ability name is
+    bolded (``*Name*``), the action marker (``[one-action]`` / ``[two-actions]``
+    / ``[free-action]`` / ``[reaction]``) is mapped to the right icon
+    (``#A`` / ``#AA`` / ``#F`` / ``#R``), and the description keeps its
+    ``**bold**`` markers as Typst ``*bold*`` emphasis.  ``title`` is the
+    character name (the ``::: encounter[Name]`` spec).
+
+    This is the counterpart of the ``[PF2e stat-block]`` section for ad-hoc
+    ability blocks that have no stat table: the author wants the abilities
+    rendered as an ``#encounter`` without the full stat-block machinery.
+    """
+    name = neutralize(title).replace("**", "").strip() if title else ""
+    # Collect the ability bullets: a line starting with "- " starts a new
+    # ability; a following non-blank, non-"- " line is a continuation folded
+    # onto the current ability.  A "**Способности:**" header line is ignored.
+    abilities_raw: list[str] = []
+    cur = ""
+    for ln in buf:
+        s = ln.strip()
+        if s == "":
+            if cur:
+                abilities_raw.append(cur)
+                cur = ""
+            continue
+        # A "**Способности:**" / "**Заклинания**" header line is not an ability.
+        if re.match(r"^\*\*(Способности|Заклинания)", s):
+            continue
+        if s.startswith("- ") or s.startswith("-\t"):
+            if cur:
+                abilities_raw.append(cur)
+            cur = s[2:].strip()
+        else:
+            # A continuation line (indented or plain): fold onto the current
+            # ability so a wrapped bullet is not lost.
+            if cur:
+                cur = (cur + " " + s).strip()
+            else:
+                cur = s
+    if cur:
+        abilities_raw.append(cur)
+
+    # Build the detail lines from the abilities.  Each detail line is:
+    #   *Name* #icon (traits) — description
+    # where the action marker "[one-action]" etc. is mapped to the icon and
+    # the description keeps its **bold** markers as Typst *bold*.
+    details: list[str] = []
+    for a in abilities_raw:
+        a = a.strip()
+        if not a:
+            continue
+        # The ability name is the bold "**...**" prefix.
+        m = re.match(r"^\*\*(.+?)\*\*\s*(.*)$", a, flags=re.DOTALL)
+        if m:
+            name_part = m.group(1).strip()
+            rest = m.group(2).strip()
+        else:
+            name_part = a
+            rest = ""
+        # The action marker "[one-action]" / "[two-actions]" / "[free-action]"
+        # / "[reaction]" may sit in the name or in the rest; extract it, map
+        # to the icon, and remove it from the text.
+        icon = ""
+        full = name_part + " " + rest
+        mm = re.search(r"\[([a-z-]+)\]", full, flags=re.I)
+        if mm:
+            marker = mm.group(1).lower()
+            if "two" in marker or "double" in marker:
+                icon = ICON_DOUBLE
+            elif "one" in marker or "single" in marker:
+                icon = ICON_SINGLE
+            elif "free" in marker:
+                icon = ICON_FREE
+            elif "reaction" in marker or "react" in marker:
+                icon = ICON_REACTION
+            # Remove the action marker from the name and from the rest.
+            name_part = re.sub(r"\s*\[([a-z-]+)\]", "", name_part, flags=re.I).strip()
+            rest = re.sub(r"\s*\[([a-z-]+)\]", "", rest, flags=re.I).strip()
+        # The description may contain **bold** markers that become Typst
+        # *bold* emphasis spans.  We escape the description but must NOT
+        # escape the *bold* spans (they are valid Typst markup).  So:
+        # 1) neutralise (removes **, backticks, _);
+        # 2) escape (backslash-escapes brackets, parens, etc.);
+        # 3) re-insert the *bold* spans by matching the bold fragments.
+        # A simpler approach: split the description into bold/normal segments,
+        # escape each, then wrap bold segments in *…*.
+        # First, split into segments: **X** is a bold segment; the rest is
+        # normal text.
+        segs = re.split(r"(\*\*.+?\*\*)", rest)
+        parts: list[str] = []
+        for seg in segs:
+            if seg.startswith("**") and seg.endswith("**") and len(seg) > 4:
+                inner = neutralize(seg[2:-2].strip())
+                inner = escape(inner)
+                parts.append(f"*{inner}*")
+            elif seg:
+                parts.append(escape(neutralize(seg)))
+        rest = " ".join(p for p in parts if p)
+        # Collapse runs of spaces, but do NOT insert a space between a bold
+        # segment and a following punctuation mark (e.g. "*1 час*," not
+        # "*1 час* ,").  A space is also protected before/after a bold segment
+        # so "— *Требование:*" keeps its spaces.
+        rest = re.sub(r"\s+", " ", rest).strip()
+        rest = re.sub(r"\s+([,.;:\)])", r"\1", rest)
+        # The name is escaped (it may contain parens that are inert in Typst).
+        name_part = escape(neutralize(name_part))
+        line = f"*{name_part}*"
+        if icon:
+            line += f" {icon}"
+        if rest:
+            line += f" {rest}"
+        details.append(line)
+
+    # Traits: "Уникальный" + a "Средний" default (no race/size in a slim block).
+    traits = ["Уникальный", "Средний"]
+    type_label = "Существо"
+
+    out = [
+        "#encounter((",
+        f"  name: [{escape(name)}],",
+        f"  type: [{escape(type_label)}],",
+        "  traits: (" + ", ".join(f"[{escape(t)}]" for t in traits) + "),",
+        "  details: (",
+    ]
+    for dl in details:
+        out.append(f"    [{dl}],")
+    out.append("  ),")
+    out.append("))")
+    return "\n".join(out)
+
+
 def _figure_block(path: str, caption: str, width: str = "100%",
                   height: str = "") -> str:
     """Build a full-width, page-spanning ``#place(...)[ #figure(...) ]`` for an
@@ -1646,6 +1783,12 @@ _ATTENTION_TITLE = ""
 #   critical_failure: ...
 # `_CHECK_BUF` holds the body lines.
 _CHECK_BUF: list[str] = []
+# A `::: encounter[Name]` fence accumulates its (buffered) body lines until the
+# bare `:::` close, when it is rendered as a slim `#encounter((...))` with only
+# name + abilities (no stat table).  `_ENCOUNTER_BUF` holds the body lines;
+# `_ENCOUNTER_TITLE` the explicit `[Name]` spec.
+_ENCOUNTER_BUF: list[str] = []
+_ENCOUNTER_TITLE = ""
 
 # The most recent heading text, used to title auto-wrapped `#pftab` tables.
 _last_heading = ""
@@ -1850,7 +1993,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             i += 1
             continue
 
-        if _FENCE in ("answers", "figure", "aloud", "note", "image", "attention", "check", "rumors") and not re.match(r"^:::\s*$", stripped):
+        if _FENCE in ("answers", "figure", "aloud", "note", "image", "attention", "check", "rumors", "encounter") and not re.match(r"^:::\s*$", stripped):
             if _FENCE == "answers":
                 _ANSWERS_BUF.append(ln)
             elif _FENCE == "aloud":
@@ -1863,6 +2006,8 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 _RUMORS_BUF.append(ln)
             elif _FENCE == "check":
                 _CHECK_BUF.append(ln)
+            elif _FENCE == "encounter":
+                _ENCOUNTER_BUF.append(ln)
             elif _FENCE == "image":
                 _IMAGE_BUF.append(ln)
             else:
@@ -2243,6 +2388,20 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             _BLOCK_FIG_CAP = False
             i += 1
             continue
+        # `::: encounter[Name]` opens a slim `#encounter((...))` fence: the
+        # body (abilities bullets, optionally with a "**Способности:**" header)
+        # is buffered verbatim until the bare `:::` close, when it is rendered
+        # as a `#encounter` with only name + type + traits + ability details
+        # (no stat table).  This is the counterpart of the `[PF2e stat-block]`
+        # section for ad-hoc ability blocks that have no stat table.
+        if re.match(r"^:::\s*encounter\s*(\[[^\]]*\])?\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = "encounter"
+            _ENCOUNTER_TITLE = _extract_pftab_name(stripped)
+            _ENCOUNTER_BUF = []
+            i += 1
+            continue
         # `::: block` opens a full-width page-spanning #block (a #place
         # wrapper).  Its content is buffered verbatim (the `:::`-buffer branch
         # above) and emitted indented inside the `#block(...)[ ... ]` by the
@@ -2260,6 +2419,10 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         if re.match(r"^:::\s*$", stripped):
             if _FENCE == "one-col":
                 out.append("#set page(columns: 2)")
+            elif _FENCE == "encounter":
+                out.append(_render_encounter(_ENCOUNTER_BUF, _ENCOUNTER_TITLE))
+                _ENCOUNTER_BUF = []
+                _ENCOUNTER_TITLE = ""
             elif _FENCE == "answers":
                 # Emit the answers-group in the normal flow.  `answers`/
                 # `answers-group` render as a breakable block whose own
