@@ -159,6 +159,24 @@ def typst_inline(line: str) -> str:
         return f"\x00IMG{len(images) - 1}\x00"
 
     s = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", _stash, line)
+    # Markdown links `[text](url)` -> `#link("url")[text]`.  Stash them before
+    # neutralize/escape (which would turn the parens/brackets into inert
+    # escaped text) and re-insert as raw Typst link markup.  Image stashing
+    # already consumed `![...]`, so the `[^(!)]` guard skips them.
+    links: list[tuple[str, str]] = []  # (url, text)
+
+    def _stashlink(m: "re.Match[str]") -> str:
+        text, url = m.group(2).strip(), m.group(3).strip()
+        links.append((url, text))
+        # Keep the single character before the link (e.g. a space) so it is not
+        # glued onto the link: "проект [link]" -> "проект #link[...]".
+        return m.group(1) + f"\x00LINK{len(links) - 1}\x00"
+
+    s = re.sub(
+        r"([^(!\[])\[(?!\s)([^\]]+)\]\(([^)]+)\)",
+        _stashlink,
+        s,
+    )
     s = neutralize(s)
     s = escape(s)
     # Image paths must NOT be neutralised/escaped: neutralize() would turn
@@ -190,6 +208,18 @@ def typst_inline(line: str) -> str:
     s = re.sub(
         r"\x00IMG(\d+)\x00",
         _reinsert,
+        s,
+    )
+    # Re-insert stashed markdown links as `#link("url")[escaped-text]`.  The url
+    # goes inside a string literal (dots/slashes are ordinary there), the text
+    # is escaped so its brackets cannot break the content block.
+    def _reinsertlink(m: "re.Match[str]") -> str:
+        url, text = links[int(m.group(1))]
+        return f'#link("{url}")[{escape(text)}]'
+
+    s = re.sub(
+        r"\x00LINK(\d+)\x00",
+        _reinsertlink,
         s,
     )
     return s
@@ -296,7 +326,7 @@ def _attr_line(rows: dict) -> str:
              ("Интеллект", "Инт"), ("Мудрость", "Мдр"), ("Харизма", "Хар")]
     parts = []
     for full, short in order:
-        val = rows.get(full, "")
+        val = _first(rows, full)
         if val:
             parts.append(f"*{short}* {_esc(val.strip())}")
     return ", ".join(parts) if parts else ""
@@ -305,7 +335,7 @@ def _attr_line(rows: dict) -> str:
 def _skills_line(rows: dict) -> str:
     """Build a single *Навыки* line with all skills as a comma-separated list,
     dropping the trailing proficiency tier in parentheses (high/moderate/…)."""
-    raw = rows.get("Навыки", "")
+    raw = _first(rows, "Навыки")
     if not raw:
         return ""
     skills = []
@@ -320,57 +350,75 @@ def _skills_line(rows: dict) -> str:
 
 
 def _languages_line(rows: dict) -> str:
-    val = rows.get("Языки", "")
+    val = _first(rows, "Языки")
     if not val:
         return ""
     langs = [x.strip() for x in re.split(r",\s*|;\s*", val) if x.strip()]
     return ", ".join(langs) if langs else ""
 
 
-def _melee_line(rows: dict) -> str:
-    """Compact melee line: *Ближний бой* #A _weapon_ +N (reach…), *Урон* …."""
-    val = rows.get("Ближний бой", "")
-    if not val:
-        return ""
-    val = _fmt(val)
-    # weapon name = first token(s) before the first '+' attack bonus
-    m = re.match(r"\s*([^\d+]+\??)\s*(\+.*?)$", val)
-    if not m:
-        return f"*Ближний бой* {escape(val)}"
-    weapon = m.group(1).strip()
-    attack = m.group(2).strip()
-    # attack = "+18 (…)" — keep the parenthetical note (reach / two-handed)
-    note = ""
-    mm = re.search(r"\(([^)]+)\)\s*$", attack)
-    if mm:
-        note = f" ({mm.group(1).strip()})"
-        attack = attack[:mm.start()].strip()
-    # the #A icon must NOT be escaped: keep it, escape the rest
-    return f"*Ближний бой* {ICON_SINGLE} {_em(weapon)} {escape(attack)}{escape(note)}"
+def _melee_line(rows: dict) -> list[str]:
+    """Compact melee line(s): *Ближний бой* #A _weapon_ +N (reach…), *Урон* ….
+
+    A stat-block may list "Ближний бой" on more than one row (e.g. a longsword
+    and a dagger); each value becomes its own detail line so the two attacks
+    stay on separate lines instead of collapsing into one."""
+    vals = rows.get("Ближний бой")
+    if not vals:
+        return []
+    out: list[str] = []
+    for raw in vals:
+        val = _fmt(raw)
+        # weapon name = first token(s) before the first '+' attack bonus
+        m = re.match(r"\s*([^\d+]+\??)\s*(\+.*?)$", val)
+        if not m:
+            out.append(f"*Ближний бой* {ICON_SINGLE} {escape(val)}")
+            continue
+        weapon = m.group(1).strip()
+        attack = m.group(2).strip()
+        # attack = "+18 (…)" — keep the parenthetical note (reach / two-handed)
+        note = ""
+        mm = re.search(r"\(([^)]+)\)\s*$", attack)
+        if mm:
+            note = f" ({mm.group(1).strip()})"
+            attack = attack[:mm.start()].strip()
+        # the #A icon must NOT be escaped: keep it, escape the rest
+        out.append(
+            f"*Ближний бой* {ICON_SINGLE} {_em(weapon)} {escape(attack)}{escape(note)}"
+        )
+    return out
 
 
-def _ranged_line(rows: dict) -> str:
-    val = rows.get("Дальний бой", "")
-    if not val:
-        return ""
-    val = _fmt(val)
-    m = re.match(r"\s*([^\d+]+\??)\s*(\+.*?)$", val)
-    if not m:
-        return f"*Дальний бой* {ICON_SINGLE} {escape(val)}"
-    weapon = m.group(1).strip()
-    attack = m.group(2).strip()
-    note = ""
-    mm = re.search(r"\(([^)]+)\)\s*$", attack)
-    if mm:
-        note = f" (метательное {mm.group(1).strip()})"
-        attack = attack[:mm.start()].strip()
-    return f"*Дальний бой* {ICON_SINGLE} {_em(weapon)} {escape(attack)}{escape(note)}"
+def _ranged_line(rows: dict) -> list[str]:
+    """Ranged line(s): one per "Дальний бой" row (a stat-block may list a
+    bow and a thrown weapon).  See :func:`_melee_line`."""
+    vals = rows.get("Дальний бой")
+    if not vals:
+        return []
+    out: list[str] = []
+    for raw in vals:
+        val = _fmt(raw)
+        m = re.match(r"\s*([^\d+]+\??)\s*(\+.*?)$", val)
+        if not m:
+            out.append(f"*Дальний бой* {ICON_SINGLE} {escape(val)}")
+            continue
+        weapon = m.group(1).strip()
+        attack = m.group(2).strip()
+        note = ""
+        mm = re.search(r"\(([^)]+)\)\s*$", attack)
+        if mm:
+            note = f" (метательное {mm.group(1).strip()})"
+            attack = attack[:mm.start()].strip()
+        out.append(
+            f"*Дальний бой* {ICON_SINGLE} {_em(weapon)} {escape(attack)}{escape(note)}"
+        )
+    return out
 
 
 def _saves_line(rows: dict) -> str:
     """Combine AC + the three saves into one line (PF2e stat-block style)."""
-    ac = rows.get("AC", "")
-    saves = rows.get("Спасброски", "")
+    ac = _first(rows, "AC")
+    saves = _first(rows, "Спасброски")
     main, note = _split_value_parts(ac)
     ac_main = main or ac
     # saves may be "Стойкость +17; Реакция +16; Воля +17" or a table cell
@@ -389,7 +437,7 @@ def _saves_line(rows: dict) -> str:
 
 
 def _hp_line(rows: dict) -> str:
-    val = rows.get("HP", "")
+    val = _first(rows, "HP")
     if not val:
         return ""
     main, _ = _split_value_parts(val)
@@ -451,7 +499,7 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
                       lambda m: "" if not m.group(1).isdigit() else m.group(0),
                       name).strip()
     # Level: always the real character level from the table "Уровень" row.
-    level = rows.get("Уровень", "")
+    level = _first(rows, "Уровень")
     # Fallback: name from an in-block "**Name (d6=N)**" (never the d6 itself).
     if not name:
         m = re.search(r"\*\*(.+?)\s*\(d6\s*=\s*\d+\)", "\n".join(block))
@@ -468,13 +516,13 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
     details: list[str] = []
     used: set[str] = set()
     for key in ordered:
-        val = rows.get(key, "")
+        val = _first(rows, key)
         if val:
             used.add(key)
             details.append(f"*{key}* {val}")
     for k, v in rows.items():
         if k not in used and v:
-            details.append(f"*{k}* {v}")
+            details.append(f"*{k}* {v[0]}")
 
     # Abilities (bulleted list after "**Способности:" / "**Заклинания").
     # A table row whose first cell is the "Способности" / "Заклинания" label is
@@ -521,7 +569,7 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
     type_label = f"Существо {level}" if level else "Существо"
 
     # traits: a leading "Уникальный" tag + size / race / subtype.
-    race = rows.get("Раса", "").strip().lower()
+    race = _first(rows, "Раса").strip().lower()
     traits = ["Уникальный"]
     traits += _RACE_TRAITS.get(race, ["Средний"])
     # dedup while preserving order
@@ -537,7 +585,7 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
         d.append(f"_{escape(tag)}_")
 
     # 2) Perception (with senses note if present).
-    perception = rows.get("Восприятие", "")
+    perception = _first(rows, "Восприятие")
     if perception:
         d.append(f"*Восприятие* {escape(_fmt(perception))}")
 
@@ -557,7 +605,7 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
         d.append(attrs)
 
     # 6) items (Предметы) — if present in the table.
-    items = rows.get("Предметы", "")
+    items = _first(rows, "Предметы")
     if items:
         d.append(f"*Предметы* {escape(_fmt(items))}")
 
@@ -582,16 +630,16 @@ def parse_stat_block(block: list[str], heading: str = "") -> str:
     # 11) divider.
     d.append("[---]")
 
-    # 12) speed + melee + ranged (each its own line, with #A icons).
-    speed = rows.get("Скорость", "")
+    # 12) speed + melee + ranged (each its own line, with #A icons).  A stat-
+    #     block may list "Ближний бой" / "Дальний бой" on more than one row, so
+    #     each value becomes its own detail line (one attack per line).
+    speed = _first(rows, "Скорость")
     if speed:
         d.append(f"*Скорость* {escape(_fmt(speed))}")
-    melee = _melee_line(rows)
-    if melee:
-        d.append(melee)
-    ranged = _ranged_line(rows)
-    if ranged:
-        d.append(ranged)
+    for ml in _melee_line(rows):
+        d.append(ml)
+    for rl in _ranged_line(rows):
+        d.append(rl)
 
     # 13) divider before the ability block.
     d.append("[---]")
@@ -631,7 +679,7 @@ def _tag_line(rows: dict) -> str:
     """One-line italic tag: a 'Роль'/'Класс'/'Роль' description, or the class
     plus role.  Used for the italic line under the name header."""
     for key in ("Роль", "Класс", "Мировоззрение"):
-        v = rows.get(key, "")
+        v = _first(rows, key)
         if v:
             return v
     return ""
@@ -794,9 +842,16 @@ def read_block(lines: list[str], i: int) -> tuple[int, list[str]]:
     return j, block
 
 
-def parse_table(block: list[str]) -> dict[str, str]:
-    """Parse a 2-column markdown table into {key: value}."""
-    rows = {}
+def parse_table(block: list[str]) -> dict[str, list[str]]:
+    """Parse a 2-column markdown table into {key: [values]}.
+
+    A key may appear on multiple rows (e.g. "Ближний бой" for a longsword and
+    a dagger).  Each value is kept so duplicate-key rows are NOT collapsed into
+    one (a plain ``dict`` would overwrite the first "Ближний бой" with the
+    second).  Values are stored as a list in source order; single-value access
+    uses :func:`_first`.
+    """
+    rows: dict[str, list[str]] = {}
     for ln in block:
         m = re.match(r"^\|\s*(.+?)\s*\|\s*(.+?)\s*\|", ln)
         if not m:
@@ -807,8 +862,18 @@ def parse_table(block: list[str]) -> dict[str, str]:
             continue
         if key in ("Параметр", "Parameter"):
             continue
-        rows[key] = val
+        rows.setdefault(key, []).append(val)
     return rows
+
+
+def _first(rows: dict[str, list[str]], key: str) -> str:
+    """Return the first value for ``key`` (or "" when absent).  The table
+    parser keeps every value for a key as a list (so duplicate-key rows are
+    not collapsed); the single-value accessors want just the first."""
+    vals = rows.get(key)
+    if not vals:
+        return ""
+    return vals[0]
 
 
 def ability_lines_to_details(abilities: list[str]) -> list[str]:

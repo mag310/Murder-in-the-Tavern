@@ -10,6 +10,9 @@ root = Path(__file__).resolve().parent.parent
 v03 = root / "publication" / "v03"
 inputs = [
     v03 / "01-chapter-1.md",
+    v03 / "02-1-B1.md",
+    v03 / "03-1-B2.md",
+    v03 / "04-1-B3.md",
     # Bestiary and lore are always appended at the very end of the book.
     v03 / "90-lore.md",
     v03 / "91-dottari.md",
