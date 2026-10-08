@@ -658,54 +658,120 @@ def _reactions_line(abilities_raw: list) -> str:
     return "*Реакции* " + ", ".join(names)
 
 
+def _action_icon_from_markers(s: str) -> str:
+    """Detect a PF2e action-economy marker from the whole ability string.
+
+    The marker may be:
+    - bracketed: ``[one-action]`` / ``[two-actions]`` / ``[reaction]`` /
+      ``[free-action]`` (the form used in the bestiary ``[PF2e stat-block]``
+      sections);
+    - parenthesized: ``(реакция)`` / ``(N действие)`` (the form used in the
+      ``_ability_line`` name parenthetical, e.g. "Художественная казнь (2
+      действия, 1/раунд)");
+    - Cyrillic: ``[реакция]`` / ``[одно действие]`` / etc.
+
+    Priority: reaction (#R) > 3-action (#AAA) > 2-action (#AA) > 1-action
+    (#A) > free / passive (#F) > none (empty string, so the caller can
+    decide whether to default to #F).  Returns the icon string (or "" when
+    no marker is found).
+    """
+    low = s.lower()
+    # 1) bracketed English / Cyrillic markers.
+    if re.search(r"\[reaction\]|\[реакция\]", low):
+        return ICON_REACTION
+    if re.search(r"\[free[- ]?action\]|\[свободн|свободное\]", low):
+        return ICON_FREE
+    if re.search(r"\[two[- ]?actions\]|\[два|две\]|\[2 действия\]", low):
+        return ICON_DOUBLE
+    if re.search(r"\[one[- ]?action\]|\[одно|одна\]|\[1 действие\]", low):
+        return ICON_SINGLE
+    # 2) parenthesized markers (the _icon_for path).
+    return _icon_for(s)
+
+
 def _ability_line(ability: str) -> str:
     """Render one ability bullet into a PF2e detail line:
     ``*Name* #icon … description``.
 
     ``ability`` is a clean ``"<Name> <description>"`` string (``split_abilities``
     already stripped "- " and "**").  The name may carry an action-economy
-    note in parentheses (e.g. "Художественная казнь (2 действия, 1/раунд)").
-    We keep that note with the name for the icon lookup, render the name
-    (without the note), then the icon, then the description.
+    marker in brackets (``[one-action]`` etc.) or in parentheses (e.g. "Худож-
+    ненная казнь (2 действия, 1/раунд)").  The action marker is detected from
+    the WHOLE ability string (name + description) so a marker in the description
+    (e.g. "Блок щитом `[reaction]` — Триггер: …") is still picked up.
+
+    The name/description split: the name is the bold prefix (the text before the
+    first em-dash ``—`` or the first ``: `` that separates name from a
+    description clause).  We split on the FIRST em-dash OR the first ``: ``
+    (whichever comes first) so "Блок щитом (Shield Block) `[reaction]` —
+    Триггер: …" splits at the em-dash (name = "Блок щитом (Shield Block)
+    `[reaction]`", rest = "Триггер: …") instead of at the ``: `` inside
+    "Триггер:".
     """
     ability = ability.replace("**", "").strip()
     # The canonical form is "Name desc" where the name may carry an
-    # action-economy note in parentheses (e.g. "Художественная казнь (2
-    # действия, 1/раунд)") and may be separated from the description by a
-    # ':' (e.g. "Аура освобождения: (аура, …)", "Оружие-реликвия «…»: +1
-    # глефа …").
+    # action-economy marker and may be separated from the description by an
+    # em-dash (—), a colon-space (": "), or a parenthesized action note.
     #
-    # Split the name from the description at ": " (a colon FOLLOWED BY A
-    # SPACE).  A quoted name that ends in a colon, e.g.
-    # "Оружие-реликвия «Шёпот Душ»:", has no ": " so it stays whole; only a
-    # real description colon (": " + description) splits.
-    split = ability.find(": ")
-    if split >= 0:
-        name = ability[:split].strip()
-        rest = ability[split + 2:].strip()
-    elif ":" in ability:
-        # a lone ':' (no following space) is part of the name.
+    # Split at the FIRST em-dash OR the first ": " (whichever comes first).
+    # The action marker "[reaction]" etc. does not contain an em-dash or a
+    # ": ", so it stays with the name.  A quoted name that ends in a colon,
+    # e.g. "Оружие-реликвия «Шёпот Душ»:", has no ": " (colon+space) so it
+    # stays whole; only a real description colon (": " + description) splits.
+    dash_pos = ability.find("—")
+    colon_pos = ability.find(": ")
+    if dash_pos < 0 and colon_pos < 0:
         name, rest = ability, ""
+    elif dash_pos < 0:
+        name = ability[:colon_pos].strip()
+        rest = ability[colon_pos + 2:].strip()
+    elif colon_pos < 0:
+        name = ability[:dash_pos].strip()
+        rest = ability[dash_pos + 1:].strip()
     else:
-        name, rest = ability, ""
+        # both present: take the earlier one.
+        if dash_pos < colon_pos:
+            name = ability[:dash_pos].strip()
+            rest = ability[dash_pos + 1:].strip()
+        else:
+            name = ability[:colon_pos].strip()
+            rest = ability[colon_pos + 2:].strip()
     # the icon is decided from the whole ability string: an explicit
-    # action-economy marker — " (реакция)", " (N действие)" — may sit either
-    # in the name (e.g. "Художественная казнь (2 действия, 1/раунд)") or in
-    # the description (e.g. "Освобождающий шаг (реакция) …", "Ужасающее
-    # присутствие (Frightful Presence) (1 действие): …").  Scanning the whole
-    # string is reliable because such markers are never used in ordinary prose
-    # here.  A blank note (no action cost) is a free / passive ability -> #F.
-    icon = _icon_for(ability)
+    # action-economy marker — "[reaction]", "[one-action]", "(реакция)",
+    # "(N действие)" — may sit either in the name or in the description.
+    # Scanning the whole string is reliable because such markers are never
+    # used in ordinary prose here.
+    icon = _action_icon_from_markers(ability)
     # an ability with no explicit action cost is a free / passive ability
     # (an action "not requiring an action") -> #F.
     if not icon:
         icon = ICON_FREE
+    # Remove the action marker from the name so it is not shown twice.  The
+    # marker may be a bracketed "[one-action]" / "[reaction]" / etc. or a
+    # parenthesized "(реакция)" / "(N действие)".  A backtick-wrapped marker
+    # ("`[reaction]`") is also removed (the backticks are stripped by
+    # neutralize, but the brackets remain and match the regex).
+    name = re.sub(r"\s*\[([a-zреакц-]+action|реакция|свободн\w*|[оо][дн][одна]\s+действие|[23]\s+действ\w*)\]", "", name, flags=re.I)
+    name = re.sub(r"\s*\((реакция|реакц|1|2|3|одно|одна|два|две|три|one|two|reaction|free)[^)]*\)", "", name, flags=re.I)
+    # Remove a leftover empty backtick-wrapped marker (`` `` ``) that results
+    # from a marker like `` `[reaction]` `` whose backticks were stripped by
+    # neutralize but whose brackets were removed by the regex above, leaving
+    # a stray "``" in the name.
+    name = re.sub(r"\s+``", "", name)
+    name = re.sub(r"\s+", " ", name).strip()
     line = f"*{escape(name)}*"
     if icon:
         line += f" {icon}"
     # drop the action marker(s) from the description so it is not shown twice
-    # (e.g. "(реакция)", "(1 действие)"), then keep the description text.
-    rest = re.sub(r"\s*\((реакция|реакц|1|2|3|одно|одна|два|две|три)[^)]*\)", "", rest, flags=re.I)
+    # (e.g. "[reaction]", "[one-action]", "(реакция)", "(1 действие)"), then
+    # keep the description text.
+    rest = re.sub(r"\s*\[([a-zреакц-]+action|реакция|свободн\w*|[оо][дн][одна]\s+действие|[23]\s+действ\w*)\]", "", rest, flags=re.I)
+    rest = re.sub(r"\s*\((реакция|реакц|1|2|3|одно|одна|два|две|три|one|two|reaction|free)[^)]*\)", "", rest, flags=re.I)
+    # Remove a leftover empty backtick-wrapped marker (`` `` ``) that results
+    # from a marker like `` `[reaction]` `` whose backticks were stripped by
+    # neutralize but whose brackets were removed by the regex above, leaving
+    # a stray "``" in the description.
+    rest = re.sub(r"\s+``", "", rest)
     rest = re.sub(r"\s+", " ", rest).strip()
     if rest:
         line += f" {_esc(rest)}"
