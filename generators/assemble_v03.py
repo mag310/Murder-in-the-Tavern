@@ -15,7 +15,10 @@ inputs = [
     v03 / "04-1-B3.md",
     # Bestiary and lore are always appended at the very end of the book.
     v03 / "90-lore.md",
-    v03 / "91-dottari.md",
+    v03 / "91-Cheliax.md",
+    v03 / "92-Westcrown.md",
+    v03 / "93-dottari.md",
+    v03 / "94-Order-of-the-Rack.md",
     v03 / "98-bestiarium.md",
 ]
 missing = [p.name for p in inputs if not p.exists()]

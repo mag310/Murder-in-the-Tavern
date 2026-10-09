@@ -52,7 +52,7 @@
     )
   ]
   show heading.where(level: 3): it => [
-    #pagebreak()
+    #colbreak()
     #set par(first-line-indent: 0em)
     #text(
       size: 1.3em,
