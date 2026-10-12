@@ -13,6 +13,9 @@ inputs = [
     v03 / "02-1-B1.md",
     v03 / "03-1-B2.md",
     v03 / "04-1-B3.md",
+    # Character dossiers — after the chapters, before the lore/bestiary block.
+    v03 / "80-dossier.md",
+    v03 / "86-luciano-avrelian.md",
     # Bestiary and lore are always appended at the very end of the book.
     v03 / "90-lore.md",
     v03 / "91-Cheliax.md",

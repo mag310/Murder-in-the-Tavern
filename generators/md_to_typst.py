@@ -1964,6 +1964,18 @@ def _parse_image_spec(spec: str) -> dict:
     return {"caption": caption, "width": width, "height": height}
 
 
+def _parse_figure_spec(spec: str) -> dict:
+    """Parse a `::: figure[Title]` spec the same way as `::: image [...]`.
+
+    `::: figure` and `::: image` share the `[caption;width;height]` spec shape;
+    the only difference is that a `::: figure` opened *without* a spec falls
+    back to the markdown image's alt text as the caption (handled by the
+    caller), whereas `::: image` defaults the caption to the alt too.  Reuse
+    the image spec parser so a `::: figure[Title;width:45%;height:auto]`
+    actually sizes the image instead of jamming the spec into the caption."""
+    return _parse_image_spec(spec)
+
+
 # Table-classification helpers used to auto-wrap every markdown table in a
 # `::: pftab` (styled table) and/or `::: one-col` (full-width single column)
 # fence, so the author does not have to annotate each table by hand.
@@ -2032,7 +2044,7 @@ def _is_statblock(context: dict) -> bool:
 
 
 def convert(md_text: str, page_broken: bool = False) -> str:
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _ANSWERS_TITLE, _last_heading, _FIG_CAPTION, _FIG_BUF
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _ANSWERS_TITLE, _last_heading, _FIG_CAPTION, _FIG_BUF, _FIG_SPEC
     global _BLOCK_BUF, _BLOCK_FIG_CAP, _FENCE_IN_BLOCK, _ALoud_BUF, _ALoud_TITLE
     global _NOTE_BUF, _NOTE_TITLE, _IMAGE_BUF, _IMAGE_SPEC
     global _ATTENTION_BUF, _ATTENTION_TITLE
@@ -2047,7 +2059,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
     _RUMORS_BUF = []
     _FIG_CAPTION = ""
     _FIG_BUF = []
-    _BLOCK_BUF = []
+    _FIG_SPEC = {}
     _BLOCK_FIG_CAP = False
     _FENCE_IN_BLOCK = False
     _ALoud_BUF = []
@@ -2515,6 +2527,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             _FENCE_IN_BLOCK = _FENCE == "block"
             _FENCE = "figure"
             _FIG_CAPTION = _extract_pftab_name(stripped)
+            _FIG_SPEC = _parse_figure_spec(_extract_pftab_name(stripped))
             _FIG_BUF = []
             _BLOCK_FIG_CAP = False
             i += 1
@@ -2569,7 +2582,11 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                     # handler (rendered inline, not as a standalone #place).
                     pass
                 else:
-                    out.append(_render_figure(_FIG_BUF, _FIG_CAPTION))
+                    # Render the buffered image as a full-width #figure, sizing
+                    # it from the `::: figure[...]` spec (caption/width/height)
+                    # instead of the markdown alt (which the old _render_figure
+                    # path mis-parsed and jammed into the caption).
+                    out.append(_render_image(_FIG_BUF, _FIG_SPEC))
                 _FIG_BUF = []
             elif _FENCE == "aloud":
                 out.append(_render_aloud(_ALoud_BUF, _ALoud_TITLE))
@@ -2733,7 +2750,7 @@ def assemble_book(paths: list[Path]) -> str:
     """Concatenate several chapter .md files into one Typst document, each
     starting on a new page.  Image paths stay relative to the first file's
     directory, so the output must be written alongside it (see main)."""
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _FIG_CAPTION, _FIG_BUF
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _FIG_CAPTION, _FIG_BUF, _FIG_SPEC
     global _RUMORS_NAME
     global _RUMORS_BUF
     _PAGE_BROKEN = False  # reset so the first heading of the book has no break
