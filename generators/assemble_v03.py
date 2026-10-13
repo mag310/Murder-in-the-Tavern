@@ -14,8 +14,18 @@ inputs = [
     v03 / "03-1-B2.md",
     v03 / "04-1-B3.md",
     v03 / "05-1-B4.md",
+    v03 / "06-1-C1.md",
+    v03 / "07-1-C2.md",
+    v03 / "08-1-C3.md",
+    v03 / "09-1-C4.md",
+    v03 / "10-1-D1.md",
+    v03 / "11-1-D2.md",
+    v03 / "12-1-D3.md",
+    v03 / "13-1-E1.md",
+    v03 / "14-1-E2.md",
     # Character dossiers — after the chapters, before the lore/bestiary block.
     v03 / "80-dossier.md",
+    v03 / "85-detective-jacomo-ranieri.md",
     v03 / "86-luciano-avrelian.md",
     # Bestiary and lore are always appended at the very end of the book.
     v03 / "90-lore.md",

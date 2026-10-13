@@ -99,8 +99,13 @@ def neutralize(s: str) -> str:
 
 
 def _neutralize(s: str) -> str:
-    """Apply the member-access dot fix (``\\w\\.\\w`` -> ``\\w:\\w``), but leave
-    the dots inside any ``.png`` file path untouched: a path like
+    """Apply the member-access dot fix, but only for ASCII identifiers: a dot
+    between two *ASCII* word chars (e.g. ``flood_mechanic.json`` -> a call /
+    member access) is the only case that breaks a content block.  A dot
+    sandwiched between two *Cyrillic* word chars (e.g. ``Т.е.`` / ``т.к.`` /
+    ``т.д.``) is a typographic abbreviation, not member access, and must stay a
+    dot -- ``\\w\\b\\b`` would otherwise turn "Т.е." into "Т:е.".  The dots
+    inside any ``.png`` file path are also left untouched: a path like
     ``Westcrown_map_eng.png`` would otherwise be mangled into
     ``Westcrown:mapeng:png``.  Both quoted (``"…png"``) and bare code-block
     paths are protected."""
@@ -114,7 +119,10 @@ def _neutralize(s: str) -> str:
         if k % 2 == 1:  # an image-path segment: leave its dots untouched
             out.append(part)
         else:
-            out.append(re.sub(r"(\w)\.(\w)", r"\1:\2", part))
+            # Only a dot between two ASCII word chars is member access / a call.
+            # A dot between two Cyrillic word chars (Т.е., т.к.) is an
+            # abbreviation and stays a dot.
+            out.append(re.sub(r"([A-Za-z0-9_])\.([A-Za-z0-9_])", r"\1:\2", part))
     return "".join(out)
 
 
@@ -1214,6 +1222,36 @@ def _render_answers_group(buf: list[str], title: str = "") -> str:
     return "#answers-group(\n" + "\n".join(parts) + "\n)"
 
 
+def _split_check_inner(inner: str) -> list[str]:
+    """Split the inside of a ``[Skill; DC]`` / ``[Skill, DC]`` header into
+    fields on ``;`` / ``,`` **delimiters that are not inside parentheses**.
+
+    A skill name may carry a parenthetical that itself contains a comma
+    (e.g. ``[Знание (Челия, Весткроун), 15]``): a naive ``re.split(r"[;,]")``
+    would split on the comma inside the parens and drop ``Весткроун``.  We
+    track parenthesis depth and only split on a ``;`` / ```` that is not
+    inside a ``(...)`` run.
+    """
+    parts: list[str] = []
+    depth = 0
+    cur: list[str] = []
+    for ch in inner:
+        if ch == "(":
+            depth += 1
+            cur.append(ch)
+        elif ch == ")":
+            if depth > 0:
+                depth -= 1
+            cur.append(ch)
+        elif ch in (";", ",") and depth == 0:
+            parts.append("".join(cur))
+            cur = []
+        else:
+            cur.append(ch)
+    parts.append("".join(cur))
+    return parts
+
+
 def _render_check_group(buf: list[str]) -> str:
     """Render a `::: check` block into a Typst ``#check-group``.
 
@@ -1263,7 +1301,7 @@ def _render_check_group(buf: list[str]) -> str:
         if m:
             inner = m.group(1).strip()
             skill, dc = "", ""
-            for part in re.split(r"[;,]", inner):
+            for part in _split_check_inner(inner):
                 part = part.strip()
                 if not part:
                     continue
@@ -1315,6 +1353,149 @@ def _render_check_group(buf: list[str]) -> str:
     if not parts:
         return ""
     return "#check-group(\n" + "\n".join(parts) + "\n)"
+
+
+def _render_scene_meta(buf: list[str]) -> str:
+    """Render a `::: scene-meta` block into a Typst ``#scene-meta``.
+
+    The body is a set of ``key: value`` lines, one per meta field::
+
+        time: ~14:00–14:30
+        weather: Пасмурно, ветер с залива. К 17:00 — дождь.
+        location: Улицы Весткроуна, Парего Спе́ра
+        purpose: Первое место преступления; знакомство с Детективом
+
+    Each ``key`` maps to one of the ``#scene-meta`` named args (``time`` /
+    ``weather`` / ``location`` / ``purpose``); an unknown key is ignored.  Every
+    value is neutralised + escaped so no ``[`` / ``]`` / ``*`` can close the
+    content block early.  A blank line / continuation line folds onto the
+    current value so a long value may wrap across source lines.
+    """
+    _META_KEYS = {"time", "weather", "location", "purpose"}
+    fields: dict[str, str] = {}
+    cur_key = ""
+    for ln in buf:
+        s = ln.strip()
+        if s == "":
+            continue
+        m = re.match(r"^([a-z_]+)\s*:\s*(.*)$", s)
+        if m:
+            key = m.group(1).strip().lower()
+            val = m.group(2).strip()
+            if key in _META_KEYS:
+                fields[key] = val
+                cur_key = key
+                continue
+        # A continuation line (no ``key:`` prefix): fold onto the current key.
+        if cur_key and cur_key in _META_KEYS:
+            fields[cur_key] = (fields[cur_key] + " " + s).strip()
+            continue
+
+    if not fields:
+        return ""
+    parts: list[str] = []
+    for key in ("time", "weather", "location", "purpose"):
+        val = fields.get(key)
+        if val:
+            parts.append(f"{key}: [{escape(neutralize(val))}]")
+    if not parts:
+        return ""
+    return "#scene-meta(\n" + ",\n".join("  " + p for p in parts) + "\n)"
+
+
+def _render_checklist(buf: list[str]) -> str:
+    """Render a `::: checklist` block into a Typst ``#scene-checklist``.
+
+    The body has two labelled sections, ``can:`` and ``cannot:``.  Each is
+    followed by a list of items; an item is a line that does not start with a
+    ``<key>:`` prefix.  A ``-`` bullet prefix is stripped.  The items of each
+    section become the corresponding tuple argument of ``#scene-checklist``
+    (``can`` / ``cannot``).  Every item is neutralised + escaped so no ``[`` /
+    ``]`` / ``*`` can close the content block early.  An item may wrap across
+    source lines: a continuation line (no new ``can:`` / ``cannot:`` / no
+    ``key:`` prefix) folds onto the current item.
+    """
+    def _is_section(s: str) -> bool:
+        return re.match(r"^(can|cannot)\s*:", s, re.IGNORECASE) is not None
+
+    def _item_of(s: str) -> str:
+        # Drop a leading "- " / "* " bullet, then strip.
+        return re.sub(r"^[-*+]\s*", "", s).strip()
+
+    def _is_bullet(s: str) -> bool:
+        # A line starts a new item only if it carries a bullet prefix.  A line
+        # without one is a continuation of the current item (multi-line items
+        # fold onto the previous bullet, so a wrapped "«Погибели Дьявола»)" is
+        # not split into its own item).
+        return re.match(r"^[-*+]\s", s) is not None
+
+    can: list[str] = []
+    cannot: list[str] = []
+    section: str = ""  # "can" | "cannot" | ""
+    cur: str = ""      # the item currently being built (raw, un-escaped)
+    for ln in buf:
+        s = ln.strip()
+        if s == "":
+            continue
+        if _is_section(s):
+            # Flush any pending item to its section first.
+            if section and cur:
+                if section == "can":
+                    can.append(cur)
+                else:
+                    cannot.append(cur)
+                cur = ""
+            section = s.split(":", 1)[0].strip().lower()
+            # A section header may itself carry the first item on the same line.
+            rest = s.split(":", 1)[1].strip()
+            if rest:
+                cur = _item_of(rest)
+            continue
+        # An item line (or a wrapped continuation).
+        if not section:
+            continue  # a line before any can:/cannot: section is ignored
+        if _is_bullet(s):
+            # A fresh bullet: flush the previous item, then start a new one.
+            if cur:
+                if section == "can":
+                    can.append(cur)
+                else:
+                    cannot.append(cur)
+            cur = _item_of(s)
+        else:
+            # A continuation line: fold it onto the current item (or, if there
+            # is no current item, treat it as a bullet-less item).
+            piece = s
+            if cur:
+                cur = cur + " " + piece
+            else:
+                cur = piece
+
+    # Flush the last pending item.
+    if cur:
+        if section == "can":
+            can.append(cur)
+        else:
+            cannot.append(cur)
+
+    if not can and not cannot:
+        return ""
+
+    def _tuple(items: list[str]) -> str:
+        if not items:
+            return "none"
+        return "(" + ", ".join(
+            f"[{escape(neutralize(it))}]" for it in items
+        ) + ")"
+
+    parts = []
+    if can:
+        parts.append(f"can: {_tuple(can)}")
+    if cannot:
+        parts.append(f"cannot: {_tuple(cannot)}")
+    if not parts:
+        return ""
+    return "#scene-checklist(\n" + ",\n".join("  " + p for p in parts) + "\n)"
 
 
 def _render_encounter(buf: list[str], title: str = "") -> str:
@@ -1992,6 +2173,20 @@ _CHECK_BUF: list[str] = []
 # `_ENCOUNTER_TITLE` the explicit `[Name]` spec.
 _ENCOUNTER_BUF: list[str] = []
 _ENCOUNTER_TITLE = ""
+# A `::: scene-meta` fence accumulates its (buffered) body lines until the bare
+# `:::` close, when it is rendered as `#scene-meta(time: [...], ...)`.  The body
+# shape is `key: value` lines (time / weather / location / purpose).  `_SCENEMETA_BUF`
+# holds the body lines.
+_SCENEMETA_BUF: list[str] = []
+# A `::: checklist` fence accumulates its (buffered) body lines until the bare
+# `:::` close, when it is rendered as `#scene-checklist(can: (...), cannot:
+# (...))`.  The body shape is two labelled sections:
+#   can: <item>
+#   <item>
+#   cannot: <item>
+#   <item>
+# `_CHECKLIST_BUF` holds the body lines.
+_CHECKLIST_BUF: list[str] = []
 
 # The most recent heading text, used to title auto-wrapped `#pftab` tables.
 _last_heading = ""
@@ -2122,6 +2317,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
     global _ATTENTION_BUF, _ATTENTION_TITLE
     global _RUMORS_NAME
     global _RUMORS_BUF
+    global _SCENEMETA_BUF, _CHECKLIST_BUF
     _FENCE = None
     _PFTAB_NAME = ""
     _PFTAB_IN_ONE_COL = False
@@ -2143,6 +2339,8 @@ def convert(md_text: str, page_broken: bool = False) -> str:
     _ATTENTION_BUF = []
     _ATTENTION_TITLE = ""
     _CHECK_BUF = []
+    _SCENEMETA_BUF = []
+    _CHECKLIST_BUF = []
     # `_last_heading` is reset per `convert()` call so that the first table of
     # each chapter file does not inherit the last heading of the previous file
     # (the assembled book calls `convert()` once per chapter).
@@ -2208,7 +2406,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             i += 1
             continue
 
-        if _FENCE in ("answers", "figure", "aloud", "note", "image", "attention", "check", "rumors", "encounter") and not re.match(r"^:::\s*$", stripped):
+        if _FENCE in ("answers", "figure", "aloud", "note", "image", "attention", "check", "rumors", "encounter", "scene-meta", "checklist") and not re.match(r"^:::\s*$", stripped):
             if _FENCE == "answers":
                 _ANSWERS_BUF.append(ln)
             elif _FENCE == "aloud":
@@ -2223,6 +2421,10 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 _CHECK_BUF.append(ln)
             elif _FENCE == "encounter":
                 _ENCOUNTER_BUF.append(ln)
+            elif _FENCE == "scene-meta":
+                _SCENEMETA_BUF.append(ln)
+            elif _FENCE == "checklist":
+                _CHECKLIST_BUF.append(ln)
             elif _FENCE == "image":
                 _IMAGE_BUF.append(ln)
             else:
@@ -2501,6 +2703,29 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             _CHECK_BUF = []
             i += 1
             continue
+        # `::: scene-meta` opens a scene-meta block.  Its body (the `key: value`
+        # lines, buffered verbatim until the bare `:::` close) is rendered by
+        # _render_scene_meta as #scene-meta(time: [...], ...).  Like `::: check`
+        # this open handler must sit BEFORE the paragraph branch.
+        if re.match(r"^:::\s*scene-meta\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = "scene-meta"
+            _SCENEMETA_BUF = []
+            i += 1
+            continue
+        # `::: checklist` opens a scene-checklist block.  Its body (the `can:` /
+        # `cannot:` sections with items, buffered verbatim until the bare `:::`
+        # close) is rendered by _render_checklist as #scene-checklist(can: (...),
+        # cannot: (...)).  Like `::: check` this open handler must sit BEFORE the
+        # paragraph branch.
+        if re.match(r"^:::\s*checklist\s*$", stripped):
+            if _FENCE == "one-col":
+                out.append("#set page(columns: 2)")
+            _FENCE = "checklist"
+            _CHECKLIST_BUF = []
+            i += 1
+            continue
 
         # ---- horizontal rule ----
         if stripped == "---":
@@ -2679,6 +2904,12 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             elif _FENCE == "check":
                 out.append(_render_check_group(_CHECK_BUF))
                 _CHECK_BUF = []
+            elif _FENCE == "scene-meta":
+                out.append(_render_scene_meta(_SCENEMETA_BUF))
+                _SCENEMETA_BUF = []
+            elif _FENCE == "checklist":
+                out.append(_render_checklist(_CHECKLIST_BUF))
+                _CHECKLIST_BUF = []
             elif _FENCE == "rumors":
                 out.append(_render_rumors(_RUMORS_NAME, _RUMORS_BUF))
                 _RUMORS_NAME = ""
@@ -2825,6 +3056,7 @@ def assemble_book(paths: list[Path]) -> str:
     global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _FIG_CAPTION, _FIG_BUF, _FIG_SPEC
     global _RUMORS_NAME
     global _RUMORS_BUF
+    global _SCENEMETA_BUF, _CHECKLIST_BUF
     _PAGE_BROKEN = False  # reset so the first heading of the book has no break
     _FENCE = None
     _PFTAB_NAME = ""
@@ -2833,6 +3065,8 @@ def assemble_book(paths: list[Path]) -> str:
     _ANSWERS_TITLE = ""
     _RUMORS_NAME = ""
     _RUMORS_BUF = []
+    _SCENEMETA_BUF = []
+    _CHECKLIST_BUF = []
     _FIG_CAPTION = ""
     _FIG_BUF = []
     parts = []

@@ -506,3 +506,95 @@
     #v(0.6em)
   ]
 }
+
+// ============================================================
+// scene-meta
+// ------------------------------------------------------------
+// A compact "time / weather / location / purpose" meta block placed at the
+// top of a scene.  The generator emits this for `::: scene-meta`.  Each given
+// field is one row of a small label:value table: a narrow green label column
+// and a value column.  Any field may be omitted.
+// ============================================================
+#let scene-meta(
+  time: none,
+  weather: none,
+  location: none,
+  purpose: none,
+) = {
+  let pairs = (
+    (label: "Время",   body: time),
+    (label: "Погода",  body: weather),
+    (label: "Место",   body: location),
+    (label: "Цель",    body: purpose),
+  ).filter(p => p.body != none)
+
+  if pairs.len() == 0 { [] } else {
+    let rows = pairs.map(p => (
+      table.cell(
+        fill: colors.pfgreen,
+        inset: (x: 6pt, y: 4pt),
+        align: left + horizon,
+      )[
+        #text(fill: colors.pfwhite, weight: "bold", size: 0.9em)[#p.label]
+      ],
+      table.cell(
+        inset: (x: 6pt, y: 4pt),
+        align: left,
+      )[#p.body],
+    )).flatten()
+
+    block(breakable: true)[
+      #v(0.6em)
+      #table(
+        columns: (auto, 1fr),
+        stroke: none,
+        inset: 0pt,
+        fill: none,
+        ..rows,
+      )
+      #v(0.6em)
+    ]
+  }
+}
+
+// ============================================================
+// scene-checklist
+// ------------------------------------------------------------
+// A "what the players can / cannot learn here" checklist placed before a
+// scene.  Two linear lists: `can` (green, the clues that ARE available) and
+// `cannot` (maroon, the things that must NOT be given out).  The generator
+// emits this for `::: checklist`; each item is one bullet row.
+// ============================================================
+#let scene-checklist(
+  can: none,
+  cannot: none,
+) = {
+  let can-items = if can != none { can } else { () }
+  let cannot-items = if cannot != none { cannot } else { () }
+
+  // A linear list (not a table): a coloured header line (green for "can",
+  // maroon for "cannot"), then a vertical `list` of plain bullet rows.
+  block(breakable: true)[
+    #v(0.6em)
+    #if can-items.len() > 0 {
+      text(fill: colors.pfgreen, weight: "bold", size: 0.95em)[Можно узнать здесь]
+      v(0.3em)
+      list(
+        indent: 1.6em,
+        ..can-items,
+      )
+    }
+    #if can-items.len() > 0 and cannot-items.len() > 0 {
+      v(0.5em)
+    }
+    #if cannot-items.len() > 0 {
+      text(fill: colors.pfmaroon, weight: "bold", size: 0.95em)[Нельзя раскрывать]
+      v(0.3em)
+      list(
+        indent: 1.6em,
+        ..cannot-items,
+      )
+    }
+    #v(0.6em)
+  ]
+}
