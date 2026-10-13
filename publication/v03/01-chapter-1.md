@@ -1,6 +1,6 @@
 # Глава 1. Тени Весткроуна
 
-::: image [Карта Весткроуна;width:auto;height:90%]
+::: figure [Карта Весткроуна;width:auto;height:90%]
 ![Карта Весткроуна](../../locations/Westcrown_map_eng.png)
 :::
 

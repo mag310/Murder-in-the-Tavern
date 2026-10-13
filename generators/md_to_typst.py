@@ -1493,6 +1493,31 @@ def _figure_block(path: str, caption: str, width: str = "100%",
     )
 
 
+def _plain_figure_block(path: str, caption: str, width: str = "100%",
+                        height: str = "") -> str:
+    """Build a bare ``#figure(image(...), caption: [...])`` with no ``#place``
+    wrapper.  Used for the ``::: image [...]`` fence, which the author wants
+    rendered as a plain figure rather than a full-width, page-spanning
+    ``#place(...)[ #figure(...) ]`` (see :func:`_figure_block`).  ``width``/
+    ``height`` are the image's own size (from the ``[...]`` spec); both are
+    passed through when given, otherwise only the one that is set is emitted.
+    """
+    cap = escape(neutralize(caption)) if caption else ""
+    cap_line = f"  caption: [{cap}],\n" if cap else ""
+    if height and width:
+        img = f'  image("{path}", width: {width}, height: {height}),\n'
+    elif height:
+        img = f'  image("{path}", height: {height}),\n'
+    else:
+        img = f'  image("{path}", width: {width}),\n'
+    return (
+        "#figure(\n"
+        f"{img}"
+        f"{cap_line}"
+        ")"
+    )
+
+
 def _inline_figure(buf: list[str], caption: str) -> str:
     """Render a ``::: figure`` as an inline ``#figure`` (4-space indented) for
     use *inside* a ``::: block``, instead of a full-width ``#place`` wrapper."""
@@ -1633,13 +1658,15 @@ def _render_figure(buf: list[str], caption: str) -> str:
 
 def _render_image(buf: list[str], spec: dict) -> str:
     """Render a `::: image [caption;width;height]` fence's buffered content as a
-    full-width, page-spanning ``#place(...)[ #figure(image(...), ...) ]``.
+    plain ``#figure(image(...), caption: [...])`` (no ``#place`` wrapper).
 
     The buffered content is the markdown inside the fence; the first markdown
     image ``![alt](path)`` found supplies the image *path* (any size tokens
     inside the markdown are ignored — size comes from the ``[...]`` spec).  The
     caption/width/height come from the parsed ``::: image [...]`` spec; when the
-    spec omits the caption the image's alt text is used.
+    spec omits the caption the image's alt text is used.  The result is a bare
+    ``#figure`` (see :func:`_plain_figure_block`), not a full-width,
+    page-spanning ``#place`` wrapper.
     """
     text = "\n".join(buf)
     m = re.search(r"!\[([^\]]*)\]\(([^)]+)\)", text)
@@ -1651,7 +1678,7 @@ def _render_image(buf: list[str], spec: dict) -> str:
     wm = re.match(r"^(.*?)\s+(?:w?(\d+%)|\s*h(\d+%\s*)?)$", inner)
     path = (wm.group(1).strip() if wm else inner).strip()
     caption = spec.get("caption", "") or alt
-    return _figure_block(path, caption, spec.get("width", "100%"), spec.get("height", ""))
+    return _plain_figure_block(path, caption, spec.get("width", "100%"), spec.get("height", ""))
 
 
 def _md_table_to_typst(table_lines: list[str]) -> str:
@@ -1688,6 +1715,25 @@ def _md_table_rows(table_lines: list[str]) -> list[list[str]]:
     return rows
 
 
+def _is_xp_table(rows: list[list[str]]) -> bool:
+    """True when a 2-column table is an "опыт" (XP) table: the header row's
+    second cell names XP (``XP`` / ``опыт`` / ``опыт``), or every data cell in
+    the second column looks like an XP value (e.g. ``10`` / ``10 XP``)."""
+    if not rows:
+        return False
+    hdr = rows[0]
+    if len(hdr) < 2:
+        return False
+    if re.search(r"^(xp|опыт|опыт)\b", hdr[1].strip().lower()):
+        return True
+    # Fallback: a data column whose cells are all short XP-like values.
+    xp_like = re.compile(r"^\s*(\d+\s*(xp|опыт|gp|зм)?|-\d+)\s*$", re.I)
+    data = [r[1].strip() for r in rows[1:] if len(r) >= 2]
+    return bool(data) and all(
+        xp_like.match(c) or c == "" for c in data
+    )
+
+
 def _md_table_to_pftab(table_lines: list[str], name: str = "") -> str:
     """Convert a markdown grid table to a Typst ``#pftab`` (the PF2e-Remastered
     styled table: an uppercase title plus alternating row fills and a dark
@@ -1702,6 +1748,11 @@ def _md_table_to_pftab(table_lines: list[str], name: str = "") -> str:
     # width ratio (narrow first column, wide second) instead of equal 1fr/1fr.
     if ncol == 2 and name.lower().startswith("действия логова"):
         cols = "1fr, 4fr"
+    # An "опыт" (XP) table is a 2-col "<Действие/Зацепка | XP>" grid: the first
+    # column holds a long label and the second a short XP value, so give them a
+    # 4:1 width ratio (wide first column, narrow second).
+    elif ncol == 2 and _is_xp_table(rows):
+        cols = "4fr, 1fr"
     else:
         cols = ", ".join(["1fr"] * ncol)      # -> "1fr, 1fr, 1fr"
     out: list[str]
@@ -1823,11 +1874,32 @@ def _render_rumors(name: str = "", buf: list[str] | None = None) -> str:
     else:
         roll_hdr, title = "d10", "Слухи"
 
-    cols = "1fr, 6fr, 2fr, 2fr"
-    out = [f"#pftab([{title}], columns: ({cols}),",
-           f"[{roll_hdr}], [Слух], [Источник], [Улика/событие],"]
+    # Build the full column grid (roll / Слух / Источник / Улика-событие) and
+    # drop any column whose EVERY data cell is empty — so a rumor table with no
+    # speaker / no evidence does not print empty columns.  The "roll" column is
+    # the die value (the table's position key): keep it even when every cell is
+    # empty, because the die still numbers the rows; every other column is
+    # dropped outright when all its cells are empty.
+    full = [
+        ("roll", roll_hdr, [r["roll"] for r in records]),
+        ("text", "Слух", [r["text"] for r in records]),
+        ("speaker", "Источник", [r["speaker"] for r in records]),
+        ("evid", "Улика/событие", [r["evid"] for r in records]),
+    ]
+    keep = []
+    for key, hdr, values in full:
+        if all(v == "" for v in values) and key != "roll":
+            continue  # drop a fully-empty non-roll column
+        keep.append((key, hdr, values))
+
+    # Widths: the "Слух" column dominates; "roll"/"Источник"/"Улика/событие"
+    # are narrower.  When a column is dropped its weight is dropped too.
+    weight = {"roll": "1fr", "text": "6fr", "speaker": "2fr", "evid": "2fr"}
+    cols = ", ".join(weight[c[0]] for c in keep)
+    hdr_line = ", ".join(f"[{c[1]}]" for c in keep)
+    out = [f"#pftab([{title}], columns: ({cols}),", hdr_line + ","]
     for r in records:
-        cells = [f"[{c}]" for c in (r["roll"], r["text"], r["speaker"], r["evid"])]
+        cells = [f"[{r[k]}]" for (k, _h, _v) in keep]
         out.append("  " + ", ".join(cells) + ",")
     out.append(")")
     return "\n".join(out)

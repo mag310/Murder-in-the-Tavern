@@ -13,6 +13,7 @@ inputs = [
     v03 / "02-1-B1.md",
     v03 / "03-1-B2.md",
     v03 / "04-1-B3.md",
+    v03 / "05-1-B4.md",
     # Character dossiers — after the chapters, before the lore/bestiary block.
     v03 / "80-dossier.md",
     v03 / "86-luciano-avrelian.md",
