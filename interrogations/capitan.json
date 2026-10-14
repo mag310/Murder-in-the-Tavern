@@ -6,7 +6,7 @@
     "attitude": "indifferent",
     "base_dc": "medium",
     "default_reliability": "reliable",
-    "candor_level": "indifferent",
+    "candor_level": "cautious",
     "base_questions": {
         "A1": {
             "q": "«Что за дело?»",

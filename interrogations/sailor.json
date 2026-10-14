@@ -6,7 +6,7 @@
     "attitude": "unfriendly",
     "base_dc": "hard",
     "default_reliability": "mixed",
-    "candor_level": "unfriendly",
+    "candor_level": "cautious",
     "connection_tiers": [
         {"target": "tavern_keeper", "tier": "despised", "type": "hatred"}
     ],

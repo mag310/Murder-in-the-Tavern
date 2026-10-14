@@ -1174,7 +1174,7 @@
 
 #### Диалог: допрос Дуксотар Илтус Мартис
 
-> Полные ответы по 5 уровням откровенности (`candor_level` = `attitude`, стартовое `unfriendly`, DC `hard`). Источник:
+> Полные ответы по 5 уровням откровенности (`candor_level` = `attitude`, стартовое `unfriendly`, DC `no_trust`). Источник:
 > `../../interrogations/duxotar.json`, `../interrogations/duxotar-ansvers.md-ansvers.md`.
 
 **Q:** «Что за серия убийств? Сколько тел?»
@@ -2263,7 +2263,7 @@
 
 #### Диалог: допрос Вассиндио Дровендж — Патриарх Совета Воров
 
-> Полные ответы по 5 уровням откровенности (`candor_level` = `attitude`, стартовое `unfriendly`, DC `hard`). Источник:
+> Полные ответы по 5 уровням откровенности (`candor_level` = `attitude`, стартовое `unfriendly`, DC `no_trust`). Источник:
 > `../../interrogations/vassindio.json`, `../interrogations/vassindio_drovenge-ansvers.md-ansvers.md`.
 
 **Q:** «Что Совету известно о серии резни и жестоких убийств в городе?»

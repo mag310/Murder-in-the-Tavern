@@ -6,7 +6,7 @@
     "attitude": "indifferent",
     "base_dc": "medium",
     "default_reliability": "mixed",
-    "candor_level": "indifferent",
+    "candor_level": "cautious",
     "base_questions": {
         "A1": {
             "q": "«Мы расследуем серию убийств. Пусти нас к телам в морге!»",

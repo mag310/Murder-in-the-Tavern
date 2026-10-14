@@ -503,7 +503,7 @@
             "friendly": "глухо, обрывисто, впервые слышно металл; маска падает"
         },
         "candor_level": {
-            "note": "candor_level — это шкала доверия (откровенности) к партии, НЕ PF2e-attitude. attitude (helpful/friendly/indifferent/unfriendly/hostile) — отдельная ось: задаёт базовый DC проверок общения. candor_level стартовое значение = attitude, затем меняется по ходу допроса: true_evidence + правильный вопрос + успех — повышают; false_evidence + провал — понижают. Ответ по candor_level читается из таблиц в interrogations/artist.json (trust_level). На мосту (Глава 1, Этап 2) attitude = friendly → candor_level = friendly → по умолчанию «Осторожный».",
+            "note": "candor_level — это шкала доверия (откровенности) к партии, НЕ PF2e-attitude. attitude (helpful/friendly/indifferent/unfriendly/hostile) — отдельная ось: задаёт базовый DC проверок общения. candor_level — стартовое значение = cautious, затем меняется по ходу допроса: true_evidence + правильный вопрос + успех — повышают; false_evidence + провал — понижают. Шкала из 4 ступеней: no_trust → cautious → trust → full_trust. Ответ по candor_level читается из таблиц в interrogations/artist.json (trust_level). На мосту (Глава 1, Этап 2) candor_level = cautious → по умолчанию «Осторожный».",
             "no_trust": {
                 "label": "Не доверяет",
                 "tone": "Холодный, отрывистый, минимум слов. Обаятельно врёт, мелодично. Не смотрит. Не считает их достойными. Если + провал доверия → нападает (см. interrogations/artist.json)."

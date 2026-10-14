@@ -130,7 +130,7 @@
 
 - **attitude** (PF2e: hostile / unfriendly / indifferent / friendly / helpful) — задаёт **базовый DC** проверок общения.
 - **candor_level** (no_trust / cautious / trust / full_trust) — задаёт **что именно он говорит**. Стартовое значение
-  `candor_level = attitude`.
+  `candor_level = cautious`.
 
 Для Дровенджа на старте допроса (в подвале, B2) разумно принять:
 

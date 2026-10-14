@@ -6,7 +6,7 @@
     "attitude": "indifferent",
     "base_dc": "medium",
     "default_reliability": "mixed",
-    "candor_level": "indifferent",
+    "candor_level": "cautious",
     "connection_tiers": [
         {"target": "waitress", "tier": "devoted", "type": "love"}
     ],

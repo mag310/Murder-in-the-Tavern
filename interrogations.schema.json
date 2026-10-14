@@ -58,13 +58,12 @@
         "candor_level": {
             "type": "string",
             "enum": [
-                "helpful",
-                "friendly",
-                "indifferent",
-                "unfriendly",
-                "hostile"
+                "no_trust",
+                "cautious",
+                "trust",
+                "full_trust"
             ],
-            "description": "Текущий уровень откровенности (Candor Level) во время допроса. Стартовое значение = attitude. Меняется по ходу допроса: истинные улики (true_evidence), правильные вопросы и успешные проверки — повышают (hostile→unfriendly→indifferent→friendly→helpful); ложные улики (false_evidence), неправильные вопросы и провалы проверок — понижают (helpful→friendly→indifferent→unfriendly→hostile). Определяет, какой ключ ответа читается для вопроса."
+            "description": "Текущий уровень откровенности (Candor Level) во время допроса — шкала из 4 ступеней: no_trust → cautious → trust → full_trust. Отдельная ось от PF2e-attitude (которая задаёт базовый DC проверок общения). Стартовое значение = cautious. Меняется по ходу допроса: истинные улики (true_evidence), правильные вопросы и успешные проверки — повышают (no_trust→cautious→trust→full_trust); ложные улики (false_evidence), неправильные вопросы и провалы проверок — понижают (full_trust→trust→cautious→no_trust). Определяет, какой ключ ответа читается для вопроса."
         },
         "connection_tiers": {
             "type": "array",

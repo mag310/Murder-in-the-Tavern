@@ -6,7 +6,7 @@
     "attitude": "unfriendly",
     "base_dc": "hard",
     "default_reliability": "mixed",
-    "candor_level": "unfriendly",
+    "candor_level": "cautious",
     "base_questions": {
         "A1": {
             "q": "«Что Совету известно о серии резни и жестоких убийств в городе?»",

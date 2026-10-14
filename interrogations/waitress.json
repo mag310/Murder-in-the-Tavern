@@ -6,7 +6,7 @@
     "attitude": "indifferent",
     "base_dc": "medium",
     "default_reliability": "mixed",
-    "candor_level": "indifferent",
+    "candor_level": "cautious",
     "connection_tiers": [
         {"target": "doctor", "tier": "devoted", "type": "love"},
         {"target": "sailor", "tier": "vindictive", "type": "hatred/religion"}

@@ -24,7 +24,7 @@
 
 - **attitude** (PF2e: hostile / unfriendly / indifferent / friendly / helpful) — задаёт **базовый DC** проверок общения.
 - **candor_level** (no_trust / cautious / trust / full_trust) — задаёт **что именно он говорит**. Стартовое значение
-  `candor_level = attitude`.
+  `candor_level = cautious`.
 
 Для Маретти на старте допроса (в порту, C1, или в «Булькающей гаргулье», C2) разумно принять:
 
@@ -200,7 +200,7 @@
 
 - **attitude** (PF2e: hostile / unfriendly / indifferent / friendly / helpful) — задаёт **базовый DC** проверок общения.
 - **candor_level** (no_trust / cautious / trust / full_trust) — задаёт **что именно он говорит**. Стартовое значение
-  `candor_level = attitude`.
+  `candor_level = cautious`.
 
 Для Маретти на старте допроса (в порту, C1, или в «Булькающей гаргулье», C2) разумно принять:
 
