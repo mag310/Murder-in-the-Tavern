@@ -23,6 +23,9 @@ inputs = [
     v03 / "12-1-D3.md",
     v03 / "13-1-E1.md",
     v03 / "14-1-E2.md",
+    v03 / "15-1-E3.md",
+    v03 / "16-1-F1.md",
+    v03 / "17-1-F2.md",
     # Character dossiers — after the chapters, before the lore/bestiary block.
     v03 / "80-dossier.md",
     v03 / "85-detective-jacomo-ranieri.md",
