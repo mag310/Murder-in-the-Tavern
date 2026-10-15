@@ -2573,12 +2573,17 @@ def convert(md_text: str, page_broken: bool = False) -> str:
             # non-empty, non-heading, non-image line (level-1 usually has one;
             # level-2 sections normally do not, so desc is "" for them).
             if level in (1, 2):
+                _last_heading = ""
                 if level == 1 and cm:
                     num = cm.group(1)
                     title = cm.group(2).strip() or text
                 else:
                     num = ""
                     title = text
+                # A level-1/2 heading starts a new section; clear the table
+                # title context so the next auto-wrapped `#pftab` does not
+                # reuse a heading from a previous section.
+                _last_heading = ""
                 # Look ahead for the description.  Only a level-1 heading has a
                 # description (e.g. the "Таймлайн главы N: …" line); a level-2
                 # section heading does NOT — its following line is normally a
