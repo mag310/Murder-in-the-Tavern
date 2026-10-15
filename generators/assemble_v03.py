@@ -32,7 +32,8 @@ inputs = [
     # Character dossiers — after the chapters, before the lore/bestiary block.
     v03 / "80-dossier.md",
     v03 / "85-detective-jacomo-ranieri.md",
-    v03 / "86-luciano-avrelian.md",
+    v03 / "86-artist-luciano-avrelian.md",
+    v03 / "86-durotas-saria-roccin.md",
     # Bestiary and lore are always appended at the very end of the book.
     v03 / "90-lore.md",
     v03 / "91-Cheliax.md",
