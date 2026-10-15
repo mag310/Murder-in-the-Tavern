@@ -29,12 +29,16 @@
                 "type": "виделись (пересекались)"
             }
         ],
-        "justice": [
-            {
-                "target": "duxotar",
-                "type": "может информировать о деле"
-            }
-        ]
+    "justice": [
+      {
+        "target": "saria_roccin",
+        "type": "приём «Бумаги о сотрудничестве» от Дуротаса (Common Dottari) — пропускает партию в Морг (§C4); отношение Common Dottari +1"
+      },
+      {
+        "target": "detective",
+        "type": "приём заказа/записки от Детектива — пропускает партию в Морг"
+      }
+    ]
     },
     "knowledge": [
         {
@@ -72,14 +76,21 @@
             "reason": "Ассистент и Детектив знакомы по работе (Морг), пересекаются по делу",
             "source": "relationship"
         },
-        {
-            "level": "knows_only",
-            "fact": "Виделся с Официанткой (waitress) — они пересекались",
-            "target": "waitress",
-            "reason": "Ассистент виделся с Официанткой",
-            "source": "relationship"
-        }
-    ],
+    {
+      "level": "knows_only",
+      "fact": "Виделся с Официанткой (waitress) — они пересекались",
+      "target": "waitress",
+      "reason": "Ассистент виделся с Официанткой",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Для доступа к телам нужны «Бумаги о сотрудничестве» от Дуротаса (Saria Roccin) или заказ/записка от Детектива; без них партия в морг не пустит; при предъявлении «Бумаги о Дуротаса» — пропускает (Отношение Common Dottari +1, Тобиа → friendly)",
+      "target": "saria_roccin",
+      "reason": "Механика доступа в Морг (§C4)",
+      "source": "relationship"
+    }
+  ],
     "false_beliefs": [],
     "daily_schedule": null,
     "daily_schedule_note": "Контекстный персонаж вне таверны; не имеет расписания внутри таверны. Обычно находится в: morgue.",

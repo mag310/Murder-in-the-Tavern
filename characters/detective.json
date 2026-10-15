@@ -112,20 +112,27 @@
             "reason": "Детектив и Доктор знакомы по работе (Доктор работает со вскрытиями/отчётами, event_024)",
             "source": "relationship"
         },
-        {
-            "level": "knows_only",
-            "fact": "Знаком с Ассистентом Доктора (doctor_assistant) — они иногда пересекаются в морге по работе",
-            "target": "doctor_assistant",
-            "reason": "Детектив и Ассистент Доктора знакомы по работе (Морг), пересекаются по делу",
-            "source": "relationship"
-        }
-    ],
+    {
+      "level": "knows_only",
+      "fact": "Знаком с Ассистентом Доктора (doctor_assistant) — они иногда пересекаются в морге по работе",
+      "target": "doctor_assistant",
+      "reason": "Детектив и Ассистент Доктора знакомы по работе (Морг), пересекаются по делу",
+      "source": "relationship"
+    },
+    {
+      "level": "knows_exactly",
+      "fact": "Наниматель Детектива — Дуксотар (Илтус Мартис); но для парции Детектив даёт записку к Дуротасу Сарии Рокцин (Common Dottari) — чтобы она зачислила партию в помощники и дала «Бумаги о сотрудничестве»",
+      "target": "saria_roccin",
+      "reason": "Детектив направляет партию к Сарии (§C2 → §C3)",
+      "source": "relationship"
+    }
+  ],
     "false_beliefs": [],
-    "external_links": [
-        "duxotar_office",
-        "town",
-        "city_streets"
-    ],
+  "external_links": [
+    "dukstatar_office",
+    "town",
+    "city_streets"
+  ],
     "daily_schedule": [
         {
             "time": "night",
