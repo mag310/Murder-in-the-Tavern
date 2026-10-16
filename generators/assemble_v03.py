@@ -29,6 +29,10 @@ inputs = [
     v03 / "16-1-F1.md",
     v03 / "17-1-F2.md",
     v03 / "18-1-F3.md",
+    # Chapter 2 — tavern «Слёзы устрицы» (work in progress): overview + NPC cards + scene A1.
+    v03 / "19-2-chapter-2.md",
+    v03 / "20-2-npc.md",
+    v03 / "21-2-A1.md",
     # Epilogue — after the chapter scenes, before the character dossiers.
     v03 / "79-4-epilogue.md",
     # Character dossiers — after the chapters, before the lore/bestiary block.
