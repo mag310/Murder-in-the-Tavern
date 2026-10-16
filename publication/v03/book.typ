@@ -5,6 +5,19 @@
 // #aloud / #note / #pftab elements used by the converted content below.
 #show: pf-stylization
 
+// Book-level override (NOT part of the upstream pf2e-style package): the
+// package forces `#colbreak()` on every level-3 heading, which is meant for
+// stat-block books.  In this scenario book every scene is a `###` heading, so
+// that default left many half-empty columns / orphan lines.  Re-render level-3
+// headings in the package's style but WITHOUT the forced column break, letting
+// scenes flow.  (`###` headings are scene titles; `#`/`##` still start pages.)
+#show heading.where(level: 3): it => [
+  #set par(first-line-indent: 0em)
+  #v(0.5em, weak: true)
+  #text(size: 1.3em, fill: colors.lightgreen, weight: "bold", it.body)
+  #v(0.2em, weak: true)
+]
+
 
 #chap-header("1", "Тени Весткроуна", "")
 #figure(
@@ -3353,9 +3366,9 @@ TPK.
 
 === Ключевое знание
 
-- Знает точно: его наняла Дуротас Сария Рокцин для расследования серии смертей; видел отчёты о вскрытиях (autopsyreports),
-  которые забрал Доктор из Морга (они в комнате Доктора); Доктор — его коллега / знакомый по работе (морг / вскрытия);
-  знаком с Ассистентом Доктора.
+- Знает точно: его наняла Дуротас Сария Рокцин для расследования серии смертей; видел отчёты о вскрытиях
+  (autopsyreports), которые забрал Доктор из Морга (они в комнате Доктора); Доктор — его коллега / знакомый по работе
+  (морг / вскрытия); знаком с Ассистентом Доктора.
 - Подозревает: если обнаружит доказательства контрабанды — столкнётся с ней (связь по money; контрабанда
   Трактирщика / Моряка).
 - Не знает: о культе в таверне; о контрабанде Трактирщика и Моряка; о Художнике как о серийном убийце (пока не
@@ -3368,8 +3381,7 @@ TPK.
 - День — во дворе (tavernyard): проходит по двору, осматривает следы.
 - Вечер — в зале (tavernhall): расследует серию смертей, допрашивает.
 - Ночь — в комнате гостя (detectiveroom): спит (следы пьянства, detectivedrunk).
-- Полночь — в комнате: записывает наблюдения в записную книжку (см. event011 / event012; наниматель —
-  Сария).
+- Полночь — в комнате: записывает наблюдения в записную книжку (см. event011 / event012; наниматель — Сария).
 
 === Лошадь
 
