@@ -5,7 +5,7 @@
     "description": "Экипаж корабля «Чёрная Сирена» (La Sirena Nera), на котором служили Моряк и Врач (бывший судовый врач). Моряк дезертировал, украв казну.",
     "members": [
         {
-            "character": "ship_captain",
+            "character": "capitan",
             "role": "капитан «Чёрной Сирены»",
             "status": "active"
         },
@@ -22,8 +22,8 @@
             "note": "Врач — бывший судовый врач «Чёрной Сирены»; давно списан с корабля на берег, не состоял в текущем экипаже"
         }
     ],
-    "leader": "ship_captain",
+    "leader": "capitan",
     "location": "chernaya_sirena",
-    "secret": "Дезертирство и кража казны скрыты от большинства (известно ship_captain, sailor).",
+    "secret": "Дезертирство и кража казны скрыты от большинства (известно capitan, sailor).",
     "conflicts_with": []
 }

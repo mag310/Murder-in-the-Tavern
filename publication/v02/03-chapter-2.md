@@ -1315,7 +1315,7 @@ helpful: Я опасаюсь только внезапного вызова те
 
 ### Подробный справочник локаций
 
-#### Lacrime della Madreperla (Слезы устрицы) (tavern)
+#### Lacrime della Madreperla (Слёзы устрицы) (tavern)
 
 Основное здание таверны. Все gameplay-локации (tavern_hall, tavern_keeper_office, basement, cult_lair, mansard,
 guest_rooms, detective_room, sailor_room, doctor_room, tavern_keeper_room, guest_room_empty_1, guest_room_empty_2,

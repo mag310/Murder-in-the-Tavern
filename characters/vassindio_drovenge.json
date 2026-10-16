@@ -60,14 +60,14 @@
     "daily_schedule": [
         {
             "time": "night",
-            "location": "thieves_council",
+            "location": "vassindio_drovenge_office",
             "activity": "сидит за столом в тёмном подвале Совета Воров; на столе — карта города, свечи, вино; вокруг — фигуры в капюшонах",
             "note": "говорит тихо, но каждое слово звучит как приказ; от него веет властью, тайной и холодом"
         }
     ],
     "organizations": [
         {
-            "organization": "thieves_council",
+            "organization": "council_of_thieves",
             "role": "патриарх (глава Совета Воров)",
             "status": "active",
             "note": "дом Дровендж; к 4710 AR его власть ослабевает, внутри Совета зреет разлад"

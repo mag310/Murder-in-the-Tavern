@@ -1,4 +1,4 @@
-﻿# План доработки сценария «Убийство в таверне»
+# План доработки сценария «Убийство в таверне»
 
 > Источник истины — `masters-book.md` (publication) + JSON-данные (`characters/`, `locations/`, `organizations/`,
 > `evidence.json`, `murder_matrix.json`, `flood_mechanic.json`, `nightly_beats.json`, `events.json`, `interrogations/`).

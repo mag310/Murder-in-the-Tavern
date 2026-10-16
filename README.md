@@ -72,7 +72,7 @@ JSON Schema для валидации **одной** локации из кат�
 
 Текущие организации:
 
-- `tavern` — «Lacrime della Madreperla» (Слезы устрицы) (business; участники: tavern_keeper, waitress);
+- `tavern` — «Lacrime della Madreperla» (Слёзы устрицы) (business; участники: tavern_keeper, waitress);
 - `cult` — Культ Дагона (Dagon, demon — запрещённая ересь в Челии; участники: waitress, doctor, dead_wife);
 - `council_of_thieves` — Совет Воров (Council of Thieves) — знаменитый Совет Воров Весткроуна, реальная (тень) власть в
   городе; противоборствует `city_authority`; пока без участников (crime);
@@ -89,7 +89,7 @@ JSON Schema для валидации **одной** локации из кат�
   путать с «Орденом чёрной розы» (Cheliax/Asmodeus) (order);
 - `smugglers` — Контрабандисты (crime; участники: tavern_keeper, sailor; лидер — tavern_keeper; противоборствует
   `city_authority`);
-- `sirena_nera_crew` — Экипаж корабля «Чёрная Сирена» (crew; участники: ship_captain, sailor (бывший матрос), doctor
+- `sirena_nera_crew` — Экипаж корабля «Чёрная Сирена» (crew; участники: capitan, sailor (бывший матрос), doctor
   (бывший судовый врач, status: left));
 - `morgue` — Морговская контора (government; участники: doctor, doctor_assistant); рабочая связь Доктор ↔ Детектив;
 - `chelax_bureaucracy` — Бюрократия Челии (House Thrune) (government; противоборствует `paladin_order`).
@@ -204,7 +204,7 @@ JSON Schema для валидации `murder_matrix.json`.
 - `kitchen` (кухня) — сцена 19:15–19:30 (конфликт Доктора и Трактирщика, event_028);
 - `morgue` (морг) — пролог, 16:00;
 - `dock` (пристань) — связана с Моряком и контрабандистами, путь решения потопа (отвязать ялик);
-- `duxotar_office` → `gameplay` (пролог, 15:00).
+- `dottari_barracks` → `gameplay` (пролог, 15:00).
 
 ---
 
@@ -334,7 +334,7 @@ JSON Schema для валидации `murder_matrix.json`.
 - **Весткроун** — «Город Сумерек», бывшая столица Челии; портовый город в устье реки Адивиан, ~150 миль к югу от
   Эгориана. Атмосфера упадка, изоляции и тайных культов. Реальная сила — торговля и **Совет Воров (
   council_of_thieves)**, а не городская власть.
-- **Таверна — «Lacrime della Madreperla» (Слезы устрицы).** На возвышенности, на берегу реки Адивиан. Над воротами висит
+- **Таверна — «Lacrime della Madreperla» (Слёзы устрицы).** На возвышенности, на берегу реки Адивиан. Над воротами висит
   **щит — герб таверны: изображение плачущей морской раковины (оyster, из которой капают «слёзы»)**, вырезанное в тёмном
   дереве/металле, с погнутыми краями и сочащимся мхом. Название и щит — морской/речной мотив (река → море, Дагон).
 - **Река Адивиан (river)** — регулярно выходит из берегов из-за таяния снегов в горах Менадор. **Потоп = ритуал Дагона +
@@ -373,7 +373,7 @@ JSON Schema для валидации `murder_matrix.json`.
 - кухня (kitchen);
 - морг (morgue, город);
 - пристань (dock);
-- офис Дуксотара (duxotar_office, город).
+- офис Дуксотара (dottari_barracks, город).
 
 ## Top-level локация
 
@@ -381,7 +381,7 @@ JSON Schema для валидации `murder_matrix.json`.
 `tavern_keeper_office`, `basement`, `cult_lair`, `mansard`, `guest_rooms`, `tavern_yard`, `smuggler_storage`,
 `kitchen_storage`, `meat_storage`, `wine_cellar`, `kitchen`, `detective_room`, `sailor_room`, `doctor_room`,
 `tavern_keeper_room`, `guest_room_empty_1`, `guest_room_empty_2`, `guest_room_empty_3`) являются её частями
-(`parent_location: "tavern"` или через `guest_rooms`/`basement`). `morgue`, `dock`, `duxotar_office` —
+(`parent_location: "tavern"` или через `guest_rooms`/`basement`). `morgue`, `dock`, `dottari_barracks` —
 gameplay-локации, но `parent_location: "town"` (в городе, не в таверне).
 
 ---
@@ -516,7 +516,7 @@ gameplay-локации, но `parent_location: "town"` (в городе, не �
 Механизм прибытия **определён** (см. `detective.investigation.reason_investigation_reached_tavern`,
 `event_023→event_024→event_029`):
 
-1. **Задание (event_023, `duxotar_office`, 15:00):** Дуксотар нанимает Детектива для поиска **маньяка**, который жестоко 
+1. **Задание (event_023, `dottari_barracks`, 15:00):** Дуксотар нанимает Детектива для поиска **маньяка**, который жестоко 
    убивает людей по городу и **жестоко издевается над телами** (расчленение, увечья, «экспозиции»). 15:15 — гром, начало дождя.
 2. **Морг (event_024, `morgue`, 16:00):** Детектив едет в Морг. **Ассистент Доктора (doctor_assistant)** говорит:
    **Доктор забрал ОТЧЁТЫ О ВСКРЫТИИ** и поработает с ними **дома** — снимает комнату в Таверне. Игрокам объясняют
@@ -569,7 +569,7 @@ NPC живут своей жизнью по часам (молятся, груз
 - `kitchen` (кухня) — обязательна, сцена 19:15–19:30 (конфликт Доктора и Трактирщика, event_028);
 - `morgue` (морг) — пролог, 16:00;
 - `dock` (пристань) — связана с Моряком и контрабандистами;
-- `duxotar_office` → `gameplay` (пролог, 15:00).
+- `dottari_barracks` → `gameplay` (пролог, 15:00).
 
 ## Новый NPC
 

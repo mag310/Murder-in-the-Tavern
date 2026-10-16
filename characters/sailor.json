@@ -14,9 +14,9 @@
         },
         {
             "level": "big",
-            "description": "Дезертировал с корабля «Чёрная Сирена» (La Sirena Nera) Капитана (ship_captain), украв судовую казну.",
+            "description": "Дезертировал с корабля «Чёрная Сирена» (La Sirena Nera) Капитана (capitan), украв судовую казну.",
             "known_by": [
-                "ship_captain"
+                "capitan"
             ]
         },
         {
@@ -45,7 +45,7 @@
                 "connection_tier": "associated"
             },
             {
-                "target": "ship_captain",
+                "target": "capitan",
                 "type": "бывший командир с одного корабля «Чёрная Сирена» (sirena_nera_crew, event_001)",
                 "connection_tier": "acquainted"
             }
@@ -69,15 +69,15 @@
     "knowledge": [
         {
             "level": "knows_exactly",
-            "fact": "Капитан корабля (ship_captain) — его бывший командир с одного корабля «Чёрная Сирена»",
-            "target": "ship_captain",
+            "fact": "Капитан корабля (capitan) — его бывший командир с одного корабля «Чёрная Сирена»",
+            "target": "capitan",
             "reason": "Моряк и Капитан служили на одном корабле (sirena_nera_crew, event_001)",
             "source": "relationship"
         },
         {
             "level": "knows_only",
             "fact": "Капитан корабля знает о его дезертирстве и краже",
-            "target": "ship_captain",
+            "target": "capitan",
             "reason": "Моряк уверен, что его бывший командир знает о его прошлом (дезертирство, кража казны)",
             "source": "big_secret"
         },
@@ -251,11 +251,11 @@
     ],
     "employment": {
         "employer": {
-            "previous": "ship_captain",
+            "previous": "capitan",
             "current": "tavern_keeper"
         },
         "role": "раньше — матрос на корабле «Чёрная Сирена» (дезертировал, event_002); сейчас — тайный деловой партнёр по контрабанде Трактирщика (см. relations.money)",
-        "note": "Предыдущий наниматель — Капитан корабля «Чёрная Сирена» (ship_captain). Текущая экономическая связь — с Трактирщиком (контрабанда). Не связано с текущим убийством."
+        "note": "Предыдущий наниматель — Капитан корабля «Чёрная Сирена» (capitan). Текущая экономическая связь — с Трактирщиком (контрабанда). Не связано с текущим убийством."
     },
     "external_links": [
         "chernaya_sirena"
@@ -345,8 +345,8 @@
     ],
     "fears": [
         {
-            "target": "ship_captain",
-            "description": "Капитан «Чёрной Сирены» (ship_captain) — его бывший командир, знает о дезертирстве и краже судовой казны",
+            "target": "capitan",
+            "description": "Капитан «Чёрной Сирены» (capitan) — его бывший командир, знает о дезертирстве и краже судовой казны",
             "source": "big_secret"
         },
         {

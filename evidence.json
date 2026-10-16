@@ -5433,7 +5433,7 @@
                 "characters": [
                     "sailor",
                     "doctor",
-                    "ship_captain"
+                    "capitan"
                 ],
                 "locations": [
                     "sailor_room"
@@ -8642,7 +8642,7 @@
                 ],
                 "strongly_indicates": [
                     "Корабль связан с Моряком (sailor) и контрабандой (event_002, event_003, event_005)",
-                    "Капитан «Чёрной Сирены» (ship_captain) ищет Моряка как дезертира"
+                    "Капитан «Чёрной Сирены» (capitan) ищет Моряка как дезертира"
                 ],
                 "does_not_prove": [
                     "Моряк совершил текущее убийство",
@@ -8666,7 +8666,7 @@
             "related": {
                 "characters": [
                     "sailor",
-                    "ship_captain"
+                    "capitan"
                 ],
                 "locations": [
                     "port",
@@ -8700,7 +8700,7 @@
             "branches": [
                 {
                     "victim": "sailor",
-                    "killer": "ship_captain",
+                    "killer": "capitan",
                     "role": "secondary",
                     "note": "дезертирство/казна"
                 },
