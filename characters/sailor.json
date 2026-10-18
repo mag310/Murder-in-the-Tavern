@@ -264,7 +264,7 @@
         {
             "time": "night",
             "location": "sailor_room",
-            "activity": "спит в комнате гостя",
+            "activity": "23:00–24:00 — спит; 22:30 — готовится ко сну",
             "note": "скрыто хранит улики/личное"
         },
         {
@@ -280,14 +280,15 @@
         },
         {
             "time": "evening",
-            "location": "smuggler_storage",
-            "activity": "привозит конкретные запрещённые товары (Devil's Bane, Pesh, Flayleaf, Grit — инструменты культа Дагона) Трактирщику"
+            "location": "sailor_room",
+            "activity": "20:00 — поднимается в свою комнату; 20:30–22:00 — ведёт бухгалтерию, занимается делами",
+            "note": "по таблице расписания 01-chapter-1.md (день 1)"
         },
         {
             "time": "midnight",
             "location": "tavern_yard",
             "activity": "следит за таверной, опасается, что Врач выдал его прошлое",
-            "note": "см. sailor.knowledge: suspects Врач"
+            "note": "см. sailor.knowledge: suspects Врач; событие после дня 1"
         }
     ],
     "organizations": [
