@@ -271,7 +271,8 @@
 - [ ] **Карта заднего двора `maps/backyard.tmx`** — создать. Локация `backyard` (задний двор) создана в `locations/`,
   добавлена в `location_graph.mermaid`, `flood_mechanic.json` (+4..+6), `quay/tavern_yard/tavern_hall` — но .tmx-карты
   нет. На ней: восточная дверь (→ tavern_hall), тропа вокруг таверны (→ tavern_yard), лесенка (→ quay), обрыв (→ river),
-  сундук с контрабандой (contraband_crate).
+  уличный вход в подвал (→ kitchen_storage/F2), два домика (B8 Домик контрабандистов, B9 Домик обслуживающего
+  персонала), деревянный ящик с бытовым инвентарём.
 - [ ] **`adivian_bridge`** — сейчас `gameplay` (parent `road`); по решению автора город/тракт/мост — не карты, `river`
   и `road` уже `context`. Перевести `adivian_bridge` в `context` при следующем проходе.
 

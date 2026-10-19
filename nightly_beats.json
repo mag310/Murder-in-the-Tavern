@@ -200,8 +200,18 @@
                 },
                 {
                     "npc": "detective",
-                    "action": "продолжает ужин вместе с остальными постояльцами",
-                    "location": "tavern_hall"
+                    "action": "спит",
+                    "location": "detective_room"
+                },
+                {
+                    "npc": "tavern_staff",
+                    "action": "спит (культисты Дагона; при нападении на Витторию могут защищать её)",
+                    "location": "staff_cabin"
+                },
+                {
+                    "npc": "smugglers",
+                    "action": "спит (люди Корина = контрабандисты; НЕ культисты)",
+                    "location": "smugglers_cabin"
                 }
             ]
         },
@@ -238,6 +248,16 @@
                     "npc": "detective",
                     "action": "непринуждённо общается с другими постояльцами в таверне",
                     "location": "tavern_hall"
+                },
+                {
+                    "npc": "tavern_staff",
+                    "action": "помогает с готовкой ужина (культисты Дагона; см. 96-cult-of-dagon.md)",
+                    "location": "kitchen"
+                },
+                {
+                    "npc": "smugglers",
+                    "action": "охраняет задний двор; готовит себя ко сну",
+                    "location": "smugglers_cabin"
                 }
             ]
         },
@@ -404,6 +424,16 @@
                     "npc": "tavern_keeper",
                     "action": "готовится ко сну в своей комнате",
                     "location": "tavern_keeper_room"
+                },
+                {
+                    "npc": "tavern_staff",
+                    "action": "готовится ко сну (культисты Дагона; см. 96-cult-of-dagon.md)",
+                    "location": "staff_cabin"
+                },
+                {
+                    "npc": "smugglers",
+                    "action": "готовится ко сну (люди Корина = контрабандисты; НЕ культисты)",
+                    "location": "smugglers_cabin"
                 }
             ]
         },

@@ -43,6 +43,8 @@ inputs = [
     v03 / "27-2-B5-woodpile.md",
     v03 / "28-2-B6-backyard.md",
     v03 / "29-2-B7-wife_grave.md",
+    v03 / "29-2-B8-smugglers_cabin.md",
+    v03 / "30-2-B9-staff_cabin.md",
     v03 / "30-2-C-tavern.md",
     v03 / "31-2-C1-tavern_hall.md",
     v03 / "32-2-C2-kitchen.md",
@@ -94,6 +96,8 @@ inputs = [
     v03 / "92-Westcrown.md",
     v03 / "93-dottari.md",
     v03 / "94-Order-of-the-Rack.md",
+    v03 / "95-Lacrime-della-madreperla.md",
+    v03 / "96-cult-of-dagon.md",
     v03 / "98-bestiarium.md",
 ]
 missing = [p.name for p in inputs if not p.exists()]
