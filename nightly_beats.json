@@ -1,12 +1,12 @@
 {
     "title": "Ежечасные «живые» события (NPC живут своей жизнью)",
-    "note": "Каждый игровой час в таверне происходят бытовые/тайные действия NPC: общаются, едят, убивают, считают деньги, грузят товары, молятся. Это создаёт «живой» мир и даёт игрокам шанс случайно застать NPC не в той локации (по расписанию). Привязка к фазам из events.json (project.timeline) и к daily_schedule каждого персонажа.",
-    "principle": "NPC живут своей жизнью независимо от игроков. Ежечасные события = их действия + тайные сцены. Тайное время (ночь) — кульминация: культисты в cult_lair, контрабанда в basement/smuggler_storage, наблюдение на мансарде (mansard).",
+    "note": "Каждый игровой час в таверне происходят бытовые/тайные действия NPC: общаются, едят, убивают, считают деньги, грузят товары, молятся. Это создаёт «живой» мир и даёт игрокам шанс случайно застать NPC не в той локации (по расписанию). Привязка к фазам из events.json (project.timeline) и к таблице расписания главы 2 (19-2-chapter-2.md).",
+    "principle": "NPC живут своей жизнью независимо от игроков. Ежечасные события = их действия + тайные сцены. Тайное время (ночь) — кульминация: культисты в cult_lair, контрабанда в smuggler_storage, наблюдение на мансарде (mansard).",
     "beats": [
         {
             "phase": "chapter_2_tavern",
-            "hour": "17:30–20:00",
-            "note": "Окно прибытия партии. Быстрый маршрут (дорога, §D3) → 18:30; ночной маршрут через §F2 (ночь в городе) → до 20:00. Расписание мира (NPC) не сдвигается от задержки партии — NPC живут своим расписанием.",
+            "hour": "18:30–18:45",
+            "note": "Окно прибытия партии. Быстрый маршрут (дорога, §D3) → 18:30; ночной маршрут через §F2 (ночь в городе) → до 20:00. Расписание мира (NPC) не сдвигается от задержки партии.",
             "beats": [
                 {
                     "npc": "players",
@@ -16,172 +16,462 @@
                 },
                 {
                     "npc": "players",
-                    "action": "18:00 — проезжают Адивианский мост (adivian_bridge, сцена; Адские рыцари; ялик на причале)",
+                    "action": "18:00 — проезжают Адивианский мост (adivian_bridge; Адские рыцари; ялик на причале)",
                     "event": "event_025",
                     "location": "adivian_bridge"
                 },
                 {
                     "npc": "players",
-                    "action": "18:30 (быстрый маршрут) — приезжают в таверну, ставят коней в конюшню (stable), идут в общий зал; 20:00 (ночной маршрут через §F2) — приезжают в таверну",
+                    "action": "18:30 (быстрый маршрут) — приезжают в таверну, ставят коней в конюшню (stable), идут в общий зал; 20:00 (ночной маршрут) — приезжают в таверну",
                     "location": "tavern_yard"
                 },
                 {
-                    "npc": "detective",
-                    "action": "18:45 (быстрый маршрут) — игроки попадают в зал; Детектив сидит у камина (пьян, в тепле), их приветствует; attitude +1 (см. 03-chapter-2.md, Этап 2.1). При ночном маршруте (§F2) вступление в зал — позже 20:00.",
-                    "event": "event_026",
-                    "location": "tavern_hall"
-                }
-            ]
-        },
-        {
-            "phase": "chapter_2_tavern",
-            "hour": "19:00–19:45",
-            "beats": [
-                {
                     "npc": "artist",
-                    "action": "19:00 — спускается с мансарды, Официантка флиртует с ним, Доктор раздражён",
-                    "event": "event_027",
-                    "location": "tavern_hall"
+                    "action": "прибытие в «Слёзы устрицы» (с тракта из Весткроуна)",
+                    "location": "tavern_yard"
                 },
-                {
-                    "npc": "waitress",
-                    "action": "19:00–19:15 — флиртует с Художником (event_027); 19:30 — накрывает ужин для постояльцев",
-                    "event": "event_027",
-                    "location": "tavern_hall"
-                },
-                {
-                    "npc": "doctor",
-                    "action": "19:15 — слушает флирт Официантки с Художником (event_027); 19:30 — конфликт с Трактирщиком на кухне",
-                    "event": "event_028",
-                    "location": "kitchen"
-                },
-                {
-                    "npc": "detective",
-                    "action": "19:15 — арендует комнату, чтобы переждать ливень",
-                    "event": "event_029",
-                    "location": "tavern_hall"
-                },
-                {
-                    "npc": "tavern_keeper",
-                    "action": "19:30 — конфликт с Доктором на кухне (повышенный тон, хлопок дверью)",
-                    "event": "event_028",
-                    "location": "kitchen"
-                },
-                {
-                    "npc": "tavern_keeper",
-                    "action": "19:45 — предлагает гостям заночевать (ливень)",
-                    "event": "event_029",
-                    "location": "tavern_hall"
-                }
-            ]
-        },
-        {
-            "phase": "chapter_2_tavern",
-            "hour": "20:00–22:00",
-            "beats": [
-                {
-                    "npc": "waitress",
-                    "action": "обслуживает вечерний зал, наблюдает за гостями",
-                    "location": "tavern_hall",
-                    "source": "daily_schedule.evening"
-                },
-                {
-                    "npc": "doctor",
-                    "action": "беседует с Официанткой, конфликт с Трактирщиком",
-                    "location": "tavern_hall",
-                    "source": "daily_schedule.evening"
-                },
-                {
-                    "npc": "detective",
-                    "action": "расследует серию смертей, допрашивает",
-                    "location": "tavern_hall",
-                    "source": "daily_schedule.evening"
-                }
-            ]
-        },
-        {
-            "phase": "chapter_2_tavern",
-            "hour": "20:30–22:00",
-            "note": "Художник и Моряк — по таблице расписания 01-chapter-1.md (день 1).",
-            "beats": [
                 {
                     "npc": "sailor",
-                    "action": "20:00 — поднимается в свою комнату; 20:30–22:00 — ведёт бухгалтерию, занимается делами",
-                    "location": "sailor_room",
-                    "source": "daily_schedule.evening"
+                    "action": "сидит в центральном зале, обсуждает вопросы с Трактирщиком",
+                    "location": "tavern_hall"
                 },
                 {
-                    "npc": "artist",
-                    "action": "20:00 — заканчивает ужин и уходит в мансарду; 20:30 — тайно покупает Лист-живодёр (Flayleaf) у Трактирщика",
-                    "location": "tavern_hall",
-                    "source": "daily_schedule.evening"
+                    "npc": "detective",
+                    "action": "общается с Доктором, просит отчёты о вскрытии",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "общается с Детективом; рассказывает, что отчёты о вскрытии пока не готовы",
+                    "location": "tavern_hall"
                 },
                 {
                     "npc": "tavern_keeper",
-                    "action": "20:30 — тайно продаёт Художнику Лист-живодёр (Flayleaf); знает о его зависимости",
-                    "location": "tavern_hall",
-                    "source": "daily_schedule.evening"
+                    "action": "контролирует приготовление ужина",
+                    "location": "kitchen"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "помогает с приготовлением ужина",
+                    "location": "kitchen"
                 }
             ]
         },
         {
             "phase": "chapter_2_tavern",
-            "hour": "21:00–22:30",
+            "hour": "18:45",
             "beats": [
                 {
+                    "npc": "detective",
+                    "action": "18:45 (быстрый маршрут) — игроки попадают в зал; Детектив сидит у камина (пьян, в тепле), их приветствует; attitude +1. При ночном маршруте вступление в зал — позже 20:00.",
+                    "event": "event_026",
+                    "location": "tavern_hall"
+                },
+                {
                     "npc": "artist",
-                    "action": "21:00–22:30 — рисует в мастерской (треш-расчленёнка; рисует утреннюю сцену убийства)",
-                    "location": "artist_room",
-                    "source": "daily_schedule.evening"
+                    "action": "поднимается в мансарду переодеться после дороги и убрать зарисовки",
+                    "location": "artist_room"
                 }
             ]
         },
         {
             "phase": "chapter_2_tavern",
-            "hour": "22:00–00:00",
+            "hour": "19:00",
+            "beats": [
+                {
+                    "npc": "artist",
+                    "action": "спускается с мансарды в зал",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "флиртует с Художником",
+                    "event": "event_027",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "спускается в зал",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "detective",
+                    "action": "предлагает остаться из-за ливня",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "сидит в центральном зале",
+                    "location": "tavern_hall"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "19:15",
+            "beats": [
+                {
+                    "npc": "artist",
+                    "action": "общается с Официанткой",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "флиртует с Художником",
+                    "event": "event_027",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "слушает флирт Официантки с Художником (раздражён)",
+                    "event": "event_027",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "detective",
+                    "action": "арендует комнату, чтобы переждать ливень",
+                    "event": "event_029",
+                    "location": "tavern_hall"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "19:30",
+            "beats": [
+                {
+                    "npc": "artist",
+                    "action": "ужинает вместе с остальными постояльцами",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "ужинает вместе с остальными постояльцами",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "detective",
+                    "action": "ужинает вместе с остальными постояльцами",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "накрывает ужин для постояльцев",
+                    "location": "kitchen"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "конфликт с Трактирщиком",
+                    "event": "event_028",
+                    "location": "kitchen"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "конфликт с Доктором (повышенный тон, хлопок дверью)",
+                    "event": "event_028",
+                    "location": "kitchen"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "19:45",
             "beats": [
                 {
                     "npc": "tavern_keeper",
-                    "action": "закрывает таверну, проверяет счёт и переписку; тайно хранит контрабанду в тайнике кабинета",
-                    "location": "tavern_keeper_office",
-                    "source": "daily_schedule.night"
+                    "action": "предлагает гостям заночевать из-за ливня",
+                    "event": "event_029",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "поднимается в свою комнату",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "artist",
+                    "action": "продолжает ужин вместе с остальными постояльцами",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "продолжает ужин вместе с остальными постояльцами",
+                    "location": "tavern_hall"
+                },
+                {
+                    "npc": "detective",
+                    "action": "продолжает ужин вместе с остальными постояльцами",
+                    "location": "tavern_hall"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "20:00",
+            "beats": [
+                {
+                    "npc": "artist",
+                    "action": "заканчивает с ужином, уходит в мансарду",
+                    "location": "artist_room"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "поднимается в свою комнату",
+                    "location": "sailor_room"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "приносит ужин в комнату Доктора; ужинают вместе",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "ужинает вместе с Официанткой в своей комнате",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "ужинает в своём рабочем кабинете",
+                    "location": "tavern_keeper_office"
+                },
+                {
+                    "npc": "detective",
+                    "action": "непринуждённо общается с другими постояльцами в таверне",
+                    "location": "tavern_hall"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "20:30",
+            "beats": [
+                {
+                    "npc": "artist",
+                    "action": "тайно покупает Лист-живодёр (Flayleaf) у Трактирщика",
+                    "location": "tavern_keeper_office"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "тайно продаёт Художнику Лист-живодёр (Flayleaf); знает о его зависимости",
+                    "location": "tavern_keeper_office"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "ведёт бухгалтерию, занимается делами",
+                    "location": "sailor_room"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "ужинает вместе с Доктором в комнате Доктора",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "ужинает вместе с Официанткой в своей комнате",
+                    "location": "doctor_room"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "21:00",
+            "beats": [
+                {
+                    "npc": "artist",
+                    "action": "рисует в мастерской (утренняя сцена убийства)",
+                    "location": "artist_room"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "общается с Трактирщиком в его рабочем кабинете",
+                    "location": "tavern_keeper_office"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "общается с Моряком в своём рабочем кабинете",
+                    "location": "tavern_keeper_office"
+                },
+                {
+                    "npc": "detective",
+                    "action": "общается с Доктором; всё ещё ждёт отчёты",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "общается с Детективом (отчёты ещё не готовы)",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "подготавливает комнату для Детектива",
+                    "location": "detective_room"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "21:30",
+            "beats": [
+                {
+                    "npc": "artist",
+                    "action": "рисует в мастерской",
+                    "location": "artist_room"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "общается с Трактирщиком в его рабочем кабинете",
+                    "location": "tavern_keeper_office"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "общается с Моряком в своём рабочем кабинете",
+                    "location": "tavern_keeper_office"
+                },
+                {
+                    "npc": "detective",
+                    "action": "готовится ко сну",
+                    "location": "detective_room"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "занимается оформлением отчётов о вскрытии",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "подготавливает комнату для игроков",
+                    "location": "guest_room_empty_1"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "22:00",
+            "beats": [
+                {
+                    "npc": "artist",
+                    "action": "молится Шелин, умывается, готовится ко сну",
+                    "location": "artist_room"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "проверяет груз и процесс фасовки контрабанды",
+                    "location": "smuggler_storage"
+                },
+                {
+                    "npc": "detective",
+                    "action": "спит (следы пьянства, detective_drunk)",
+                    "location": "detective_room"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "занимается оформлением отчётов о вскрытии",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "общается с поварами на кухне",
+                    "location": "kitchen"
                 },
                 {
                     "npc": "waitress",
                     "action": "делает записи в дневник (waitress_diary) перед сном",
                     "location": "waitress_room",
-                    "source": "daily_schedule.night"
-                },
-                {
-                    "npc": "detective",
-                    "action": "спит в комнате гостя (следы пьянства, detective_drunk)",
-                    "location": "detective_room",
-                    "source": "daily_schedule.night"
-                },
-                {
-                    "npc": "dead_wife",
-                    "action": "обитает у Могилы жены (wife_grave)",
-                    "location": "wife_grave",
-                    "source": "daily_schedule.night"
+                    "note": "по daily_schedule; в таблице главы 2 в 22:00 не указано"
                 }
             ]
         },
         {
             "phase": "chapter_2_tavern",
-            "hour": "22:30–24:00",
-            "note": "Художник и Моряк — по таблице расписания 01-chapter-1.md (день 1).",
+            "hour": "22:30",
             "beats": [
                 {
+                    "npc": "artist",
+                    "action": "спит",
+                    "location": "artist_room"
+                },
+                {
                     "npc": "sailor",
-                    "action": "22:30 — готовится ко сну; 23:00–24:00 — спит",
-                    "location": "sailor_room",
-                    "source": "daily_schedule.night"
+                    "action": "готовится ко сну",
+                    "location": "sailor_room"
+                },
+                {
+                    "npc": "doctor",
+                    "action": "занимается оформлением отчётов о вскрытии",
+                    "location": "doctor_room"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "готовится ко сну в своей комнате",
+                    "location": "tavern_keeper_room"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "23:00",
+            "beats": [
+                {
+                    "npc": "doctor",
+                    "action": "помогает подготовиться к ритуалу поклонения Дагону (подвал таверны)",
+                    "location": "basement"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "готовится к ритуалу поклонения Дагону (подвал таверны)",
+                    "location": "basement"
+                },
+                {
+                    "npc": "tavern_keeper",
+                    "action": "спит",
+                    "location": "tavern_keeper_room"
+                },
+                {
+                    "npc": "sailor",
+                    "action": "спит",
+                    "location": "sailor_room"
                 },
                 {
                     "npc": "artist",
-                    "action": "22:00–22:30 — рисует; 23:00 — молится Шелин, умывается, готовится ко сну; 23:30–24:00 — спит",
-                    "location": "artist_room",
-                    "source": "daily_schedule.night"
+                    "action": "спит",
+                    "location": "artist_room"
+                },
+                {
+                    "npc": "detective",
+                    "action": "спит",
+                    "location": "detective_room"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "23:30",
+            "beats": [
+                {
+                    "npc": "doctor",
+                    "action": "помогает подготовиться к ритуалу поклонения Дагону (логово культа)",
+                    "location": "cult_lair"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "готовится к ритуалу поклонения Дагону (логово культа)",
+                    "location": "cult_lair"
+                }
+            ]
+        },
+        {
+            "phase": "chapter_2_tavern",
+            "hour": "24:00",
+            "beats": [
+                {
+                    "npc": "doctor",
+                    "action": "участвует в ритуале поклонения Дагону в логове культа",
+                    "location": "cult_lair"
+                },
+                {
+                    "npc": "waitress",
+                    "action": "проводит ритуал поклонения Дагону в логове культа; вызывает потоп",
+                    "location": "cult_lair"
                 }
             ]
         },
@@ -191,39 +481,38 @@
             "beats": [
                 {
                     "npc": "waitress",
-                    "action": "проводит собрание культа (тайная смена)",
-                    "location": "cult_lair",
-                    "source": "daily_schedule.midnight"
+                    "action": "проводит ритуал культа (тайная смена)",
+                    "location": "cult_lair"
                 },
                 {
                     "npc": "doctor",
-                    "action": "участвует в собрании культа",
-                    "location": "cult_lair",
-                    "source": "daily_schedule.midnight"
+                    "action": "участвует в ритуале культа",
+                    "location": "cult_lair"
                 },
                 {
                     "npc": "dead_wife",
-                    "action": "присутствует у входа к логову культа",
-                    "location": "cult_lair",
-                    "source": "daily_schedule.midnight"
+                    "action": "обитает у могилы жены (wife_grave) и у входа к логову культа",
+                    "location": "wife_grave"
                 },
                 {
                     "npc": "tavern_keeper",
-                    "action": "тайно получает контрабанду от Моряка (event_005)",
-                    "location": "tavern_keeper_office",
-                    "source": "daily_schedule.midnight"
+                    "action": "спит",
+                    "location": "tavern_keeper_room"
                 },
                 {
                     "npc": "sailor",
-                    "action": "следит за таверной во дворе; опасается, что Врач выдал его прошлое",
-                    "location": "tavern_yard",
-                    "source": "daily_schedule.midnight"
+                    "action": "спит",
+                    "location": "sailor_room"
                 },
                 {
                     "npc": "artist",
-                    "action": "рисует/присматривает с мансарды (возможный сценарий: расправа над участниками Дня Гнева 23 Рова (сентября) 4710 AR)",
-                    "location": "mansard",
-                    "source": "daily_schedule.midnight"
+                    "action": "спит",
+                    "location": "artist_room"
+                },
+                {
+                    "npc": "detective",
+                    "action": "спит",
+                    "location": "detective_room"
                 }
             ]
         },

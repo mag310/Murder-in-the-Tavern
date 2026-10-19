@@ -1,0 +1,18 @@
+{
+    "id": "artist_workshop",
+    "name": "Мастерская Художника",
+    "type": "gameplay",
+    "parent_location": "mansard",
+    "description": "Художественная мастерская Художника на мансарде (слой artist_workshop на карте mansard.tmx): мольберт, холсты, краски, картины-треш-расчленёнка, изображение радужной певчей птицы (символ Шелин), два камина. От мастерской дверью отделена жилая комната Художника (artist_room).",
+    "characters": [
+        "artist"
+    ],
+    "clues": [
+        "artist_traces",
+        "artist_workshop",
+        "artist_sketches",
+        "rainbow_bird"
+    ],
+    "appearance": "Низкий потолок, скошенные балки, пыль. У окна — мольберт, холсты, краски. На стенах — картины-расчленёнка, написанные талантливо; рядом — радужная певчая птица. На полу — следы грязи к лестнице и к двери в жилую комнату Художника. Пахнет краской, льняным маслом и... кровью.",
+    "note_layout": "Слой artist_workshop на mansard.tmx: easel (мольберт), paintings-artist_cube/masonry/sketch/bacon, rainbow_bird, 2 камина (fireplace-artist), worktable-artist, stairs-down-foyer (вниз, в фойе 2-го этажа)."
+}
