@@ -55,9 +55,27 @@ SAVE_ROW = {"Спасброски": ("Saves", "saves")}
 def escape(s: str) -> str:
     # Typst markup-mode escapes for the characters that can break a
     # [...] content block or start a span/code/raw/math.
-    for ch in "\\[]{}*_#$@`":
-        s = s.replace(ch, "\\" + ch)
-    return s
+    #
+    # A character that is already escaped (``\x`` with ``x`` an escapable
+    # special) is left untouched, so ``escape(neutralize(x))`` does not
+    # double-escape the ``\_`` that ``neutralize`` now emits for underscores.
+    specials = set("\\[]{}*_#$@`")
+    out: list[str] = []
+    i = 0
+    n = len(s)
+    while i < n:
+        c = s[i]
+        if c == "\\" and i + 1 < n and s[i + 1] in specials:
+            out.append(c)
+            out.append(s[i + 1])
+            i += 2
+            continue
+        if c in specials:
+            out.append("\\" + c)
+        else:
+            out.append(c)
+        i += 1
+    return "".join(out)
 
 
 def _fmt(v: str) -> str:
@@ -75,9 +93,11 @@ def neutralize(s: str) -> str:
     """Make plain text inert so it cannot break a Typst content block.
 
     * ``**`` is removed -- a lone/unbalanced ``*`` closes an emphasis span;
-    * ``_`` is removed -- ``_`` starts an emphasis span too (e.g. an
+    * ``_`` is escaped to ``\\_`` -- ``_`` starts an emphasis span (e.g. an
       identifier ``kill_grid`` is read as ``kill`` + ``_grid...`` emphasis),
-      and an unbalanced ``_`` -> "unclosed delimiter";
+      and an unbalanced ``_`` -> "unclosed delimiter"; escaping it keeps the
+      literal underscore (``artist_workshop`` stays readable) while staying
+      inert; the caller's :func:`escape` leaves the existing ``\\_`` alone;
     * `` `` `` (backticks) are removed -- in a ``[...]`` block a backtick
       starts a raw string, and a raw string containing ``]`` or a line break
       yields "unclosed raw text" (this was the cause of the ``.json``
@@ -91,7 +111,10 @@ def neutralize(s: str) -> str:
     """
     s = s.replace("**", "")
     s = s.replace("`", "")
-    s = s.replace("_", "")
+    # Escape an underscore that is not already escaped, so a second
+    # neutralisation pass (some values flow through it twice) does not turn
+    # ``\_`` into ``\\\_``.
+    s = re.sub(r"(?<!\\)_", r"\\_", s)
     # Only a dot sandwiched between two word chars is member access.  A dot
     # followed by a space / newline / end is a sentence end and stays a dot.
     s = _neutralize(s)
@@ -1418,6 +1441,14 @@ def _render_checklist(buf: list[str]) -> str:
     def _is_section(s: str) -> bool:
         return re.match(r"^(can|cannot)\s*:", s, re.IGNORECASE) is not None
 
+    # Expand compact one-line checklists: ``can: X · cannot: Y`` (and the
+    # variant with a ``•`` separator) become separate section lines so the
+    # section/state machine below sees a proper ``can:`` / ``cannot:`` start.
+    expanded: list[str] = []
+    for raw in buf:
+        for seg in re.split(r"\s*[·•]\s*", raw):
+            expanded.append(seg)
+
     def _item_of(s: str) -> str:
         # Drop a leading "- " / "* " bullet, then strip.
         return re.sub(r"^[-*+]\s*", "", s).strip()
@@ -1433,7 +1464,7 @@ def _render_checklist(buf: list[str]) -> str:
     cannot: list[str] = []
     section: str = ""  # "can" | "cannot" | ""
     cur: str = ""      # the item currently being built (raw, un-escaped)
-    for ln in buf:
+    for ln in expanded:
         s = ln.strip()
         if s == "":
             continue
@@ -1484,9 +1515,11 @@ def _render_checklist(buf: list[str]) -> str:
     def _tuple(items: list[str]) -> str:
         if not items:
             return "none"
+        # Trailing comma keeps a single-element list an array in Typst (``(x,)``
+        # rather than the parenthesised content ``(x)``).
         return "(" + ", ".join(
             f"[{escape(neutralize(it))}]" for it in items
-        ) + ")"
+        ) + ",)"
 
     parts = []
     if can:
