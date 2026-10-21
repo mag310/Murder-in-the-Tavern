@@ -132,11 +132,17 @@ def _neutralize(s: str) -> str:
     ``Westcrown_map_eng.png`` would otherwise be mangled into
     ``Westcrown:mapeng:png``.  Both quoted (``"…png"``) and bare code-block
     paths are protected."""
-    # Split the text into image-path segments (left verbatim, so their dots
+    # Split the text into file-path segments (left verbatim, so their dots
     # survive) and the rest (where the member-access fix applies).  A path
-    # segment is any run of path chars ending in ".png" (covers
-    # "../../locations/Westcrown_map_eng.png" and a bare "locations/...png").
-    parts = re.split(r"([^\s()]+\.png)", s)
+    # segment is any run of path chars ending in a known file extension (covers
+    # "../../locations/Westcrown_map_eng.png", "flood_mechanic.json",
+    # "21-2-A1.md", "maps/basement.tmx", ...).  Protecting these keeps the
+    # extension dot intact instead of mangling "todo.md" into "todo:md".
+    _file_ext = (
+        r"(?:png|jpe?g|webp|gif|svg|json|ya?ml|toml|csv|md|typ|py|txt|tmx|xml"
+        r"|html?|css|js|ts|sh|ps1|bat|cmd|pdf)"
+    )
+    parts = re.split(rf"([^\s()]+\.{_file_ext})(?![A-Za-z0-9_])", s)
     out: list[str] = []
     for k, part in enumerate(parts):
         if k % 2 == 1:  # an image-path segment: leave its dots untouched
@@ -147,6 +153,83 @@ def _neutralize(s: str) -> str:
             # abbreviation and stays a dot.
             out.append(re.sub(r"([A-Za-z0-9_])\.([A-Za-z0-9_])", r"\1:\2", part))
     return "".join(out)
+
+
+_MD_BOLDITAL_RE = re.compile(
+    r"(?<!\*)\*\*\*(?=\S)(.+?)(?<=\S)\*\*\*(?!\*)", re.DOTALL
+)
+_MD_BOLD_RE = re.compile(
+    r"\*\*(?=\S)(.+?)(?<=\S)\*\*|__(?=\S)(.+?)(?<=\S)__", re.DOTALL
+)
+_MD_ITAL_RE = re.compile(
+    r"(?<!\*)\*(?!\*)(?=\S)(.+?)(?<=\S)\*(?!\*)"
+    r"|(?<!_)_(?!_)(?=\S)(.+?)(?<=\S)_(?!_)",
+    re.DOTALL,
+)
+
+
+def _stash_emphasis(s: str) -> tuple[str, list[str]]:
+    """Convert markdown emphasis into Typst emphasis, stashing each span as a
+    placeholder so ``neutralize``/``escape`` cannot drop or backslash-escape it
+    (the old behaviour turned ``*italic*`` into ``\\*italic\\*`` and silently
+    dropped ``**bold**``).
+
+    Inline code (`` ``...`` ``) is stashed FIRST: its underscores (e.g.
+    ``kitchen_storage``) must not be mistaken for italic markers — pairing
+    them across the line swallowed text and leaked placeholders."""
+    spans: list[str] = []
+
+    def _wrap(inner: str, marker: str, close: "str | None" = None) -> str:
+        inner = _clean(inner)
+        spans.append(marker + inner + (close if close is not None else marker))
+        return f"\x00EMPH{len(spans) - 1}\x00"
+
+    def _bold(m: "re.Match[str]") -> str:
+        return _wrap(next(g for g in m.groups() if g is not None), "*")
+
+    def _ital(m: "re.Match[str]") -> str:
+        return _wrap(next(g for g in m.groups() if g is not None), "_")
+
+    def _boldital(m: "re.Match[str]") -> str:
+        # ``***X***`` = bold + italic -> Typst ``*_X_*``.
+        return _wrap(next(g for g in m.groups() if g is not None), "*_", "_*")
+
+    def _code(m: "re.Match[str]") -> str:
+        # Inline code is not emphasis: its content is cleaned (backticks
+        # dropped, underscores escaped) and re-inserted as-is.
+        spans.append(_clean(m.group(1)))
+        return f"\x00EMPH{len(spans) - 1}\x00"
+
+    s = re.sub(r"`([^`]+)`", _code, s)
+    s = _MD_BOLDITAL_RE.sub(_boldital, s)
+    s = _MD_BOLD_RE.sub(_bold, s)
+    s = _MD_ITAL_RE.sub(_ital, s)
+    return s, spans
+
+
+def _restore_emph(s: str, spans: list[str]) -> str:
+    """Re-insert stashed emphasis/code spans.
+
+    Iterative: a span's text may itself contain placeholders (e.g. bold
+    wrapping inline code), so keep substituting until none remain."""
+    pat = re.compile(r"\x00EMPH(\d+)\x00")
+    for _ in range(16):
+        if not pat.search(s):
+            break
+        s = pat.sub(lambda m: spans[int(m.group(1))], s)
+    return s
+
+
+def _escape_prose(s: str) -> str:
+    """Neutralise + escape a prose fragment while preserving markdown
+    emphasis (``**bold**`` -> ``*bold*``, ``*italic*``/``_italic_`` ->
+    ``_italic_``)."""
+    s, spans = _stash_emphasis(s)
+    s = neutralize(s)
+    s = escape(s)
+    if spans:
+        s = _restore_emph(s, spans)
+    return s
 
 
 def typst_inline(line: str) -> str:
@@ -208,6 +291,7 @@ def typst_inline(line: str) -> str:
         _stashlink,
         s,
     )
+    s, emph_spans = _stash_emphasis(s)
     s = neutralize(s)
     s = escape(s)
     # Image paths must NOT be neutralised/escaped: neutralize() would turn
@@ -253,6 +337,8 @@ def typst_inline(line: str) -> str:
         _reinsertlink,
         s,
     )
+    if emph_spans:
+        s = _restore_emph(s, emph_spans)
     return s
 
 
@@ -286,7 +372,7 @@ def _esc(s: str) -> str:
     m = re.match(r"^((?:#A+|#R|#F)\s*)", s)
     icon = m.group(1) if m else ""
     rest = s[m.end():] if m else s
-    return icon + escape(rest)
+    return icon + _escape_prose(rest)
 
 
 def _icon_for(ability: str) -> str:
@@ -323,7 +409,7 @@ def _esc(s: str) -> str:
     m = re.match(r"^((?:#A+|#R|#F)\s*)", s)
     icon = m.group(1) if m else ""
     rest = s[m.end():] if m else s
-    return icon + escape(rest)
+    return icon + _escape_prose(rest)
 
 
 # Race -> trait (PF2e creature size is "Medium" / "Средний" for these NPCs).
@@ -969,6 +1055,7 @@ def render_blockquote(text: str) -> str:
     flowing like the source rather than breaking at every source newline.
     """
     text = re.sub(r"^\s*\n", "", text)
+    text, _emph_spans = _stash_emphasis(text)
     text = neutralize(text)
     # A blank line (one or more) is a paragraph break.  Protect it with an
     # unlikely placeholder token that does NOT contain a newline, so the
@@ -985,6 +1072,8 @@ def render_blockquote(text: str) -> str:
     text = text.replace(_PARA, "\n\n")
     text = text.strip()
     text = escape(text)
+    if _emph_spans:
+        text = _restore_emph(text, _emph_spans)
     return f"#aloud[\n{text}\n]"
 
 
@@ -1032,6 +1121,7 @@ def _normalize_fenced_body(buf: list[str]) -> str:
     if not raw:
         return ""
     raw = re.sub(r"^\s*\n", "", raw)
+    raw, _emph_spans = _stash_emphasis(raw)
     raw = neutralize(raw)
     # A blank line (one or more) is a paragraph break -> "\n\n".
     raw = re.sub(r"\n\s*\n+", "\n\n", raw)
@@ -1049,7 +1139,10 @@ def _normalize_fenced_body(buf: list[str]) -> str:
     # kept list-item newlines).
     raw = re.sub(r"[ \t]+", " ", raw)
     raw = raw.strip()
-    return escape(raw)
+    raw = escape(raw)
+    if _emph_spans:
+        raw = _restore_emph(raw, _emph_spans)
+    return raw
 
 
 def _render_aloud(buf: list[str], title: str = "") -> str:
@@ -1089,8 +1182,8 @@ def render_note(title: str, body: str) -> str:
     if not body:
         return ""
     title = neutralize(title)
-    body = neutralize(body)
-    return f"#note[\n{escape(title)}\n\n{escape(body)}\n]"
+    body = _escape_prose(body)
+    return f"#note[\n{escape(title)}\n\n{body}\n]"
 
 
 def render_attention(title: str, body: str) -> str:
@@ -1098,8 +1191,8 @@ def render_attention(title: str, body: str) -> str:
     if not body:
         return ""
     title = neutralize(title)
-    body = neutralize(body)
-    return f"#attention[\n{escape(title)}\n\n{escape(body)}\n]"
+    body = _escape_prose(body)
+    return f"#attention[\n{escape(title)}\n\n{body}\n]"
 
 
 # The candor/attitude level keys the `answers()` function in pf2e-style/lib.typ
@@ -1224,15 +1317,15 @@ def _render_answers_group(buf: list[str], title: str = "") -> str:
     # vararg list is well-formed; a trailing comma is allowed in Typst.
     parts: list[str] = []
     if npc:
-        parts.append(f"  [{escape(neutralize(npc))}],")
+        parts.append(f"  [{_escape_prose(npc)}],")
     for g in groups:
         if not g["q"] and not g["levels"]:
             continue
         args = []
         if g["q"]:
-            args.append(f"q: [{escape(neutralize(g['q']))}]")
+            args.append(f"q: [{_escape_prose(g['q'])}]")
         for key, text in g["levels"]:
-            args.append(f"{key}: [{escape(neutralize(text))}]")
+            args.append(f"{key}: [{_escape_prose(text)}]")
         # if there is a question but no levels (or vice-versa), still emit.
         if args:
             # trailing comma after the closing `)` so this is a valid vararg
@@ -1357,7 +1450,7 @@ def _render_check_group(buf: list[str]) -> str:
 
     parts: list[str] = []
     if intro:
-        parts.append(f"  [{escape(neutralize(intro))}],")
+        parts.append(f"  [{_escape_prose(intro)}],")
     for g in groups:
         if not g["skill"] and not g["levels"]:
             continue
@@ -1366,10 +1459,10 @@ def _render_check_group(buf: list[str]) -> str:
         # it is always emitted — an empty `[]` when the markdown gave no DC
         # (the #check then renders the skill without a "DC" label).
         args = []
-        args.append(f"[{escape(neutralize(g['skill']))}]")
-        args.append(f"[{escape(neutralize(g['dc']))}]")
+        args.append(f"[{_escape_prose(g['skill'])}]")
+        args.append(f"[{_escape_prose(g['dc'])}]")
         for key, text in g["levels"]:
-            args.append(f"{key}: [{escape(neutralize(text))}]")
+            args.append(f"{key}: [{_escape_prose(text)}]")
         if args:
             parts.append("  check(" + ", ".join(args) + "),")
 
@@ -1910,7 +2003,7 @@ def _md_table_to_typst(table_lines: list[str]) -> str:
         while len(r) < ncol:
             r.append("")
         cells = [
-            f"[{escape(neutralize(c).replace('(', ' - ').replace(')', ''))}]"
+            f"[{_escape_prose(c).replace('(', ' - ').replace(')', '')}]"
             for c in r[:ncol]
         ]
         out.append("  " + ", ".join(cells) + ",")
@@ -1978,7 +2071,7 @@ def _md_table_to_pftab(table_lines: list[str], name: str = "") -> str:
         while len(r) < ncol:
             r.append("")
         cells = [
-            f"[{escape(neutralize(c).replace('(', ' - ').replace(')', ''))}]"
+            f"[{_escape_prose(c).replace('(', ' - ').replace(')', '')}]"
             for c in r[:ncol]
         ]
         out.append("  " + ", ".join(cells) + ",")
@@ -2540,7 +2633,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
         # decorative subheading and is skipped, so the ">" block that follows it
         # is emitted by the blockquote branch as an #aloud.
         if re.match(r"^#{1,6}\s", stripped) and re.search(
-            r"Важно|Внимание|GM knows|Куда ведёт|Зацепки|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
+            r"Важно|Внимание|GM knows|Истина для мастера|Что мастер знает|Куда ведёт|Зацепки|Входы|Наблюдения|Атмосфера|Тактика|Тайны|История|Обитатели|Скрытое",
             stripped,
         ):
             title = re.sub(r"^#+\s+", "", stripped).strip()
