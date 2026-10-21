@@ -1,9 +1,11 @@
 ## 1. Челия
 
+::: block
 ::: figure[Карта Челии]
 
-![Карта Челии](../../locations/Cheliax_map_rus.png)
+![Карта Челии](../../locations/Cheliax_map_rus.png h45%)
 
+:::
 :::
 
 ::: pftab[Челия (Cheliax)]

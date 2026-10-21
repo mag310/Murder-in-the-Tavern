@@ -232,6 +232,19 @@ def _escape_prose(s: str) -> str:
     return s
 
 
+def _clean_table_cell(c: str) -> str:
+    """Escape one table cell for Typst and tidy its typography.
+
+    Parentheses are kept verbatim (a cell like ``Стрелок (2)`` must not turn
+    into ``Стрелок - 2``).  A spaced hyphen used as a dash becomes an em dash,
+    and runs of spaces are collapsed, so a wrapped source row does not leave
+    ragged double spaces in the rendered table.
+    """
+    s = _escape_prose(c).strip()
+    s = re.sub(r"\s+-\s+", " — ", s)
+    return re.sub(r"[ \t]{2,}", " ", s)
+
+
 def typst_inline(line: str) -> str:
     """Convert a single markdown line to Typst-friendly inline markup.
 
@@ -2002,10 +2015,7 @@ def _md_table_to_typst(table_lines: list[str]) -> str:
     for r in rows:
         while len(r) < ncol:
             r.append("")
-        cells = [
-            f"[{_escape_prose(c).replace('(', ' - ').replace(')', '')}]"
-            for c in r[:ncol]
-        ]
+        cells = [f"[{_clean_table_cell(c)}]" for c in r[:ncol]]
         out.append("  " + ", ".join(cells) + ",")
     out.append(")")
     return "\n".join(out)
@@ -2063,18 +2073,34 @@ def _md_table_to_pftab(table_lines: list[str], name: str = "") -> str:
     else:
         cols = ", ".join(["1fr"] * ncol)      # -> "1fr, 1fr, 1fr"
     out: list[str]
+    # A tall or wide table cannot fit on one page (`pftab` defaults to
+    # `breakable: false`, which makes Typst overflow the page).  Let such
+    # tables split across pages and repeat their header row.
+    long = len(rows) >= 15 or ncol >= 6
+    brk = " breakable: true," if long else ""
     if name:
-        out = [f"#pftab([{escape(name)}], columns: ({cols}),"]
+        out = [f"#pftab([{escape(name)}], columns: ({cols}),{brk}"]
     else:
-        out = [f"#pftab(columns: ({cols}),"]
-    for r in rows:
+        # `pftab(name, columns: ..contents)` — `name` is a required positional
+        # parameter, so an untitled table must pass an explicit empty name;
+        # otherwise the first positional cell would be consumed as the title and
+        # every subsequent cell would shift left by one column.
+        out = [f'#pftab("", columns: ({cols}),{brk}']
+
+    def _cells(r):
         while len(r) < ncol:
             r.append("")
-        cells = [
-            f"[{_escape_prose(c).replace('(', ' - ').replace(')', '')}]"
-            for c in r[:ncol]
-        ]
-        out.append("  " + ", ".join(cells) + ",")
+        return "  " + ", ".join(f"[{_clean_table_cell(c)}]" for c in r[:ncol]) + ","
+
+    if long and rows:
+        out.append("  table.header(" + ", ".join(
+            f"[{_clean_table_cell(c)}]" for c in rows[0][:ncol]
+        ) + "),")
+        for r in rows[1:]:
+            out.append(_cells(r))
+    else:
+        for r in rows:
+            out.append(_cells(r))
     out.append(")")
     return "\n".join(out)
 
@@ -2317,6 +2343,10 @@ _CHECKLIST_BUF: list[str] = []
 # The most recent heading text, used to title auto-wrapped `#pftab` tables.
 _last_heading = ""
 
+# The most recent `#chap-header` title.  Used to suppress a table title that
+# would merely repeat the section header printed on the same page.
+_last_chapter = ""
+
 
 def _extract_pftab_name(stripped: str) -> str:
     """Pull the table title out of a `::: pftab[Title]` fence line, e.g.
@@ -2402,7 +2432,7 @@ def _pftab_name(table_lines: list[str], context: dict) -> str:
         c0 = neutralize(context["header_cells"][0])
         if c0 and c0.isupper() is False and not c0.startswith("**"):
             return c0
-    return context.get("heading") or "Таблица"
+    return ""
 
 
 def _header_cells(table_lines: list[str]) -> list[str]:
@@ -2437,7 +2467,7 @@ def _is_statblock(context: dict) -> bool:
 
 
 def convert(md_text: str, page_broken: bool = False) -> str:
-    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _ANSWERS_TITLE, _last_heading, _FIG_CAPTION, _FIG_BUF, _FIG_SPEC
+    global _PAGE_BROKEN, _FENCE, _PFTAB_NAME, _PFTAB_IN_ONE_COL, _ANSWERS_BUF, _ANSWERS_TITLE, _last_heading, _last_chapter, _FIG_CAPTION, _FIG_BUF, _FIG_SPEC
     global _BLOCK_BUF, _BLOCK_FIG_CAP, _FENCE_IN_BLOCK, _ALoud_BUF, _ALoud_TITLE
     global _NOTE_BUF, _NOTE_TITLE, _IMAGE_BUF, _IMAGE_SPEC
     global _ATTENTION_BUF, _ATTENTION_TITLE
@@ -2471,6 +2501,7 @@ def convert(md_text: str, page_broken: bool = False) -> str:
     # each chapter file does not inherit the last heading of the previous file
     # (the assembled book calls `convert()` once per chapter).
     _last_heading = ""
+    _last_chapter = ""
     lines = md_text.split("\n")
     out: list[str] = []
 
@@ -2706,10 +2737,12 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                 else:
                     num = ""
                     title = text
-                # A level-1/2 heading starts a new section; clear the table
-                # title context so the next auto-wrapped `#pftab` does not
-                # reuse a heading from a previous section.
-                _last_heading = ""
+                # A level-1/2 heading starts a new section.  Its text becomes
+                # the title context for a table that follows the heading
+                # directly (e.g. the character schedule), so the table is not
+                # left with the generic "[Таблица]" placeholder.
+                _last_heading = title
+                _last_chapter = neutralize(title).strip()
                 # Look ahead for the description.  Only a level-1 heading has a
                 # description (e.g. the "Таймлайн главы N: …" line); a level-2
                 # section heading does NOT — its following line is normally a
@@ -3093,7 +3126,10 @@ def convert(md_text: str, page_broken: bool = False) -> str:
                     is_onecol = is_dialogue(table_lines, ctx)
                     if is_onecol:
                         out.append("#set page(columns: 1)")
-                    out.append(_md_table_to_pftab(table_lines, name=_pftab_name(table_lines, ctx)))
+                    name = _pftab_name(table_lines, ctx)
+                    if name.strip().lower() == _last_chapter.strip().lower():
+                        name = ""
+                    out.append(_md_table_to_pftab(table_lines, name=name))
                     if is_onecol:
                         out.append("#set page(columns: 2)")
             i = k
@@ -3149,6 +3185,10 @@ PREAMBLE = '''#import "pf2e-style/lib.typ": *
 // headings, the action-economy icons (#A/#AA/#AAA/#R/#F) and the #encounter /
 // #aloud / #note / #pftab elements used by the converted content below.
 #show: pf-stylization
+
+// Russian typography: enable Russian-language hyphenation (the package leaves
+// `lang` unset, so Typst would hyphenate with English patterns / not at all).
+#set text(lang: "ru", hyphenate: true)
 
 // Book-level override (NOT part of the upstream pf2e-style package): the
 // package forces `#colbreak()` on every level-3 heading, which is meant for

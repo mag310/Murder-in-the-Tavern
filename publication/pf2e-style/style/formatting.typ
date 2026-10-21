@@ -62,6 +62,7 @@
     )
   ]
   show heading.where(level: 4): it => block(
+    sticky: true,
     width: 100%, 
     rect(
       width: 100%, 

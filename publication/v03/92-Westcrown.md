@@ -1,9 +1,11 @@
 ## 2. Город — Весткроун (Westcrown)
 
+::: block
 ::: figure[Карта Весткроуна]
 
-![Карта Весткроуна](../../locations/Westcrown_map_eng.png 90%)
+![Карта Весткроуна](../../locations/Westcrown_map_eng.png h45%)
 
+:::
 :::
 
 ::: pftab[Весткроун]

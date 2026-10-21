@@ -81,8 +81,10 @@
 #let pftab(name, columns: (1fr, 4fr), breakable: false, ..contents) = [
   #v(1em)
   #block(breakable: breakable)[
+  #if name != "" [
   *#smallcaps(text(size: 1.3em)[#upper(name)])*
   #v(-.5em)
+  ]
   #table(
   columns: columns,
   align: (col, row) =>
