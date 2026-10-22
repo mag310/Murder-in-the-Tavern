@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="40" height="35" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="29">
+<map version="1.10" tiledversion="1.12.2-2-geb83ddb9" orientation="orthogonal" renderorder="right-down" width="40" height="35" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="29">
  <properties>
   <property name="cell_scale" value="1 клетка = 1 м = 64 px"/>
   <property name="east" value="обрыв, русло реки Адивиан"/>
@@ -361,14 +361,14 @@
     <property name="to" value="river"/>
    </properties>
   </object>
-   <object id="22" name="stairs" type="stairs" x="1024" y="0" width="256" height="128">
-    <properties>
-     <property name="from" value="quay"/>
-     <property name="note" value="Лесница на задний двор"/>
-     <property name="to" value="backyard"/>
-     <property name="label" value="Лесенка на задний двор"/>
-    </properties>
-   </object>
+  <object id="22" name="stairs" type="stairs" x="1024" y="0" width="256" height="128">
+   <properties>
+    <property name="from" value="quay"/>
+    <property name="label" value="Лесенка на задний двор"/>
+    <property name="note" value="Лесница на задний двор"/>
+    <property name="to" value="backyard"/>
+   </properties>
+  </object>
   <object id="24" name="shed-door" type="door" gid="28" x="1344" y="704" width="128" height="64">
    <properties>
     <property name="from" value="shed"/>
@@ -387,7 +387,7 @@
   <object id="28" name="tavern_yard-links" x="0" y="576" width="192" height="128">
    <properties>
     <property name="from" value="quay"/>
-    <property name="to" value="tavern_yard"/>
+    <property name="to" value="tavern_backyard"/>
    </properties>
   </object>
  </objectgroup>

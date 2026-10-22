@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="387">
+<map version="1.10" tiledversion="1.12.2-2-geb83ddb9" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="387">
  <properties>
   <property name="capacity" value="15"/>
   <property name="era" value="medieval"/>
@@ -199,7 +199,7 @@
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
 2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,
 2,2,2,2,2,2,2,0,2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
@@ -234,14 +234,6 @@
     <property name="label" value="Дверь в винный погреб"/>
     <property name="side" value="east"/>
     <property name="to" value="wine"/>
-   </properties>
-  </object>
-  <object id="303" name="door-street" type="door" gid="14" x="0" y="640" width="64" height="64">
-   <properties>
-    <property name="from" value="kst"/>
-    <property name="label" value="Второй вход с улицы"/>
-    <property name="side" value="west"/>
-    <property name="to" value="YARD"/>
    </properties>
   </object>
   <object id="304" name="secret-door-smug" type="secret_door" gid="14" x="1280" y="640" width="64" height="64">
