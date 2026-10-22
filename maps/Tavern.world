@@ -4,8 +4,8 @@
             "fileName": "dock.tmx",
             "height": 2240,
             "width": 2560,
-            "x": -128,
-            "y": 896
+            "x": -704,
+            "y": 1472
         },
         {
             "fileName": "basement.tmx",
@@ -40,6 +40,13 @@
             "height": 3840,
             "width": 3200,
             "x": -4416,
+            "y": -2368
+        },
+        {
+            "fileName": "backyard.tmx",
+            "height": 3840,
+            "width": 3200,
+            "x": -1216,
             "y": -2368
         }
     ],
