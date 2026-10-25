@@ -1,9 +1,9 @@
 # Лор мира
 
 ::: block
-::: figure [Совет Воров]
+::: figure[Карта Челии]
 
-![Совет Воров](../../locations/council_of_thieves.png)
+![Карта Челии](../../locations/Cheliax_map_rus.png h95%)
 
 :::
 :::
